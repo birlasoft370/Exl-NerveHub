@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/SSOAuthorization/obj
+/SSOAuthorization/obj/Debug/netcoreapp3.1
+/SSOAuthorization/obj/Debug
+/SSOAuthorization/obj/Release
+/SSOAuthorization/obj/Release/netcoreapp3.1
+/SSOAuthorization/obj/Debug/netcoreapp3.1/MicSer.SSOAuthorization.GeneratedMSBuildEditorConfig.editorconfig
+/SSOAuthorization/bin/Debug/netcoreapp3.1
+/SSOAuthorization/obj/Debug/netcoreapp3.1/MicSer.SSOAuthorization.csproj.AssemblyReference.cache
+/SSOAuthorization/obj/Debug/netcoreapp3.1/MicSer.SSOAuthorization.GeneratedMSBuildEditorConfig.editorconfig
+/obj
+/bin/Debug/net6.0

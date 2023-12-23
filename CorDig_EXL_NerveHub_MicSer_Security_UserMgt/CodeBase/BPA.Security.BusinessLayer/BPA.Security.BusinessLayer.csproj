@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BPA.AD.Authenticate\BPA.AD.Authenticate.csproj" />
+    <ProjectReference Include="..\BPA.Security.BusinessEntity\BPA.Security.BusinessEntity.csproj" />
+    <ProjectReference Include="..\BPA.Security.DataLayer\BPA.Security.DataLayer.csproj" />
+    <ProjectReference Include="..\BPA.Security.ServiceContract\BPA.Security.ServiceContract.csproj" />
+    <ProjectReference Include="..\BPA.Utility\BPA.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

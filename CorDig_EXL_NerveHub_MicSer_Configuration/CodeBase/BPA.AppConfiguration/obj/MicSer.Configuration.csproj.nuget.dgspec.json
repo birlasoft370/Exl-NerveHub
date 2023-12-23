@@ -1,0 +1,454 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfiguration\\MicSer.Configuration.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj",
+        "projectName": "BPA.AppConfig.BusinessEntity",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "System.ServiceModel.Primitives": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\BPA.AppConfig.BusinessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\BPA.AppConfig.BusinessLayer.csproj",
+        "projectName": "BPA.AppConfig.BusinessLayer",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\BPA.AppConfig.BusinessLayer.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\BPA.AppConfig.Datalayer.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\BPA.AppConfig.Datalayer.csproj"
+              },
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "System.Xml.ReaderWriter": {
+              "target": "Package",
+              "version": "[4.3.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\BPA.AppConfig.Datalayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\BPA.AppConfig.Datalayer.csproj",
+        "projectName": "BPA.AppConfig.Datalayer",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\BPA.AppConfig.Datalayer.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.Datalayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj"
+              },
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "EnterpriseLibrary.Data.NetCore": {
+              "target": "Package",
+              "version": "[6.3.2, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj",
+        "projectName": "BPA.AppConfig.ServiceContracts",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "System.ServiceModel.Primitives": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfiguration\\MicSer.Configuration.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfiguration\\MicSer.Configuration.csproj",
+        "projectName": "MicSer.Configuration",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfiguration\\MicSer.Configuration.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfiguration\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessEntity\\BPA.AppConfig.BusinessEntity.csproj"
+              },
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\BPA.AppConfig.BusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.BusinessLayer\\BPA.AppConfig.BusinessLayer.csproj"
+              },
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.AppConfig.ServiceContracts\\BPA.AppConfig.ServiceContracts.csproj"
+              },
+              "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj": {
+                "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AntiXSS": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[6.0.20, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj",
+        "projectName": "BPA.Utility",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.ApplicationServer.Caching.Client": {
+              "target": "Package",
+              "version": "[1.0.4657.2, )"
+            },
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

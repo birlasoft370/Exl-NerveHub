@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj",
+        "projectName": "BPA.Utility",
+        "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\BPA.Utility.csproj",
+        "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicSer_Configuration\\CorDig_EXL_NerveHub_MicSer_Configuration\\CodeBase\\BPA.Utility\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.ApplicationServer.Caching.Client": {
+              "target": "Package",
+              "version": "[1.0.4657.2, )"
+            },
+            "System.Runtime.Caching": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

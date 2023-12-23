@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataSet>
+	<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:Locale="">
+			<xs:complexType>
+				<xs:choice minOccurs="0" maxOccurs="20">
+					<xs:element name="Table">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ClientName" type="xs:string" minOccurs="0" />
+								<xs:element name="ClientDeploymentID" type="xs:int" minOccurs="0" />
+								<xs:element name="ClientID" type="xs:int" minOccurs="0" />
+								<xs:element name="DatabaseConfigurationMode" type="xs:string" minOccurs="0" />
+								<xs:element name="ApplicationHostName" type="xs:string" minOccurs="0" />
+								<xs:element name="ApplictionWebServerIP" type="xs:string" minOccurs="0" />
+								<xs:element name="DatabaseInstanceName" type="xs:string" minOccurs="0" />
+								<xs:element name="DatabaseInstanceIP" type="xs:string" minOccurs="0" />
+								<xs:element name="HBMReportDatabaseInstanceName" type="xs:string" minOccurs="0" />
+								<xs:element name="HBMReportDatabaseInstanceIP" type="xs:string" minOccurs="0" />
+								<xs:element name="DataUtilityDatabaseInstanceName" type="xs:string" minOccurs="0" />
+								<xs:element name="DataUtilityDatabaseInstanceIP" type="xs:string" minOccurs="0" />
+								<xs:element name="ADSDatabaseInstanceName" type="xs:string" minOccurs="0" />
+								<xs:element name="ADSDatabaseInstanceIP" type="xs:string" minOccurs="0" />
+								<xs:element name="ClientMultiLanguage" type="xs:string" minOccurs="0" />
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:choice>
+			</xs:complexType>
+		</xs:element>
+	</xs:schema>
+	<diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+		<NewDataSet>
+			<Table diffgr:id="Table4" msdata:rowOrder="3">
+				<ClientName>Default</ClientName>
+				<ClientDeploymentID>10</ClientDeploymentID>
+				<ClientID>2</ClientID>
+				<DatabaseConfigurationMode>Default</DatabaseConfigurationMode>
+				<ApplicationHostName>http://localhost:48320</ApplicationHostName>
+				<ApplictionWebServerIP>192.168.25.12</ApplictionWebServerIP>
+				<DatabaseInstanceName>DCC_SWM</DatabaseInstanceName>
+				<DatabaseInstanceIP>VDTC3-APP-ADT18</DatabaseInstanceIP>
+				<HBMReportDatabaseInstanceName>BProMPTTestingHBM</HBMReportDatabaseInstanceName>
+				<HBMReportDatabaseInstanceIP>VDTC3-APP-ADT18</HBMReportDatabaseInstanceIP>
+				<DataUtilityDatabaseInstanceName>DataUtilityPM</DataUtilityDatabaseInstanceName>
+				<DataUtilityDatabaseInstanceIP>VDTC3-APP-ADT18</DataUtilityDatabaseInstanceIP>
+				<ADSDatabaseInstanceName>EXLDCCDW</ADSDatabaseInstanceName>
+				<ADSDatabaseInstanceIP>vc01-app-bapsql</ADSDatabaseInstanceIP>
+				<ClientMultiLanguage>True</ClientMultiLanguage>
+			</Table>
+			<Table diffgr:id="Table4" msdata:rowOrder="3">
+				<ClientName>Hanover</ClientName>
+				<ClientDeploymentID>10</ClientDeploymentID>
+				<ClientID>2</ClientID>
+				<DatabaseConfigurationMode>Hanover</DatabaseConfigurationMode>
+				<ApplicationHostName>http://localhost:6800</ApplicationHostName>
+				<ApplictionWebServerIP>192.168.25.12</ApplictionWebServerIP>
+				<DatabaseInstanceName>MCSWM_Hanover</DatabaseInstanceName>
+				<DatabaseInstanceIP>BPUATSQLVS01</DatabaseInstanceIP>
+				<ClientMultiLanguage>True</ClientMultiLanguage>
+			</Table>
+			<Table diffgr:id="Table4" msdata:rowOrder="3">
+				<ClientName>Test1</ClientName>
+				<ClientDeploymentID>100</ClientDeploymentID>
+				<ClientID>22</ClientID>
+				<DatabaseConfigurationMode>Hanover</DatabaseConfigurationMode>
+				<ApplicationHostName>http://localhost:6800</ApplicationHostName>
+				<ApplictionWebServerIP>192.168.25.12</ApplictionWebServerIP>
+				<DatabaseInstanceName>MCSWM_Hanover</DatabaseInstanceName>
+				<DatabaseInstanceIP>BPUATSQLVS01_1</DatabaseInstanceIP>
+				<ClientMultiLanguage>True</ClientMultiLanguage>
+			</Table>
+			<Table diffgr:id="Table4" msdata:rowOrder="3">
+				<ClientName>Test2</ClientName>
+				<ClientDeploymentID>101</ClientDeploymentID>
+				<ClientID>23</ClientID>
+				<DatabaseConfigurationMode>Hanover</DatabaseConfigurationMode>
+				<ApplicationHostName>http://localhost:6800</ApplicationHostName>
+				<ApplictionWebServerIP>192.168.25.12</ApplictionWebServerIP>
+				<DatabaseInstanceName>MCSWM_Hanover</DatabaseInstanceName>
+				<DatabaseInstanceIP>BPUATSQLVS01_2</DatabaseInstanceIP>
+				<ClientMultiLanguage>True</ClientMultiLanguage>
+			</Table>
+		</NewDataSet>
+	</diffgr:diffgram>
+</DataSet>

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tenantdeployment
+  namespace: dev-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tenantapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 30
+  template:
+    metadata:
+      name: tenantapppod
+      labels:
+        app: tenantapp
+    spec:
+      containers:
+      - name: tenantappcontainer
+        image: vkpatilhsit/tenant:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            cpu: 1
+            memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tenantsvc
+  namespace: dev-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: tenantapp
+  ports:
+  - port: 80
+    targetPort: 80

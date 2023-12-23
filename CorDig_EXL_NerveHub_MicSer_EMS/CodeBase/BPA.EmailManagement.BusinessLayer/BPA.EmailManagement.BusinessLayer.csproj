@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="interop.domino.dll" Version="1.0.0" />
+    <PackageReference Include="Microsoft.ApplicationServer.Caching.Client" Version="1.0.4657.2" />
+    <PackageReference Include="Microsoft.Exchange.WebServices" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Graph" Version="4.54.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.57.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BPA.EmailManagement.BusinessEntity\BPA.EmailManagement.BusinessEntity.csproj" />
+    <ProjectReference Include="..\BPA.EmailManagement.DataLayer\BPA.EmailManagement.DataLayer.csproj" />
+    <ProjectReference Include="..\BPA.EmailManagement.ExchangeAdapter\BPA.EmailManagement.ExchangeAdapter.csproj" />
+    <ProjectReference Include="..\BPA.EmailManagement.ServiceContract\BPA.EmailManagement.ServiceContract.csproj" />
+  </ItemGroup>
+
+</Project>

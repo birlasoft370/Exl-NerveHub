@@ -1,0 +1,161 @@
+﻿@using MicUI.EmailManagement.Models.ViewModels;
+@using MicUI.EmailManagement.Services.ServiceModel;
+@model EMSLanguageConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.WorkManagement.Resource_LanguageConfig.dispaly_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/emslanguageconfig-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "LanguageConfig", FormMethod.Post, new { @id = "form1" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.WorkManagement.Resource_LanguageConfig.dispaly_Title
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn", @onclick = "MoveToUrl( ResourceLayout.partialURL+'SearchView')" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                        @*@(Html.Kendo().Button().Name("btnReset").Icon("refresh").Events(ev => ev.Click("OnClickReset")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <partial name="~/Views/Shared/_SearchView.cshtml" />
+            </div>
+
+            <div class="nextWrap">
+
+                <div id="div_Header" class="pb-3 text-end">
+                    @(Html.Kendo().Button().Icon("plus").Name("gvAddrow").Events(ev => ev.Click("gvAddrow_Click")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AddRow))
+                </div>
+                <div class="formTable">
+                    @(Html.Kendo().Grid<BEMailTranslatorConfiguration>().Name("gridLanguageConfig")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.ApiKey).Visible(false);
+                            columns.Bound(p => p.ApiUrl).Visible(false);
+                            columns.Bound(p => p.LanguageConfigID).Visible(false);
+                            columns.Bound(p => p.Async).Visible(false);
+                            columns.Bound(p => p.BackTranslation).Visible(false);
+                            columns.Bound(p => p.Callback).Visible(false);
+                            columns.Bound(p => p.Source).Visible(false);
+                            columns.Bound(p => p.Encoding).Visible(false);
+                            columns.Bound(p => p.FilePath).Visible(false);
+                            columns.Bound(p => p.Format).Visible(false);
+                            columns.Bound(p => p.Target).Visible(false);
+                            columns.Bound(p => p.WithSource).Visible(false);
+                            columns.Bound(p => p.ProfileID).Visible(false);
+                            columns.Bound(p => p.WithAnnotations).Visible(false);
+                            columns.Bound(p => p.WithDictionary).Visible(false);
+                            columns.Bound(p => p.WithCorpus).Visible(false);
+                            columns.Bound(p => p.Options).Visible(false);
+                            columns.Bound(p => p.LanguageConfigName).Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LanguageConfiguration);
+                            columns.Bound(p => p.Disabled).Width(120).Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Disable);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button).Click("editRow")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button);
+                        })
+                        .Scrollable()
+                        .HtmlAttributes(new { style = "height:550px;" })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model => model.Id(p => p.LanguageConfigID))
+                        .Create(update => update.Action("EditingPopup_Create", "LanguageConfig"))
+                        .Read(read => read.Action("EditingPopup_Read", "LanguageConfig").Data("GetData"))
+                        .Update(update => update.Action("EditingPopup_Update", "LanguageConfig"))
+                        .Destroy(update => update.Action("EditingPopup_Destroy", "LanguageConfig"))
+                        .Destroy(update => update.Action("EditingPopup_Destroy", "LanguageConfig"))
+                        )
+                        )
+                </div>
+               @* @Html.HiddenFor(s => s.ClientName)
+                @Html.HiddenFor(s => s.ProcessName)
+                @Html.HiddenFor(s => s.CampaignName)*@
+
+                @(Html.Kendo().Window()
+                    .Name("SearchViewPopUp")
+                    .Actions(actions => actions.Maximize().Close())
+                    .Pinned(true)
+                    .Title("Language Configuration")
+                    .Visible(false)
+                    .Draggable(true)
+                    .LoadContentFrom("SearchViewPopUp", "LanguageConfig")
+                    .Width(1000)
+                    .Height(650)
+                    .Modal(true)
+                    .Resizable()
+                    )
+
+                @*@(Html.Kendo().Window().Name("SearchViewPopUp").Draggable().Visible(false).Height(500).Width(1000).Modal(true))*@
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+@if (Model.CampaignId != 0)
+{
+    <script>
+        $(document).ready(function () {
+            $("#ClientName").data("kendoDropDownList").enable(false);
+            $("#ProcessName").parent().parent().find("span").attr("disabled", "disabled");
+            $("#CampaignName").parent().parent().find("input").attr("disabled", "disabled");
+        });
+
+        $("#CampaignName").ready(function () {
+            setTimeout(function () {
+                $("#ProcessName").data("kendoDropDownList").enable(false);
+                $("#ProcessName").parent().parent().find("input").attr("disabled", "disabled");
+            }, 100);
+        })
+
+    </script>
+}
+<script>
+
+    var display_SomethingWrongHappenedContactAdmin = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SomethingWrongHappenedContactAdmin)';
+</script>
+<script>
+    $("#WorkObjName").on("change", function () {
+        $("#gridLanguageConfig").data('kendoGrid').dataSource.data([]);
+        if ($("#WorkObjName").val() != "") {
+            $('#gridLanguageConfig').data('kendoGrid').dataSource.read();
+        }
+
+    });
+
+    $("#ClientName").on("change", function () {
+        $("#gridLanguageConfig").data('kendoGrid').dataSource.data([]);
+    });
+
+    $("#ProcessName").on("change", function () {
+        $("#gridLanguageConfig").data('kendoGrid').dataSource.data([]);
+    });
+    $("#CampaignName").on("change", function () {
+        $("#gridLanguageConfig").data('kendoGrid').dataSource.data([]);
+    });
+
+    function onChangeStoreID(e) {
+        $('#gridLanguageConfig').data('kendoGrid').dataSource.read();
+    }
+</script>
+

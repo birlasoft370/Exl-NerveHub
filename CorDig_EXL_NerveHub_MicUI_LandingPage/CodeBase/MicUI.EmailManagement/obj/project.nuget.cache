@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "dgSpecHash": "ybMuFTzITPIad6TExfS5jQB3YEGlS2xJvIKupYtYNoVrTxZY8PnN5Qlqk60V1ewuQw47Yq6qJZse4rJbiny0jA==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\MicUI.EmailManagement\\MicUI.EmailManagement.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "Microsoft.AspNetCore.Authentication.Negotiate"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "Microsoft.AspNetCore.Authentication.Negotiate"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "Telerik.UI.for.AspNet.Core"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "Telerik.UI.for.AspNet.Core"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+﻿<link href="~/css/bpa/content/themes/jquery.ui.button.css" rel="stylesheet" />
+<h2>@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_LetterLibrary</h2>
+<div id="form2">
+    <div style="float: left; height: 320px;">
+        <div>
+            <table style="float:left" width="100%">
+                <tr>
+                    <td width="20%;" valign="top">
+                        @Html.Label(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Letter)
+                    </td>
+                    <td width="80%;" style="text-align:left" valign="top">
+                        @(Html.Kendo().DropDownList().Name("ddlLetterMaping").OptionLabel(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_selectedValue)
+                            .AutoBind(false).HtmlAttributes(new { style = "width:300px", @required = "required", @validationmessage = BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.required_LetterName }))
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%;" valign="top"></td>
+                    <td width="80%;" style="text-align:left" valign="top">
+                        <div id="divChoices" style="padding-top: 15px;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:central" colspan="2">
+                        <div style="float: left; padding-left: 154px; padding-right: 10px;">
+                            @(Html.Kendo().Button().Name("btnSubmit").Icon("plus").HtmlAttributes(new { type = "button", @class = "k-primary" }).Content(@BPA.GlobalResources.UI.Resources_common.display_Submit).Events(ev => ev.Click("OnClickSaveLetterLibrary")))
+                        </div>
+                        <div style="float:left">
+                            @(Html.Kendo().Button().Name("btnCloseLetter").Icon("close").HtmlAttributes(new { type = "button", @class = "k-primary" }).Content(@BPA.GlobalResources.UI.Resources_common.display_btnClose))
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    <div id="divTemplate" style="display: none; height: 130px; width: 280px; float: left; background-color: lightgray; border: gray 1px solid" class="smalPopup">
+        <div class="close" style="float:right; cursor:pointer;">✖</div>
+        <div>
+            <table id=tblPopup>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>
+                            @(Html.Kendo().DropDownList()
+                                .Name("ddlTemplate")
+                                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                .DataTextField("sTemplateName")
+                                .DataValueField("iTemplateId")
+                                .AutoBind(true)
+                                .HtmlAttributes(new { Style = "Width:243px;" })
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("GetTmplateList", "WorkDefinition");
+                                        read.Type(HttpVerbs.Get);
+                                    })
+                                    .ServerFiltering(true);
+                                })
+                                .SelectedIndex(0)
+                                )
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <input type="hidden" id="hdnCurrentChoicetTxtId" value="" />
+    </div>
+</div>
+<script>
+
+
+    function OnClickSaveLetterLibrary() {
+
+
+        LetterLibraryFlag = true;
+        CloseLetterLibraryPopup();
+
+    @*var BEWorkObjectApprover = {};
+            var postUrl;
+            BEWorkObjectApprover.sLocations = $("#Location").val();
+            BEWorkObjectApprover.sShiftwindows = $("#ShiftWindow").val();
+            BEWorkObjectApprover.PurposeofcreationofWork = $("#Purposeofcreationofwork").val();
+            BEWorkObjectApprover.sBusinessJustifications = $("#BusinessJustifications").val();
+            BEWorkObjectApprover.sTargetq1 = $("#Q1").val();
+            BEWorkObjectApprover.sTargetq2 = $("#Q2").val();
+            BEWorkObjectApprover.sTargetq3 = $("#Q3").val();
+            BEWorkObjectApprover.sTargety1 = $("#Y1").val();
+            BEWorkObjectApprover.sTargety2 = $("#Y2").val();
+            BEWorkObjectApprover.sTargety3 = $("#Y3").val();
+            BEWorkObjectApprover.skeybenifits = $("#KeyBenefits").val();
+            BEWorkObjectApprover.iBuisnessID = $("#BusinessApprover").val();
+            BEWorkObjectApprover.iTechID = $("#TechnologyApprover").val();
+
+            postUrl = '@Url.Content("/WorkDefinition/SaveBusJustData")';
+            BEWorkObjectApprover = JSON.stringify({ 'objBEWorkObjectApprover': BEWorkObjectApprover });
+            $.ajax({
+            url: postUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: BEWorkObjectApprover,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+            SaveFlag = true;
+            ClosePopup();
+            },
+            error: function (err) {
+
+            }
+            });*@
+            };
+
+
+    $("#ddlLetterMaping").on("change", function () {
+
+        var ddlLetterMaping = $("#ddlLetterMaping").data("kendoDropDownList");
+        var uidval = ddlLetterMaping.value();
+
+        var datasouce = $("#GridWorkObject").data("kendoGrid")._data
+
+        var html = '';
+        for (var i = 0; i < datasouce.length; i++) {
+            if (datasouce[i].uid == uidval) {
+                for (var j = 0; j < datasouce[i].oChoice.length; j++) {
+
+                    html = html + '<div style="float: left; width: 100%;">';
+                    html = html + '<div style="padding-right: 10px; float: left; font-weight: bold; padding-top: 6px; width: 15%;"> <span>' + datasouce[i].oChoice[j].sChoiceValue + '</span></div>';
+                    html = html + "<div><input SelectedTemplateId='' objectId='" + datasouce[i].oChoice[j].iObjID + "' type=textbox id='txtChoice_" + datasouce[i].oChoice[j].iObjectChoiceID + "'></input>";
+                    html = html + "<a class='acSearchTemplate' SelectedTemplateId choiceTxtId='txtChoice_" + datasouce[i].oChoice[j].iObjectChoiceID + "' id='anc_" + datasouce[i].oChoice[j].iObjectChoiceID + "' >Search Template</a>";
+                    html = html + "</div>";
+                    html = html + '</div>';
+                }
+            }
+        }
+
+        $("#divChoices").html(html);
+    });
+
+    $(".acSearchTemplate").on("click", function (e) {
+
+        var currTxtTemp = $(this).attr("choiceTxtId");
+        $("#hdnCurrentChoicetTxtId").val(currTxtTemp);
+        var currentMousePos = { x: -1, y: -1 };
+        currentMousePos.x = e.pageX;
+        currentMousePos.y = e.pageY;
+
+        $("#divTemplate").show();
+        $("#divTemplate").css({ top: currentMousePos.y - 250, left: currentMousePos.x - 230, position: 'absolute' });
+    });
+
+    $("#ddlTemplate").on("change", function () {
+        var ddlTemplate = $("#ddlTemplate").data("kendoDropDownList");
+        var templateId = ddlTemplate.value();
+        var currTxtTemp = '#' + $("#hdnCurrentChoicetTxtId").val();
+        $(currTxtTemp).attr("SelectedTemplateId", templateId);
+        $(currTxtTemp).val($("#ddlTemplate").data("kendoDropDownList").text());
+    });
+
+    $(".close").on("click", function () {
+        $("#divTemplate").hide();
+    });
+    var urlPathGetFilterList = '@Url.Action("GetFilterList", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPatheditWorkDefination = '@Url.Action("editWorkDefination", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSaveWorkData = '@Url.Action("SaveWorkData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathIndex = '@Url.Action("Index", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathObjectFormula = '@Url.Action("ObjectFormula", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathCreateRESTControls = '@Url.Action("CreateRESTControls", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathUpdatePreViewData = '@Url.Action("UpdatePreViewData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPath_WorkPreview = '@Url.Action("_WorkPreview", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSearchView = '@Url.Action("SearchView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathApprovalView = '@Url.Action("ApprovalView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathGetProcessID = '@Url.Action("GetProcessID", "WorkDefinition", new { area = "WorkManagement" })';
+    if (bClientLanguage == "True") {
+        var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+    }
+    var bClientLanguage = '@Model.oTenant.ClientMultiLanguage';
+</script>

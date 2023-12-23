@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ddl_QCTMmonitoringNAMEID" xml:space="preserve">
+    <value>AF-53, AN-52, B-51</value>
+  </data>
+  <data name="display_ActionDate" xml:space="preserve">
+    <value>Akcja data</value>
+  </data>
+  <data name="display_ActiontDesc" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
+  <data name="display_CalibrationReport" xml:space="preserve">
+    <value>Raport kalibracji</value>
+  </data>
+  <data name="display_ComplianceSpiritHeading" xml:space="preserve">
+    <value>ERS Zgłoś</value>
+  </data>
+  <data name="display_DefaultDesc" xml:space="preserve">
+    <value>Domyślny opis produktu.</value>
+  </data>
+  <data name="display_DefaultID" xml:space="preserve">
+    <value>wada Id</value>
+  </data>
+  <data name="display_ERSDate" xml:space="preserve">
+    <value>ERS Data</value>
+  </data>
+  <data name="display_GenerateAlert" xml:space="preserve">
+    <value>Generowanie Alert</value>
+  </data>
+  <data name="display_processName" xml:space="preserve">
+    <value>Nazwa procesu</value>
+  </data>
+  <data name="display_QCTMAgentName" xml:space="preserve">
+    <value>Imię agenta</value>
+  </data>
+  <data name="display_QCTMAll" xml:space="preserve">
+    <value>Wszystko</value>
+  </data>
+  <data name="display_QCTMAuditorName" xml:space="preserve">
+    <value>Nazwa audytor</value>
+  </data>
+  <data name="display_QCTMClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="display_QCTMCTC" xml:space="preserve">
+    <value>CTC</value>
+  </data>
+  <data name="display_QCTMFromDate" xml:space="preserve">
+    <value>Od daty</value>
+  </data>
+  <data name="display_QCTMgenerateReports" xml:space="preserve">
+    <value>Generowanie raportów</value>
+  </data>
+  <data name="display_QCTMHeading" xml:space="preserve">
+    <value>Transakcja Monitoring Report</value>
+  </data>
+  <data name="display_QCTMMonitoringType" xml:space="preserve">
+    <value>Rodzaj Monitoring:</value>
+  </data>
+  <data name="display_QCTMProcessName" xml:space="preserve">
+    <value>Nazwa procesu</value>
+  </data>
+  <data name="display_QCTMreset" xml:space="preserve">
+    <value>Nastawić</value>
+  </data>
+  <data name="display_QCTMShowComments" xml:space="preserve">
+    <value>Pokaż komentarze</value>
+  </data>
+  <data name="display_QCTMSubProcess" xml:space="preserve">
+    <value>Sub procesu:</value>
+  </data>
+  <data name="display_QCTMTM" xml:space="preserve">
+    <value>TM</value>
+  </data>
+  <data name="display_QCTMTMName" xml:space="preserve">
+    <value>TM Nazwa:</value>
+  </data>
+  <data name="display_QCTMToDate" xml:space="preserve">
+    <value>Spotykać się z kimś:</value>
+  </data>
+  <data name="display_QDashboardDaily" xml:space="preserve">
+    <value>Codziennie</value>
+  </data>
+  <data name="display_QDashboardMonthly" xml:space="preserve">
+    <value>Miesięczny</value>
+  </data>
+  <data name="display_QDashboardRT" xml:space="preserve">
+    <value>Wybierz Typ raportu:</value>
+  </data>
+  <data name="display_QDashboardWeekly" xml:space="preserve">
+    <value>Co tydzień</value>
+  </data>
+  <data name="display_Remarks" xml:space="preserve">
+    <value>Uwagi</value>
+  </data>
+  <data name="display_SamplingReport" xml:space="preserve">
+    <value>Sampling Zgłoś</value>
+  </data>
+  <data name="display_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="display_ExportToExcel" xml:space="preserve">
+    <value>Eksport do Excela</value>
+  </data>
+  <data name="display_Month" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="display_MonthSample" xml:space="preserve">
+    <value>Miesiąc Próbka</value>
+  </data>
+  <data name="display_NumberoftotalRecords" xml:space="preserve">
+    <value>Ilość Wszystkie wyniki:</value>
+  </data>
+  <data name="display_OutComeType" xml:space="preserve">
+    <value>Rodzaj rezultatu</value>
+  </data>
+  <data name="display_SampleCompleted" xml:space="preserve">
+    <value>próbka Zakończony</value>
+  </data>
+  <data name="display_SamplingTittle" xml:space="preserve">
+    <value>Objętość próbkowania</value>
+  </data>
+  <data name="display_TransactionCompleted" xml:space="preserve">
+    <value>zakończonej transakcji</value>
+  </data>
+  <data name="display_TransactionType" xml:space="preserve">
+    <value>typ transakcji</value>
+  </data>
+  <data name="display_WeekEndDate" xml:space="preserve">
+    <value>Tydzień Data zakończenia</value>
+  </data>
+  <data name="display_WeekNumber" xml:space="preserve">
+    <value>numer tygodnia</value>
+  </data>
+  <data name="display_WeekSample" xml:space="preserve">
+    <value>Tydzień Próbka</value>
+  </data>
+  <data name="display_WeekStartDate" xml:space="preserve">
+    <value>Tydzień Data rozpoczęcia</value>
+  </data>
+  <data name="required_SubProcess" xml:space="preserve">
+    <value>Proszę wybrać Sub Process</value>
+  </data>
+  <data name="required_TMName" xml:space="preserve">
+    <value>Proszę wybrać nazwę TM</value>
+  </data>
+  <data name="display_TransactionDeletionTitle" xml:space="preserve">
+    <value>Transakcja monitorowanie ich usuwania</value>
+  </data>
+  <data name="display_QDashboardGroupOption" xml:space="preserve">
+    <value>Wybierz opcję grupowania</value>
+  </data>
+  <data name="display_QDashboardHeading" xml:space="preserve">
+    <value>jakość Dashboard</value>
+  </data>
+  <data name="display_QDashboardEndDate" xml:space="preserve">
+    <value>Data końcowa:</value>
+  </data>
+  <data name="display_QDashboardEndMonth" xml:space="preserve">
+    <value>koniec miesiąca</value>
+  </data>
+  <data name="display_QDashboardStartDate" xml:space="preserve">
+    <value>Data rozpoczęcia:</value>
+  </data>
+  <data name="display_QDashboardStartMonth" xml:space="preserve">
+    <value>Początek Miesiąc</value>
+  </data>
+  <data name="display_Calibration" xml:space="preserve">
+    <value>Kalibrowanie</value>
+  </data>
+  <data name="required_Calibration" xml:space="preserve">
+    <value>Proszę wybrać Kalibracja</value>
+  </data>
+  <data name="display_Clear" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="display_ExporttoPdf" xml:space="preserve">
+    <value>Eksport do PDF</value>
+  </data>
+  <data name="display_MoniteringFeedbacktitle" xml:space="preserve">
+    <value>Monitering</value>
+  </data>
+  <data name="display_year" xml:space="preserve">
+    <value>Rok:</value>
+  </data>
+  <data name="display_Feedbacktype" xml:space="preserve">
+    <value>Odpowiedź Type</value>
+  </data>
+  <data name="display_GetSamplingDetails" xml:space="preserve">
+    <value>Uzyskaj próbkowania Szczegóły</value>
+  </data>
+  <data name="display_Menter" xml:space="preserve">
+    <value>Menter:</value>
+  </data>
+  <data name="display_MoniteringDate" xml:space="preserve">
+    <value>Monitering Data:</value>
+  </data>
+  <data name="display_note1_1" xml:space="preserve">
+    <value>Uwaga 1: Jeżeli rekordy liczyć więcej niż jeden oznacza to dane są wymagane przez okres dłuższy niż jeden tydzień.</value>
+  </data>
+  <data name="display_note1_2" xml:space="preserve">
+    <value>Uwaga 1: Jeżeli liczą rekordy wynosi zero to oznacza kalander nie jest ustawiony dla określonej daty kontroli.</value>
+  </data>
+  <data name="display_note1_3" xml:space="preserve">
+    <value>Uwaga 1: Jeżeli rekordy liczyć wynosi zero to znaczy, nie mają żadnego związku mentorem podopieczny jest ustawiony.</value>
+  </data>
+  <data name="display_note1_4" xml:space="preserve">
+    <value>Uwaga 1: Trans Licznik wskazuje skontrolowanych transakcji dla użytkownika poprzez pobranie próbek.</value>
+  </data>
+  <data name="display_note1_5" xml:space="preserve">
+    <value>Uwaga 1: Trans Licznik wskazuje na łączne kwoty transakcji skontrolowanych przez kompletnego zespołu procesowego poprzez pobieranie próbek.</value>
+  </data>
+  <data name="display_note2" xml:space="preserve">
+    <value>Uwaga 2: Jeżeli liczą rekordy wynosi zero to oznacza kalander nie jest ustawiony na określony okres.</value>
+  </data>
+  <data name="display_note2_1" xml:space="preserve">
+    <value>Uwaga 2: Jeśli liczba jest mniejsza niż Trans &amp;quot;Nie audytu na pracownika&amp;quot;, to tylko transakcja może zostać zbadane w tym użytkownikiem poprzez pobieranie próbek.</value>
+  </data>
+  <data name="display_note2_2" xml:space="preserve">
+    <value>Uwaga 2: Jeśli liczba jest mniejsza niż Trans &amp;quot;wielkość próby tygodniowo&amp;quot;, to tylko transakcja może być kontrolowane poprzez pobieranie próbek.</value>
+  </data>
+  <data name="display_TitleFeedbackReport" xml:space="preserve">
+    <value>Odpowiedź Zgłoś</value>
+  </data>
+  <data name="display_TitleSamplingTransactionDetails" xml:space="preserve">
+    <value>Sampling Szczegóły transakcji</value>
+  </data>
+  <data name="display_WeeksgivenDateRange" xml:space="preserve">
+    <value>Tygodni dla danego zakresu dat</value>
+  </data>
+  <data name="required_MonthSelect" xml:space="preserve">
+    <value>Wybierz miesiąc  !</value>
+  </data>
+  <data name="required_YearSelect" xml:space="preserve">
+    <value>Wybierz rok!</value>
+  </data>
+</root>

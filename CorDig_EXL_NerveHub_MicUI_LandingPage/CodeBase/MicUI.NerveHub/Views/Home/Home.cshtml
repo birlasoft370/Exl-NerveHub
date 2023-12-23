@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Intelligent Process Automation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header">
+    <div class="left">
+        <div class="logoContainer">
+            <img src="~/images/exllogo.png">
+        </div>
+    </div>
+    <div class="rightheader">
+        <div class="firstrow">
+        </div>
+    </div>
+</div>
+
+<section class="content-wrapper main-content clear-fix k-content">
+
+    <div style="background-color:#efecec">
+        <div class="list-sfs-holder">
+            <div class="alert alert-error">
+                <h2>
+                    <b> Page Not Found</b>
+                </h2>
+                <div>
+                    <h3>
+                        WE CANNOT FIND THE PAGE YOU ARE LOOKING FOR
+                    </h3>
+                    <ul class="bullet">
+                        <li>The page may have been moved, updated or deleted</li>
+                        <li>Or you may have typed the web address incorrectly</li>
+                        <li>Please check the address and spelling</li>
+                        @* <li> @ViewData["URL"].ToString()</li>*@
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<div id="footer" style="position: fixed; bottom: 0; ">
+    <p>@BPA.GlobalResources.UI.Resources.CopyRight</p>
+</div>

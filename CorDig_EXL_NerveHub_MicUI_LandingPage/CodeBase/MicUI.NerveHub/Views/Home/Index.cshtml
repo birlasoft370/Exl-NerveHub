@@ -1,0 +1,1044 @@
+﻿@model HomeViewModel
+
+@{
+    ViewBag.Title = "Home";
+    Layout = null;
+    var DQALandingUrl = ViewBag.DQAUrl + ViewBag.token;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/images/exl_21_logo_org.svg">
+    <title>EXL NerveHub - Landing</title>
+    <!-- Bootstrap-->
+    <link href="~/css/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <!-- Morris charts -->
+    <link href="~/css/bpa/morris.js/morris.css" rel="stylesheet" />
+    <!-- Vector CSS -->
+    <link href="~/css/bpa/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <!-- Multi  Select Dropdown -->
+    <link href="~/css/bpa/select2.min.css" rel="stylesheet" />
+    <!-- theme style -->
+    <link href="~/css/bpa/master_style_landing.css" rel="stylesheet" />
+    <link href="~/css/bpa/landing.css" rel="stylesheet" />
+    <link href="~/css/bpa/update_style.css" rel="stylesheet" />
+
+    <!-- Unique_Admin skins -->
+    <link href="~/css/bpa/skins/_all-skins.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body id="bodywrap" class="hold-transition">
+    <div class="wrapper">
+        <header class="main-header newHeader fixedHeader newStyle">
+            <!-- Header Navbar -->
+            <nav class="navbar">
+                <!-- Sidebar toggle button-->
+                <!-- Logo -->
+                <div class="appTitle">
+                    <a href="#" class="logo">
+                        <!-- mini logo for sidebar mini 50x50 pixels -->
+                        <img src="~/images/exl_21_logo_org.svg" alt="logo">
+                    </a>
+                    <h1>NerveHub<sup>&#8482;</sup></h1>
+                </div>
+                <div class="userOptions">
+                    @{
+                        if (Model.TenantName != null)
+                        {
+                            <a asp-action="ChangePassword" asp-asp-controller="Home" title="Change Password" style="color: #fb4e0b; opacity:1; font-size:12px; text-decoration:none;">
+                                <span id="msgtxt"></span>
+                            </a>
+                        }
+                    }
+                    @*<a target="_blank" href="/@Model.TenantName/Home/ChangePassword" style="color: white; margin-left: 280px;" class=""><img src="https://bpademo.exlservice.com/images/Changepasw.png" style="width:30px; height:30px; " title="Change Password" /></a>*@
+                    @{
+                        if (Model.lactiveModule != null)
+                        {
+                            for (int i = 0; i < Model.lactiveModule.Count; i++)
+                            {
+                                if (Model.lactiveModule[i].ModuleName != string.Empty)
+                                {
+                                    if (Model.lactiveModule[i].ModuleName.Contains("Configuration"))
+                                    {
+                                        <a style="color: white; margin-right: 15px; margin-left:15px; border-radius: 50%; background:#414141; padding: 3px;" class="badge ml-2">
+                                            <img src="~/images/123.png" style="width:24px; height:24px; " title="@BPA.GlobalResources.UI.Resources.Configuration" />
+                                        </a>
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </div>
+
+            </nav>
+        </header>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper aboveSpace">
+            <!-- Content Header (Page header) -->
+            <!--<section class="content-header">
+                  <h1 class="text-blue">Digital Command Center</h1>
+                  <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="login.html"><i class="fa fa-home"></i> Logout</a></li>
+              </ol>
+                </section>-->
+            <!-- Main content -->
+            <section>
+                <div class="row">
+                    <div class="col-12">
+
+                        <!--<div class="box-header with-border">
+                            <div class="row">
+                                <div class="col-sm-7"> <h3 class="box-title">Transaction Monitoring</h3></div>
+                            </div>
+                        </div>-->
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <div class="container">
+                                <div class="integrations">
+                                    @if (TempData["PageError"] == null)
+                                    {
+                                        <div class="row justify-content-center">
+
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_performance.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>Performance</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "DataUtility")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a href="/@Model.TenantName/DataUtility/Home/Index" onclick="PageLink('DataUtility')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('DataUtility')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "MCSWM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a asp-action="Index" asp-controller="SWM" onclick="PageLink('MCSWM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                                //href="/@Model.TenantName/Home/IndexMulti"
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('MCSWM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                        }
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "HBM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="/@Model.TenantName/HBM/ReportsHTM/Rpt_PerformanceMgt" onclick="PageLink('HBM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('HBM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "DQA")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a href="@DQALandingUrl" onclick="PageLink('DQA')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('DQA')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                        }
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "PM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a href="https://exldccpm.exlservice.com/wfo/" onclick="PageLink('PerformanceManager')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('PerformanceManager')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "SWM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://exldccswm.exlservice.com/WM/app" onclick="PageLink('SWM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('SWM')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "PAS")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="/@Model.TenantName/PAS/Home/Index" onclick="PageLink('PAS')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a onclick="PageLink('PAS')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+
+                                                                            }
+
+
+                                                                        }
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @*<div class="col-lg-4 col-sm-6">
+                                        <div class="box">
+                                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                        <div class="mainflip">
+                                        <div class="frontside text-center">
+                                        <div class="icon d-flex align-items-end"><img src="../images/icon_finance.png" alt="..." class="img-fluid" /></div>
+                                        <hr />
+                                        <h3 class="text-center">Financials &amp; Client Management</h3>
+                                        </div>
+                                        <div class="backside">
+                                        <div class="card">
+                                        <div class="card-body">
+                                        <ul>
+                                        <li>Revenue Dashboard</li>
+                                        <li>BOI Dashboard</li>
+                                        <li>NPS Analysis</li>
+                                        <li><a href="https://exlservice.eu.teamwork.com/" target="_blank">SMARTrack</a></li>
+                                        </ul>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>*@
+                                            <div class="col-lg-4 col-sm-6">
+
+
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_projectmangement.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>Project Management</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "ProjectTracking")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://eu1.clarizen.com/Clarizen/Ext/WidgetObjectDetailsPage.aspx?wt=ViewObjectDetails&amp;uid=9.137368389.28195205&amp;wid=_uwy~QV6~0~W7XwJnbb30Q&amp;pid=453.136975813.28195205&amp;vid=471.33206533.28195205&amp;doid=477.122630341.28195205&amp;el=1&amp;CSig=801D583EDF431E78E3F8CFC8229D7A333B28D443" target="_blank"> @Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank"> @Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "Scorecard")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a target="_blank" href="https://eu1.clarizen.com/Clarizen/Ext/WidgetObjectDetailsPage.aspx?wt=ViewObjectDetails&uid=9.136981701.28195205&wid=t1BVzPtPJkyRahtnU0i8lg&pid=453.137019333.28195205&vid=472.36496069.28195205&doid=482.127511749.28195205&el=1&ero=1&CSig=F352275285BF54E669BC966F995AE2D2986A905E">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "DeliveryDashboard")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a target="_blank" href="https://eu1.clarizen.com/Clarizen/Ext/WidgetObjectDetailsPage.aspx?wt=ViewObjectDetails&uid=9.136981701.28195205&wid=UJXd57lCBUynZ7rQyxA8Fg&pid=453.137019333.28195205&vid=472.49664325.28195205&doid=482.127505477.28195205&el=1&CSig=54FD681943FBB3C388D6749011060C6BCF2FF2CF">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                        }
+
+
+                                                                                    }
+                                                                                }
+                                                                            }
+
+
+                                                                        }
+
+
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_aicoach.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>AI Coach</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "AIC")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://xlign-demo-ui.xogoweb.com/index.html" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">AI Coach</a></li>
+                                                                                            }
+
+                                                                                        }
+
+
+
+
+                                                                                    }
+                                                                                }
+                                                                            }
+
+
+                                                                        }
+
+                                                                        @*<li><a href="#" onclick="OpenLink('BusinessDashbaord')">Business Dashboards</a></li>*@
+
+                                                                        @*<li><a href="https://exldcc.exlservice.com:9443/theia/#/gameboard/AugAnalytics" target="_blank">Augmented Analytics</a></li>*@
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="flipWrap logoCard">
+                                                    @{
+                                                        if (Model.lactiveModuleAction != null)
+                                                        {
+                                                            for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                            {
+                                                                if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                {
+                                                                    if (Model.lactiveModuleAction[i].ModuleName == "Theia")
+                                                                    {
+                                                                        if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                        {
+
+                                                                            <a href="https://exldcc.exlservice.com:9443/theia/" target="_blank"><img src="../Images/EXL NerveHub.jpg" class="img-fluid" style="width:170px;"></a>
+
+
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a target="_blank"><img src="../Images/EXL NerveHub.jpg" class="img-fluid" style="width:170px;"></a>
+
+
+                                                                        }
+
+                                                                    }
+
+
+
+
+
+
+                                                                }
+                                                            }
+                                                        }
+
+
+                                                    }
+
+
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_innovation.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>Innovation Pipeline</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "AIMD")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://exldcc.exlservice.com:9443/theia/#/gameboard/aim" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "AIM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://planetexl.exlservice.com/sites/aim/Pages/index.aspx" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+                                                                                            }
+
+                                                                                        }
+
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "PGT")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+                                                                                                <li><a href="https://pg.exlservice.com/" onclick="PageLink('PGT')" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+
+                                                                                            }
+                                                                                        }
+
+
+                                                                                    }
+                                                                                }
+                                                                            }
+
+
+                                                                        }
+
+
+
+                                                                        @*<li>Simulation Tool</li>*@
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-4 col-sm-6">
+
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_outcome.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>Outcome &amp; Insights</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "BD")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a>@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a>@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "PI")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://online.timelinepi.com/auth/login" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a> </li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+                                                                                            }
+
+                                                                                        }
+
+
+
+
+
+                                                                                    }
+                                                                                }
+                                                                            }
+
+
+                                                                        }
+
+                                                                        @*<li>ESAT Scores</li>
+                                                                    <li>Recruitment Pipeline</li>*@
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            @*<div class="col-lg-4 col-sm-6">
+                                        <div class="box">
+                                        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                        <div class="mainflip">
+                                        <div class="frontside text-center">
+                                        <div class="icon d-flex align-items-end"><img src="../images/icon_sla.png" alt="..." class="img-fluid" /></div>
+                                        <hr />
+                                        <h3 class="text-center">People Dashboard</h3>
+                                        </div>
+                                        <div class="backside">
+                                        <div class="card">
+                                        <div class="card-body">
+                                        <ul>
+                                        <li><a href="https://enforce.corp.exlservice.com/" target="_blank">Compliance Checklist</a></li>
+                                        <li><a href="https://gtss.corp.exlservice.com/arsys/forms/bmcapplication.corp.exlservice.com/SRS%3AServiceRequestConsole/Default+Administrator+View/?mode=submit&F303900000=3&F303906900=IDGAA5V0G6AZVAORKY92OQOVDQCXLR&F303901700=&F303906700=0&F303902000=0&F303902100=0&cacheid=355f4239" target="_blank">Incident Management</a></li>
+                                        </ul>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>*@
+                                            <div class="col-lg-4 col-sm-6">
+                                                <div class="flipWrap">
+                                                    <div class="flipContent" ontouchstart="this.classList.toggle('hover');">
+                                                        <div class="flipCard">
+                                                            <div class="flipCard-front">
+                                                                <div class="cardFace">
+                                                                    <div class="cardLogo"><img src="../images/icon_sla.png" alt="..." class="img-fluid" /></div>
+                                                                    <hr />
+                                                                    <h3>People Dashboard</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="flipCard-back">
+                                                                <div class="cardLinks">
+                                                                    <ul>
+                                                                        @{
+                                                                            if (Model.lactiveModuleAction != null)
+                                                                            {
+                                                                                for (int i = 0; i < Model.lactiveModuleAction.Count; i++)
+                                                                                {
+                                                                                    if (Model.lactiveModuleAction[i].ModuleName != string.Empty)
+                                                                                    {
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "LM")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li><a href="https://exldcc.exlservice.com:9443/theia/#/gameboard/aim" target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li><a target="_blank">@Model.lactiveModuleAction[i].ModuleText</a></li>
+
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "AD")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "ESATS")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+                                                                                            }
+
+                                                                                        }
+                                                                                        if (Model.lactiveModuleAction[i].ModuleName == "RP")
+                                                                                        {
+                                                                                            if (Model.lactiveModuleAction[i].Module_Action == false)
+                                                                                            {
+
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+
+
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <li>@Model.lactiveModuleAction[i].ModuleText</li>
+                                                                                            }
+
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+                                                                            }
+
+
+                                                                        }
+
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="row justify-content-center box">  <span>@Html.Raw(TempData["PageError"])</span></div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <!-- /.box -->
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!--<footer class="footer">
+          <section class="p-20 p-xs-0 footer-section-3">
+                <div class="container">
+              <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-7 footer-section-3-left">
+                  <ul>
+                        <li><a href="https://www.exlservice.com/terms-of-use">Terms of Use</a></li>
+                        <li><a href="https://www.exlservice.com/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="https://www.exlservice.com/legal-disclaimer">Legal Disclaimer</a></li>
+                        <li><a href="https://www.exlservice.com/cookie-policy">Cookie Policy</a></li>
+                        <li><a href="https://www.exlservice.com/compliance">Compliance</a></li>
+                      </ul>
+                </div>
+                    <div class="col-xl-6 col-lg-6 col-md-5 footer-section-3-right">
+                  <p>© 2018 EXL. All rights reserved</p>
+                </div>
+                  </div>
+            </div>
+              </section>
+        </footer>-->
+    </div>
+
+    <script src="~/lib/bpa/jquery.js"></script>
+    <script src="~/lib/bpa/popper.min.js"></script>
+    <script src="~/lib/bpa/bootstrap.js"></script>
+    <script src="~/lib/bpa/select2.full.js"></script>
+    <script src="~/lib/bpa/jquery.slimscroll.js"></script>
+    <script src="~/lib/bpa/fastclick.js"></script>
+    <script src="~/lib/bpa/template.js"></script>
+    <script src="~/lib/bpa/demo.js"></script>
+
+    <script>
+        var angleStart = -360;
+        $(document).ready(function () {
+            CheckPasExpire();
+
+        })
+
+        function CheckPasExpire() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("CheckPasExpire","Home")',
+                dataType: "json",
+                //data: { ActionFlag: FlagLink },
+                success: function (response) {
+                    $("#msgtxt").html(response);
+
+                },
+                error: function (er) {
+
+
+                }
+            });
+        }
+        // jquery rotate animation
+        function rotate(li, d) {
+            $({ d: angleStart }).animate({ d: d }, {
+                step: function (now) {
+                    $(li)
+                        .css({ transform: 'rotate(' + now + 'deg)' })
+                        .find('label')
+                        .css({ transform: 'rotate(' + (-now) + 'deg)' });
+                }, duration: 0
+            });
+        }
+
+        // show / hide the options
+        function toggleOptions(s) {
+            $(s).toggleClass('open');
+            var li = $(s).find('li');
+            var deg = $(s).hasClass('half') ? 180 / (li.length - 1) : 360 / li.length;
+            for (var i = 0; i < li.length; i++) {
+                var d = $(s).hasClass('half') ? (i * deg) - 90 : i * deg;
+                $(s).hasClass('open') ? rotate(li[i], d) : rotate(li[i], angleStart);
+            }
+        }
+        /*
+        $('.selector button').click(function(e) {
+            toggleOptions($(this).parent());
+        });
+        */
+        setTimeout(function () { toggleOptions('.selector'); }, 100);
+
+        function OpenLink(FlagLink) {
+            $.ajax({
+                type: "GET",
+                url: ResourceLayout.partialURL + "OpenLink",
+                dataType: "json",
+                data: { ActionFlag: FlagLink },
+                success: function (response) {
+                    $.each(response, function (key, value) {
+                        window.open(value.URLFilePath, '_blank');
+                    });
+                },
+                error: function (er) {
+                    alert(er);
+                }
+            });
+        }
+
+        function PageLink(FlagLink) {
+
+            $.ajax({
+                type: "GET",
+                url: ResourceLayout.partialURL + "PageLink",
+                dataType: "json",
+                data: { ActionFlag: FlagLink },
+                success: function (response) {
+                    //$.each(response, function (key, value) {
+                    //    window.open(value.URLFilePath, '_blank');
+                    //});
+                },
+                error: function (er) {
+
+
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!--Old Code-->
+@*
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@{
+    Layout = "";
+    var tokend = ViewBag.token;
+    var t = tokend;
+    var url = ViewBag.DQAUrl + ViewBag.token;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="images/exl_21_logo_org.svg">
+    <title>EXL NerveHub</title>
+    <link href="https://bpademo.exlservice.com/css/dashboard.css" rel="stylesheet" />
+</head>
+
+
+<body id="bodywrap" class="" style="height: auto; min-height: 100%;">
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <header class="main-header newHeader fixedHeader newStyle">
+            <nav class="navbar">
+                <div class="appTitle">
+                    <a href="#" class="logo">
+                        <img src="../images/exl_21_logo_org.svg" alt="logo">
+                    </a>
+                    <h1>NerveHub<sup>™</sup></h1>
+                </div>
+
+            </nav>
+        </header>
+        <div class="content-wrapper aboveSpace" style="min-height: 222px;">
+            <section>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box-body no-padding">
+                            <div class="container">
+                                <div class="integrations">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="flipWrap">
+                                                <div class="flipContent hover"
+                                                     ontouchstart="this.classList.toggle('hover');">
+                                                    <div class="flipCard">
+                                                        <div class="flipCard-front">
+                                                            <div class="cardFace">
+                                                                <div class="cardLogo">
+                                                                    <img src="../images/icon_performance.png" alt="..."
+                                                                         class="img-fluid">
+                                                                </div>
+                                                                <hr>
+                                                                <h3>Performance</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flipCard-back">
+                                                            <div class="cardLinks">
+                                                                <ul>
+
+
+
+                                                                        <li><a asp-action="Index" asp-controller="SWM" as >SWM Application</a></li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6">
+                                            <div class="flipWrap">
+                                                <div class="flipContent hover"
+                                                     ontouchstart="this.classList.toggle('hover');">
+                                                    <div class="flipCard">
+                                                        <div class="flipCard-front">
+                                                            <div class="cardFace">
+                                                                <div class="cardLogo">
+                                                                    <img src="../images/icon_projectmangement.png"
+                                                                         alt="..." class="img-fluid">
+                                                                </div>
+                                                                <hr>
+                                                                <h3>DQA Application</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flipCard-back">
+                                                            <div class="cardLinks">
+                                                                <ul>
+
+                                                                    <li>
+                                                                        <a href=@url
+                                                                           target="_blank"> DQA</a>
+
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
+
+*@
+
+@*<div class="row">
+
+
+<div class="col-md-4">
+
+        <div class="card" style="width: 18rem;"><a asp-action="Index" asp-controller="swm" class="btn btn-primary">SWM</a></div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card" style="width: 18rem;"><a href="https://bpademo.exlservice.com/birlasoft/QualityManagement/Home/Index" class="btn btn-primary">DQA</a></div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="card" style="width: 18rem;"><a href="http://localhost:5029/" class="btn btn-primary">Go Landing page</a></div>
+    </div>
+</div>
+
+<script>
+localStorage.setItem("tokem","ankita");
+
+</script>*@
+

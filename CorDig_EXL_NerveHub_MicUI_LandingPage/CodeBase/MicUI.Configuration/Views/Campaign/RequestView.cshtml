@@ -1,0 +1,172 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model CampaignViewModel
+@{
+
+    ViewBag.Title = BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ApproveTitle;
+    bool IsBtnEnabled = true;
+    bool IsDisable = Model.IsLevel == 0 ? true : false;
+    if (Model.IsLevel == 1 && Model.ChangeRequestStatus == "Yes")
+    {
+        //Model.IsLevel = 0;
+        IsBtnEnabled = true;
+    }
+    else if (Model.IsLevel == 0 && Model.ChangeRequestStatus == "Yes")
+    { IsBtnEnabled = true; }
+    else if (Model.IsLevel == 1 && Model.ChangeRequestStatus != "Yes")
+    { IsBtnEnabled = true; }
+    else
+    { IsBtnEnabled = false; }
+
+    @functions {
+        /* To use to make a control readonly */
+        object getHtmlAttributes(int UserLevel, string value)
+        {
+            if (UserLevel != 0)
+            {
+                return new { disabled = "disabled", style = value };
+            }
+            return new { style = value };
+        }
+    }
+}
+
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+
+<div class="formWrap">
+    <div class="formWrap-head">
+        <div class="row">
+            <div class="col-6">
+                <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_BusinessJustifications_Tittle</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="formWrap-body">
+        <div>
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(l => l.RequestCreator):</td>
+                    <td colspan="4">@Model.RequestCreator @Html.HiddenFor(x => x.IsLevel)</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.ClientName)</td>
+                    <td>@Model.ClientName</td>
+                    <td>@Html.LabelFor(l => l.ProcessName)</td>
+                    <td>@Model.ProcessName</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.CampaignName)</td>
+                    <td colspan="4">@Model.CampaignName</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(l => l.WorkDefinitionName)</td>
+                    <td colspan="4">@Model.WorkDefinitionName</td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(l => l.Location)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Location, @getHtmlAttributes(Model.IsLevel, "width:230px;"))
+                    </td>
+                    <td>
+                        @Html.LabelFor(l => l.ShiftWindow)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(d => d.ShiftWindow, @getHtmlAttributes(Model.IsLevel, "width:230px;"))
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(l => l.PurposeofcreationofWork)
+                    </td>
+                    <td>
+                        @(Html.Kendo().MultiSelect().Name("Purposeofcreationofwork").AutoClose(false).Enable(IsDisable)
+                            .Placeholder(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Select_PurposeofWork)
+                            .BindTo(new List<string>() {@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_WorkManagement  ,
+                        @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_TimeTracking ,
+                        @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_TransactionsMonitoring})
+                            .Value(Model.PurposeofcreationofWork)
+                            .HtmlAttributes(new { @required = "required", @validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.required_chooseatleast, style = "width:240px;" }))
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(d => d.BusinessJustifications)
+                    </td>
+                    <td colspan="3">
+                        @Html.TextAreaFor(x => x.BusinessJustifications, @getHtmlAttributes(Model.IsLevel, "height:40px; overflow: auto;"))
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(d => d.TargetUsers)
+                    </td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(x => x.Q1, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Q1, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                                <td>
+
+                                    @Html.TextBoxFor(x => x.Q2, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Q2, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => x.Q3, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Q3, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => x.Y1, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Y1, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => x.Y2, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Y2, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(x => x.Y3, @getHtmlAttributes(Model.IsLevel, "width:30px;"))
+                                    @Html.LabelFor(x => x.Y3, new { @class = "allLabelFields", @style = "padding-top:.5em;" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(d => d.KeyBenefits)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(x => x.KeyBenefits, @getHtmlAttributes(Model.IsLevel, "height:40px; overflow: auto;"))
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(a => a.ChangeRequest)
+                    </td>
+                    <td colspan="3">
+                        @{
+                            if (Model.IsLevel != 1)
+                            {
+                                @Html.TextAreaFor(x => x.ChangeRequest, new { disabled = "disabled", @style = "height:40px; overflow: auto;" })
+                            }
+                            else
+                            {
+                                @Html.TextAreaFor(x => x.ChangeRequest, new { @style = "height:40px; overflow: auto;" })
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="padding-right: 2px; padding-left: 2px;">@(Html.Kendo().Button().Enable(@IsBtnEnabled).Name("btnAdd").HtmlAttributes(new { type = "button", @class = "k-primary  buttonstyle" }).Content("Submit").Events(ev => ev.Click("AddClick")))</span>
+                    </td>
+                    <td>@Html.HiddenFor(x => x.iApproverId)@Html.HiddenFor(x => x.IsLevel)</td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

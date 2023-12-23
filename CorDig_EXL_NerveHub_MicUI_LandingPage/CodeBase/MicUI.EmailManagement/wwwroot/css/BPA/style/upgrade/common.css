@@ -1,0 +1,244 @@
+html, body {
+    font-family: Yantramanav, sans-serif !important;
+    background-color: #f9f9f9;
+    font-weight: normal;
+    color: #333;
+    font-size: 14px;
+}
+
+.bg-table h2, .bg-table h3 {
+    background-color: #d2d6de;
+    color: #004286 !important;
+    background-image: none !important;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: .76rem 1rem;
+    height: auto !important;
+    font-weight: 500;
+}
+
+.fullHeight {
+    height: 100%;
+}
+
+.anchorTag {
+    color: #fb4e0b !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.listWrap {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .listWrap li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+        .listWrap li:last-child {
+            border-bottom: none;
+        }
+/** JQUERY MODAL BOX **/
+#popup_overlay {
+    background-color: #000;
+}
+
+#popup_container {
+    font-family: Yantramanav, sans-serif;
+    border: none;
+    box-shadow: 0 0 12px rgb(0 0 0 / 15%);
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+#divPopup_title {
+}
+
+#popup_title {
+    font-size: 14px;
+    padding: 10px 15px;
+    font-weight: 500;
+    border: none;
+    color: #000;
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+}
+
+#popup_content {
+    background: none;
+    padding: 0;
+    text-align: center;
+}
+
+#popup_message {
+    padding: 35px 20px;
+}
+
+#popup_panel {
+    border-top: 1px solid #f1f1f1;
+    padding: 15px;
+    margin: 0;
+}
+
+    #popup_panel button {
+        color: #fff;
+        background-color: #004286;
+        border-color: #004286;
+        border-radius: 2px;
+        box-shadow: none;
+        outline: none;
+        min-width: 75px;
+        font-weight: 300;
+        padding: .25rem .5rem;
+        font-size: .875rem;
+    }
+
+        #popup_panel button .k-icon {
+            font-size: 90%;
+            vertical-align: middle;
+        }
+/****/
+.k-overlay {
+    opacity: .7;
+    background-color: #000;
+}
+
+.k-window {
+    font-family: Yantramanav, sans-serif;
+    border: none;
+    box-shadow: 0 0 12px rgb(0 0 0 / 15%);
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.k-window-titlebar {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 15px;
+    border: none;
+    color: #000;
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    background-image: none;
+}
+
+.k-window-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.k-window-content {
+    padding: 20px 0;
+}
+
+.k-window-footer {
+    border-top: 1px solid #f1f1f1;
+    padding: 25px 15px;
+    padding-bottom: 0;
+    text-align: center;
+    margin: 0;
+}
+/*****/
+.newHeader {
+    background-color: #001d45 !important;
+    background-size: contain !important;
+    background-position: left center !important;
+    height: auto;
+    clear: both;
+    border-bottom: none !important;
+}
+
+    .newHeader:after {
+        content: "";
+        position: relative;
+        height: 0;
+        width: 100%;
+        display: block;
+        clear: both;
+    }
+/***/
+
+.sub-title {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.text-dark {
+    color: #111;
+}
+/***/
+.k-treeview {
+    font-size: 12px;
+}
+
+    .k-treeview > .k-group {
+        margin-bottom: 10px;
+    }
+
+    .k-treeview .k-item {
+    }
+
+    .k-treeview .k-in {
+        border-radius: 0;
+    }
+
+    .k-treeview .k-state-focused {
+        box-shadow: none;
+        color: #fff;
+        background-color: #004286;
+    }
+
+    .k-treeview .k-state-selected.k-state-focused, .k-treeview .k-state-selected {
+        background-color: #004286;
+        border-color: #004286;
+        background-image: none;
+        color: #fff;
+    }
+
+    .k-treeview .k-item > .k-group {
+    }
+
+/***/
+.tagcontainer {
+    padding: 10px;
+    min-height: 120px;
+}
+
+.tags {
+    margin: 4px;
+    padding: 4px 6px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+.tagitemcls {
+    width: 30px;
+    padding: 6px 6px;
+    margin: 4px 0;
+    margin-left: -12px;
+    border-left: none;
+    font-size: 8px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 0 4px 4px 0;
+}
+
+    .tagitemcls span {
+        font-size: 12px;
+    }
+
+.move {
+    cursor: move;
+}
+
+/****/
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    background: none;
+}

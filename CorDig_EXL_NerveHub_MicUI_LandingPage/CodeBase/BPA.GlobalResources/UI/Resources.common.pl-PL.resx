@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Alert" xml:space="preserve">
+    <value>Alarm</value>
+  </data>
+  <data name="display_AllocationTo" xml:space="preserve">
+    <value>alokacja Aby</value>
+  </data>
+  <data name="display_Approval_Button" xml:space="preserve">
+    <value>Zatwierdzać</value>
+  </data>
+  <data name="display_BtnAdd" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="display_BtnBack" xml:space="preserve">
+    <value>Plecy</value>
+  </data>
+  <data name="display_BtnClear" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="display_BtnDelete" xml:space="preserve">
+    <value>Kasować</value>
+  </data>
+  <data name="display_BtnEdit" xml:space="preserve">
+    <value>Edytować</value>
+  </data>
+  <data name="display_BtnNew" xml:space="preserve">
+    <value>Nowy</value>
+  </data>
+  <data name="display_BtnReset" xml:space="preserve">
+    <value>Nastawić</value>
+  </data>
+  <data name="display_BtnSave" xml:space="preserve">
+    <value>Zapisać</value>
+  </data>
+  <data name="display_BtnSearch" xml:space="preserve">
+    <value>Szukanie</value>
+  </data>
+  <data name="display_BtnUpdate" xml:space="preserve">
+    <value>Aktualizacja</value>
+  </data>
+  <data name="display_Campaign" xml:space="preserve">
+    <value>Nazwa kampanii:</value>
+  </data>
+  <data name="display_Campaign_Dropdown" xml:space="preserve">
+    <value>kampania rozwijane</value>
+  </data>
+  <data name="display_Client" xml:space="preserve">
+    <value>Nazwa klienta:</value>
+  </data>
+  <data name="display_Client_Select" xml:space="preserve">
+    <value>Wybierz Client</value>
+  </data>
+  <data name="display_Confirmation" xml:space="preserve">
+    <value>Potwierdzenie</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Wyłączyć:</value>
+  </data>
+  <data name="display_EndDate" xml:space="preserve">
+    <value>Data końcowa:</value>
+  </data>
+  <data name="display_Filter" xml:space="preserve">
+    <value>Filtr</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>Od daty:</value>
+  </data>
+  <data name="display_msgAtlistOne" xml:space="preserve">
+    <value>Proszę wybrać dowolną opcję Radio</value>
+  </data>
+  <data name="display_Ok" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="display_Process" xml:space="preserve">
+    <value>Nazwa procesu:</value>
+  </data>
+  <data name="display_Process_Select" xml:space="preserve">
+    <value>Wybierz Process</value>
+  </data>
+  <data name="display_Request_Button" xml:space="preserve">
+    <value>Żądanie</value>
+  </data>
+  <data name="display_Search" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="display_Select" xml:space="preserve">
+    <value>Wybierz</value>
+  </data>
+  <data name="display_StartDate" xml:space="preserve">
+    <value>Data rozpoczęcia:</value>
+  </data>
+  <data name="display_Submit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="display_Team" xml:space="preserve">
+    <value>Nazwa drużyny:</value>
+  </data>
+  <data name="display_Team_Select" xml:space="preserve">
+    <value>Wybierz drużynę</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>Spotykać się z kimś:</value>
+  </data>
+  <data name="display_View_Button" xml:space="preserve">
+    <value>Widok</value>
+  </data>
+  <data name="required_Campaign" xml:space="preserve">
+    <value>Proszę wybrać kampanię.</value>
+  </data>
+  <data name="required_Client" xml:space="preserve">
+    <value>Proszę wybrać Client.</value>
+  </data>
+  <data name="required_EndDate" xml:space="preserve">
+    <value>Proszę wybrać datę końcową.</value>
+  </data>
+  <data name="required_Filter" xml:space="preserve">
+    <value>Wybierz Filter</value>
+  </data>
+  <data name="required_FromDate" xml:space="preserve">
+    <value>Proszę wybrać z daty.</value>
+  </data>
+  <data name="required_Process" xml:space="preserve">
+    <value>Proszę wybrać Process.</value>
+  </data>
+  <data name="required_Search" xml:space="preserve">
+    <value>Proszę podać Szukaj tekstu.</value>
+  </data>
+  <data name="required_StartDate" xml:space="preserve">
+    <value>Proszę wybrać datę rozpoczęcia.</value>
+  </data>
+  <data name="required_Team" xml:space="preserve">
+    <value>Proszę wybrać Team.</value>
+  </data>
+  <data name="required_ToDate" xml:space="preserve">
+    <value>Wybierz To Date.</value>
+  </data>
+  <data name="display_MsgOldAndNewValue" xml:space="preserve">
+    <value>Aktualna wartość nie może być niższa niż wartość starego</value>
+  </data>
+  <data name="display_btnNewRowAdd" xml:space="preserve">
+    <value>DODAJ nowy wiersz</value>
+  </data>
+  <data name="display_MsgConfirm" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć ten rekord?</value>
+  </data>
+  <data name="display_MsgErrorProcessing" xml:space="preserve">
+    <value>Błąd w przetwarzaniu request.Please próbować wracać po jakimś czasie.</value>
+  </data>
+  <data name="display_MsgWork" xml:space="preserve">
+    <value>Pracuj Tworzenie powodzeniem!</value>
+  </data>
+  <data name="display_msg_following" xml:space="preserve">
+    <value>Proszę sprawdzić następujące elementy:</value>
+  </data>
+  <data name="display_SamRowColum" xml:space="preserve">
+    <value>Sam wiersz i kolumna nie może być wpisane więcej niż jeden</value>
+  </data>
+  <data name="display_UdateDataPreView" xml:space="preserve">
+    <value>Dane aktualizują się pomyślnie.</value>
+  </data>
+  <data name="reguired_ObjectDataType" xml:space="preserve">
+    <value>Proszę wybrać typ danych Object</value>
+  </data>
+  <data name="reguired_ObjectName" xml:space="preserve">
+    <value>Proszę podać nazwę obiektu</value>
+  </data>
+  <data name="reguired_ObjectType" xml:space="preserve">
+    <value>Wybierz typ obiektu</value>
+  </data>
+  <data name="display_btnClose" xml:space="preserve">
+    <value>Blisko</value>
+  </data>
+  <data name="display_btnSaveClose" xml:space="preserve">
+    <value>Zapisz i zamknij</value>
+  </data>
+  <data name="display_btnGenerateReport" xml:space="preserve">
+    <value>Generuj raport</value>
+  </data>
+  <data name="display_MsgAtLeastOne" xml:space="preserve">
+    <value>Proszę wybrać przynajmniej wiersz do usunięcia</value>
+  </data>
+  <data name="display_msgDateMaximum" xml:space="preserve">
+    <value>Różnica między Od Data i do tej pory może być maksymalnie 30 dni.</value>
+  </data>
+  <data name="display_msgFromDate" xml:space="preserve">
+    <value>Od tej pory nie może być większa niż dotychczas.</value>
+  </data>
+  <data name="display_msgNotFound" xml:space="preserve">
+    <value>Nie znaleziono rekordu danych.</value>
+  </data>
+  <data name="display_AssessMe" xml:space="preserve">
+    <value>OCENA</value>
+  </data>
+  <data name="required_WorkDefination" xml:space="preserve">
+    <value>Proszę podać definicję roboczą</value>
+  </data>
+  <data name="display_MsgSave" xml:space="preserve">
+    <value>Zapisać</value>
+  </data>
+  <data name="display_btnCreate" xml:space="preserve">
+    <value>Stwórz</value>
+  </data>
+  <data name="display_shift_select" xml:space="preserve">
+    <value>Wybierz Przesunięcie</value>
+  </data>
+  <data name="dispaly_Title" xml:space="preserve">
+    <value>Stan agenta</value>
+  </data>
+  <data name="reguired_btnBreak" xml:space="preserve">
+    <value>Przerwa</value>
+  </data>
+  <data name="required_btnAll" xml:space="preserve">
+    <value>Wszystko</value>
+  </data>
+  <data name="required_btnCurrentTransaction" xml:space="preserve">
+    <value>Obecna transakcja</value>
+  </data>
+  <data name="required_btnLoginLogout" xml:space="preserve">
+    <value>Zaloguj / Wyloguj</value>
+  </data>
+  <data name="required_btnLogOut" xml:space="preserve">
+    <value>Wyloguj</value>
+  </data>
+  <data name="required_btnSubmit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="required_btnWorkDetails" xml:space="preserve">
+    <value>Szczegóły pracy</value>
+  </data>
+  <data name="display_AgentDailySummary" xml:space="preserve">
+    <value>Środek Dziennie Podsumowanie</value>
+  </data>
+  <data name="display_AgentLogin" xml:space="preserve">
+    <value>Środek Logowanie</value>
+  </data>
+  <data name="display_BreakSummary" xml:space="preserve">
+    <value>przerwa Zgłoś</value>
+  </data>
+  <data name="display_ScheduleAdherence" xml:space="preserve">
+    <value>Harmonogram Przestrzeganie Zgłoś</value>
+  </data>
+  <data name="dispNoRecordFound" xml:space="preserve">
+    <value>Nie znaleziona nagrania!</value>
+  </data>
+  <data name="display_BreakAdjustmentSummay" xml:space="preserve">
+    <value>Przerwa Adjustment Podsumowanie</value>
+  </data>
+  <data name="display_Transaction" xml:space="preserve">
+    <value>Transakcja</value>
+  </data>
+  <data name="display_TransactionCount" xml:space="preserve">
+    <value>Liczba transakcji</value>
+  </data>
+  <data name="display_QualityManagement" xml:space="preserve">
+    <value>Zarządzanie jakością</value>
+  </data>
+  <data name="display_BIReport" xml:space="preserve">
+    <value>Raporty BI</value>
+  </data>
+  <data name="display_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="display_BtnLeftMove" xml:space="preserve">
+    <value>&amp;lt;&amp;lt;</value>
+  </data>
+  <data name="display_BtnRightMove" xml:space="preserve">
+    <value>&amp;gt;&amp;gt;</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Odświeżać</value>
+  </data>
+  <data name="display_msgupdatework" xml:space="preserve">
+    <value>Dane zostały zaktualizowane</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestApprovedSuccessfully" xml:space="preserve">
+    <value>Żądanie status Batch zatwierdzona pomyślnie</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestCancelledSuccessfully" xml:space="preserve">
+    <value>Stan Batch zmiana Zamówienie anulowane z powodzeniem</value>
+  </data>
+  <data name="displayBatchStatusUpdateRequestRejectedSuccessfully" xml:space="preserve">
+    <value>Żądanie status partia odrzuciła powodzeniem</value>
+  </data>
+  <data name="display_WorkManagement" xml:space="preserve">
+    <value>Zarządzanie pracą</value>
+  </data>
+  <data name="display_GenerateReport" xml:space="preserve">
+    <value>Generuj raport</value>
+  </data>
+  <data name="display_ConfirmCancelRequest" xml:space="preserve">
+    <value>Czy na pewno chcesz anulować tę płytę?</value>
+  </data>
+  <data name="display_ConfirmRejectRequest" xml:space="preserve">
+    <value>Czy na pewno chcesz odrzucić ten rekord?</value>
+  </data>
+  <data name="grid_CampaignName" xml:space="preserve">
+    <value>Nazwa kampanii</value>
+  </data>
+  <data name="display_WorkObjName" xml:space="preserve">
+    <value>WorkObjName</value>
+  </data>
+  <data name="display_WorkObjectName" xml:space="preserve">
+    <value>Pracuj Nazwa obiektu:</value>
+  </data>
+  <data name="required_WorkObjectName" xml:space="preserve">
+    <value>Proszę wybrać zawodowe Nazwa obiektu.</value>
+  </data>
+  <data name="required_SubProcess" xml:space="preserve">
+    <value>Wybierz Sub Process</value>
+  </data>
+  <data name="required_Category" xml:space="preserve">
+    <value>Proszę wybrać kategorię</value>
+  </data>
+  <data name="reuired_EndDate" xml:space="preserve">
+    <value>Wybierz Data zakończenia</value>
+  </data>
+  <data name="reuired_Metric" xml:space="preserve">
+    <value>Wybierz Metric</value>
+  </data>
+  <data name="reuired_StartDate" xml:space="preserve">
+    <value>Wybierz Data rozpoczęcia</value>
+  </data>
+  <data name="display_Home" xml:space="preserve">
+    <value>Dom</value>
+  </data>
+  <data name="display_clickhere" xml:space="preserve">
+    <value>Kliknij tutaj</value>
+  </data>
+  <data name="display_LogOutText" xml:space="preserve">
+    <value>Pomyślnie wylogowany z aplikacji Process Automation Intelligent</value>
+  </data>
+  <data name="display_returnLoginagain" xml:space="preserve">
+    <value>powracać Zaloguj</value>
+  </data>
+  <data name="display_toCloseApplication" xml:space="preserve">
+    <value>aby zamknąć aplikację</value>
+  </data>
+  <data name="display_Seconds" xml:space="preserve">
+    <value>towary drugiej jakości.</value>
+  </data>
+  <data name="display_ToKeepActivePressKeep" xml:space="preserve">
+    <value>Keep przycisk aktywny Prasa zachować.</value>
+  </data>
+  <data name="display_YourSessionWillExpireIn" xml:space="preserve">
+    <value>Twoja sesja wygaśnie</value>
+  </data>
+  <data name="display_EMSAdvancedConfiguration" xml:space="preserve">
+    <value>EMS | Zaawansowana konfiguracja</value>
+  </data>
+  <data name="display_EMSMailConfiguration" xml:space="preserve">
+    <value>EMS | Konfiguracja poczty</value>
+  </data>
+  <data name="display_Ingestion" xml:space="preserve">
+    <value>Przyjmowanie pokarmu</value>
+  </data>
+  <data name="display_MoveFolder" xml:space="preserve">
+    <value>Przenieś folder</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+</root>

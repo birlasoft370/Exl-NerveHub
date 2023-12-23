@@ -1,0 +1,89 @@
+﻿@using Kendo.Mvc.UI
+@using System.Collections
+@using MicUI.Configuration.Helper;
+
+@{
+    var lst = ViewData["lst"] as List<string>;
+    string tenantName = MyHttpContext.AppBaseUrl;
+}
+
+@(Html.Kendo().MultiSelect()
+
+        .Name(ViewData["Name"].ToString()).Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select)
+        .HtmlAttributes(new { @class = "custmMul formSelect", @required = "required", validationmessage = ViewData["validationmessage"] == null ? "" : ViewData["validationmessage"].ToString() })
+        .ItemTemplate("<input type='checkbox' name='" + ViewData["CheckBoxName"].ToString() + "' text='#:data." + ViewData["TextField"].ToString() + "#' value='#:data." + ViewData["ValueField"].ToString() + "#' /> #:data." + ViewData["TextField"].ToString() + "#")
+        .DataValueField(ViewData["ValueField"].ToString())
+        .DataTextField(ViewData["TextField"].ToString())
+        .HtmlAttributes(new { @class = "formSelect" })
+        .ValuePrimitive(true)
+        .Value(lst)
+        .Events(x => x.Change("change").DataBound("onMultiSelectDataBound").Select("ALL_Select")).DataSource(source =>
+         {
+             source.Read(read =>
+             {
+                 read.Url(tenantName + ViewData["ControllerName"] + "/" + ViewData["ActionName"]).Type(HttpVerbs.Get).Data(ViewData["Data"] == null ? "" : ViewData["Data"].ToString());
+             }).ServerFiltering(true);
+         }).Enable(ViewData["Visibility"] != null ? bool.Parse(ViewData["Visibility"].ToString()) : true).AutoClose(false).AutoBind(true)
+)
+<script>
+    function change(e) {
+        var itmeName = $(e.sender.listView._current[0]).find("input").attr("name");
+        if (e.sender._initialValues.length > 0) {
+            var previous = e.sender._initialValues;
+            var current = this.value();
+            var diff = [];
+            if (previous) {
+                diff = $(previous).not(current).get();
+            }
+            this._initialValues = current.slice(0);
+            if (diff.length > 0) {
+                var cbs = document.getElementsByName(itmeName);
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].value == diff[0]) {
+                        cbs[i].checked = false;
+                    }
+                }
+            }
+        }
+        else {
+            var previous = this._savedOld;
+            var current = this.value();
+            var diff = [];
+            if (previous) {
+                diff = $(previous).not(current).get();
+            }
+            this._savedOld = current.slice(0);
+            if (diff.length > 0) {
+                var cbs = document.getElementsByName(itmeName);
+                for (var i = 0; i < cbs.length; i++) {
+                    if (cbs[i].value == diff[0]) {
+                        cbs[i].checked = false;
+                        return;
+                    }
+                }
+            }
+        }
+
+    }
+    function ALL_Select(e) {
+
+        var itmeName = $(e.sender.listView._current[0]).find("input").attr("name");
+        var dataItem = this.dataSource.view()[e.item.index()];
+        var cbs = document.getElementsByName(itmeName);
+        if (e.sender._old.length == 0) {
+            cbs[e.item.index()].checked = true;
+            return;
+        }
+        if ($.inArray(dataItem.itmeName, e.sender._old) > -1) {
+            cbs[e.item.index()].checked = false;
+        }
+        else {
+            cbs[e.item.index()].checked = true;
+        }
+    }
+
+    function onMultiSelectDataBound(e) {
+
+        $(".k-state-selected").find("input").prop("checked", "checked");
+    }
+</script>

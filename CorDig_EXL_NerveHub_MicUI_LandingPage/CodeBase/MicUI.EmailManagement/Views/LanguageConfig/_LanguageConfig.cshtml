@@ -1,0 +1,106 @@
+﻿@model EMSLanguageConfigViewModel
+@using System.Collections
+@using Kendo.Mvc.UI
+@using MicUI.EmailManagement.Models.ViewModels;
+
+<script src="~/lib/bpa/scripts/emslanguageconfig-1.8.2.js"></script>
+@using (Html.BeginForm("SearchView", "LanguageConfig", FormMethod.Post, new { @id = "formSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    ;
+
+    <div class="pt-1 px-3 tableForm">
+
+        <table style="width:100%" id="MainTable">
+            @Html.HiddenFor(s => s.LanguageConfigID)
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Language Config Name"))<span style="font-size:small;color:red">*</span> </td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.LanguageConfigName))</td>
+                <td style="padding-left:10px" align="left"></td>
+                <td style="padding-left:2px" align="left"></td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Api Key"))<span style="font-size:small;color:red">*</span> </td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.ApiKey))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("Api Url"))<span style="font-size:small;color:red">*</span> </td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.ApiUrl))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Source Language"))</td>
+                <td>
+                    @(Html.Kendo().DropDownListFor(c => c.Source).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                        .DataTextField("DisplayName").DataValueField("Name")
+                        .Value(Model.Source)
+                        .DataSource(source => { source.Read(read => { read.Action("GetSourceLanguage", "LanguageConfig"); }).ServerFiltering(true); })
+                        .HtmlAttributes(new { @required = "required", @validationmessage = "Please Select Source Language" })
+                        .AutoBind(true)
+                        )
+                </td>
+                <td style="padding-left:10px" align="left">@(Html.Label("Target Language"))</td>
+                <td style="padding-left:2px" align="left">
+                    @(Html.Kendo().DropDownListFor(c => c.Target).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                        .DataTextField("DisplayName").DataValueField("Name")
+                        .Value(Model.Target)
+                        .DataSource(source => { source.Read(read => { read.Action("GetSourceLanguage", "LanguageConfig"); }).ServerFiltering(true); })
+                        .HtmlAttributes(new { @required = "required", @validationmessage = "Please Select Target Language" })
+                        .AutoBind(true)
+                        )
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Profile ID"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.ProfileID))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("With Source"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.WithSource).Label(string.Empty))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Format"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.Format))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("With Annotations"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.WithAnnotations).Label(string.Empty))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("With Dictionary"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.WithDictionary))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("With Corpus"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.WithCorpus))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Back Translation"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.BackTranslation).Label(string.Empty))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("Options"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.Options[0]))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Encoding"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.Encoding))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("Async"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.Async).Label(string.Empty))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Batch Id"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.BatchId))</td>
+                <td style="padding-left:10px" align="left">@(Html.Label("Callback"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().TextBoxFor(m => m.Callback))</td>
+            </tr>
+            <tr>
+                <td style="padding-left:10px" align="left">@(Html.Label("Incoming Mail"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.IncomingMail).Label(string.Empty))</td>
+
+                <td style="padding-left:10px" align="left">@(Html.Label("Disabled"))</td>
+                <td style="padding-left:2px" align="left">@(Html.Kendo().CheckBoxFor(Model => Model.Disabled).Label(string.Empty))</td>
+
+
+
+                @*<td style="padding-left:10px" align="left"></td>
+            <td style="padding-left:2px" align="left"></td>*@
+            </tr>
+        </table>
+
+        <div class="k-window-footer text-end">
+            @(Html.Kendo().Button().Name("btnClose").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave).Events(ev => ev.Click("OnClickClose")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }))
+        </div>
+
+    </div>
+
+}

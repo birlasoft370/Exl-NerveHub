@@ -1,0 +1,85 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model SubProcessMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_SearchTittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/subprocessmaster-1.8.2.js"></script>
+@using (Html.BeginForm("SubProcessSearchView", "SubProcessMaster", FormMethod.Post, new { @id = "formSubProcessSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_SearchSubProcessName;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class=text-end>
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickSubProcessMaster")).Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Icon("insert-m").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("Go")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Shared/_SearchView.cshtml");
+                }
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SubProcessSearchName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(camp => camp.SubProcessSearchName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.SubProcessList)
+                        .Name("searchGrid")
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5)
+                        ).Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.SubProcessID).Hidden(true);
+                            columns.Bound(u => u.SubProcessName).Title(BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_GridName).HtmlAttributes(new { style = "width:65%" }).HeaderHtmlAttributes(new { style = "color:white;width:65%" });
+                            columns.Command(command => command.Custom(BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "k-primary", @style = "width: auto; color: white;" }).Click("editSubProcess")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            // columns.Command(command => command.Custom("Delete").HtmlAttributes(new { @style = "margin:0em -6em 0em 5em" }).Click("deleteSubProcess"));
+                        }).DataSource(dataSource => dataSource.Ajax().Model(model =>
+                        {
+                            model.Id(u => u.SubProcessID);
+                            model.Field(u => u.SubProcessID).DefaultValue(Model.SubProcessName);
+                        }).PageSize(5).ServerOperation(false)))
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var ResourceSubProcessSearch =
+        {
+            display_DeleteConfirmation: "@BPA.GlobalResources.UI.Resources_common.display_DeleteConfirmation",
+            display_deletemsg: "@BPA.GlobalResources.UI.Resources_common.display_deletemsg",
+            urlPath_Index: ResourceLayout.partialURL + "Index",
+            urlPath_EditingCustom_Edit: ResourceLayout.partialURL + "EditingCustom_Edit",
+            urlPath_EditingCustom_Destroy: ResourceLayout.partialURL + "EditingCustom_Destroy"
+
+        }
+    </script>
+}
+

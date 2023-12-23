@@ -1,0 +1,219 @@
+﻿@using Kendo.Mvc.UI;
+@using MicUI.WorkManagement.Models.ViewModels;
+@model NavMenuViewModel
+@inject IConfiguration _configuration;
+@{
+    var ConfigurationURL = $"{_configuration.GetValue<string>("ConfigurationURL")}";
+    var UserPreferenceChangePage = $"{ConfigurationURL}/Configuration/UserPreference";
+}
+@(Html.Kendo().Menu()
+        .Name("NavMenu")
+            .Items(items =>
+        {
+            items.Add().Text(BPA.GlobalResources.UI.Resources.Welcome + ": " + Model.UserName);
+            items.Add().Text("")
+             .Content(@<text>
+                 <table>
+                     <tr>
+                         <td width="180">
+                             <div class="Images-ico20px-curlang20"></div>
+                             <span>Current Language:</span>
+                         </td>
+                         <td width="180"><span>@Model.Language</span></td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <div class="Images-ico20px-ctimezone20"></div>
+                             <span>Current TimeZone:</span>
+                         </td>
+                         <td>
+                             <span>@Model.TimeZone</span>
+                             @Html.Hidden("hdnCurrentOffset", Model.TimeZone)
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <a href="@UserPreferenceChangePage" tabindex="0">
+                                 <div class="Images-ico20px-userpref20"></div>
+                                 <span>@BPA.GlobalResources.UI.Resources_UserPreference.disp_UserPreference</span>
+                             </a>
+                         </td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <td colspan="4"><hr /></td>
+                     </tr>
+                     @{
+                             //if (HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"] != null)
+                             int tempCount = 0;
+                             int k = 0;
+                             int numberCount = Model.lactiveModule.Count();
+                             int halfIndex = Model.lactiveModule.Count() / 2;
+
+                             if ((numberCount % 2) != 0)
+                             {
+                                 halfIndex = halfIndex + 1;
+                             }
+
+                             for (int i = 0; i < halfIndex; i++)
+                             {
+                                 tempCount = 0;
+                                 <tr>
+                                     @{
+                                         for (int j = k; j < Model.lactiveModule.Count; j++)
+                                         {
+                                             if (Model.lactiveModule[j].ModuleName != string.Empty)
+                                             {
+                                                 if (tempCount == 2)
+                                                 {
+
+                                                     break;
+                                                 }
+
+                                                 else
+                                                 {
+                                                     tempCount++;
+                                                     if (Model.lactiveModule[j].ModuleName.Contains("AppConfiguration"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@ConfigurationURL">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.Configuration" class="Images-ico20px-config20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.Configuration</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("WorkManagement"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "WorkManagement", new { area = "WorkManagement" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.WorkManagement" class="Images-ico20px-swm20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.WorkManagement</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("EmailManagement"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "EmailManagement" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.EMSAdapter" class="Images-ico20px-emailconfig20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.EMSAdapter</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("QualityManagement"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "QualityManagement" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.QualityManagement" class="Images-ico20px-qms20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.QualityManagement</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("LetterLibrary"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "LetterLibrary" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.LetterLibrary" class="Images-ico20px-letterlib20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.LetterLibrary</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("AssessMe"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "AssessMe" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.AssessME" class="Images-ico20px-assess20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.AssessME</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("ProcessGuidance"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home" , new { area="ProcessGuidance" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.ProcessGuidance" class="Images-ico20px-assist20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.ProcessGuidance</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("QueryTracker"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "QueryTracker" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.QueryTracker" class="Images-ico20px-querytracker20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.QueryTracker</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("BIReports"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="@Url.Action("Index", "Home", new { area = "BIReports" })">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.BIReports" class="Images-ico20px-processrepo20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.BIReports</span>
+                                                             </a>
+                                                         </td>
+                                                         k++;
+                                                         continue;
+                                                     }
+
+                                                     else if (Model.lactiveModule[j].ModuleName.Contains("Dashboard"))
+                                                     {
+                                                         <td width="80">
+                                                             <a href="/Dashboard/Birlasoft_52/DesktopConsole.application?ApplicationURl=https://bpademo.exlservice.com&Tenant=Birlasoft">
+                                                                 <div title="@BPA.GlobalResources.UI.Resources.Dashboard" class="Images-ico20px-agentdash20"></div>
+                                                                 <span>@BPA.GlobalResources.UI.Resources.Dashboard</span>
+                                                             </a>
+                                                         </td>
+
+                                                         @*  <td width="80">
+            <a href="/Dashboard/@Model.ClientName/DesktopConsole.application?ApplicationURl=@GetURL()">
+            <div title="@BPA.GlobalResources.UI.Resources.Dashboard" class="Images-ico20px-agentdash20"></div>
+            <span>@BPA.GlobalResources.UI.Resources.Dashboard</span>
+            </a>
+            </td>*@
+                                                         k++;
+                                                         continue;
+                                                     }
+                                                     else
+                                                     {
+                                                         k++;
+                                                     }
+                                                 }
+                                             }
+                                             else
+                                             {
+                                                 k++;
+                                             }
+                                         }
+                                     }
+                                 </tr>
+                             }
+                         }
+                         <tr>
+                             <td colspan="4">
+                                 <a href="@Url.Action("Logout", "Home", new { area = string.Empty })">
+                                     <div class="Images-ico20px-signout20"></div>
+                                     <span>@BPA.GlobalResources.UI.Resources.Signout</span>
+                                 </a>
+                             </td>
+                         </tr>
+                     </table>
+                 </text>);
+        }))

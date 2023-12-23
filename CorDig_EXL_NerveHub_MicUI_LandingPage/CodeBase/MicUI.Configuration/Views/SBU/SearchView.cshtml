@@ -1,0 +1,82 @@
+﻿@using MicUI.Configuration.Services;
+@using MicUI.Configuration.Services.ServiceModel;
+@model MicUI.Configuration.Models.ViewModels.SBUViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.displaySearchTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/lib/bpa/scripts/sbu-1.8.2.js"></script>
+@using (Html.BeginForm("SearchView", "SBU", FormMethod.Post, new { @id = "formSBU" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.displaySearchTitle
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew).Icon("insert-m").Events(ev => ev.Click("OnClickSearchNew"))
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).Events(ev => ev.Click("SBUSearch")))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+
+                        @Html.LabelFor(a => a.SBUSeachName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.SBUSeachName).HtmlAttributes(new { @data_val = "false", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid<BESBUInfo>().Name("gridViewSBU").AutoBind(false)
+                        .Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iSBUID).Hidden(true);
+                            columns.Bound(u => u.sName).Title(@BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.DisplaySBUNAME.TrimEnd(':'));
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Edit_Button).HtmlAttributes(new { @class = "k-primary" }).Click("SBUKeepTemp")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Delete_Button).Click("deleteSBU")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .DataSource(dataSource => dataSource.Ajax().PageSize(5)
+                        .ServerOperation(false).Read(read => read.Action("SBU_Read", "SBU").Data("SUBFilterGrid")).Batch(false)))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#SBUName").removeClass('input-validation-error');
+    $("#SBUgrid").hide();
+    controller = 'SBU';
+</script>
+<script>
+    var ResourceSearchSubProcess =
+    {
+        SBUDeleteMsg: '@BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.msgDeleted',
+        SBUDeleteConfirmation: '@BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.msgDeleteConfirm',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_EditingCustom_Edit: ResourceLayout.partialURL + "EditingCustom_Edit",
+        urlPath_Delete: ResourceLayout.partialURL + "Delete"
+    }
+</script>

@@ -1,0 +1,82 @@
+﻿@using MicUI.Configuration.Services;
+@using MicUI.Configuration.Services.ServiceModel;
+@model MicUI.Configuration.Models.ViewModels.LOBViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_SearchLOB_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/lob-1.8.2.js"></script>
+@using (Html.BeginForm("LOBSearchView", "LOB", FormMethod.Post, new { @id = "formLOB" }))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.ValidationSummary(true)*@
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_SearchLOB_Title
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickLOBNew")).Icon("insert-m")
+                            .Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @*@(Html.Kendo().Button().Name("btnNew").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew).Icon("insert-m")
+                    .HtmlAttributes(new { type = "button", @class = "k-primary kendobutton", @onclick = "MoveToUrl('/AppConfiguration/LOB/Index')" }))*@
+
+                        @(Html.Kendo().Button().Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).Events(ev => ev.Click("LOBSearch")))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.LOBSeachName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.LOBSeachName).HtmlAttributes(new { @data_val = "false", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid<BELOBInfo>().Name("gridViewLOB").AutoBind(false).Pageable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iLOBID).Hidden(true);
+                            columns.Bound(u => u.sLOBName).Title(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_LOBName.TrimEnd(':')).HtmlAttributes(new { @style = "text-align:left" });
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Edit_Button).HtmlAttributes(new { @class = "btn-outline-primary btn btn-sm" }).Click("LOBKeepTemp")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_LOB.display_Delete_Button).HtmlAttributes(new { @class = "k-primary  buttonstyle" }).Click("LOBdelete")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .Pageable(pageable => pageable.Refresh(true).PageSizes(true).ButtonCount(5)).Events(x => x.DataBound("onRowBoundSearchGrid"))
+                        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("LOB_Read", "LOB").Data("LOBFilterGrid"))))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#LOBName").removeClass('input-validation-error');
+    $("#LOBgrid").hide();
+    controller = 'LOB';
+
+    var ResourceLOBSearchView = {
+        LOBDeleteConfirmation: '@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Delete_Confirmation',
+        LOBDeleteMsg: '@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Delete',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_EditingCustom_Edit: ResourceLayout.partialURL + "EditingCustom_Edit",
+        urlPath_Delete: ResourceLayout.partialURL + "Delete"
+
+    }
+
+
+</script>

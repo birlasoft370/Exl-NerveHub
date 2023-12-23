@@ -1,0 +1,99 @@
+/*Nav-Menu*/
+.login .k-content {
+    background: #efefef !important;
+    border: 1px solid #efefef;
+    left: 0;
+    line-height: 30px;
+    padding: 15px;
+    font-size: 14px;
+    position: relative;
+}
+
+    .login .k-content table {
+        border: none;
+    }
+
+    .login .k-content td {
+        text-align: left;
+        padding: 4px;
+    }
+
+
+        .login .k-content td div[class^='Images-ico20px'],
+        .login .k-content td div[class*='Images-ico20px'] {
+            margin-right: 10px;
+            background-size:20px 300px;
+        }
+
+    .login .k-content span {
+        padding: 0 3px;
+    }
+
+
+    .login .k-content hr {
+        margin: 5px 0 !important;
+        border: none;
+        border-top: 1px solid #000;
+        height: 0;
+    }
+
+    .login .k-content a {
+        color: #000;
+        text-align: left;
+        display: flex;
+        align-items: center;
+    }
+
+        .login .k-content a:hover {
+            color: #fb4e0b;
+        }
+        .login .k-content a:hover div[class*='Images-ico20px'] {
+           // filter:grayscale(100%) contrast(1000%);
+        }
+
+        #NavMenu_mn_active .k-menu .k-item > .k-link {
+            padding: 0.7em 1.2em 0.3em !important;
+        }
+
+/***/
+.userMenu {
+    margin-right: 10px;
+}
+
+    .userMenu .k-header {
+        background-color: #efefef;
+        background-image: none;
+        color: #000;
+        line-height: normal;
+    }
+
+        .userMenu .k-header .k-first .k-menu-link {
+            font-size: 13px;
+            padding: 5px 10px;
+            font-weight: 400;
+        }
+
+        .userMenu .k-header .k-last .k-menu-link {
+            font-size: 12px;
+            padding: 5px;
+            font-weight: 400;
+            min-width: 15px;
+        }
+
+        .userMenu .k-header .k-last {
+            border-left: 1px solid #ddd !important;
+        }
+
+            .userMenu .k-header .k-last .k-menu-link.k-state-active {
+                background-color: #ccc;
+            }
+
+        .userMenu .k-header .k-item .k-menu-link .k-menu-expand-arrow {
+            margin-right: 0;
+            margin-top: 0;
+        }
+
+        .userMenu .k-header .k-state-hover .k-menu-link {
+            background-color: #ddd;
+            background-image: none;
+        }

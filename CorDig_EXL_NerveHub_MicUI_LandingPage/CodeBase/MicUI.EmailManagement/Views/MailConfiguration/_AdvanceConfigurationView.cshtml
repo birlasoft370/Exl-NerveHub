@@ -1,0 +1,232 @@
+﻿@using MicUI.EmailManagement.Models.ViewModels;
+@using MicUI.EmailManagement.Services.ServiceModel;
+@model MailConfigurationViewModel
+
+<script src="~/lib/bpa/scripts/mailconfiguration-1.8.2.js"></script>
+<style>
+    #treeview .k-sprite {
+        background-image: url("@Url.Content("~/Content/web/treeview/coloricons-sprite.png")");
+    }
+
+    .rootfolder {
+        background-position: 0 0;
+    }
+
+    .folder {
+        background-position: 0 -16px;
+    }
+
+    .pdf {
+        background-position: 0 -32px;
+    }
+
+    .html {
+        background-position: 0 -48px;
+    }
+
+    .image {
+        background-position: 0 -64px;
+    }
+</style>
+<style type="text/css" scoped>
+    .k-in k-state-hover {
+        background: #7EA700;
+        color: #ffffff;
+        border: 1px solid green;
+        padding: 39px;
+    }
+
+    .k-treeview .k-in.k-state-hover {
+        background-image: none;
+        background-color: #fff;
+        border: none;
+        border-left-width: 10px;
+    }
+</style>
+<style>
+    #grdSubFolder .k-header .k-link {
+        text-align: center;
+    }
+
+    /*
+        #grdSubFolder .k-grid-header .k-header {
+            background-color: #336699;
+            }*/
+
+    #grdSubFolder .k-grid th.k-header .k-link {
+        color: white;
+    }
+</style>
+<div>
+    <div class="px-3">
+        <div class="row">
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @Html.LabelFor(x => x.BatchFrequencyType, new { @class = "form-label label-required" })
+                    @(Html.Kendo().DropDownListFor(model => model.BatchFrequencyType).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).BindTo(Enum.GetNames(typeof(BatchFrequencyType)).ToList()))
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4" style="display:none;">
+                <div class="mb-3">
+                    @Html.LabelFor(a => a.iTimeZoneID, new { @class = "form-label" })
+                    @(Html.Kendo().DropDownListFor(m => m.iTimeZoneID).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sTimeZoneID").DataValueField("iTimeZoneID").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataSource(source => { source.Read(read => { read.Action("GetTimeZone", "MailConfiguration"); }); }))
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="mb-3 ">
+                    <div class="d-inline-block mx-3 ms-0 pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bSendmailquiqueidentified).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Sendmailquiqueidentified))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0 pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bScheduletosameuser).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Scheduletosameuser))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0 pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bInlineEditing).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_InlineEditing))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bNeedeFile).Label("Need eFile"))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bNeedPrint).Label("Need Print"))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bReadMailBody).Label("Read Mail Body"))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bNeedTicket).Label("Need Ticket"))
+                        </div>
+                    </div>
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bDuringUpload).Label("During Upload eTicket"))
+                        </div>
+                    </div>
+
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bSensitivity).Label("Sensitivity"))
+                        </div>
+                    </div>
+
+
+                    <div class="d-inline-block mx-3 ms-0  pt-2 pb-2">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(x => x.bFreshRequired).Label("Fresh Required"))
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @(Html.Label("CEX launcher Path", "CEX launcher Path", new { @class = "form-label" }))
+                    @(Html.Kendo().TextBoxFor(a => a.sCEXlauncherPath).HtmlAttributes(new { @class = "form-control" }))
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @(Html.Label("Ticket Name", "Ticket Name", new { @class = "form-label" }))
+                    @(Html.Kendo().TextBoxFor(a => a.sTicketName).HtmlAttributes(new { @class = "form-control" }))
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @(Html.Label("Upload By", "Upload By", new { @class = "form-label" }))
+                    @(Html.Kendo().TextBoxFor(a => a.iUploadBy).HtmlAttributes(new { @class = "form-control" }))
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @(Html.Label("Need Ticket Length", "Need Ticket Length", new { @class = "form-label" }))
+                    @(Html.Kendo().TextBoxFor(a => a.iNeedTicketLenth).HtmlAttributes(new { @class = "form-control" }))
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3 pt-3">
+                    <div class="custom-input pt-3">
+                        @(Html.Kendo().CheckBoxFor(x => x.bCFX).Label("CFX"))
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3 pt-3">
+                    <div class="custom-input pt-3">
+                        @(Html.Kendo().CheckBoxFor(x => x.bOutLookMailEnabled).Label("Open Outlook Mail"))
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3 pt-3">
+                    <div class="custom-input pt-3">
+                        @(Html.Kendo().CheckBoxFor(x => x.bAssignLast).Label("Assign to Last User: "))
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4 pt-1">
+                <div class="mb-3 pt-4">
+                    @(Html.Kendo().DropDownListFor(a => a.AssignType).HtmlAttributes(new { @class = "formSelect" })
+                        .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .BindTo(new List<SelectListItem>()
+                    { new SelectListItem() {
+                    Text = "Created By",
+                    Value = "Created By"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "Primary User",
+                    Value = "Primary User"
+                    }
+                    })
+                        )
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3 pt-3">
+                    <div class="custom-input pt-3">
+                        @(Html.Kendo().CheckBoxFor(a => a.bSubmitDisplay).Label("On Submit Message"))
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @(Html.Label("EFile Path", "EFile Path", new { @class = "form-label" }))
+                    @(Html.Kendo().TextBoxFor(a => a.sEfilePath).HtmlAttributes(new { @class = "form-control" }))
+                </div>
+            </div>
+        </div>
+        <div class="k-window-footer text-end">
+            @(Html.Kendo().Button().Name("btnSaveAdvanceConfiguration").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave).Events(ev => ev.Click("OnClickSaveAdvnaceConfig")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn kendobutton" }))
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .k-checkbox-wrapper {
+        padding-right: 10px;
+    }
+</style>

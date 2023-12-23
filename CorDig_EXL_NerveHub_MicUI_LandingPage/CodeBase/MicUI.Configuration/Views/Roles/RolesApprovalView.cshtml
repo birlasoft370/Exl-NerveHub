@@ -1,0 +1,21 @@
+﻿
+
+
+<div class="px-3 py-1">
+    <div>rrihhiehoh</div>
+
+    <div class="formTable">
+        @(Html.Kendo().Grid<MicUI.Configuration.Models.ViewModels.RoleViewModel>().Name("gridRoleApproval").Pageable(pageable => pageable.Refresh(true).PageSizes(true).ButtonCount(5))
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.RequestBy);
+                columns.Bound(p => p.RequestDesc);
+                columns.Bound(p => p.RequestDate);
+                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approve).HtmlAttributes(new { @class = "btn-primary btn-sm btn" }).Click("btnApprove_Click")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approve);
+                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Reject).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("btnRejected_Click")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Reject);
+            }).AutoBind(true)
+            .HtmlAttributes(new { style = "height:100%;" }).DataSource(dataSource => dataSource.Ajax().PageSize(10).Model(model => model.Id(w => w.RequestId)).Read(read => read.Action("RoleApproval_ReadP", "Roles"))
+            )
+            )
+    </div>
+</div>

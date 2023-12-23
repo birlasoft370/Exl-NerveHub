@@ -1,0 +1,131 @@
+﻿@using Microsoft.AspNetCore;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/images/bpa/exl_21_logo_org.svg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link href="@Url.Content("~/css/bpa/content/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/kendo.default.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/bootstrap/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/appconfig.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/loader.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/style/global.css")" rel="stylesheet" type="text/css" />
+
+    <style>
+        .k-loading-image {
+            background-image: url("~/images/bpa/PleaseWait_3.gif") !important;
+        }
+
+        .k-filter-row th,
+        .k-grid-header th.k-header {
+            width: 175px !important;
+        }
+
+        .k-grid td {
+            width: 175px !important; /*min-width: 161.8px !important;*/
+        }
+    </style>
+
+    <script src="~/lib/bpa/bundles/modernizr.js"></script>
+    <script src="~/lib/bpa/bundles/jquery.js"></script>
+    <script src="~/lib/bpa/bundles/jquerymigrate.js"></script>
+    <script src="~/lib/bpa/bundles/jqueryui.js"></script>
+    <script src="~/lib/bpa/bundles/kendo/20212616.js"></script>
+    <!--Header Bundle-->
+    <script src="~/lib/bpa/bundles/header/jquery.alerts.min.js"></script>
+    <script src="~/lib/bpa/bundles/header/timezone-ajax.min.js"></script>
+    <script src="~/lib/bpa/bundles/header/jscommon-1.8.2.js"></script>
+
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+    @*@if (ViewContext.RouteData.Values["tenantName"] != null)
+    {*@
+    <script>
+        var ResourceLayout = {
+            tenantName: "",
+            partialURL: "",
+            partiaArea: ""
+        }
+    </script>
+    @* }*@
+</head>
+<body>
+    <script>
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            //jAlert(thrownError, "DCC Application");
+            console.log(thrownError);
+        });
+    </script>
+
+    @await Html.PartialAsync("_HeaderLogOut")
+
+    @RenderSection("featured", required: false)
+    <section class="clear-fix onlyBody">
+        @RenderBody()
+    </section>
+    <footer id="footer">
+        <small>&copy; @BPA.GlobalResources.UI.Resources.CopyRight</small>
+    </footer>
+
+
+    @RenderSection("scripts", required: false)
+    <script>
+        @Html.Raw(ViewBag.StartupScript)
+    </script>
+    @*
+    <script src="~/Scripts/TimeZone-Ajax.js"></script>*@ @*due to this all the date time control in side kendo grid is showing in format "MM/dd/yyyy HH:mm:ss" so it should be remove from here and need to render only required page *@
+    @*<script src="~/Scripts/TimeZone-Ajax.min.js"></script>*@
+    @*Due to this all the datetime column of kendo grid are showing in format "MM/dd/yyyy HH:mm:ss" but in case of RosterDate is should be "MM/DD/YYYY"*@
+    <script type="text/javascript">
+
+        @*@functions {
+            //public string GetAntiForgeryToken()
+            //{
+            //    string cookieToken, formToken;
+            //    Microsoft.AspNetCore.Antiforgery.GetTokens(null, out cookieToken, out formToken);
+            //    return cookieToken + "," + formToken;
+            //}
+            }*@
+        @* // Dissable back button on browser*@
+            window.location.hash = "";
+            window.location.hash = ""; @*//again because google chrome don't insert first hash into history*@
+            window.onhashchange = function () 
+            { window.location.hash = ""; }
+
+    </script>
+
+    <!--Footer Bundle-->
+    <script src="~/lib/bpa/bundles/footer/cutomclientvalidation.min.js"></script>
+    <script src="~/lib/bpa/bundles/footer/jsresetsession.js"></script>
+    <script src="~/lib/bpa/bundles/footer/kendo/2021.2.616/jszip.min.js"></script>
+
+    @*<input type="hidden" id="forgeryToken" value="@GetAntiForgeryToken()" />*@
+
+    @if (IsSectionDefined("AddToFoot"))
+    {
+        @RenderSection("AddToFoot", required: false)
+    }
+</body>
+<script>
+    function HomeFunc() {
+        window.location.href = ResourceLayout.partiaArea + "Home/Index";
+    }
+    $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+    $(window).on('load', function () {
+        setTimeout(removeLoader, 2000); //wait for page load PLUS two seconds.
+    });
+    function removeLoader() {
+        $("#loadingDiv").fadeOut(500, function () {
+            // fadeOut complete. Remove the loading div
+            $("#loadingDiv").remove(); //makes page more lightweight
+        });
+    }
+</script>
+</html>

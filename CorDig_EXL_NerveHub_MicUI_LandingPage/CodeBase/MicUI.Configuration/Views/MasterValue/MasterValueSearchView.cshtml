@@ -1,0 +1,111 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model MicUI.Configuration.Models.ViewModels.MasterValueViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + "| " + @BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.display_MasterValueSearch;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/lib/bpa/scripts/MasterValue-1.8.2.js"></script>
+
+@using (Html.BeginForm("MasterValueSearchView", "MasterValue", FormMethod.Post, new { @id = "formMasterValue", @name = "formMasterValue" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.dispSearchMasterValueType;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        <span>
+                            @(Html.Kendo().Button()
+                                .Name("btnNew").Icon("insert-m")
+                                .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickNewMasterValue"))
+                                .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        </span>
+                        <span>
+                            @(Html.Kendo().Button()
+                                .Name("btnSearch").Icon("search")
+                                .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Events(ev => ev.Click("GoMasterValue"))
+                                .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.MasterValueSearchName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(camp => camp.MasterValueSearchName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.MasterValueList)
+                        .Name("searchGrid").Events(x => x.DataBound("onRowBoundSearchGrid"))
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5)
+                        ).Events(ev => ev.DataBound("onRowBoundsearchGrid"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.MasterValueID).Hidden(true);
+                            columns.Bound(u => u.MasterValueSearchName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.display_MasterType).HtmlAttributes(new { style = "width:55%" }).HeaderHtmlAttributes(new { style = "color:white;width:55%" });
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn btn-sm btn-outline-primary" }).Click("editMasterValue")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //   columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new {  @class = "k-primary" }).Click("deleteMasterValue")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+
+                            //columns.Command(command => command.Custom("Edit").Click("editMasterValue")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "k-primary" });
+                            //columns.Command(command => command.Custom("Delete").Click("deleteMasterValue")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary" });
+
+                        })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax()//.Read(read => read.Action("MasterValue_Read", "MasterValue"))
+                        .Model(model =>
+                        {
+                            model.Id(u => u.MasterValueID);
+                            model.Field(u => u.MasterValueID).DefaultValue(Model.MasterValueSearchName);
+                        }).PageSize(10).ServerOperation(false)
+
+                        )
+
+                        )
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+@*<script>
+    var urlPathIndex = ResourceLayout.partiaArea + "Home/Index";
+</script>*@
+
+<script>
+    var ResourceMasterValueSearch = {
+        display_DeleteConfirmation: '@BPA.GlobalResources.UI.Resources_common.display_DeleteConfirmation',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_LOBSearchView: ResourceLayout.partialURL + "LOBSearchView",
+        urlPath_SetMasterValueID: ResourceLayout.partialURL + "SetMasterValueID",
+        urlPath_EditingCustom_Destroy: ResourceLayout.partialURL + "EditingCustom_Destroy"
+
+    }
+</script>

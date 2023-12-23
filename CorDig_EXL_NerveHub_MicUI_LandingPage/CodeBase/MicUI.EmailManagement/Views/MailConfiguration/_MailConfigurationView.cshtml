@@ -1,0 +1,459 @@
+﻿@model MailConfigurationViewModel
+@using System.Collections;
+@using Kendo.Mvc.UI;
+@using MicUI.EmailManagement.Models.ViewModels;
+
+<style>
+    #treeview .k-sprite {
+        background-image: url("@Url.Content("~/Content/web/treeview/coloricons-sprite.png")");
+    }
+
+    .rootfolder {
+        background-position: 0 0;
+    }
+
+    .folder {
+        background-position: 0 -16px;
+    }
+
+    .pdf {
+        background-position: 0 -32px;
+    }
+
+    .html {
+        background-position: 0 -48px;
+    }
+
+    .image {
+        background-position: 0 -64px;
+    }
+</style>
+<style type="text/css" scoped>
+    .k-in k-state-hover {
+        background: #7EA700;
+        color: #ffffff;
+        border: 1px solid green;
+        padding: 39px;
+    }
+
+    .k-treeview .k-in.k-state-hover {
+        background-image: none;
+        background-color: #fff;
+        border: none;
+        border-left-width: 10px;
+    }
+</style>
+<style>
+    /*#grdSubFolder .k-header .k-link {
+                text-align: center;
+            }
+
+            #grdSubFolder .k-grid-header .k-header {
+                background-color: #336699;
+            }
+
+            #grdSubFolder .k-grid th.k-header .k-link {
+                color: white;
+            }*/
+</style>
+<script src="~/lib/bpa/scripts/mailconfiguration-1.8.2.js"></script>
+@using (Html.BeginForm("SearchView", "MailConfiguration", FormMethod.Post, new { @id = "formSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    ;
+    <div class="px-4">
+        <div id="MainTable">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ExchangeServerType, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ExchangeServerType, new { @class = "form-label label-required" }))
+                        @Html.HiddenFor(s => s.MailConfigID)
+                        @(Html.Kendo().DropDownListFor(a => a.MailServerTypeID).HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text").Events(ev => ev.Change("OnChangeMailServerTypeID"))
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_DominoServer,
+                    Value = "0"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Office2007Sp1,
+                    Value = "1"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Office2010Sp1,
+                    Value = "2"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Office2010Sp2,
+                    Value = "3"
+                    } ,
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Office365,
+                    Value = "4"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text ="MicrosoftGraph",
+                    Value = "5"
+                    }
+                    })
+                            )
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Foldertype, @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Foldertype, new { @class = "form-label label-required" }))
+                        @{
+                            List<SelectListItem> DataListForOutLook = new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Primary,
+                    Value = "1"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SharedMailbox,
+                    Value = "2"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PublicFolder,
+                    Value = "3"
+                    }
+                    };
+
+                        }
+
+                        @(Html.Kendo().DropDownListFor(a => a.FolderType).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value").BindTo(DataListForOutLook)
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 Outlook">
+                    <div class="mb-3 pt-4">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(Model => Model.UseServiceCredentialToPull).Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_UseCredentialToPull))
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 Outlook">
+                    <div class="mb-3 pt-4">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(Model => Model.UseUserCredentialToSend).Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_UseCredentialToSend))
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ConfigurationName, @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ConfigurationName, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.MailBoxName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EmailID, @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EmailID, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.EmailID).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_UserID, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_UserID, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(a => a.UserID).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Passwords, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Passwords, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(m => m.Password).HtmlAttributes(new { type = "password", @class = "form-control" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ScheduleIntervalTime, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ScheduleIntervalTime, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().NumericTextBox<double>().Name("ScheduleInterval").Value(Convert.ToDouble(Model.ScheduleInterval)).Format("# (Min)").Min(0).Max(9999).HtmlAttributes(new { @class = "form-num" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 Outlook" style="display: none;">
+                    <div class="mb-3">
+                        @(Html.Label("Client Secret ID", "Client Secret ID", new { @class = "form-label label-required SCID" }))
+
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AutoDiscoveryPath, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AutoDiscoveryPath, new { @class = "form-label label-required auto" }))
+
+
+                        @(Html.Kendo().TextBoxFor(a => a.AutoDiscoveryPath).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3" style="display: none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusDomainPrefix, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusDomainPrefix, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(a => a.LotusDomainPrefix).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 Lotus" style="display:none">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusServerPath, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusServerPath, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.LotusServerPath).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3 Lotus" style="display:none">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_NFSFilePath, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_NFSFilePath, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(a => a.NFSFilePath).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3 Lotus" style="display:none">
+                    <div class="mb-3 pt-4">
+                        <div class="custom-input">
+                            @(Html.Kendo().CheckBoxFor(Model => Model.WebEnabled).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_WebEnabled))
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 Lotus" style="display:none">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusDomainName, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_LotusDomainName, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.LotusDomainName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3" style="display:block;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_WebServerURL, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_WebServerURL, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.WebServerURL).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_OutofOffice, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_OutofOffice, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.sOutofOffice).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-xl-9">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-3">
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.AutoReplyEnableDisable).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AutoReply))
+                            </div>
+
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.IsReadMail).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_IsReadMail))
+                            </div>
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.ServiceType).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_IsClientService))
+                            </div>
+
+                            <div class="custom-input d-inline-block">
+                                @(Html.Kendo().CheckBox().Name("chkDefaultWebServerURL").Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_chkDefaultWebServerURL))
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("Mail Template", "Mail Template", new { @class = "form-label" }))
+                        @(Html.Kendo().DropDownListFor(a => a.AutoReplyTemplate).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" })
+                            .DataValueField("iMailTemplateId").DataTextField("sMailTemplateName")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetMailTemplateList", "MailConfiguration").Data("GetTemplateValue");
+                                }).Events(ev => ev.Error("DropDownError"));
+                            })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-xl-6">
+                    <div class="mb-3">
+                        <div class="pt-3">
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.bOutofOfficeEnabled).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_OutofOffice))
+                            </div>
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.bImpersonation).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Impersonation))
+                            </div>
+
+                            <div class="custom-input d-inline-block">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.Disable).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Disable))
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-sm-4 col-xl-3 ImpersonationIDType" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ImpersonationIDType, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ImpersonationIDType, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DropDownListFor(a => a.sImpersonationIDType)
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PrincipalName,
+                    Value = "1"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SID,
+                    Value = "2"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SmtpAddress,
+                    Value = "3"
+                    }
+                    })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 ImpersonationIDType" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ImpersonationID, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ImpersonationID, new { @class = "form-label label-required" }))
+                        @(Html.Kendo().TextBoxFor(Model => Model.sImpersonationID).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-8 col-xl-6">
+                    <div class="mb-3">
+
+                        <div class="pt-3">
+                            <div class="custom-input d-inline-block mx-4 ms-0">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.bOutLookEnabled).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_OutLook))
+                            </div>
+                            <div class="custom-input d-inline-block">
+                                @(Html.Kendo().CheckBoxFor(Model => Model.bTranslationEnabled).Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Translated))
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3 div_forgraph" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ClientID, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ClientID, new { @class = "form-label" }))
+                        @(Html.Kendo().TextBoxFor(a => a.GClinetID).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 div_forgraph" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_TenentID, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_TenentID, new { @class = "form-label" }))
+                        @(Html.Kendo().TextBoxFor(a => a.TenentID).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 div_forgraph" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Scope, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Scope, new { @class = "form-label" }))
+                        @(Html.Kendo().TextBoxFor(a => a.Scope).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 div_forgraph" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_RedirectUrl, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_RedirectUrl, new { @class = "form-label" }))
+                        @(Html.Kendo().TextBoxFor(a => a.RedirectUrl).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 div_forgraph" style="display:none;">
+                    <div class="mb-3">
+                        @(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Instance, BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Instance, new { @class = "form-label" }))
+                        @(Html.Kendo().TextBoxFor(a => a.Instance).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Kendo().CheckBoxFor(a => a.IsForSWMIntegration).Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SWMIntegration))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Kendo().CheckBoxFor(a => a.IsSWMEMSIntegration).Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SWMEMSIntegration))
+                    </div>
+                </div>
+            </div>
+            <div class="pt-3 pb-3 text-end">
+                @(Html.Kendo().Button().Icon("plus").Name("BtnTestConnection").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_TestMailServerConnectivity))
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="bg-table">
+                    <h3 class="mb-0">@(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_MailBoxFolder))</h3>
+                </div>
+                <div id="FirstColumn" class="border" style=" overflow: auto;">
+                    <div id="treeview" class="formTable" style="height: 300px;"></div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="bg-table">
+                    <h3 class="mb-0">@(Html.Label(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_RootSubRootPath))</h3>
+                </div>
+                <div id="SecondColumn" class="border" style=" overflow: auto;">
+                    <div id="grdSubFolder" class="formTable" style="height: 300px;"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="load" style="display: none;padding-left:10px; text-align:center;  background: url('link/to/semitransparent.png'); "><span style="color:#336699;font-family:Tahoma;font-size:medium;animation:alternate">@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseWaitLoadingMailFolders </span></div>
+    <div class="k-window-footer text-end">
+        @(Html.Kendo().Button().Name("btnClose").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave).Events(ev => ev.Click("OnClickClose")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }))
+    </div>
+
+}
+
+@*//For Tree View*@
+<style>
+    .k-checkbox-wrapper {
+        padding-right: 10px;
+    }
+</style>

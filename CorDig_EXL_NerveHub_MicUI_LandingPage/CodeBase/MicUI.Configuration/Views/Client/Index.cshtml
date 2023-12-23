@@ -1,0 +1,205 @@
+﻿@model ClientViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    var editable = true;
+    if (Model.iClientID == 0)
+    {
+        editable = true;
+    }
+    else
+    {
+        editable = false;
+
+    }
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/client-1.8.2.js"></script>
+
+<script>
+    //$('.k-textbox k-valid valid').live('keypress', function (e) {
+    //    alert("hello");
+    //    //if ($('.k-textbox').val() == "" && (e.which == 40 || e.which == 123 || e.which == 125 || e.which == 91 || e.which == 92 || e.which == 124 || e.which == 93 || e.which == 63 || e.which == 32 || e.which == 37 || e.which == 126 || e.which == 96 || e.which == 33 || e.which == 35 || e.which == 36 || e.which == 37 || e.which == 94 || e.which == 38 || e.which == 42 || e.which == 41 || e.which == 45 || e.which == 61 || e.which == 43 || e.which == 42 || e.which == 47 || e.which == 44 || e.which == 60 || e.which == 62 || e.which == 59 || e.which == 58 || e.which == 34 || e.which == 39)) {
+    //    //    return false;
+    //    //}
+
+    //    //if ($('.k-textbox').val() != "" && (e.which == 40 || e.which == 123 || e.which == 125 || e.which == 92 || e.which == 93 || e.which == 91 || e.which == 124 || e.which == 63 || e.which == 37 || e.which == 126 || e.which == 96 || e.which == 33 || e.which == 35 || e.which == 36 || e.which == 37 || e.which == 94 || e.which == 38 || e.which == 42 || e.which == 41 || e.which == 45 || e.which == 61 || e.which == 43 || e.which == 42 || e.which == 47 || e.which == 44 || e.which == 60 || e.which == 62 || e.which == 59 || e.which == 58 || e.which == 34 || e.which == 39)) {
+    //    //    return false;
+    //    //}
+    //});
+</script>
+
+@using (Html.BeginForm("Index", "Client", FormMethod.Post, new { @id = "frmClientIndex" }))
+{
+    <div class="formWrap">
+        @Html.AntiForgeryToken()
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.iClientID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.displayCreateNewClient : @BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.displayModifyExistingClient;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn btn-outline-primary btn-sm mx-2 ms-0" }).Events(ev => ev.Click("OnClientClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnSaveClient").Events(ev => ev.Click("btnSaveOnClickCleint")).Icon("plus").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnClientClickView")).HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <input name="ClientID" id="ClientID" type="hidden" value="0" data-val="true">
+            @Html.HiddenFor(a => a.iClientID)
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName,@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Client_Name, new { @class = "form-label label-required" })
+                        @(Html.Kendo().TextBoxFor(a => a.ClientName).HtmlAttributes(new { @maxlength = "50", @class = "form-control" }))
+                    </div>
+
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.VerticalID,@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Vertical,
+                    new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.VerticalID)
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sVerticalName")
+                            .DataValueField("iVerticalID")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetVerticalList", "Client");
+
+                                }).Events(ev => ev.Error("DropDownError"));
+                            })
+                            )
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.Description,@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Description, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(a => a.Description).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.Disabled,"Other:", new { @class = "form-label" })
+
+                        <div class="pt-2">
+                            <div class="ml-2 d-inline-block">
+                                <div class="custom-input">
+                                    @(Html.Kendo().CheckBoxFor(m => m.EXLSpecificClient))
+                                </div>
+                            </div>
+                            <div class="ms-5 d-inline-block">
+                                <div class="custom-input">
+                                    @(Html.Kendo().CheckBoxFor(m => m.Disabled))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="nextWrap">
+                @(Html.Kendo().TabStrip().Name("tabstrip").Animation(animation => animation.Open(effect => effect.Fade(FadeDirection.In))).Items(tabstrip =>
+                        {
+                            tabstrip.Add().Text(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_SBU).Selected(true)
+                        .Content(@<text>
+                            <div id="gridClientSBU" class="formTable checkboxTable"></div>
+                        </text>);
+                        }))
+            </div>
+        </div>
+    </div>
+}
+@{
+    if (ViewData["result"] != "" && ViewData["result"] != null)
+    {
+        <script type="text/javascript" language="javascript">
+            jAlert('@ViewData["result"]');
+        </script>
+    }
+}
+
+<script>
+    var ResourceClientIndex = {
+        display_Save: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Save)',
+        display_Updated: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Update)',
+        displayReguiredSBU: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.displayReguiredSBU)',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_ShowClient: ResourceLayout.partialURL + "ShowClient",
+        urlPath_GetSbuList: ResourceLayout.partialURL + "GetSbuList",
+        urlPath_GetErpSbuListById: ResourceLayout.partialURL + "GetErpSbuListById"
+    }
+
+    $(document).ready(function () {
+        $("#tabstrip-tab-1").removeClass('k-state-default').addClass('k-state-active');
+
+        $.ajax({
+            async: false,
+            type: 'GET'
+            , url: ResourceClientIndex.urlPath_GetSbuList
+            , data: {}
+            , contentType: "application/json"
+            , success: function (result) {
+                //To Bind Grid
+                if (result.lSBUInfo.length > 0) {
+                    var columnslistSBU = [];
+                    $('#gridClientSBU').html("");
+                    columnslistSBU.push({ template: '<label class="only-check-input"><input type="checkbox" class="chkSBU" /><b></b></label>', title: "<label class='only-check-input'><input type='checkbox' class='chkSBUHeader' onclick='checkAllSBU(this)' /><b></b></label>" })//set check box
+                    columnslistSBU.push({ field: "iSBUID ", visible: false, template: "<input type='hidden' name='chkSBU' id='chkSBU' class='SBUid' value='#= iSBUID#'>", hidden: true });
+                    columnslistSBU.push({ field: "sName", visible: true, title: "SBU" });
+                    //columnslistSBU.push({ field: "DISABLED", visible: false, hidden: true });
+                    var dataSourceSUB = new kendo.data.DataSource({
+                        data: result.lSBUInfo,
+                        height: 300,
+                        sortable: true,
+                        schema: {
+                            model: {
+                                Id: "iSBUID",
+                                fields: {
+                                    iSBUID: { editable: false, visible: false },
+                                    sName: { editable: false, title: "SBU" },
+                                    //DISABLED: { type: "boolean", visible: false }
+
+                                }
+                            }
+                        }
+                    });
+
+                    $("#gridClientSBU").kendoGrid({
+                        columns: columnslistSBU,
+                        dataSource: dataSourceSUB,
+                        height: 300,
+                        sortable: true
+                        , scrollable: {
+                            virtual: true
+                        }
+                    });
+                    setTimeout(function () {
+                        CheckGridValues();
+                    }, 1000);
+                    //
+                }
+                else {
+                    $('#gridClientSBU').html("");
+                }
+            },
+        });
+    });
+</script>

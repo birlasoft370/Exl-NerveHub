@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Disp_BtnGetERPProcesses" xml:space="preserve">
+    <value>Get ERP Processes</value>
+  </data>
+  <data name="Disp_Calender" xml:space="preserve">
+    <value>Calender:</value>
+  </data>
+  <data name="Disp_CleintName" xml:space="preserve">
+    <value>Client Name:</value>
+  </data>
+  <data name="Disp_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="Disp_Disable" xml:space="preserve">
+    <value>Disable:</value>
+  </data>
+  <data name="Disp_EffEndDate" xml:space="preserve">
+    <value>Eff. End Date:</value>
+  </data>
+  <data name="Disp_EffStartDate" xml:space="preserve">
+    <value>Eff. Start Date:</value>
+  </data>
+  <data name="Disp_ERPCode" xml:space="preserve">
+    <value>ERP Code:</value>
+  </data>
+  <data name="Disp_ERPName" xml:space="preserve">
+    <value>ERP Name:</value>
+  </data>
+  <data name="Disp_ERPProcess" xml:space="preserve">
+    <value>ERP Process</value>
+  </data>
+  <data name="Disp_ERPProcessCode" xml:space="preserve">
+    <value>ERP Process Code:</value>
+  </data>
+  <data name="Disp_ERPProcessName" xml:space="preserve">
+    <value>ERP Process Name:</value>
+  </data>
+  <data name="Disp_ERSCAPType" xml:space="preserve">
+    <value>ERS CAP Type:</value>
+  </data>
+  <data name="Disp_FrequencyFeedbackSupervisor" xml:space="preserve">
+    <value>Frequency of feedback for a supervisor:</value>
+  </data>
+  <data name="Disp_FrequencyQCA" xml:space="preserve">
+    <value>Frequency Of Target For A QCA: </value>
+  </data>
+  <data name="Disp_FTE" xml:space="preserve">
+    <value>FTE:</value>
+  </data>
+  <data name="Disp_Location" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="Disp_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Disp_PilotEndDate" xml:space="preserve">
+    <value>Pilot End Date:</value>
+  </data>
+  <data name="Disp_PilotStartDate" xml:space="preserve">
+    <value>Pilot Start Date:</value>
+  </data>
+  <data name="Disp_ProcessComplexity" xml:space="preserve">
+    <value>Process Complexity:</value>
+  </data>
+  <data name="Disp_ProcessERPMapping" xml:space="preserve">
+    <value>Process ERP Mapping</value>
+  </data>
+  <data name="Disp_ProcessFTE" xml:space="preserve">
+    <value>Process FTE</value>
+  </data>
+  <data name="Disp_ProcessMaster" xml:space="preserve">
+    <value>Process Master</value>
+  </data>
+  <data name="Disp_ProcessName" xml:space="preserve">
+    <value>Process Name:</value>
+  </data>
+  <data name="Disp_ProcessSLA" xml:space="preserve">
+    <value>Stage:</value>
+  </data>
+  <data name="Disp_ProcessType" xml:space="preserve">
+    <value>Process Type:</value>
+  </data>
+  <data name="Disp_ProcessWorkType" xml:space="preserve">
+    <value>Voice/Non voice/Blended:</value>
+  </data>
+  <data name="Disp_ProductionEndDate" xml:space="preserve">
+    <value>Production End Date:</value>
+  </data>
+  <data name="Disp_ProductionStartDate" xml:space="preserve">
+    <value>Production Start Date:</value>
+  </data>
+  <data name="Disp_QCACount" xml:space="preserve">
+    <value>QCA Count</value>
+  </data>
+  <data name="Disp_SBUName" xml:space="preserve">
+    <value>SBU Name:</value>
+  </data>
+  <data name="Disp_Scope" xml:space="preserve">
+    <value>Scope:</value>
+  </data>
+  <data name="Disp_SearchProcess" xml:space="preserve">
+    <value>Search Process</value>
+  </data>
+  <data name="Disp_SLAEndDate" xml:space="preserve">
+    <value>SLA End Date:</value>
+  </data>
+  <data name="Disp_SLAStartDate" xml:space="preserve">
+    <value>SLA Start Date:</value>
+  </data>
+  <data name="Disp_StabilizationEndDate" xml:space="preserve">
+    <value>Stabilization End Date:</value>
+  </data>
+  <data name="Disp_StabilizationStartDate" xml:space="preserve">
+    <value>Stabilization Start Date:</value>
+  </data>
+  <data name="Disp_TargetAuditPerMonth" xml:space="preserve">
+    <value>Target Audit/Month:</value>
+  </data>
+  <data name="Disp_TargetQCAPerMonth" xml:space="preserve">
+    <value>Target QCA production hours per month:</value>
+  </data>
+  <data name="Required_SelectClient" xml:space="preserve">
+    <value>Please select Client Name.</value>
+  </data>
+  <data name="Req_Calender" xml:space="preserve">
+    <value>Please select Calender.</value>
+  </data>
+  <data name="Req_ERSCAPType" xml:space="preserve">
+    <value>Please select ERS CAP Type.</value>
+  </data>
+  <data name="Req_FrequencyFeedbackSupervisor" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="Req_ProcessComplexity" xml:space="preserve">
+    <value>Please select Process Complexity.</value>
+  </data>
+  <data name="Req_ProcessName" xml:space="preserve">
+    <value>Please enter Process Name.</value>
+  </data>
+  <data name="Req_ProcessType" xml:space="preserve">
+    <value>Please select Process Type.</value>
+  </data>
+  <data name="Req_ProcessWorkType" xml:space="preserve">
+    <value>Please select Process Work Type.</value>
+  </data>
+  <data name="Req_SUBName" xml:space="preserve">
+    <value>Please select SBU Name.</value>
+  </data>
+  <data name="Req_TargetQCAPerMonth" xml:space="preserve">
+    <value>Target QCA Per Month is Reuired.</value>
+  </data>
+  <data name="Msg_NoCalenderExist" xml:space="preserve">
+    <value>No calender information exists for this period! You need to define calender first!</value>
+  </data>
+  <data name="Msg_PeocessCreatePermission" xml:space="preserve">
+    <value>You don't have permission to create process with process type organization!</value>
+  </data>
+  <data name="Msg_ProcessNameAlreadyExist" xml:space="preserve">
+    <value>Process Name already exists!</value>
+  </data>
+  <data name="Msg_ProcessSaved" xml:space="preserve">
+    <value>Process data saved successfully !.</value>
+  </data>
+  <data name="Msg_ProcessSavedError" xml:space="preserve">
+    <value>Error in saving data.</value>
+  </data>
+  <data name="displaySubProcess" xml:space="preserve">
+    <value>Sub Process:</value>
+  </data>
+  <data name="required_Subprocess" xml:space="preserve">
+    <value>Please enter Sub Process.</value>
+  </data>
+  <data name="display_CreateNewProcess" xml:space="preserve">
+    <value>Create New Process</value>
+  </data>
+  <data name="Display_ERPProcess" xml:space="preserve">
+    <value>ERP Process:</value>
+  </data>
+  <data name="display_ModifyExistingProcess" xml:space="preserve">
+    <value>Modify Existing Process</value>
+  </data>
+  <data name="display_ProcessSearch" xml:space="preserve">
+    <value>Process Search</value>
+  </data>
+  <data name="display_SearchProcess" xml:space="preserve">
+    <value>Search Process</value>
+  </data>
+  <data name="confirm_DeleteProcess" xml:space="preserve">
+    <value>Do you wish to delete this process?</value>
+  </data>
+  <data name="display_ProcessDeleted" xml:space="preserve">
+    <value>Process data deleted successfully !.</value>
+  </data>
+  <data name="display_Agent" xml:space="preserve">
+    <value>/Agent </value>
+  </data>
+  <data name="display_TargetSidebySideAuditPerMonth" xml:space="preserve">
+    <value>Target side by side audit per month:</value>
+  </data>
+  <data name="display_Voice_NonVoice_Blended" xml:space="preserve">
+    <value>Voice/Non voice/Blended:</value>
+  </data>
+  <data name="required_PleaseSpecifyTargetQCAHrs" xml:space="preserve">
+    <value>Please specify Target QCA Hrs.</value>
+  </data>
+  <data name="required_Please_Specify_ERS_CAP_Type" xml:space="preserve">
+    <value>Please specify ERS CAP Type.</value>
+  </data>
+  <data name="required_Voice_NonVoice_Blended" xml:space="preserve">
+    <value>Please specify Voice/Non voice/Blended.</value>
+  </data>
+  <data name="Msg_ProcessUpdated" xml:space="preserve">
+    <value>Process data updated successfully !.</value>
+  </data>
+  <data name="required_RemoveselectedERP" xml:space="preserve">
+    <value>Do you realy want to remove selected ERP</value>
+  </data>
+</root>

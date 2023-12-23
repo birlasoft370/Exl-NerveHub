@@ -1,0 +1,402 @@
+﻿@model UserManagementViewModel
+
+@using MicUI.Configuration.Models.ViewModels;
+
+@using System.Data;
+
+
+@{
+    ViewBag.Title = "UserDetailsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/usermanagement-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "UserManagement", FormMethod.Post, new { @id = "form1", @name = "form1" }))
+{
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+    @Html.AntiForgeryToken()
+
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_UserDetailPageHeader</h2>
+
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @*<ul class="hnav">
+                    <li class="hnavbtn"><a onclick="location.href='@Url.Action("Index", "UserManagement", new { id = 0 })'"><img src="~/images/new.png" width="18" height="17" style="margin:2px 4px 0 0" />New</a></li>
+                    <li class="hnavbtn">
+                    <input type="submit" value="Save" name="SaveUserDetail" title="Save" width="18" height="16" class="btnSave" />
+                    </li>
+                    <li class="hnavbtn">
+                    <a id="SrchUser"><img src="~/images/view.png" width="18" height="17" style="margin:2px 4px 0 0" />View</a>
+                    </li>
+                    </ul>*@
+
+                        @(Html.Kendo().Button().Name("btnNew").Icon("insert-m").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickUserManagement_view")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @*@(Html.Kendo().Button().Name("btnSaveUserDetailsView").Icon("plus").HtmlAttributes(new { type = "button", @name = "SaveUserDetail", @value = "SaveUserDetail", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickSaveUserDetailsView")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))*@
+                        @*@(Html.Kendo().Button().Name("btnSaveUserDetailsView1").Icon("plus").HtmlAttributes(new { type = "submit", @name = "SaveUserDetail", @value = "SaveUserDetail", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))*@
+                        @*@(Html.Kendo().Button().Icon("search").Name("SrchUser").HtmlAttributes(new { type = "button", @class = "k-primary  buttonstyle"}).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))*@
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div>
+
+                <div class="innerWrap-head">
+                    <h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_UserDetailPageHeader</h3>
+                </div>
+                <div class="innerWrap-body tableForm">
+                    <table>
+
+                        <tr>
+                            <td style="width: 25%">
+                                @Html.LabelFor(m => m.sLoginName)
+                                @Html.ValidationMessageFor(m => m.sLoginName, "*")
+                                @Html.HiddenFor(m => m.iUserID)
+                            </td>
+                            <td style="width: 25%">
+                                @*@Html.DisplayTextFor(model => model.sLoginName)*@
+                                @Html.Kendo().TextBoxFor(m => m.sLoginName).HtmlAttributes(new { style = "align-content:left" })
+                            </td>
+                            <td style="width: 25%">
+                                @Html.LabelFor(m => m.iEmployeeID)
+                                @Html.ValidationMessageFor(m => m.iEmployeeID, "*")
+                            </td>
+                            <td style="width: 25%">
+                                @*@Html.DisplayTextFor(model => model.iEmployeeID)*@
+                                @Html.Kendo().TextBoxFor(m => m.iEmployeeID).Enable(false)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.sFirstName)
+                                @Html.ValidationMessageFor(m => m.sFirstName, "*")
+                            </td>
+                            <td>
+
+                                @*@Html.DisplayTextFor(model => model.sFirstName)*@
+                                @Html.Kendo().TextBoxFor(m => m.sFirstName)
+                            </td>
+                            <td>
+                                @Html.LabelFor(m => m.sMiddleName)
+                            </td>
+                            <td>
+                                @*@Html.DisplayTextFor(model => model.sMiddleName)*@
+                                @Html.Kendo().TextBoxFor(model => model.sMiddleName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.sLastName)
+                            </td>
+                            <td>
+                                @*@Html.DisplayTextFor(model => model.sLastName)*@
+                                @Html.Kendo().TextBoxFor(m => m.sLastName)
+                            </td>
+                            <td>
+                                @Html.LabelFor(m => m.sEmail)
+                                @Html.ValidationMessageFor(m => m.sEmail, "*")
+                            </td>
+                            <td>
+                                @*@Html.DisplayTextFor(model => model.sEmail)*@
+                                @Html.Kendo().TextBoxFor(model => model.sEmail)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.sSupervisorName)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(model => @Model.sSupervisorName)
+                            </td>
+
+                            <td>
+                                @Html.LabelFor(m => m.sTeamName)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(model => model.sTeamName)
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.sErpJob)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.sErpJob)
+                            </td>
+
+                            <td>
+                                @Html.Label("Role")
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.RoleInfo.sRoleName)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.dDOJ)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.dDOJ)
+                                @*@Model.dDOJ.ToShortDateString()*@
+                            </td>
+                            <td>
+                                @Html.LabelFor(m => m.DOL)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.DOL)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.sLocationName)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.sLocationName)
+                            </td>
+                            <td>
+                                @Html.LabelFor(m => m.sFacilityName)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.sFacilityName)
+                            </td>
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                @Html.LabelFor(m => m.bClientUser)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.bClientUser)
+                                @*@Html.Kendo().CheckBoxFor(m => m.bClientUser).HtmlAttributes(new { @disabled = "disabled" }).Label(string.Empty)*@
+                            </td>
+
+                            <td>
+                                @Html.LabelFor(m => m.bDisabled)
+                            </td>
+                            <td>
+                                @Html.DisplayTextFor(m => m.bDisabled)
+                                @*@Html.Kendo().CheckBoxFor(m => m.bDisabled).Label(string.Empty)*@
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+                <div class="innerWrap-head">
+                    <h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_ShiftDetailLbl</h3>
+                </div>
+                <div class="innerWrap-body formTable">
+                    @(Html.Kendo().Grid<dynamic>()
+                        .Name("gvShiftDetail")
+                        .Columns(columns =>
+                        {
+                            foreach (System.Data.DataColumn column in Model.dtShift.Columns)
+                            {
+                                columns.Bound(column.ColumnName).Title(column.Caption.Trim());
+                            }
+                        })
+                        .Scrollable(scr => scr.Height(100))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            if (Model.dtShift.Columns.Count > 0)
+                            {
+                                model.Id(Model.dtShift.Columns[0].ColumnName);
+
+                                foreach (System.Data.DataColumn column in Model.dtShift.Columns)
+                                {
+                                    if (column.Ordinal > 0)
+                                        model.Field(column.ColumnName, column.DataType);
+                                }
+                            }
+                        }).Read(read => read.Action("GetShiftDetailsDataTable", "UserManagement")))
+                        )
+
+                    <!--Reference https://www.telerik.com/forums/issues-with-binding-datatable-to-grid-->
+                </div>
+
+                <div class="innerWrap-head">
+                    <h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_ClientProcAccesslLbl</h3>
+                </div>
+                <div class="innerWrap-body formTable">
+                    @(Html.Kendo().Grid<dynamic>()
+                        .Name("gvClientProcessDetail")
+                        .Columns(columns =>
+                        {
+                            foreach (System.Data.DataColumn column in Model.dtClientProcess.Columns)
+                            {
+                                if (column.ColumnName != "ClientID" || column.ColumnName != "ProcessID")
+                                    columns.Bound(column.ColumnName).Title(column.Caption);
+                            }
+                        }
+                        )
+                        .Scrollable(scr => scr.Height(100))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            if (Model.dtClientProcess.Columns.Count > 0)
+                            {
+                                model.Id(Model.dtClientProcess.Columns[0].ColumnName);
+
+                                foreach (System.Data.DataColumn column in Model.dtClientProcess.Columns)
+                                {
+                                    if (column.Ordinal > 0)
+                                        model.Field(column.ColumnName, column.DataType);
+                                }
+                            }
+                        }
+                        ).Read(read => read.Action("GetProjectDetailsDataTable", "UserManagement"))
+                        ).Events(ev => ev.DataBound("gvClientProcessDetailDataBound"))
+                        )
+
+                </div>
+
+                <div class="innerWrap-head">
+                    <h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_QuotaLbl</h3>
+                </div>
+                <div class="innerWrap-body formTable">
+                    @(Html.Kendo().Grid<dynamic>()
+                        .Name("gvQuotaDetail")
+                        .Columns(columns =>
+                        {
+                            foreach (System.Data.DataColumn column in Model.dtQuota.Columns)
+                            {
+                                columns.Bound(column.ColumnName).Title(column.Caption);
+                            }
+                        }
+                        )
+                        .Scrollable(scr => scr.Height(70))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            if (Model.dtQuota.Columns.Count > 0)
+                            {
+                                model.Id(Model.dtQuota.Columns[0].ColumnName);
+
+                                foreach (System.Data.DataColumn column in Model.dtQuota.Columns)
+                                {
+                                    if (column.Ordinal > 0)
+                                        model.Field(column.ColumnName, column.DataType);
+                                }
+                            }
+                        }
+                        ).Read(read => read.Action("GetQuotaDetailsDataTable", "UserManagement", new { tableName = "QuotaDetails" }))
+
+                        )
+                        )
+                </div>
+                <div class="innerWrap-head">
+                    <h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_ResentErpChangeLbl</h3>
+                </div>
+                <div class="innerWrap-body formTable">
+
+
+                    @(Html.Kendo().Grid<dynamic>()
+                        .Name("gvERPDetail")
+                        .Columns(columns =>
+                        {
+                            foreach (System.Data.DataColumn column in Model.dtERPChanges.Columns)
+                            {
+                                columns.Bound(column.ColumnName).Title(column.Caption);
+                            }
+                        }
+                        )
+                        .Scrollable(scr => scr.Height(70))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            if (Model.dtERPChanges.Columns.Count > 0)
+                            {
+                                model.Id(Model.dtERPChanges.Columns[0].ColumnName);
+
+                                foreach (System.Data.DataColumn column in Model.dtERPChanges.Columns)
+                                {
+                                    if (column.Ordinal > 0)
+                                        model.Field(column.ColumnName, column.DataType);
+                                }
+                            }
+                        }
+                        ).Read(read => read.Action("GetERPDetailsDataTable", "UserManagement"))
+
+                        )
+                        )
+
+                </div>
+            </div>
+            <div id="dialog">
+                <div class="px-3 py-2" id="PopBody" style="display:none">
+                    <div class="row">
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_SearchPopName,@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_SearchPopName, new { @class = "form-label label-required" })
+                                <div class="input-group">
+                                    @Html.Kendo().TextBox().Name("srhText").HtmlAttributes(new { @class = "form-control" })
+                                    <input type="button" class="btn btn-outline-primary" value='@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_PopUpBTNSearch' id="btnSearch_UDV" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.ListBox("lstSuperwiser", Model.lstSuperwisers, new { @class = "form-control", @style = " height:120px" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@{
+
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            alert('@ViewData["Message"]');
+        </script>
+    }
+
+
+}
+<script>
+    var ResourceUserDetailsView = {
+        display_SearchUserTypeLink: "@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_SearchUserTypeLink",
+        display_UserDetailLink: "@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_UserDetailLink",
+        required_sSearchText: "@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.required_sSearchText",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_UserDetailsView: ResourceLayout.partialURL + "UserDetailsView",
+
+    }
+
+
+    function OnClickSaveUserDetailsView() {
+        debugger;
+
+        if ($("#sLoginName").val() == "") {
+            jAlert("Please Enter Login Name", "Alert", function () {
+                $("#sLoginName").focus();
+            });
+            $("#sLoginName").focus();
+        }
+        else {
+            $('#btnSaveUserDetailsView1').click();
+        }
+    }
+</script>

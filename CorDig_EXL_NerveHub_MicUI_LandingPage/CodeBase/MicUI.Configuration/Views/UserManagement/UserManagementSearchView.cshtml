@@ -1,0 +1,147 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model UserManagementViewModel
+
+@{
+    ViewBag.Title = "UserManagementSearchView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/usermanagement-1.8.2.js"></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formUserManagementSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_SearchPageHeader </h2>
+
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button()
+                            .Name("btnNew").Icon("insert-m")
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickNew"))
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClicSearch_UMSV"))
+                            .Name("_btnSearch").Icon("search")
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-6 col-xl-5">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4 mx-3 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().RadioButton().Name("FSerachCondetion").Value(1).Checked(true).Label(BPA.GlobalResources.UI.Resources_common.display_SearchByLanID))
+                            </div>
+                        </div>
+                        <div class="pt-4 mx-3 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().RadioButton().Name("FSerachCondetion").Value(2).Label(BPA.GlobalResources.UI.Resources_common.display_SearchByFirstName))
+                            </div>
+
+                        </div>
+                        <div class="pt-4 mx-1 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().RadioButton().Name("FSerachCondetion").Value(3).Label(BPA.GlobalResources.UI.Resources_common.display_SearchByLastName))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_UserName,@BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_UserName, new { @class = "form-label label-required" })
+                        @Html.TextBoxFor(model => model.sSearchText, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="searchpagediv formTable">
+                @*@(Html.Kendo().Grid(Model.UserEditList)
+            .Name("ClientGrid").HtmlAttributes(new { style = "overflow:auto" })
+            .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+            .Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+            .Columns(columns =>
+            {
+            columns.Bound(u => u.iUserID).Hidden(true);
+            columns.Bound(u => u.Name).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Client_Name.TrimEnd(':')).HtmlAttributes(new { style = "width:55%" }).HeaderHtmlAttributes(new { style = "color:white;width:55%" });
+            // columns.Bound(u => u.sClientDescription).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Description.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+            // columns.Bound(u => u.bDisabled).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Disable.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).Click("editClient").HtmlAttributes(new { @class = "k-primary" })).HeaderHtmlAttributes(new { @style = "width:22.5%" }).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary" }).Click("deleteClient")).HeaderHtmlAttributes(new { @style = "width:25%" }).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+            })
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+            model.Id(u => u.iUserID);
+            model.Field(u => u.iUserID).DefaultValue(Model.iUserID);
+            })
+            .PageSize(5)
+            .ServerOperation(false)
+            ))*@
+                <div id="gridSearchPage"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(window).resize(function () {
+            var gridElement = $("#SearchGrid"),
+                newHeight = gridElement.innerHeight(),
+                otherElements = gridElement.children().not(".k-grid-content"),
+                otherElementsHeight = 0;
+
+            otherElements.each(function () {
+                otherElementsHeight += $(this).outerHeight();
+            });
+
+            gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
+        });
+    </script>
+}
+@{
+
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            alert('@ViewData["Message"]');
+        </script>
+    }
+
+
+}
+
+<script>
+    var ResourceUserManagementSearchView = {
+        display_RequestCanceledSuccessfully: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.display_RequestCanceledSuccessfully)',
+        required_ApproverLevel: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.required_ApproverLevel)',
+        required_sSearchText: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.required_sSearchText)',
+        confirm_DeleteUser: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.confirm_DeleteUser)',
+        required_ThreeCharsForSearch: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_UserManagement.required_ThreeCharsForSearch)',
+
+        urlPath_SetTagID: ResourceLayout.partialURL + "SetTagID",
+
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_GetSearchUserList: ResourceLayout.partialURL + "GetSearchUserList",
+        urlPath_SetUserID: ResourceLayout.partialURL + "SetUserID",
+        urlPath_FillSelectedUserDetail: ResourceLayout.partialURL + "FillSelectedUserDetail",
+        urlPath_DeleteUser: ResourceLayout.partialURL + "DeleteUser",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+
+
+
+    }
+</script>

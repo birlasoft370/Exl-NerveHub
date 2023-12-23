@@ -1,0 +1,190 @@
+﻿@model MicUI.Configuration.Models.ViewModels.ProcessOwnerViewModel
+@{
+    ViewBag.Title = BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+@using (Html.BeginForm("Index", "ProcessOwner", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_Tittle</h2>
+
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickProcessOwner")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnProcessOwnerSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @*@(Html.Kendo().Button().Events(ev => ev.Click("OnClickCampaignSearch")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))*@
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickProcessOwnerApporval")).Icon("tick")
+                            .Name("btnProcessOwnerApporval").HtmlAttributes(new { type = "button", @class = "btn-orange btn-sm btn" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_PendingApprovalList))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(c => c.ClientName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.ClientName)
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .DataValueField("iClientID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCascadeClient", "ProcessOwner");
+                                }).Events(ev => ev.Error("DropDownError"));
+                            })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("",@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessName, new { @class = "form-label label-required" })
+
+                        @(Html.Kendo().DropDownListFor(a => a.ProcessName)
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .HtmlAttributes(new { @class = "formSelect" })
+
+                            .DataTextField("sProcessName").DataValueField("iProcessID").Events(e => e.Change("OnSelect"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetClientWiseProcessList", "ProcessOwner")
+                                .Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError"))
+                                .ServerFiltering(true);
+                            }).CascadeFrom("ClientName"))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ProcessOwnerName, new { @class = "form-label label-required" })
+
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Shared/EditorTemplates/MultiSelectCheckbox.cshtml", new ViewDataDictionary(ViewData){
+                    { "Name", "ProcessOwnerName" },
+                    { "CheckBoxName", "chkAssessmentMaster" },
+                    { "ActionName" , "GetUserProcessOwner" },
+                    { "ControllerName" , "ProcessOwner" },
+                    { "TextField" , "UserName" },
+                    { "ValueField" , "UserID" },
+                    {"lst",Model.ProcessOwnerName},
+                    {"Data","filterProcessOwner"}
+                    });
+                        }
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.Approver, new { @class = "form-label label-required" })
+
+                        @(Html.Kendo().DropDownListFor(a => a.Approver)
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .HtmlAttributes(new { @class = "formSelect" })
+
+                            .DataTextField("Text").DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetUserRoleApproverList", "ProcessOwner");
+                                }).Events(ev => ev.Error("DropDownError"))
+                                .ServerFiltering(false);
+                            }).AutoBind(false))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    $(document).ready(function () {
+        var multiselect = $("#ProcessOwnerName").data("kendoMultiSelect");
+        multiselect.enable(false);
+     //   multiselect.value(["17279"]);
+        //$("#ClientName").data("kendoDropDownList").enable(false);
+        //$("#ProcessName").parent().parent().find("span").attr("disabled", "disabled");
+        //$("#CampaignName").parent().parent().find("input").attr("disabled", "disabled");
+
+    });
+    function filterProcess() {
+        var multiselect = $("#ProcessOwnerName").data("kendoMultiSelect");
+        multiselect.enable(true);
+
+
+
+        return {
+            iClientID: $("#ClientName").val()
+        };
+    }
+
+    function filterProcessOwner() {
+        return {
+            iProcessID: $("#ProcessName").val()
+        };
+    }
+    function OnClickProcessOwner() {
+        window.location.href = ResourceLayout.partialURL + "Index"
+    }
+    function OnClickProcessOwnerApporval() {
+        window.location.href = ResourceLayout.partialURL + "_ProcessOwnerApproval"
+    }
+    $("#ProcessName").change(function () {
+        var multiselect = $("#ProcessOwnerName").data("kendoMultiSelect");
+        $.ajax({
+            type: "POST"
+            ,async:false
+            , url: ResourceLayout.partiaArea + "ProcessOwner/GetUserProcess_Owner"
+            , data: { iProcessID: $("#ProcessName").val() }
+            , dataType: 'json'
+            , success: function (result) {
+                debugger;
+                if (result != null) {
+                    var vl = result.join(',')
+                    multiselect.value(result);
+                }
+
+            }
+
+        });
+    });
+    function OnSelect(e) {
+        debugger;
+        var multiselect = $("#ProcessOwnerName").data("kendoMultiSelect");
+        multiselect.dataSource.filter({});
+        multiselect.dataSource.filter(filterProcessOwner());
+
+    }
+
+</script>

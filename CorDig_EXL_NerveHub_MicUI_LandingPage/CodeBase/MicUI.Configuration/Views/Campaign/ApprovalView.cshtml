@@ -1,0 +1,147 @@
+﻿@using MicUI.Configuration.Helper.Sessions;
+@using MicUI.Configuration.Models.ViewModels
+@using MicUI.Configuration.Module.Configuration.CampaignInfoSetup;
+@inject IGetSetSessionValues _getSetSessionValues
+@inject IWorkObjectService _repositoryWorkObjectService
+@model CampaignApproval
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_ApproveTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int UserIsSuperOrFunctionalAdmin = _repositoryWorkObjectService.CheckUserIsSuperOrFunctionalAdmin();
+    int userId = _getSetSessionValues.GetSessionUserInfo().iUserID;
+}
+<script src="~/lib/bpa/scripts/campaign-1.8.2.js"></script>
+@using (Html.BeginForm("ApprovalView", "Campaign", FormMethod.Get, new { @id = "formCampaignApproval" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_ApproveTitle</h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickApprovalView")).Icon("insert-m").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("chkDateValidation")).Icon("refresh").Name("Submit").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Submit))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.FromDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.FromDate).Value(DateTime.Today.AddDays(-10)).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ToDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.ToDate).Value(DateTime.Today).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+
+                @* <div class="col-sm-4 col-xl-3">
+            <div class="mb-3">
+            <input type="button" value="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Submit" onclick="chkDateValidation()" />
+            </div>
+            </div>*@
+            </div>
+
+            <div class="nextWrap">
+
+                <div id="spnNoRecord" class="py-5 text-center text-danger" style="display:none;">
+                    <small>@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_NoRecord</small>
+                </div>
+
+                <div class="formTable checkboxTable">
+                    @(Html.Kendo().Grid<CampaignApproval>()
+                        .Name("Approvalgrid").Events(x => x.DataBound("Binding_Grid")).Scrollable().Height(200).Pageable(pageable => pageable
+                        .Refresh(true).PageSizes(true).ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.ApprovalId).Hidden(true);
+                            columns.Bound(p => p.BusinessApproverId).Hidden(true);
+                            columns.Bound(p => p.CreatedBy).Hidden(true);
+                            columns.Bound(p => p.TechnologyApproverId).Hidden(true);
+                            columns.Bound(u => u.IsChecked).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1 )) {#" +
+                            "<label class='only-check-input'><input type='checkbox' class='chkbox' name='IsChecked' id='IsChecked' ${ IsChecked == true ? checked='checked' : ''}   enabled value='#= ApprovalId#'/><b></b></label>" +
+                            "#}#").Width(40).ClientHeaderTemplate("<label class='only-check-input'><input id='chkSelectAll' type='checkbox' /><b></b></label>").Groupable(true);
+                            columns.Template("# if(StatusToShowHideButtons == 'Pending'  && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ")) {#" +
+                            "<a  class='anchorTag'  onClick='OpenDetail(1,#= ApprovalId #)'>View Details/Request Additional Change</a>" +
+                            "#} else if (StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1)) {#" +
+                            "<a class='anchorTag'  onClick='OpenDetail(0,#= ApprovalId #)'>View/Edit Details</a>" +
+                            "#} else if (StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " && " + UserIsSuperOrFunctionalAdmin + "!=1)) {#" +
+                            "<a class='anchorTag'  onClick='OpenDetail(0,#= ApprovalId #)'>View/Edit Details</a>" +
+                            "#} else if(StatusToShowHideButtons == 'Pending' && (CreatedBy != " + userId + "&& " + UserIsSuperOrFunctionalAdmin + "==1)){#" +
+                            "<a class='anchorTag'  onClick='OpenDetail(2,#= ApprovalId #)'>View Details</a>" +
+                            "#} else {#" +
+                            "<a class='anchorTag'  onClick='OpenDetail(2,#= ApprovalId #)'>View Details</a>" +
+                            "#}#").Width(80);
+                            columns.Bound(p => p.ClientName).Width(60);
+                            columns.Bound(p => p.ProcessName).Width(70);
+                            columns.Bound(p => p.CampaignName).Width(80);
+                            columns.Bound(p => p.RequestCreater).Width(80);
+                            columns.Bound(p => p.RequestedOn).Width(80);
+                            columns.Bound(p => p.BusinessApprover).Width(120);
+                            columns.Bound(p => p.TechApprover).Width(120);
+                            columns.Bound(p => p.StatusToShowHideButtons).Hidden(true);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") && ChangeRequest =='Yes') {#" +
+                            "<input type='button' onClick='Approval(this,#= ApprovalId #)' disabled='disabled'  name='btnApprove' value='" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Approve + "' />" +
+                            "#} else if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") ) {#" +
+                            "<input type='button' onClick='Approval(this,#= ApprovalId #)' name='btnApprove' value='" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Approve + "' /> " +
+                            "#}#")
+                            .Title("").Width(60);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") && ChangeRequest =='Yes') {#" +
+                            "<input type='button' onClick='Approval(this,#= ApprovalId #)' disabled='disabled' name='btnReject' value='" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Reject + "' />" +
+                            "#} else if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") ) {#" +
+                            "<input type='button' onClick='Approval(this,#= ApprovalId #)' name='btnReject' value='" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Reject + "' /> " +
+                            "#}#")
+                            .Title("").Width(60);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1)) {#" +
+                            "<input type='button' onClick='Approval(this,#= ApprovalId #)' name='btnCanceled' value='" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Cancel + "' /> " +
+                            "#}#")
+                            .Title("").Width(60);
+                            //columns.Bound(p => p.Status).Width(150);
+                        })
+                        .DataSource(dataSource => dataSource.Ajax().PageSize(10).Model(model => model.Id(p => p.ApprovalId))
+                        .Read(read => read.Action("WorkApproval_ReadP", "Campaign").Data("GetFilter"))))
+                </div>
+
+
+                <div class="pt-3">
+                    <input type="button" onclick="Save(this)" class="btn btn-outline-primary btn-sm mx-2 ms-0" value="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Cancel" title="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Cancel" name="BtnCancel" id="BtnCancel" />
+                    <input type="button" onclick="Save(this)" class="btn btn-primary btn-sm mx-2 ms-0" value="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Reject" title="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Reject" name="BtnReject" id="BtnReject" />
+                    <input type="button" onclick="Save(this)" class="btn btn-primary btn-sm" value="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Approve" title="@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Approve" name="BtnApprove" id="BtnApprove" />
+
+                </div>
+
+            </div>
+            <div id="ApprovalDetail" style="display:none"></div>
+        </div>
+    </div>
+}
+<script>
+    var ResourceCampaignApprovalView = {
+        diplay_submitmsg: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.diplay_submitmsg',
+        display_commentmsg: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_commentmsg',
+        display_Error: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Error',
+        diplay_ApproveSuccessfully: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.diplay_ApproveSuccessfully',
+        diplay_RejectSuccessfully: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.diplay_RejectSuccessfully',
+        diplay_CancelSuccessfully: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.diplay_CancelSuccessfully',
+        display_Approve: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Approve',
+        display_Reject: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Reject',
+        display_Cancel: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Cancel',
+        urlPath_Details: ResourceLayout.partialURL + "Details",
+        urlPath_ApprovalAction: ResourceLayout.partialURL + "ApprovalAction",
+        urlPath_Approval: ResourceLayout.partialURL + "Approval",
+        urlPath_Index: ResourceLayout.partialURL + "Index"
+    }
+</script>
+

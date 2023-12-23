@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {}
+  },
+  "libraries": {},
+  "projectFileDependencyGroups": {
+    "net6.0": []
+  },
+  "packageFolders": {
+    "C:\\Users\\balakrishnp\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\BPA.GlobalResources\\BPA.GlobalResources.csproj",
+      "projectName": "BPA.GlobalResources",
+      "projectPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\BPA.GlobalResources\\BPA.GlobalResources.csproj",
+      "packagesPath": "C:\\Users\\balakrishnp\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\BPA.GlobalResources\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\NuGet.Config",
+        "C:\\Users\\balakrishnp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\": {},
+        "C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

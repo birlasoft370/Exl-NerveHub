@@ -1,0 +1,24 @@
+﻿@*@model BPA.UserConsole.Areas.AppConfiguration.Models.DropDownEditorModel*@
+
+@using Kendo.Mvc.UI
+@using MicUI.Configuration.Helper;
+@{
+    string tenantName = MyHttpContext.AppBaseUrl;
+}
+@(Html.Kendo().DropDownList()
+.Name("Unit")
+         .DataSource(source =>
+         {
+             source.Read(read =>
+             {
+                 read.Url(tenantName + ViewData["ControllerName"] + "/" + ViewData["ActionName"]).Type(HttpVerbs.Get).Data(ViewData["Data"] == null ? "" : ViewData["Data"].ToString());
+             });
+         })
+            .DataValueField(ViewData["ValueField"].ToString())
+                .DataTextField(ViewData["TextField"].ToString())
+    .Events(e =>
+    {
+        if (ViewData["Select"] != null)
+            e.Select(ViewData["Select"].ToString());
+    }).Enable(ViewData["Visibility"] != null ? bool.Parse(ViewData["Visibility"].ToString()) : true)
+)

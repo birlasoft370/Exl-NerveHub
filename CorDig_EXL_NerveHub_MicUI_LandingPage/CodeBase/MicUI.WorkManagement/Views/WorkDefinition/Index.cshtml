@@ -1,0 +1,756 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@* Set  Ebable control *@
+@{
+    bool enable = true;
+    if (Model.ClientName != null)
+    {
+        enable = false;
+    }
+    if (Model.GridControlF != null)
+    {
+        enable = true;
+    }
+
+}
+
+@{
+    bool isLanguage = false;
+    if (Model.oTenant != null)
+    {
+        if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+        {
+            isLanguage = true;
+        }
+    }
+}
+<script>
+    var isEnable = '@enable';
+    var bClientLanguage = '@isLanguage';
+</script>
+<style>
+    .LanguageTxt {
+        color: #fff !important;
+        background-color: rgb(5, 142, 208);
+        font-weight: bold !important;
+    }
+</style>
+
+
+<script src="~/lib/bpa/scripts/workmanagement-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "WorkDefinition", FormMethod.Post, new { @id = "formWorkMaster" }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-5">
+                    <h2>
+                        @{
+                            var text = Model.WorkDefinition[0].iObjectID == 0 ? @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_CreateNewWorkDefinitionMaster : @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ModifyExistingWorkDefinitionMaster;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-7">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0", })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Events(e => e.Click("btnNewClick")))
+                        @* @if (iCampaignService.CheckPermission())
+                    {*@
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickWorkApporval")).Name("btnWorkObject").Icon("tick").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0", }).Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ApporveGridTitle))
+                        @* }*@
+                        @(Html.Kendo().Button().Name("btnSaveWorkMaster").Icon("plus").Events(e => e.Click("SaveWorkMater")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0", })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Events(ev => ev.Click("OnClickView")).Name("btnView").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0", })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickGridConfig")).Icon("seek-w").Name("btnGrdConfig").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0", })
+                            .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_GrdConfig))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickPreView")).Icon("seek-w").Name("btnPreView").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn", })
+                            .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_PreView))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.ClientName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sClientName").DataValueField("iClientID")
+                            .Events(e => e.DataBound("dataBound")).DataSource(source => { source.Read(read => { read.Action("GetCascadeClient", "WorkDefinition"); }); })
+                            .HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Client }).Enable(enable))
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.ProcessName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+                            .Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+                            .CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }).Enable(enable))
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.CampaignName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.CampaignName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+                            .Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName"); }).ServerFiltering(true); })
+                            .CascadeFrom("ProcessName").HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign }).Enable(enable))
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.WorkDefinitionName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().TextBoxFor(x => x.WorkDefinitionName).HtmlAttributes(new { @class = "form-control", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_WorkDefination }).Enable(enable).Enable(enable))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.Description, new { @class = "form-label" })
+                        @if (enable)
+                        {
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", disabled = "disabled" })
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.NoOfRows, new { @class = "form-label" })
+                        @if (enable)
+                        {
+                            @Html.Kendo().NumericTextBoxFor(x => x.NoOfRows).Min(0).Max(10000).Format("#").HtmlAttributes(new { @class = "form-num", @required = "required", @validationmessage = "Please Enter No Of Rows" })
+                        }
+                        else
+                        {
+                            @Html.Kendo().NumericTextBoxFor(x => x.NoOfRows).Min(0).Max(10000).Format("#").HtmlAttributes(new { @class = "form-num", @required = "required", @validationmessage = "Please Enter No Of Rows", disabled = "disabled" })
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.NoOfColumns, new { @class = "form-label label-control" })
+                        @(Html.Kendo().DropDownListFor(c => c.NoOfColumns).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("Text").DataValueField("Value")
+                            .DataSource(source => { source.Read(read => { read.Action("FillNoOfColumns", "WorkDefinition"); }).ServerFiltering(true); })
+                            .HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_NoColumns }).Enable(enable))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.IncreaseSearch, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.IncreaseSearch)
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = "30 Days",
+                    Value = "30"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "45 Days",
+                    Value = "45"
+                    }
+                    })
+                            )
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-3 d-inline-block mx-4 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.DisableWork).Label("Disable"))
+
+                            </div>
+                        </div>
+                        <div class="pt-3 d-inline-block mx-4 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.IsDistributionBot).Label("Is Distribution Bot"))
+
+                            </div>
+                        </div>
+                        <div class="pt-3 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(t => t.ErrorSnapshot).Label("Error Snapshot").HtmlAttributes(new { @onclick = "javascript:WorkDefinition_ShowHide(this);" }))
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3" id="SpaniErrorDurationInDay" style="display:none">
+                    <div class="mb-3 pt-3">
+                        @Html.LabelFor(x => x.ErrorDurationInDay, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(c => c.ErrorDuration).OptionLabel(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_selectedValue).HtmlAttributes(new { @class = "formSelect" }).DataTextField("Text").DataValueField("Value")
+                            .DataSource(source => { source.Read(read => { read.Action("FilliErrorDuration", "WorkDefinition"); }); }))
+
+                    </div>
+                </div>
+                <div class="col-sm-8 col-xl-9">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-3 d-inline-block mx-3 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.GenerateLetter).Label("Generate Letter"))
+                            </div>
+                        </div>
+
+                        <div class="pt-3 d-inline-block mx-3 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.IsEmail).Name("IsEmail").Label("Is Email Campaign").Enable(true))
+                            </div>
+                        </div>
+
+                        <div class="pt-3 d-inline-block mx-3 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.bIsRunTimeUploadRequired).Label("Bls Runtime Upload Required"))
+                            </div>
+                        </div>
+
+                        <div class="pt-3 d-inline-block mx-3 ms-0">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.TABMapping).Label("Is Controls in Tab").HtmlAttributes(new { @onclick = "javascript:WorkDefinition_TAB_ShowHide(this);" }))
+                            </div>
+                        </div>
+
+                        <div class="pt-3 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.IsGridConfiguration).Label("Is Grid Configuration").HtmlAttributes(new { @onclick = "javascript:WorkDefinition_GridConfig_ShowHide(this);" }))
+                            </div>
+                        </div>
+                        <div class="pt-3 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(x => x.IsForStaging).Label("Data Upload In Staging"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="nextWrap" id="GridBind" style="display:none;">
+                <div class="pt-3 text-end">
+                    @(Html.Kendo().Button()
+                        .Name("btnAddNewWorkDefinitionTAB").Icon("plus").Enable(false)
+                        .Events(ev => ev.Click("WorkDefinition_OnClickAddNewTAB"))
+                        .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                        .Content(@BPA.GlobalResources.UI.Resources_common.display_btnNewTAB))
+                    @(Html.Kendo().Button()
+                        .Name("btnAddNewWorkDefinition").Icon("plus").Events(ev => ev.Click("WorkDefinition_OnClickAddNewRow"))
+                        .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn " })
+                        .Content(@BPA.GlobalResources.UI.Resources_common.display_btnNewRowAdd))
+
+                </div>
+                @{
+                    var icountRecords = 0;
+                    if (Model.WorkDefinition != null)
+                    {
+                        icountRecords = Model.WorkDefinition.Count;
+                    }
+                }
+                <div class="pt-3 text-end"> <small>@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_NumberoftotalRecords <b id="spnTotalRecords">@icountRecords</b></small></div>
+                <div class="formTable mt-3">
+                    @(Html.Kendo().Grid(Model.WorkDefinition)
+                        .Name("GridWorkObject")
+                        .Resizable(resize => resize.Columns(true))
+                        .Scrollable(sc => sc.Height(350))
+                        .Selectable()
+                        .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Top))
+                        .Events(e => e.Edit("onEdit"))
+                        .Columns(columns =>
+                        {
+
+                            columns.Bound(u => u.iColSpan).Hidden(true);//0
+                            columns.Bound(u => u.iObjectID).Hidden(true);//1
+                            columns.Bound(u => u.iStoreID).Hidden(true);//2
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Delete).Click("deleteObjectCode").HtmlAttributes(new { @class = "btn btn-sm btn-outline-primary" })).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Action).Width(100);
+                            columns.Bound(u => u.sObjectName).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName).HtmlAttributes(new { id = "ObjectName", @class = "ObjectName" }).Width(150)
+                            .EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName)
+                            .HtmlAttributes(new { @class = "ObjectName", @required = "required" });
+                            columns.Bound(u => u.sObjectDescription).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Descriptiongrid).Width(150);
+                            columns.Bound(u => u.sObjectLabel).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectLabel).Width(150);
+
+                            columns.Bound(s => s.selectControlType).Width(170).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectType)
+                            .EditorTemplateName("_GridDropDown").ClientTemplate("#=selectControlType.sControlType#").EditorViewData(new { Name = "selectControlType" })
+                            .HtmlAttributes(new { @class = "ObjectType" });
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Choice).Click("OpenChoice").HtmlAttributes(new { @class = "btn btn-sm btn-primary BtnOpenChoice", id = "BtnOpenChoice", disabled = "disabled" })).Width(100).Title("Choice");
+                            columns.Bound(s => s.selectedDataType).Width(150).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectDataType)
+                            .EditorTemplateName("_GridDropDown")
+                            .EditorViewData(new { Name = "selectedDataType" })
+                            .ClientTemplate("#=selectedDataType.Text#").HtmlAttributes(new { @class = "DataType" });
+
+                            columns.Bound(u => u.iLength).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Length).Width(80).
+                            HtmlAttributes(new { id = "txtLength", @class = "clslength" });
+                            columns.Bound(u => u.selectedValidation).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Validation).Width(170)
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedValidation" }).ClientTemplate("#=selectedValidation.ValidationType#");
+
+                            columns.Bound(p => p.bVisible).Width(100).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_IsVisible)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxIsVisible' #= bVisible ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bSearch).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Searchable)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbSearch' #= bSearch ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bEditable).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Editable)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbEditable' #= bEditable ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bRequired).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Required)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbRequired' #= bRequired ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bDisabled).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Disable.Trim(':'))
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbDisabled' #= bDisabled ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bUniqueID).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Unique)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbUniqueID' #= bUniqueID ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bTransactionType).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_TrasactionType)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbTransactionType' #= bTransactionType ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bLANID).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_LANID)
+                            .ClientTemplate("<input  style='cursor:pointer' type='checkbox' class='chkbxbLANID' #= bLANID ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bIsUpload).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_IsUploaded)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbbIsUpload' #= bIsUpload ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bIsReport).Title("Not In Report")
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbbIsReport' #= bIsReport ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(100);
+                            columns.Bound(u => u.bCustomerIdentifier).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_CustomerIdentifier)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbCustomerIdentifier' #= bCustomerIdentifier ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(130);
+                            columns.Bound(u => u.iIsReportOrder).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_bisReportOrder).Width(130)
+                            .EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_bisReportOrder);
+
+
+
+                            columns.Bound(u => u.selectedRow).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Row).Width(100)
+                            .HtmlAttributes(new { @class = "clsRow" })
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedRow" }).ClientTemplate("#=selectedRow.Text#");
+                            columns.Bound(u => u.selectedcolumn).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Column).Width(100)
+                            .HtmlAttributes(new { @class = "clsColumn" })
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedcolumn" }).ClientTemplate("#=selectedcolumn.Text#");
+                            columns.Bound(u => u.selectedcolumnSpan).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ColumnSpan).Width(130)
+                            .HtmlAttributes(new { @class = "clsColumnSpan" })
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedcolumnSpan" }).ClientTemplate("#=selectedcolumnSpan.Text#");
+                            columns.Bound(u => u.iLengthReadonly).Hidden(true);
+                            columns.Bound(u => u.ISExistingRow).Hidden(true);
+                            columns.Bound(u => u.itranslateID).Hidden(true);//29
+                            if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+                            {
+                                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_puptranslate).Click("OpenTranslateP").HtmlAttributes(new { @class = "k-primary" })).Width(100).HtmlAttributes(new { id = "BtnTranlate", @class = "BtnTranlate" }).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Translate);
+                                columns.Bound(u => u.bIsTranslate).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Translate)
+                                .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbbIsTranslate' #= bIsTranslate ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(130);
+
+                            }
+
+                            columns.Bound(u => u.bSearchableSearch).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_IsSearchShow)
+                            .ClientTemplate("<input style='cursor:pointer' type='checkbox' class='chkbxbCustomerIdentifier' #= bSearchableSearch ? checked='checked' : '' # />").HtmlAttributes(new { style = "text-align:center" }).Width(130);
+                            columns.Bound(u => u.iReportsOrderSearch).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_SearchableOrder).Width(130)
+                            .EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_SearchableOrder);
+
+
+                            columns.Bound(u => u.selectedRowTAB).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_TabName).Width(100)
+                            .HtmlAttributes(new { @class = "clsRowTab" })
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedRowTAB" }).ClientTemplate("#=selectedRowTAB.sTABNameValue#");
+
+
+
+                            columns.Bound(u => u.selectedGridControlObj).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_GridName).Width(100)
+                            .HtmlAttributes(new { @class = "clsRowGrid" })
+                            .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "selectedGridControlObj" }).ClientTemplate("#=selectedGridControlObj.sGridChoiceValue#");
+
+                        })
+                        .Pageable(pageable => pageable
+                        // .PageSizes(new int[] { 200,300,400,500,600 })
+                        .Refresh(true)
+                        //.ButtonCount(5)
+                        //.Info(true)
+                        //.alwaysVisible(true)
+                        //.previousNext(true)
+                        )
+                        .Events(ev => ev.DataBound("onGridDataBound"))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(400)
+                        .ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(u => u.iObjectID);
+                            model.Field(u => u.iObjectID);
+                            model.Field(s => s.selectControlType).Editable(true);
+                            model.Field(s => s.sDataType).Editable(false);
+                            model.Field(s => s.iValidationID).Editable(false);
+                            model.Field(s => s.icolumn_No).Editable(false);
+                            model.Field(s => s.icolumn_Span).Editable(false);
+                            model.Field(s => s.bUniqueID).Editable(false);
+                            model.Field(s => s.bVisible).Editable(false);
+                            model.Field(s => s.bSearch).Editable(false);
+                            model.Field(s => s.bEditable).Editable(false);
+                            model.Field(s => s.bRequired).Editable(false);
+                            model.Field(s => s.bDisabled).Editable(false);
+                            model.Field(s => s.bTransactionType).Editable(false);
+                            model.Field(s => s.bLANID).Editable(false);
+                            model.Field(s => s.bIsUpload).Editable(false);
+                            model.Field(s => s.bIsReport).Editable(false);
+                            model.Field(s => s.bCustomerIdentifier).Editable(false);
+                            if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+                            {
+                                model.Field(s => s.bIsTranslate).Editable(false);
+                            }
+                        })))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.Hidden("DropFlag", "NoGridControl");
+<div id="OpenPartialPopupChoice" style="display:none">
+    <partial name="~/Views/WorkDefinition/_ChoicePopup.cshtml" />
+</div>
+
+<div id="OpenPartialWorkDefinationKeyBenefits" style="display:none">
+    <partial name="~/Views/WorkDefinition/_WorkDefinationKeyBenefits.cshtml" />
+</div>
+
+<div id="OpenPopupLetterLibrary" style="display:none">
+    <partial name="~/Views/WorkDefinition/_LetterLibraryConfiguration.cshtml" />
+</div>
+
+<div id="OpenPartialPopupTAB" style="display:none">
+    <partial name="~/Views/WorkDefinition/_Add_Modify_TAB.cshtml" />
+</div>
+@{
+    if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+    {
+        <div id="OpenPartialPopupTranslate" style="display:none">
+            <partial name="~/Views/WorkDefinition/_TranslatePopup.cshtml" />
+        </div>
+    }
+}
+<script>
+
+    var display_Select = '@(BPA.GlobalResources.UI.Resources_common.display_Select)';
+    var display_MsgOldAndNewValue = '@(BPA.GlobalResources.UI.Resources_common.display_MsgOldAndNewValue)';
+    var reguired_ObjectName = '@(BPA.GlobalResources.UI.Resources_common.reguired_ObjectName)';
+    var reguired_ObjectType = '@(BPA.GlobalResources.UI.Resources_common.reguired_ObjectType)';
+    var reguired_ObjectDataType = '@(BPA.GlobalResources.UI.Resources_common.reguired_ObjectDataType)';
+    var display_MsgWork = '@(BPA.GlobalResources.UI.Resources_common.display_MsgWork)';
+    var display_msgupdatework = '@(BPA.GlobalResources.UI.Resources_common.display_msgupdatework)';
+    var display_MsgConfirm = '@(BPA.GlobalResources.UI.Resources_common.display_MsgConfirm)';
+    var required_Client = '@(BPA.GlobalResources.UI.Resources_common.required_Client)';
+    var required_Process = '@(BPA.GlobalResources.UI.Resources_common.required_Process)';
+    var display_msg_following = '@(BPA.GlobalResources.UI.Resources_common.display_msg_following)';
+    var display_SamRowColum = '@(BPA.GlobalResources.UI.Resources_common.display_SamRowColum)';
+    var msgBlankRow = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_msgBlankRow)';
+    var Datatype = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_datatype)';
+    var ObjectType = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectType)';
+    var ObjectName = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName)';
+    var msg_SameRowCol = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.msg_SameRowCol)';
+    var MsgCampaign = '@(BPA.GlobalResources.UI.Resources_common.required_Campaign)';
+    var display_Alert = '@(BPA.GlobalResources.UI.Resources_common.display_Alert)';
+    var required_WorkDefination = '@(BPA.GlobalResources.UI.Resources_common.required_WorkDefination)';
+    var required_NoOfColumns = '@(BPA.GlobalResources.UI.Resources_common.required_NoOfColumns)';
+
+
+
+    var display_Confirmation = '@(BPA.GlobalResources.UI.Resources_common.display_Confirmation)';
+    var urlPathGetFilterList = ResourceLayout.partialURL + "GetFilterList";
+    var urlPatheditWorkDefination = ResourceLayout.partialURL + "editWorkDefination";
+    var urlPathSaveWorkData = ResourceLayout.partialURL + "SaveWorkData";
+    var urlPathIndex = ResourceLayout.partialURL + "Index";
+    var urlPathObjectFormula = ResourceLayout.partialURL + "ObjectFormula";
+    var urlPathCreateRESTControls = ResourceLayout.partialURL + "CreateRESTControls";
+    var urlPathUpdatePreViewData = ResourceLayout.partialURL + "UpdatePreViewData";
+    var urlPath_WorkPreview = ResourceLayout.partialURL + "_WorkPreview";
+    var urlPathSearchView = ResourceLayout.partialURL + "SearchView";
+    var urlPathApprovalView = ResourceLayout.partialURL + "ApprovalView";
+    var urlPathGetProcessID = ResourceLayout.partialURL + "GetProcessID";
+    var urlPathGetGridProcessID = ResourceLayout.partialURL + "GetGridProcessID";
+    var urlChoicedatasave = ResourceLayout.partialURL + "TempChoiceDataSave";
+    var urlPath_GetTABMasterData = ResourceLayout.partialURL + "GetTABMasterData";
+
+    var urlPath_GridConfigurations = ResourceLayout.partialURL + "_GridConfigurations";
+
+    var urlPath_GetFilter_WM_List = ResourceLayout.partialURL + "GetFilter_WM_List";
+
+    var urlPath_CheckGridConfigurations = ResourceLayout.partialURL + "CheckGridConfigurations";
+    if (bClientLanguage == "True") {
+        var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+        var LanguageUrl = '@Model.ApiUrl' + '/translation/text/translate?key=' + '@Model.ApiKey';
+    }
+    var bClientLanguage = '@bool.Parse(Model.oTenant.ClientMultiLanguage)';
+    function onDataBoundProcess(e) {
+
+        if (isEnable == "False") {
+            var dropdownlist = $("#ProcessName").data("kendoDropDownList");
+            dropdownlist.readonly();
+        }
+        else {
+            dataBound(e);
+        }
+    }
+    function onDataBoundCompaign(e) {
+
+        if (isEnable == "False") {
+            var dropdownlist = $("#CampaignName").data("kendoDropDownList");
+            dropdownlist.readonly();
+        }
+        else {
+            dataBound(e);
+        }
+    }
+
+
+
+</script>
+<script>
+
+    //to prevent nemeric value as first character
+    $('#WorkDefinitionName').on('input', function (e) {
+        var reg = /^[1-9][0-9]*$|^$/;
+        if (this.value.match(reg)) {
+            this.value = this.value.replace(reg, '');
+        }
+    });
+
+    $(function () {
+        $('#Description').keydown(function (e) {
+            if (e.keyCode === 8) {
+                e.preventDefault();
+                var bsp = document.getElementById("Description").value;
+                document.getElementById("Description").value = bsp.substring(0, bsp.length - 1);
+            }
+        });
+
+        $('#Description').keypress(function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                $('#Description').append('\n');
+            }
+            else {
+                if (e.originalEvent.key == 'Spacebar') {
+                    e.preventDefault();
+                    $('#Description').append(' ');
+                }
+                else {
+                    e.preventDefault();
+                    $('#Description').append(e.originalEvent.key);
+                }
+
+            }
+        });
+    });
+    $(document).ready(function () {
+
+        var buttonObject = $("#btnAddNewWorkDefinitionTAB").data("kendoButton");
+        var grdView = $('#GridWorkObject').data('kendoGrid');
+        if ('@Model.TABMapping' == 'False') {
+
+            buttonObject.enable(false);
+            grdView.hideColumn("selectedRowTAB");
+        }
+        else if ('@Model.TABMapping' == 'True') {
+            buttonObject.enable(true);
+            grdView.showColumn("selectedRowTAB");
+        }
+        if ('@Model.IsGridConfiguration' == 'False') {
+            $("#DropFlag").val("NoGridControl_Index");
+            //  buttonObject.enable(false);
+            grdView.hideColumn("selectedGridControlObj");
+        }
+        else if ('@Model.IsGridConfiguration' == 'True') {
+            //  buttonObject.enable(true);
+            $("#DropFlag").val("GridControl");
+            grdView.showColumn("selectedGridControlObj");
+        }
+
+    });
+    var OldData = false;
+    var SaveConfirmationFlag = false;
+    function SaveWorkMater(event) {
+
+        var errors = WorkDefinition_ValidationBeforeSave();
+        if (errors != "OK") {
+            jAlert(errors, display_Alert);
+            return false;
+        }
+
+        if (SaveConfirmationFlag == false) {
+            $.LoadingOverlay("show");
+            $.ajax({
+                async: false,
+                url: urlPath_GetFilter_WM_List,
+                type: 'POST',
+                dataType: 'json',
+                data: { iCampaignName: $('#CampaignName').val(), sname: "" },
+                //  contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $.LoadingOverlay("hide");
+                    if (result.strAction == "0") {
+                        if (result.PreviesData > 0) {
+                            OldData = true;
+                        }
+                    }
+                },
+                error: function (err) {
+                    $.LoadingOverlay("hide");
+                }
+            });
+
+            if (OldData == false) {
+                SaveworkMasterConfirmation();
+            }
+            else {
+                jConfirm("You want overwrite this workmaster!", display_Confirmation, function (r) {
+                    if (r) {
+                        SaveworkMasterConfirmation();
+
+                    }
+                    else {
+                        return false;
+                    }
+                });
+
+            }
+        }
+        else {
+            SaveworkMasterConfirmation();
+        }
+
+
+    }
+    function SaveworkMasterConfirmation() {
+
+        var gridData = $("#GridWorkObject").data("kendoGrid").dataSource.data();
+        var validator = $("#formWorkMaster").kendoValidator().data("kendoValidator");
+        var IsTABFlag = $("input[name=TABMapping]:checked").val();
+        event.preventDefault();
+        var el = "";
+        $("#WorkDefinitionName").val($("#WorkDefinitionName").val().trim() == '' ? '' : $("#WorkDefinitionName").val().trim());
+
+
+
+        if (validator.validate()) {
+
+            var grd = 0;
+            var vErr = 0;
+            if (vErr == 0) {
+                $(".ObjectName").each(function () {
+                    if ($(this).text() == "") {
+                        el = this;
+                        vErr = 1;
+                    }
+                });
+            }
+            if (vErr == 0) {
+                $("#GridWorkObject table tbody tr td:nth-child(8)").each(function () {
+                    //var dataType = $(this)[0].innerText; ObjectName
+                    //if (dataType == "" || dataType == "<--Select-->" || dataType =="--Select--")  {
+
+
+                    if ($(this).text() == "" || $(this).text() == "<--Select-->" || $(this).text() == "--Select--" || $(this).text() == "Select") {
+
+                        if (gridData[grd].sObjectName.toUpperCase() == "GETMAILDETAILS" || gridData[grd].sObjectName.toUpperCase() == "MAILBODY") { }
+                        else {
+                            el = this;
+                            vErr = 2;
+                        }
+                    }
+
+                    grd++;
+
+                });
+            }
+            //if (vErr == 0) {
+            //    $("#GridWorkObject table tbody tr td:nth-child(8)").each(function () {
+            //        //var dataType = $(this)[0].innerText; ObjectName
+            //        //if (dataType == "" || dataType == "<--Select-->" || dataType =="--Select--")  {
+            //        if ($(this).text() == "" || $(this).text() == "<--Select-->" || $(this).text() == "--Select--" || $(this).text()=="Select") {
+            //            el = this;
+            //            vErr = 2;
+            //        }
+
+            //    });
+            //}
+
+
+            if (vErr == 0) {
+                $("#GridWorkObject table tbody tr td:nth-child(10)").each(function () {
+                    if ($(this).text() == "" || $(this).text() == "<--Select-->" || $(this).text() == "--Select--" || $(this).text() == "Select") {
+                        el = this;
+                        vErr = 3;
+                    }
+
+                });
+            }
+            if (IsTABFlag == "true") {
+                if (vErr == 0) {
+                    // debugger;
+                    if (bClientLanguage == 'True' || bClientLanguage == 'true') {
+                        $("#GridWorkObject table tbody tr td:nth-child(35)").each(function () {
+                            if ($(this).text() == "" || $(this).text() == "<--Select-->" || $(this).text() == "--Select--" || $(this).text() == "Select") {
+                                el = this;
+                                vErr = 4;
+                            }
+
+                        });
+
+                    }
+                    else {
+                        $("#GridWorkObject table tbody tr td:nth-child(33)").each(function () {
+                            if ($(this).text() == "" || $(this).text() == "<--Select-->" || $(this).text() == "--Select--" || $(this).text() == "Select") {
+                                el = this;
+                                vErr = 4;
+                            }
+
+                        });
+                    }
+                }
+
+
+            }
+            if (vErr == 0) {
+                SaveWorketails();
+
+            }
+            else if (vErr == 1) {
+
+                jAlert(reguired_ObjectName, display_Alert, function () {
+                    $(el).trigger("click");
+                });
+
+                return false;
+            }
+            else if (vErr == 2) {
+
+                jAlert(reguired_ObjectType, display_Alert, function () {
+                    $(el).trigger("click");
+                });
+
+                return false;
+            }
+            else if (vErr == 3) {
+
+                jAlert(reguired_ObjectDataType, display_Alert, function () {
+                    $(el).trigger("click");
+                });
+
+                return false;
+            }
+            else if (vErr == 4) {
+
+                jAlert("Select TAB Name ", display_Alert, function () {
+                    $(el).trigger("click");
+                });
+
+                return false;
+            }
+        }
+        else {
+
+            return false;
+        }
+    }
+</script>

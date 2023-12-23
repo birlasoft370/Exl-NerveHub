@@ -1,0 +1,92 @@
+﻿@model ClientViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/client-1.8.2.js"></script>
+@using (Html.BeginForm("ShowClient", "Client", FormMethod.Post, new { @id = "__AjaxAntiForgeryForm" }))
+{
+    <div class="formWrap">
+        @Html.AntiForgeryToken()
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Client_List
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("insert-m").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm mx-2 ms-0" }).Events(ev => ev.Click("OnClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn btn-primary btn-sm" }).Events(ev => ev.Click("GoClient")).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <input name="ClientID" id="ClientID" type="hidden" value="0">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SEARCHNAME,@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.search_Client_Name, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(a => a.SEARCHNAME).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.ClientList).Name("ClientGrid").Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iClientID).Hidden(true);
+                            columns.Bound(u => u.sClientName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Client_Name.TrimEnd(':')).HtmlAttributes(new { style = "width:55%" }).HeaderHtmlAttributes(new { style = "width:55%" });
+                            // columns.Bound(u => u.sClientDescription).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Description.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+                            // columns.Bound(u => u.bDisabled).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Disable.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).Click("editClient").HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" })).HeaderHtmlAttributes(new { @style = "width:22.5%" }).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary  buttonstyle" }).Click("deleteClient")).HeaderHtmlAttributes(new { @style = "width:25%" }).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(u => u.iClientID);
+                            model.Field(u => u.iClientID).DefaultValue(Model.iClientID);
+                        })
+                        .PageSize(10)
+                        .ServerOperation(false)
+                        ))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    var ResourceClientSearch = {
+        display_Comfirm_Delete: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Delete_Confirmation)',
+        display_deleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Cleint_Deleted)',
+        display_OK: '@(@BPA.GlobalResources.UI.Resources_common.display_Ok)',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_SetClientID: ResourceLayout.partialURL + "SetClientID",
+        urlPath_DeleteClient: ResourceLayout.partialURL + "DeleteClient"
+    }
+
+</script>
+
+@{
+    if (ViewData["result"] != "" && ViewData["result"] != null)
+    {
+        <script type="text/javascript" language="javascript">
+            jAlert('@ViewData["result"]');
+
+        </script>
+    }
+}
+

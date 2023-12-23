@@ -1,0 +1,206 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model SubProcessMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    var editable = true;
+    if (Model.SubProcessID == 0)
+    {
+        editable = true;
+    }
+    else
+    {
+        editable = false;
+
+    }
+}
+<script src="~/lib/bpa/scripts/subprocessmaster-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "SubProcessMaster", FormMethod.Post, new { @id = "formSubProcessMaster" }))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.Partial("_ValidationSummary", ViewData.ModelState);*@
+    @Html.HiddenFor(a => a.SubProcessID)
+    if (Model.SubProcessID > 0)
+    {
+        @Html.HiddenFor(a => a.SubProcessName)
+    }
+
+    @*@Html.ValidationSummary(true)*@
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.SubProcessID == 0 ? BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_CreateNewSubProcess : BPA.GlobalResources.UI.AppConfiguration.Resources_SubProcessMaster.display_ModifyExistingSubProcess;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickSubProcess")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnSubProcessSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickSubProcessSearch")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="formWrap-body">
+
+            <div class="row">
+                <partial name="~/Views/Shared/_SearchView.cshtml" />
+                @*@{
+            Html.RenderPartial("~/Views/Shared/_SearchView.cshtml");
+            }
+            @Html.HiddenFor(x => x.ClientName)
+            @Html.HiddenFor(x => x.ProcessName)*@
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SubProcessName, new { @class = "form-label label-requried" })
+                        @Html.Kendo().TextBoxFor(camp => camp.SubProcessName).Enable(editable).HtmlAttributes(new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.Description, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(x => x.Description).HtmlAttributes(new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.ProductionStartDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePicker().Name("ProductionStartDate").Value(Model.ProductionStartDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Max(DateTime.Now).Events(x => x.Change("ProductionStartChange")))
+
+                    </div>
+                </div>
+
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.ProductionEndDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePicker().Name("ProductionEndDate").Value(Model.ProductionEndDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Min(DateTime.Now).Events(x => x.Change("ProductionEndChange")))
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.SubProcessStartDate, new { @class = "form-label label-requried" })
+                        @(Html.Kendo().DatePicker().Name("SubProcessStartDate").Value(Model.SubProcessStartDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Max(DateTime.Now).Events(x => x.Change("SubProcessStartChange")))
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.SubProcessEndDate, new { @class = "form-label label-requried" })
+                        @(Html.Kendo().DatePicker().Name("SubProcessEndDate").Value(Model.SubProcessEndDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Min(DateTime.Now).Events(x => x.Change("SubProcessEndChange")))
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.StabilizationStartDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePicker().Name("StabilizationStartDate").Value(Model.StabilizationStartDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Max(DateTime.Now).Events(x => x.Change("StabilizationStartDateChange")))
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.StabilizationEndDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePicker().Name("StabilizationEndDate").Value(Model.StabilizationEndDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Min(DateTime.Now).Events(x => x.Change("StabilizationEndDateChange")))
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.GoLiveDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePicker().Name("GoLiveDate").Value(Model.GoLiveDate).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Min(DateTime.Now).Max(new DateTime(2115, 12, 31)).Events(x => x.Change("StabilizationGoLiveChange")))
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-4">
+                        <div class="pt-3">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.Disable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $("#btnSubProcessSave").click(function () {
+        // debugger;
+        validationForm();
+    });
+
+</script>
+<script>
+    var ResourceSubProcessIndex =
+    {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_SubProcessSearchView: ResourceLayout.partialURL + "SubProcessSearchView"
+    }
+</script>
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+
+@if (Model.SubProcessID != 0)
+{
+    <script>
+        $(document).ready(function () {
+            $("#ClientName").data("kendoDropDownList").enable(false);
+            $("#ProcessName").parent().parent().find("span").attr("disabled", "disabled");
+            //  $("#SubProcessName").parent().parent().find("input").attr("readonly", "readonly");
+        });
+        $("#SubProcessName").ready(function () {
+            setTimeout(function () {
+                $("#ProcessName").data("kendoDropDownList").enable(false);
+                $("#ProcessName").parent().parent().find("input").attr("disabled", "disabled");
+            }, 100);
+        })
+    </script>
+}
+
+

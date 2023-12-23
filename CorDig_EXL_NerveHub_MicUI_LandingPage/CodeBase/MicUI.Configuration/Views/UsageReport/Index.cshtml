@@ -1,0 +1,264 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model UsageReportViewModel
+@{
+    /**/
+
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + " Monthly Usage Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #divPieChart .k-chart {
+        height: 400px;
+        padding: 20px;
+        margin: 0 0 0px 0;
+        width: 400px;
+    }
+
+    #divBarChart .k-chart {
+        height: 350px;
+        padding: 20px;
+        margin: 0 0 0px 0;
+        width: 1158px;
+    }
+
+    .k-chart-tooltip {
+        color: white !important;
+    }
+
+    .k-grid-toolbar {
+        float: right;
+        margin-right: 17px;
+    }
+    /*#GridViewReportData table tbody tr td {
+                        width: 161.8px;
+                    }
+                    #GridViewReportData table thead tr th {
+                        width: 150px;
+                    }*/
+</style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmBatchStatusChart" }))
+{
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = "Monthly Usage Report";
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnClearFilter").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_btn_Clear))
+                        @(Html.Kendo().Button().Name("btnGenerateReport").Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_btn_GenerateReport))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_FromDate, @BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_FromDate,new { @class = "form-label label-required" })
+                        @(Html.Kendo().DatePicker().Name("FromDate").Value(DateTime.Now.AddDays(-1)).Max(DateTime.Now).Events(e => e.Change("startChange")).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_ToDate,@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_ToDate, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DatePicker().Name("ToDate").Value(DateTime.Now).Max(DateTime.Now.AddDays(0).ToString()).Events(e => e.Change("endChange")).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                    </div>
+                </div>
+            </div>
+
+            <div id="_DataCount" class="row mt-3">
+                <div class="col-6">
+                    <h3 id="spnNotRecords"></h3>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        <small>@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_NumberoftotalRecords <b id="spnTotalRecords">0</b></small>
+                    </div>
+                </div>
+            </div>
+            <div id="divGraphics" style="display: none;" class="pt-2">
+                @(Html.Kendo().TabStrip().Name("TabstripChartsData").Events(events => events
+                    .Select("onSelectTab")
+                    ).Items(tabstrip =>
+                    {
+                        tabstrip.Add().Text(@BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_Graphics).Selected(true).Content(@<text>
+                            <div class="px-3 py-3">
+                                <div class="text-end pb-3"> @(Html.Kendo().Button().Icon("search").Name("btnExportChart").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content("Export Chart").Events(x => x.Click("ClickExportChart")))</div>
+                                    <div id="divPieChart" class="mt-3">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div id="divBatchStatusChart" class="py-2"></div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div id="divOutcomeBasedStatusChart" class="py-2"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </text>);
+                        tabstrip.Add().Text("Monthly Usage Report").Content(@<text>
+                            <div>
+
+                                <button id="expand" class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' style="z-index: 1;margin-bottom: -84px;margin-left: 5px;"><span class='k-button-text'>Expand All</span></button>
+                                <button id="collapse" class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' style="z-index: 1;margin-bottom: -83px;margin-left: 5px;"><span class='k-button-text'>Collapse All</span></button>
+                                <div class="mt-3"><div id="GridViewReportData" class="formTable"></div></div>
+                            </div>
+                        </text>);
+                        tabstrip.Add().Text("SWM Details Report").Content(@<text>
+                            <div class="px-3 py-3">
+                                <div class="pt-3 text-end" style="display:none;">@(Html.Kendo().Button().Name("btnExportReport").Content("Export To Excel").Events(e => e.Click("OnExportReportClick")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }))</div>
+                                    <div class="mt-3"><div id="GridSWMViewReportData" class="formTable"></div></div>
+                                </div>
+                            </text>);
+                        tabstrip.Add().Text("DQA Details Report").Content(@<text>
+                            <div class="px-3 py-3">
+                                <div class="pt-3 text-end" style="display:none;">@(Html.Kendo().Button().Name("btnExportReport").Content("Export To Excel").Events(e => e.Click("OnExportReportClick")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }))</div>
+                                    <div class="mt-3"><div id="GridDQAViewReportData" class="formTable"></div></div>
+                                </div>
+                            </text>);
+                    }))
+            </div>
+        </div>
+    </div>
+}
+<script src="~/lib/bpa/scripts/usagesreports-1.8.2.js"></script>
+
+<script>
+
+    var MIN_SIZE = 10;
+    var MAX_SIZE = 20;
+    var SORT = {};
+    var DRAG_THR = 50;
+    var viewStart = 0;
+    var viewSize = MIN_SIZE;
+    var newStart;
+    var dataChart_ = [];
+    function onDrag(e) {
+        var chart = e.sender;
+        var ds = chart.dataSource;
+        var delta = Math.round(e.originalEvent.x.initialDelta / DRAG_THR);
+
+        if (delta != 0) {
+            newStart = Math.max(0, viewStart - delta);
+            newStart = Math.min(dataChart_.length - viewSize, newStart);
+            ds.query({
+                skip: newStart,
+                page: 0,
+                pageSize: viewSize,
+                sort: SORT
+            });
+        }
+    }
+
+    function onDragEnd() {
+        viewStart = newStart;
+    }
+
+    function onZoom(e) {
+        var chart = e.sender;
+        var ds = chart.dataSource;
+        viewSize = Math.min(Math.max(viewSize + e.delta, MIN_SIZE), MAX_SIZE);
+        ds.query({
+            skip: viewStart,
+            page: 0,
+            pageSize: viewSize,
+            sort: SORT
+        });
+        e.originalEvent.preventDefault();
+    }
+
+    $(document).ready(function () {
+        columnwithOnlyDate.push("StatusAsOn");
+        $("#_DataCount").hide();
+    });
+</script>
+
+
+<style>
+
+
+
+    .horizontalscroll {
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 1350px;
+    }
+
+    .k-tabstrip-items {
+        background: buttonface !important;
+        padding-left: 0px;
+    }
+
+    #TabstripChartsData-1 {
+        padding-left: 0;
+        padding-right: 0;
+        float: left;
+        width: 100%;
+        height: 1300px;
+    }
+
+    #TabstripChartsData-2 {
+        padding-left: 0;
+        padding-right: 0;
+        float: left;
+        width: 100%;
+    }
+
+    /*#GridViewReportData table tbody tr td {
+                                width: 150px;
+                            }
+
+                            #GridViewReportData table colgroup col {
+                                width: 150px;
+                            }*/
+</style>
+<script>
+
+    var Resources = {
+
+        display_BSR_Attempted: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_Attempted)',
+        display_BSR_UnAttempted: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_UnAttempted)',
+        display_BSR_BatchStatus: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_BatchStatus)',
+        display_BSR_percentage: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_percentage)',
+        display_BSR_OutcomeBasedStatus: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_OutcomeBasedStatus)',
+        display_BSR_OutcomeStatusBasedon: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_OutcomeStatusBasedon)',
+        display_BSR_UnAttempted: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_UnAttempted)',
+        display_BSR_UnAttempted: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_UnAttempted)',
+        display_BSR_UnAttempted: '@(BPA.GlobalResources.UI.WorkManagement.Resource_Reports.display_BSR_UnAttempted)',
+
+        url_ChartGetBatchStatusReportData: ResourceLayout.partialURL + 'ChartGetBatchStatusReportData',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_GetResolutionCodeList: ResourceLayout.partialURL + 'GetResolutionCodeList',
+        url_DownloadReport: ResourceLayout.partialURL + 'DownloadReport',
+        url_GetBatchStatusReportData: ResourceLayout.partialURL + 'GetBatchStatusReportData',
+
+    }
+    function OnExportReportClick() {
+
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: Resources.url_DownloadReport,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (returnValue) {
+                window.open("/UploadDocs/" + returnValue.trim(), "_blank");
+            }
+        });
+    }
+</script>
+

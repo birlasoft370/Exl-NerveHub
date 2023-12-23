@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_AuditEmail" xml:space="preserve">
+    <value>Auditoría E-Mail:</value>
+  </data>
+  <data name="display_Compliance" xml:space="preserve">
+    <value>Conformidad:</value>
+  </data>
+  <data name="display_DefinitionName" xml:space="preserve">
+    <value>Nombre Definición:</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Descripción:</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Inhabilitar:</value>
+  </data>
+  <data name="display_DPO" xml:space="preserve">
+    <value>RPD:</value>
+  </data>
+  <data name="display_DPU" xml:space="preserve">
+    <value>DPU:</value>
+  </data>
+  <data name="display_Fatal" xml:space="preserve">
+    <value>Fatal:</value>
+  </data>
+  <data name="display_MonitoringType" xml:space="preserve">
+    <value>Tipo de monitoreo:</value>
+  </data>
+  <data name="display_NonFatal" xml:space="preserve">
+    <value>No fatal:</value>
+  </data>
+  <data name="display_Overall" xml:space="preserve">
+    <value>En general</value>
+  </data>
+  <data name="display_RandomSample" xml:space="preserve">
+    <value>función de muestreo al azar para TM auditorías adicionales (AN / AF):</value>
+  </data>
+  <data name="display_SubProcess" xml:space="preserve">
+    <value>Sub Nombre de proceso:</value>
+  </data>
+  <data name="display_TMSetupName" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="required_MonitoringType" xml:space="preserve">
+    <value>Por favor, seleccione Tipo de Seguimiento</value>
+  </data>
+  <data name="required_SubProcess" xml:space="preserve">
+    <value>Por favor, seleccione Sub Proceso</value>
+  </data>
+  <data name="required_TMSetupName" xml:space="preserve">
+    <value>Por favor, introduzca el nombre</value>
+  </data>
+  <data name="display_Add" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="display_preview" xml:space="preserve">
+    <value>Avance</value>
+  </data>
+  <data name="display_SubProcess_Select" xml:space="preserve">
+    <value>- Seleccionar Subproceso -</value>
+  </data>
+  <data name="display_Transaction_Monitoring_Search" xml:space="preserve">
+    <value>TM Buscar</value>
+  </data>
+  <data name="display_btnDeleteSelect" xml:space="preserve">
+    <value>&amp;lt;&amp;lt;</value>
+  </data>
+  <data name="display_btnMoveSelect" xml:space="preserve">
+    <value>&amp;gt;&amp;gt;</value>
+  </data>
+  <data name="display_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="display_Category" xml:space="preserve">
+    <value>Categoría:</value>
+  </data>
+  <data name="display_Clear" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="display_DirectionstouseIf" xml:space="preserve">
+    <value>Instrucciones de uso Si</value>
+  </data>
+  <data name="display_EnterFormulaBased" xml:space="preserve">
+    <value>Introduzca fórmula basada en parámetros elegidos:</value>
+  </data>
+  <data name="display_FreeFields" xml:space="preserve">
+    <value>Los campos libres:</value>
+  </data>
+  <data name="display_Miscellaneous" xml:space="preserve">
+    <value>Varios:</value>
+  </data>
+  <data name="display_Ok" xml:space="preserve">
+    <value>De acuerdo</value>
+  </data>
+  <data name="display_Parameters_Operators_Functions" xml:space="preserve">
+    <value>Parámetros / Operadores / funciones:</value>
+  </data>
+  <data name="display_ParameterWiseDefects" xml:space="preserve">
+    <value>Los defectos de los parámetros Wise / Oportunidades de defectos:</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="display_SelectedParameters" xml:space="preserve">
+    <value>Los parámetros seleccionados:</value>
+  </data>
+  <data name="display_View" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="display_SearchViewTitle" xml:space="preserve">
+    <value>Monitoreo de transacciones</value>
+  </data>
+  <data name="display_TMCategory_TabStrip" xml:space="preserve">
+    <value>TM Categoría</value>
+  </data>
+  <data name="display_TMCriticalParameterMap_TabStrip" xml:space="preserve">
+    <value>TM crítico Parámetro Mapa</value>
+  </data>
+  <data name="display_TMDefiniation_TabStrip" xml:space="preserve">
+    <value>TM Definición</value>
+  </data>
+  <data name="display_TMDefiniation_Title" xml:space="preserve">
+    <value>TM Definición</value>
+  </data>
+  <data name="display_TMFieldLevelFormula" xml:space="preserve">
+    <value>Fórmula TM Nivel de Campo</value>
+  </data>
+  <data name="display_TMFormula_TabStrip" xml:space="preserve">
+    <value>Fórmula TM</value>
+  </data>
+  <data name="display_TMFormula_Title" xml:space="preserve">
+    <value>Fórmula TM</value>
+  </data>
+  <data name="display_TMFreeField_TabStrip" xml:space="preserve">
+    <value>TM Campo Libre</value>
+  </data>
+  <data name="display_TMMappingofFreefield" xml:space="preserve">
+    <value>TM Cartografía de Freefield con la instalación de muestreo</value>
+  </data>
+  <data name="display_TMMetricMap_TabStrip" xml:space="preserve">
+    <value>TM Métricas Mapa</value>
+  </data>
+  <data name="display_TMQuestion_TabStrip" xml:space="preserve">
+    <value>pregunta TM</value>
+  </data>
+  <data name="display_OptionCTC" xml:space="preserve">
+    <value>CTC</value>
+  </data>
+  <data name="display_OptionDefect" xml:space="preserve">
+    <value>Defecto</value>
+  </data>
+  <data name="display_OptionDisable" xml:space="preserve">
+    <value>Inhabilitar</value>
+  </data>
+  <data name="display_OptionIsAudit" xml:space="preserve">
+    <value>Auditoría es E-Mail</value>
+  </data>
+  <data name="display_OptionNoScore" xml:space="preserve">
+    <value>Sin puntuación</value>
+  </data>
+  <data name="display_Options" xml:space="preserve">
+    <value>opciones</value>
+  </data>
+  <data name="display_OptionScore" xml:space="preserve">
+    <value>Puntuación</value>
+  </data>
+  <data name="display_TMQuestionCompliance" xml:space="preserve">
+    <value>Conformidad</value>
+  </data>
+  <data name="display_TMQuestionCTC" xml:space="preserve">
+    <value>CTC</value>
+  </data>
+  <data name="display_TMQuestionDisable" xml:space="preserve">
+    <value>Inhabilitar</value>
+  </data>
+  <data name="display_TMQuestionDisqualifier" xml:space="preserve">
+    <value>disqualifier</value>
+  </data>
+  <data name="display_TMQuestionERSAble" xml:space="preserve">
+    <value>Capaz ERS</value>
+  </data>
+  <data name="display_TMQuestionFatal" xml:space="preserve">
+    <value>Fatal</value>
+  </data>
+  <data name="display_TMQuestionIsAuditEMail" xml:space="preserve">
+    <value>Auditoría es E-Mail</value>
+  </data>
+  <data name="display_TMQuestionLabel" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="display_TMQuestionNonFatal" xml:space="preserve">
+    <value>no fatal</value>
+  </data>
+  <data name="display_TMQuestionNonScoring" xml:space="preserve">
+    <value>no alcanzaron el</value>
+  </data>
+  <data name="display_TMQuestionWeightage" xml:space="preserve">
+    <value>weightage</value>
+  </data>
+  <data name="required_Options" xml:space="preserve">
+    <value>Por favor, introduzca Opción</value>
+  </data>
+  <data name="required_OptionScore" xml:space="preserve">
+    <value>Por favor, introduzca un valor entero</value>
+  </data>
+  <data name="required_TMQuestionLabel" xml:space="preserve">
+    <value>Por favor, introduzca la etiqueta</value>
+  </data>
+  <data name="required_TMQuestionWeightage" xml:space="preserve">
+    <value>Por favor proporcionar un valor número entero</value>
+  </data>
+  <data name="display_TargetObject" xml:space="preserve">
+    <value>objeto de destino</value>
+  </data>
+  <data name="display_TMFieldFormulaDrpDownQuestion" xml:space="preserve">
+    <value>pregunta:</value>
+  </data>
+  <data name="display_TMFieldFormulaRadioQuestion" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
+  <data name="display_TMFieldLevelFormulaFreeField" xml:space="preserve">
+    <value>Freefield</value>
+  </data>
+  <data name="display_TMFreefieldDrpDownFormula" xml:space="preserve">
+    <value>Freefield:</value>
+  </data>
+  <data name="display_TMFreeFieldFormulaChoice" xml:space="preserve">
+    <value>elección:</value>
+  </data>
+  <data name="display_TMFreeFieldFormulaOperator" xml:space="preserve">
+    <value>operador:</value>
+  </data>
+  <data name="display_TMFreeFieldFormulaProperty" xml:space="preserve">
+    <value>Propiedad :</value>
+  </data>
+  <data name="display_FieldLevelFormula" xml:space="preserve">
+    <value>Fórmula Nivel de Campo</value>
+  </data>
+  <data name="display_FreeFieldFormula" xml:space="preserve">
+    <value>Fórmula Campo Libre</value>
+  </data>
+  <data name="display_FreeFieldFormulaName" xml:space="preserve">
+    <value>Campo Libre Nombre de fórmula</value>
+  </data>
+  <data name="display_TMFreeFieldFormulaSearch" xml:space="preserve">
+    <value>TM Campo Libre Fórmula Buscar</value>
+  </data>
+  <data name="required_TargetObject" xml:space="preserve">
+    <value>Por favor seleccione Objeto de destino</value>
+  </data>
+  <data name="display_Previewddlname" xml:space="preserve">
+    <value>Hoja de monitoreo de transacciones</value>
+  </data>
+  <data name="display_TMControlType" xml:space="preserve">
+    <value>Tipo de control</value>
+  </data>
+  <data name="display_TMDataType" xml:space="preserve">
+    <value>Tipo de datos</value>
+  </data>
+  <data name="display_TMIsCTC" xml:space="preserve">
+    <value>es CTC</value>
+  </data>
+  <data name="display_TMIsRequired" xml:space="preserve">
+    <value>Es requerido</value>
+  </data>
+  <data name="display_TMIsVisible" xml:space="preserve">
+    <value>Es visible</value>
+  </data>
+  <data name="display_TMTitleEditFreeField" xml:space="preserve">
+    <value>Editar campo libre</value>
+  </data>
+  <data name="display_TMTitleNewFreeField" xml:space="preserve">
+    <value>Agregar nuevo campo libre</value>
+  </data>
+  <data name="display_TMValidation" xml:space="preserve">
+    <value>Validación</value>
+  </data>
+  <data name="required_choicefreefield" xml:space="preserve">
+    <value>Por favor, defina al menos una opción para el campo libre</value>
+  </data>
+  <data name="required_ControlType" xml:space="preserve">
+    <value>Por favor, defina el tipo de control!</value>
+  </data>
+  <data name="required_DataType" xml:space="preserve">
+    <value>Por favor, defina Tipo de datos Valor!</value>
+  </data>
+  <data name="display_NS" xml:space="preserve">
+    <value>NS</value>
+  </data>
+  <data name="display_Select" xml:space="preserve">
+    <value>-Seleccionar-</value>
+  </data>
+  <data name="txt_Boolean" xml:space="preserve">
+    <value>Boole</value>
+  </data>
+  <data name="txt_Character" xml:space="preserve">
+    <value>Personaje</value>
+  </data>
+  <data name="txt_DateTime" xml:space="preserve">
+    <value>Fecha y hora</value>
+  </data>
+  <data name="txt_Float" xml:space="preserve">
+    <value>Flotador</value>
+  </data>
+  <data name="txt_Integer" xml:space="preserve">
+    <value>Entero</value>
+  </data>
+  <data name="txt_Time" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="display_Choice" xml:space="preserve">
+    <value>Elección</value>
+  </data>
+  <data name="display_CriticalCondition" xml:space="preserve">
+    <value>Condición crítica</value>
+  </data>
+  <data name="display_FillChoice" xml:space="preserve">
+    <value>llenar Elección</value>
+  </data>
+  <data name="display_FormulaBuilder" xml:space="preserve">
+    <value>Generador de fórmulas</value>
+  </data>
+  <data name="display_FormulaView" xml:space="preserve">
+    <value>fórmula Ver</value>
+  </data>
+  <data name="display_GridColumnName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="display_MetricDefinitionName" xml:space="preserve">
+    <value>Definición Nombre métrica</value>
+  </data>
+  <data name="display_Pleasewait" xml:space="preserve">
+    <value>Por favor espera...</value>
+  </data>
+  <data name="display_PreviewTransactionMonitoringSheet" xml:space="preserve">
+    <value>Vista previa de la hoja de monitorización de transacciones</value>
+  </data>
+  <data name="display_Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="display_TMCritical" xml:space="preserve">
+    <value>TM crítico de parámetros</value>
+  </data>
+  <data name="display_TMQuestionOptions" xml:space="preserve">
+    <value>Opciones de la pregunta TM</value>
+  </data>
+  <data name="display_ViewCondition" xml:space="preserve">
+    <value>Ver Estado</value>
+  </data>
+  <data name="dispaly_TMDefinitionUpdated" xml:space="preserve">
+    <value>datos TM definición actualizada con éxito!.</value>
+  </data>
+  <data name="display_TMCriticalParamDataSaved" xml:space="preserve">
+    <value>TM datos de parámetro crítico guardan con éxito!.</value>
+  </data>
+  <data name="display_TMDefinitionSaved" xml:space="preserve">
+    <value>Definición de datos TM guardan con éxito!.</value>
+  </data>
+  <data name="display_TMFormulaSaved" xml:space="preserve">
+    <value>Fórmula datos guardados guardan con éxito!.</value>
+  </data>
+  <data name="display_TMFreeFieldSaved" xml:space="preserve">
+    <value>los datos de campo libre TM guardan con éxito!.</value>
+  </data>
+  <data name="display_TMMappingFreeFieldSaved" xml:space="preserve">
+    <value>Mapeo de datos TM libre de campo guardan con éxito!.</value>
+  </data>
+  <data name="display_TMMetricMapSaved" xml:space="preserve">
+    <value>datos TM MetricMap guardan con éxito!.</value>
+  </data>
+  <data name="display_TMQuestionSaved" xml:space="preserve">
+    <value>Pregunta datos TM guardan con éxito!.</value>
+  </data>
+</root>

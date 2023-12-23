@@ -1,0 +1,93 @@
+﻿@using Kendo.Mvc.UI;
+
+@model MicUI.WorkManagement.Models.ViewModels.BreakMasterViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.WorkManagement.Resources_Break.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/breakmaster-1.8.2.js"></script>
+@using (Html.BeginForm("BreakMasterSearchView", "BreakMaster", FormMethod.Post, new { @id = "formBreakMaster" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resources_Break.dispSearchBreak)
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnBreakMasterNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").Events(ev => ev.Click("GoBreakMasterView")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <input name="CampID" id="CampID" type="hidden" value="0">
+            @Html.HiddenFor(a => a.mBreakID)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(u => u.mBreakSearchName, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(u => u.mBreakSearchName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="formTable">
+                    @(Html.Kendo().Grid<MicUI.WorkManagement.Services.ServiceModel.BEBreakInfo>().Name("gridViewBreakMaster").AutoBind(false).Pageable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iBreakID).Hidden(true);
+                            columns.Bound(u => u.sBreakName).Title(@BPA.GlobalResources.UI.WorkManagement.Resources_Break.display_Break_Name).HeaderHtmlAttributes(new { style = "color:white;" });
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.WorkManagement.Resources_Break.display_Edit_Button).Click("editBreakCode").HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" })).Title(@BPA.GlobalResources.UI.WorkManagement.Resources_Break.display_Edit_Button);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_LOB.display_Delete_Button).HtmlAttributes(new { @class = "k-primary" }).Click("LOBdelete")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .Pageable(pageable => pageable.Refresh(true).PageSizes(true).ButtonCount(5)).Events(x => x.DataBound("onRowBoundSearchGrid"))
+                        .DataSource(dataSource => dataSource.Ajax().Read(read => read.Action("BreakInfoList", "BreakMaster").Data("Datainfo"))))
+
+                </div>
+
+                <div id="divOverlay" class="Overlay"></div>
+                <div class="popup SmallPopup" id="divPopup"></div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        var Resources = {
+            display_Comfirm_Delete_BreakCode: '@(BPA.GlobalResources.UI.WorkManagement.Resources_Break.desplay_ConfirmDelete)',
+            display_Deleted_BreakCode: '@(BPA.GlobalResources.UI.WorkManagement.Resources_Break.display_Delete_Message)',
+        }
+    </script>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert("@ViewData["Message"]");
+        </script>
+    }
+}
+<script>
+    controller = 'BreakMaster';
+    var Resources = {
+        url_BreakMasterSearchView: ResourceLayout.partialURL + 'BreakMasterSearchView',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_SetBreakID: ResourceLayout.partialURL + 'SetBreakID',
+        url_DeleteBreakMaster: ResourceLayout.partialURL + 'DeleteBreakMaster',
+        url_BreakMasterSearchView: ResourceLayout.partialURL + 'BreakMasterSearchView',
+    }
+
+
+
+</script>

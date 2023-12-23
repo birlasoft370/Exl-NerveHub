@@ -1,0 +1,96 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/css/bpa/content/themes/jquery.ui.button.css" rel="stylesheet" />
+<div>
+    <div class="tblMainNew" style="float:left; width:100%">
+        @(Html.Kendo().Grid(Model.Choice)
+            .Name("GridChoice")
+            .Selectable()
+            .Pageable()
+            .Sortable()
+            .Scrollable().Events(events => events.DataBound("onRowBoundSearchGrid"))
+            .ToolBar(toolbar => toolbar.Create().Text(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_AddNewRecord).HtmlAttributes(new { @class = "k-primary" }))
+            .Columns(columns =>
+            {
+                columns.Bound(u => u.iObjectChoiceID).Hidden(true);
+                columns.Bound(u => u.sChoiceValue).HtmlAttributes(new { @style = "text-align:left;" }).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName).Width(200).EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ChoiceValue);
+                columns.Bound(u => u.iOrder).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_DisplayOrder).Width(120);
+                columns.Bound(u => u.iGroupID).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_GroupID).Width(80);
+                columns.Bound(u => u.bDisabled).ClientTemplate("<input type='checkbox' class='bDisabled' #= bDisabled ? checked='checked' : '' # />").Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Disable).Width(80);
+                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary" }).Click("deleteClick")).Width(90);
+                if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+                {
+                    columns.Command(command => command.Custom(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_puptranslate).Click("OpenTranslateChoice")
+                    .HtmlAttributes(new { @class = "LanguageTxt" })).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Translate).Width(80);
+                }
+            }).Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                model.Id(u => u.iObjectChoiceID);
+
+            })
+            ))
+    </div>
+    @{
+        if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+        {
+            @*<div class="tblMainNewView" style="float:left; width:100%; ">
+    <div id="divPrivewChoice"></div>
+    </div>*@
+            <div id="OpenPartialPopupChoiceTranslate" style="display:none">
+                @{
+                    await Html.PartialAsync("~/Views/WorkDefinition/_TranslateChoicePopup.cshtml");
+                }
+            </div>
+            @*<div style="float:left; text-align:center; width:100%; padding-top:10px">
+    <table>
+    <tr>
+    <td></td>
+    <td>
+    @(Html.Kendo().Button().Name("btnShowTrans").Icon("view").HtmlAttributes(new { type = "button", @class = "k-primary" }).Content("Translate View").Events(ev => ev.Click("btnShowTransClick")))
+    </td>
+    </tr>
+    </table>
+
+    </div>*@
+        }
+    }
+    <div class="k-window-footer text-end">
+        @(Html.Kendo().Button().Name("btnclosechoice").Icon("close").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn" }).Content("Close").Events(ev => ev.Click("closeChoise")))
+        @(Html.Kendo().Button().Name("btnSave").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_btnSaveClose).Events(ev => ev.Click("SaveChoiceClick")))
+    </div>
+    <script>
+        $(".bDisabled").on("click", function () {
+            var rin = $(this).parent().parent().index();
+            var grid = $("#GridChoice").data("kendoGrid");
+            /* Get & Set Visibility checkBox*/
+            if (this.className.toLowerCase().indexOf('bdisabled') >= 0) {
+                $(this).is(":checked") == true ? grid.dataSource._data[rin].bDisabled = true : grid.dataSource._data[rin].bDisabled = false;
+            }
+        });
+        var urlPathGetFilterList = ResourceLayout.partialURL + "GetFilterList";
+        var urlPatheditWorkDefination = ResourceLayout.partialURL + "editWorkDefination";
+        var urlPathSaveWorkData = ResourceLayout.partialURL + "SaveWorkData";
+        var urlPathIndex = ResourceLayout.partialURL + "Index";
+        var urlPathObjectFormula = ResourceLayout.partialURL + "ObjectFormula";
+        var urlPathCreateRESTControls = ResourceLayout.partialURL + "CreateRESTControls";
+        var urlPathUpdatePreViewData = ResourceLayout.partialURL + "UpdatePreViewData";
+        var urlPath_WorkPreview = ResourceLayout.partialURL + "_WorkPreview";
+        var urlPathSearchView = ResourceLayout.partialURL + "SearchView";
+        var urlPathApprovalView = ResourceLayout.partialURL + "ApprovalView";
+        var urlPathGetProcessID = ResourceLayout.partialURL + "GetProcessID";
+        var urlTranslateChoice = ResourceLayout.partialURL + "GetTranslateChoiceLanguage";
+        var urlTranslateChoiceSave = ResourceLayout.partialURL + "GetTranslateChoiceLanguageSave";
+        if (bClientLanguage == "True") {
+            var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+            var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+        }
+        var bClientLanguage = '@Model.oTenant.ClientMultiLanguage';
+    </script>
+</div>

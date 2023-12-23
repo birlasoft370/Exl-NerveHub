@@ -1,0 +1,136 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@using MicUI.NerveHub.Module.Security;
+@inject IAuthentication _authentication
+@model MicUI.NerveHub.Models.HomeViewModel
+@inject IConfiguration _configuration
+
+@{
+    var tokend = _authentication.Token;
+    var ConfigurationURL = $"{_configuration.GetValue<string>("ConfigurationURL")}?token={tokend}";
+     var EMSURL = $"{_configuration.GetValue<string>("EMSURL")}?token={tokend}";
+}
+
+<div>
+
+    <section class="content-wrapper main-content clear-fix centerBody">
+        <div id="homepage">
+            <div class="appList">
+
+
+                @{
+                    for (int i = 0; i < Model.lactiveModule.Count; i++)
+                    {
+                        if (!string.IsNullOrEmpty(Model.lactiveModule[i].ModuleName))
+                        {
+                            if (Model.lactiveModule[i].ModuleName.Contains("Dashboard"))
+                            {
+                                <a href="#" class="dashboard-module mainbox">
+                                    <div title="Agent Dashboard" class="Images-mbagent imgstyle"></div>
+                                    <span>@localizer["Dashboard"]</span>
+                                </a>
+
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("WorkManagement"))
+                            {
+                                <a href="https://localhost:7145?token=@tokend" target="_blank" class="dashboard-module mainbox">
+                                    <div title="WorkManagement" class="Images-mbwm imgstyle"></div>
+                                    <span>@localizer["WorkManagement"]</span>
+                                </a>
+                                continue;
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("QualityManagement"))
+                            {
+                                <a href="/@Model.TenantName/QualityManagement/Home/Index" class="dashboard-module mainbox">
+                                    <div align="center" title="QualityManagement" class="Images-mbqms imgstyle"></div>
+                                    <span>@localizer["QualityManagement"]</span>
+                                </a>
+                                continue;
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("QueryTracker"))
+                            {
+                                <a href="/@Model.TenantName/QueryTracker/Home/Index" class="dashboard-module mainbox">
+                                    <div align="center" title="QueryTracker" class="Images-mbquery imgstyle"></div>
+                                    <span>@localizer["QueryTracker"]</span>
+                                </a>
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("LetterLibrary"))
+                            {
+                                <a href="/@Model.TenantName/LetterLibrary/Home/Index" class="dashboard-module mainbox">
+                                    <div title="LetterLibrary" class="Images-mbletterlib imgstyle"></div>
+                                    <span>@localizer["LetterLibrary"]</span>
+                                </a>
+                                continue;
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("AssessMe"))
+                            {
+                                <a href="/@Model.TenantName/AssessMe/Home/Index" class="dashboard-module mainbox">
+                                    <div title="AssessME" class="Images-mbassessme imgstyle"></div>
+                                    <span>@localizer["AssessME"]</span>
+                                </a>
+                                continue;
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("EmailManagement"))
+                            {
+                                <a href="@EMSURL" class="dashboard-module mainbox">
+                                    <div title="EMSAdapter" class="Images-mbemailconfig imgstyle"></div>
+                                    <span>@localizer["EMSAdapter"]</span>
+                                </a>
+                                continue;
+
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("AppConfiguration"))
+                            {
+                                <a href="@ConfigurationURL" class="dashboard-module mainbox">
+                                    <div title="Configuration" class="Images-mbconfig imgstyle"></div>
+                                    <span>@localizer["Configuration"]</span>
+                                </a>
+                                continue;
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("ProcessGuidance"))
+                            {
+                                <a href="/@Model.TenantName/ProcessGuidance/Home/Index" class="dashboard-module mainbox">
+                                    <div align="center" title="ProcessGuidance" class="Images-guidprocess imgstyle"></div>
+                                    <span>@localizer["ProcessGuidance"]</span>
+                                </a>
+                            }
+
+                            else if (Model.lactiveModule[i].ModuleName.Contains("BIReports"))
+                            {
+                                <a href="/@Model.TenantName/BIReports/Home/Index" class="dashboard-module mainbox">
+                                    <div align="center" title="Reports" class="Images-mbprocess imgstyle"></div>
+                                    <span>@localizer["Reports"]</span>
+                                </a>
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("Translate"))
+                            {
+                                <a href="#" class="dashboard-module mainbox">
+                                    <div align="center" title="EXL Translate" class="Images-mbtrans imgstyle"></div>
+                                    <span>EXL Translate</span>
+                                </a>
+                            }
+                            else if (Model.lactiveModule[i].ModuleName.Contains("UsageReport"))
+                            {
+                                <a href="/@Model.TenantName/AppConfiguration/UsageReport/Index" class="dashboard-module mainbox">
+                                    <div align="center" title="Monthly Usages Reports" class="Images-mbprocess imgstyle"></div>
+                                    <span>Monthly Usages Report</span>
+                                </a>
+                            }
+
+
+                        }
+                    }
+                    @*<a href="/Translate/@Model.ClientName/DesktopTranslate.application?ApplicationURl=@Model.getURL" class="dashboard-module mainbox">
+                <div align="center" title="EXL Translate" class="Images-mbletterlib imgstyle"></div>
+                <span>EXL Translate</span>
+                </a>*@
+                }
+
+
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+

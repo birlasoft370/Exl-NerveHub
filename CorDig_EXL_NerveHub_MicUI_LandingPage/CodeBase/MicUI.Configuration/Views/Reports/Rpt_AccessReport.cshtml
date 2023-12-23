@@ -1,0 +1,170 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_AccessReport_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Rpt_AccessReport" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_AccessReport_Tittle;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnRefresh").Events(ev => ev.Click("OnClickRefresh")).HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh"))
+                        @(Html.Kendo().Button().Name("btnGenerateAccessControlReport").Icon("report-header-section").Events(e => e.Click("OnClickGenerateAccessControl")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_btnGenerateReport))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().MultiSelectFor(a => a.ClientName).Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sClientName").DataValueField("iClientID")
+                            .HeaderTemplate("<label><input type='checkbox' id='selectAll' onclick='selectAllClient(this)'> Select All</label>").Events(ev => ev.Select("OnSelect"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Url("GetCascadeClient/Reports");
+                                });
+                            }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().MultiSelectFor(a => a.ProcessName).Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sProcessName").DataValueField("iProcessID") //.Events(ev => ev.Select("OnSelect"))
+                            .HeaderTemplate("<label><input type='checkbox' id='selectAllP' onclick='selectAllProcess(this)'> Select All</label>").AutoBind(true)
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetProcess", "Reports");
+                                }).ServerFiltering(true);
+                            })
+                            )
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.RoleName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().MultiSelectFor(a => a.RoleName).Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sRoleName").DataValueField("iRoleID") //.Events(ev => ev.Select("OnSelect"))
+                            .HeaderTemplate("<label><input type='checkbox' id='selectAllR' onclick='selectAllRole(this)'> Select All</label>").AutoBind(true).DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetRole", "Reports");
+                                }).ServerFiltering(true);
+                            })
+                            )
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="divRptAccessControl"></div>
+
+        </div>
+    </div>
+
+
+}
+
+
+
+<script>
+    function selectAllClient(chk) {
+        var multiSelect = $("#ClientName").data("kendoMultiSelect");
+        if (chk.checked == true) {
+            var selectedValues = [];
+            for (var i = 0; i < multiSelect.dataSource.data().length; i++) {
+                var item = multiSelect.dataSource.data()[i];
+                selectedValues.push(item.iClientID);
+            }
+            multiSelect.value(selectedValues);
+            multiSelect.trigger("change");
+        } else {
+            multiSelect.value('');
+            multiSelect.trigger("change");
+        }
+    }
+    function selectAllProcess(chk) {
+        var multiSelect = $("#ProcessName").data("kendoMultiSelect");
+        if (chk.checked == true) {
+            var selectedValues = [];
+            for (var i = 0; i < multiSelect.dataSource.data().length; i++) {
+                var item = multiSelect.dataSource.data()[i];
+                selectedValues.push(item.iProcessID);
+            }
+            multiSelect.value(selectedValues);
+            multiSelect.trigger("change");
+        } else {
+            multiSelect.value('');
+            multiSelect.trigger("change");
+        }
+    }
+    function selectAllRole(chk) {
+        var multiSelect = $("#RoleName").data("kendoMultiSelect");
+        if (chk.checked == true) {
+            var selectedValues = [];
+            for (var i = 0; i < multiSelect.dataSource.data().length; i++) {
+                var item = multiSelect.dataSource.data()[i];
+                selectedValues.push(item.iRoleID);
+            }
+            multiSelect.value(selectedValues);
+            multiSelect.trigger("change");
+        } else {
+            multiSelect.value('');
+            multiSelect.trigger("change");
+        }
+    }
+
+
+    var ResourceRptAccessReport ={
+            display_RecordNotFound : '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+            display_ClientID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ClientID)',
+            display_LastUpdatedAt : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_LastUpdatedAt)',
+            display_LastUpdatedBy : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_LastUpdatedBy)',
+            display_ClientName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ClientName)',
+            display_ProcessID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ProcessID)',
+            display_ProcessName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ProcessName)',
+            display_CampaignID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_CampaignID)',
+            display_CampaignName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_CampaignName)',
+            display_TeamID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_TeamID)',
+            display_TeamName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_TeamName)',
+            display_UserID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_UserID)',
+            display_UserName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_UserName)',
+            display_EmployeeID : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_EmployeeID)',
+            display_RoleName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_RoleName)',
+            display_LoginName : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_LoginName)',
+            display_Expr1 : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Expr1)',
+            display_RoleID: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_RoleID)',
+            urlPath_GetAccessControlReport: ResourceLayout.partialURL + "GetAccessControlReport",
+            urlPath_Excel_Export_Save: ResourceLayout.partialURL + "Excel_Export_Save"
+
+    }
+
+</script>
+

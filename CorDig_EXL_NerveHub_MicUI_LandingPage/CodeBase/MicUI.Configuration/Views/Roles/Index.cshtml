@@ -1,0 +1,269 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model RoleViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Role_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Index", "Roles", FormMethod.Post, new { @id = "FromRoleIndex" }))
+{
+    @Html.AntiForgeryToken()
+    <script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.RoleId == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_CreateNewRole : @BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_ModifyExistingRole;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickRole")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnRoleSave").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickRoleSearch")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                        @*  @(Html.Kendo().Button().Events(ev => ev.Click("openRoleApprovalWinPopup")).Icon("tick").Name("plstRoleApprove").HtmlAttributes(new { type = "button", @class = "btn-orange btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approval_Button))
+                             @(Html.Kendo().Button().Events(ev => ev.Click("openRequestStatusWinPopup")).Icon("tick").Name("plstRoleReject").HtmlAttributes(new { type = "button", @class = "btn-orange btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Button))
+                        *@
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("openRoleApprovalWinPopupNew")).Icon("tick").Name("plstRoleApprove1").HtmlAttributes(new
+                        {
+                            type = "button",
+                            @class = "btn-primary btn-sm btn mx-2 ms-0"
+                        })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approval_Button))
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("openRequestStatusWinPopupNew")).Icon("tick").Name("plstRoleReject1").HtmlAttributes(new
+                        {
+                            type = "button",
+                            @class = "btn-orange btn-sm btn"
+                        })
+                        .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Button))
+
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(r => r.RoleName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(r => r.RoleName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(r => r.RoleLevel, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.RoleLevel)
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sValue").HtmlAttributes(new { @class = "formSelect" }).DataValueField("iMasterId")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("FillRoleLevel", "Roles");
+                                }).Events(ev => ev.Error("DropDownError"));
+                            }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(r => r.Description, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(r => r.Description).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4  ms-0 mx-5 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(r => r.IsClientUserRole)
+
+                            </div>
+                        </div>
+
+                        <div class="pt-4 ms-0 mx-1 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(r => r.Disable)
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(r => r.Approver, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.Approver).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("Text").DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetRoleApprover", "Roles");
+                                });
+                            }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                @*<div id="RoleApprovalWindow"></div>
+                <div id="RoleRequestWindow"></div>*@
+                <div style="clear:both;"></div>
+                <div class="row">
+                    <!--Reference https://stackoverflow.com/questions/30508373/cannot-render-partialview-in-modal-popup-kendo-window-->
+                    @(Html.Kendo().Window()
+                        .Name("RoleRequestStatusWindowPopup")
+                        .Actions(actions => actions.Maximize().Close())
+                        .Pinned(true)
+                        .Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Approval_List)
+                        .Visible(false)
+                        .Draggable(true)
+                        .LoadContentFrom("RolesRequestView", "Roles")
+                        .Width(900)
+                        .Height(480)
+                        .Modal(true)
+                        .Resizable()
+                        )
+                </div>
+                <div class="row">
+                    @(Html.Kendo().Window()
+                        .Name("RoleApprovalStatusWindowPopup")
+                        .Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Status_List)
+                        .Visible(false)
+                        .Draggable(true)
+                        .LoadContentFrom("RolesApprovalView", "Roles")                        
+                        .Width(900)
+                        .Height(480)
+                        .Modal(true)
+                        .Resizable()
+                        )
+                </div>
+                <div class="row">
+                    @(Html.Kendo().Window()
+                        .Name("RoleRequestWindow123")
+                        .Title("Create Employee")
+                        .Visible(false)
+                        .Draggable(true)
+                        .LoadContentFrom("RolesRequestView", "Roles")
+                        .Width(800)
+                        .Modal(true)
+                        .Draggable()
+                        .Resizable()
+                        )
+                </div>
+
+            </div>
+
+            <div class="nextWrap">
+                <div class="formTable">
+                    @if (Model.lstFromActionMap != null && Model.lstFromActionMap.Count > 0)
+                    {
+
+                        @(Html.Kendo().Grid(Model.lstFromModuleActionMap).Name("gvRole")
+                            .Columns(
+                            columns =>
+                            {
+                                columns.Bound(x => x.ModuleName).Hidden(true);
+                                // columns.Template(@<text></text>).ClientTemplate("<input id='checkbox' onclick='grdChkBoxClick(this);' class='chkbxq' type='checkbox' />").Width(30);
+                                columns.Bound(u => u.ModuleName).HtmlAttributes(new { style = " text-align: left;" }).Title("Module Name");
+                                // columns.Bound(u => u.SelectedModelView).ClientTemplate("<input type='checkbox' name='chkView' id='chkView' class='chkView' ${ SelectedModelView == true ? checked='checked' : ''}   enabled value='#= ModuleName#'>").Groupable(true).HeaderTemplate("<input type='checkbox' id='chkAllView' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_View).Width(22);
+                                //  columns.Bound(u => u.SelectedModelAdd).ClientTemplate("<input type='checkbox' name='chkAdd' id='chkAdd' class='chkAdd' ${ SelectedModelAdd == true ? checked='checked' : ''}   enabled value='#= ModuleName#'>").Groupable(true).HeaderTemplate("<input type='checkbox' id='chkAllAdd' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Add).Width(22);
+                                //columns.Bound(u => u.SelectedModify).ClientTemplate("<input type='checkbox' name='chkModify' id='chkModify' class='chkModify' ${ SelectedModify == true ? checked='checked' : ''}   enabled value='#= FormId#'>").Groupable(true).HeaderTemplate("<input type='checkbox' id='chkAllModify' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Modify).Width(22);
+                                //columns.Bound(u => u.SelectedDelete).ClientTemplate("<input type='checkbox' name='chkDelete' id='chkDelete' class='chkDelete' ${ SelectedDelete == true ? checked='checked' : ''}   enabled value='#= FormId#'>").Groupable(true).HeaderTemplate("<input type='checkbox' id='chkAllDelete' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Delete).Width(22);
+                                //columns.Bound(u => u.SelectedApprove).ClientTemplate("<input type='checkbox' name='chkApprove' id='chkApprove' class='chkApprove' ${ SelectedApprove == true ? checked='checked' : ''}   enabled value='#= FormId#'>").Groupable(true).HeaderTemplate("<input type='checkbox' id='chkAllApprove' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approve).Width(22);
+                            }
+                            )
+                            //.Scrollable(scrollable => scrollable.Height(900))
+                            .ClientDetailTemplateId("template")
+
+                            .DataSource(dataSource =>
+                            dataSource.Ajax()
+                            .Model(model => model.Id(w => w.ModuleName))
+
+                            ))
+                    }
+
+                </div>
+            </div>
+            @Html.HiddenFor(a => a.RoleId)
+        </div>
+    </div>
+
+}
+<script src="~/lib/bpa/scripts/roles-1.8.2.js"></script>
+
+<script id="template" type="text/kendo-tmpl">
+
+    @(Html.Kendo().Grid<GetFromAction>().Name("gvRole_#=ModuleName#") // template expression, to be evaluated in the master context
+                                                                                                                                                    .Columns(columns =>
+                                                                                                                                                    {
+                                                                                                                                                        columns.Bound(x => x.FormId).Hidden(true);
+                                                                                                                                                        columns.Bound(o => o.FormName).Title("Form Name").HeaderHtmlAttributes(new { @style = "text-align: left;" }).Width(80);
+                                                                                                                                                        columns.Bound(u => u.SelectedView).ClientTemplate("\\# if (SelectedView == null){} else if(SelectedView != 0) { \\#" + "\\<input type=\"checkbox\" id=\"chkView_#=ModuleName#\"  class=\"chkView_#=ModuleName#\" window-call=\"template\" checked/>\\" + "\\# } else { \\#" + "\\<input type=\"checkbox\" id=\"chkView_#=ModuleName#\"  class=\"chkView_#=ModuleName#\" window-call=\"template\" />\\" + "#\\ } \\#").ClientHeaderTemplate("<input type='checkbox' id='chkAllView_#=ModuleName#' name='#=ModuleName#' onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_View).Width(22);
+                                                                                                                                                        columns.Bound(u => u.SelectedAdd).ClientTemplate("\\# if (SelectedAdd == null) {} else if(SelectedAdd != 0) { \\#" + "\\<input type=\"checkbox\" id=\"chkAdd_#=ModuleName#\"  class=\"chkAdd_#=ModuleName#\" window-call=\"template\" checked/>\\" + "\\# } else { \\#" + "\\<input type=\"checkbox\" id=\"chkAdd_#=ModuleName#\"  class=\"chkAdd_#=ModuleName#\" window-call=\"template\" />\\" + "#\\ } \\#").ClientHeaderTemplate("<input type='checkbox' id='chkAllAdd_#=ModuleName#' name='#=ModuleName#'  onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Add).Width(22);
+                                                                                                                                                        columns.Bound(u => u.SelectedModify).ClientTemplate("\\# if (SelectedModify == null) {} else if(SelectedModify != 0) { \\#" + "\\<input type=\"checkbox\" id=\"chkModify_#=ModuleName#\"  class=\"chkModify_#=ModuleName#\" window-call=\"template\" checked/>\\" + "\\# } else { \\#" + "\\<input type=\"checkbox\" id=\"chkModify_#=ModuleName#\"  class=\"chkModify_#=ModuleName#\" window-call=\"template\" />\\" + "#\\ } \\#").ClientHeaderTemplate("<input type='checkbox' id='chkAllModify_#=ModuleName#' name='#=ModuleName#'  onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Modify).Width(22);
+                                                                                                                                                        columns.Bound(u => u.SelectedDelete).ClientTemplate("\\# if (SelectedDelete == null) {} else if(SelectedDelete != 0)  { \\#" + "\\<input type=\"checkbox\" id=\"chkDelete_#=ModuleName#\"  class=\"chkDelete_#=ModuleName#\" window-call=\"template\" checked/>\\" + "\\# } else { \\#" + "\\<input type=\"checkbox\" id=\"chkDelete_#=ModuleName#\"  class=\"chkDelete_#=ModuleName#\" window-call=\"template\" />\\" + "#\\ } \\#").ClientHeaderTemplate("<input type='checkbox' id='chkAllDelete_#=ModuleName#'  name='#=ModuleName#'  onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Delete).Width(22);
+                                                                                                                                                        columns.Bound(u => u.SelectedApprove).ClientTemplate("\\# if (SelectedApprove == null){} else if(SelectedApprove != 0) { \\#" + "\\<input type=\"checkbox\" id=\"chkApprove_#=ModuleName#\"  class=\"chkApprove_#=ModuleName#\" window-call=\"template\" checked/>\\" + "\\# } else { \\#" + "\\<input type=\"checkbox\" id=\"chkApprove_#=ModuleName#\"  class=\"chkApprove_#=ModuleName#\" window-call=\"template\" />\\" + "#\\ } \\#").ClientHeaderTemplate("<input type='checkbox' id='chkAllApprove_#=ModuleName#' name='#=ModuleName#'  onclick='DoTheCheck(this)'/> " + BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Approve).Width(22);
+                                                                                                                                                    })
+                                                                                                                                                    .DataSource(dataSource => dataSource
+                                                                                                                                                        .Ajax().Read(read => read.Action("HierarchyBinding_SearchAssessment", "Roles", new { ModuleName = "#=ModuleName#" }))
+                                                                                                                                                    )
+                                                                                                                                                    .ToClientTemplate())
+
+</script>
+
+
+
+<style>
+    .custom {
+        display: none;
+    }
+</style>
+<script>
+    var ResourceRoles = {
+        OK: '@(BPA.GlobalResources.UI.Resources_common.display_Ok)',
+        display_Request_Approved_Successfully: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Approved_Successfully",
+        display_Request_Rejected_Successfully: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Rejected_Successfully",
+        display_Cancel_Request: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Cancel_Request",
+        display_Request_cancelled_successfully: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_cancelled_successfully",
+        display_Request_Saved_successfully: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Save",
+        display_Request_Updated_successfully: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Update",
+        display_Request_Status_List: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Status_List",
+        display_Request_Approval_List: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Request_Approval_List",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_RolesSearchView: ResourceLayout.partialURL + "RolesSearchView",
+        urlPath_RolesApprovalView: ResourceLayout.partialURL + "RolesApprovalView",
+        urlPath_RolesRequestView: ResourceLayout.partialURL + "RolesRequestView",
+        urlPath_RoleApprove: ResourceLayout.partialURL + "RoleApprove",
+        urlPath_RoleReject: ResourceLayout.partialURL + "RoleReject",
+        urlPath_CancelRequest: ResourceLayout.partialURL + "CancelRequest"
+    }
+</script>
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+

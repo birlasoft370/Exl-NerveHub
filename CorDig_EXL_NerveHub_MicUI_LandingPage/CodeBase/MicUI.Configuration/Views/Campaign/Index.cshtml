@@ -1,0 +1,358 @@
+﻿@model CampaignViewModel
+@using BPA.GlobalResources.UI;
+@using MicUI.Configuration.Models.ViewModels;
+@using MicUI.Configuration.Module.Configuration.CampaignInfoSetup;
+@inject ICampaignService iCampaignService;
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Campaign_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/campaign-1.8.2.js"></script>
+
+
+@using (Html.BeginForm("Index", "Campaign", new { @id = "form1" }))
+{
+    <div class="formWrap">
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(a => a.CampaignID)
+        @Html.AntiForgeryToken()
+        @*@Html.Partial("_ValidationSummary", ViewData.ModelState);*@
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.CampaignID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_CreateNewCampaign : @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_ModifyExistingCampaign;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickCampaign")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn btn-outline-primary btn-sm mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnCampaignSave").HtmlAttributes(new { type = "submit", @class = "btn btn-primary btn-sm mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickCampaignSearch")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                        @if (iCampaignService.CheckPermission())
+                        {
+                            @(Html.Kendo().Button().Events(ev => ev.Click("OnClickCampaignApporval")).Icon("tick")
+                                .Name("btnWorkObject").HtmlAttributes(new { type = "button", @class = "btn btn-orange btn-sm" })
+                                .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_ApproveTitle))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+
+            <div class="row">
+
+                @{
+                    await Html.RenderPartialAsync("~/Views/Shared/_SearchView.cshtml");
+                }
+
+                @*@Html.HiddenFor(x => x.ClientName)
+                @Html.HiddenFor(x => x.ProcessName)
+                @Html.HiddenFor(x => x.CampaignName)*@
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.Description, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(item => item.Mode, new { @class = "form-label label-required" })
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Shared/EditorTemplates/MultiSelectCheckbox.cshtml", new ViewDataDictionary(ViewData){
+                    { "Name", "Mode" },
+                    { "CheckBoxName", "chkMode" },
+                    {"validationmessage",@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.required_Mode.ToString()},
+                    { "ActionName" , "GetCascadeMode" },
+                    { "ControllerName" , "Campaign" },
+                    { "TextField" , "Text" },
+                    { "ValueField" , "Value" },
+                    {"lst",Model.Mode}
+                    });
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(e => e.EndDate, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DatePicker().Name("EndDate1").Value(Model.EndDate1).HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" }).Min(DateTime.Now).Max(new DateTime(2115, 12, 31)))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(l => l.ShiftWindow, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(d => d.ShiftWindow).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.TimeZone, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownList().Name("TimeZone").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sTimeZoneName").DataValueField("iTimeZoneID")
+                            .Value(Model.TimeZone)
+                            .DataSource(
+                            source =>
+                            {
+                                source.Read(read => { read.Action("GetTimeZone", "Campaign"); });
+                            }).HtmlAttributes(new
+                            {
+                                @class = "formSelect"
+
+                            }).Events(e => e.DataBound("dataBound"))
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-2">
+
+                        <div class="pt-4">
+                            <div class="mx-2 d-inline-block">
+                                <div class="custom-input">
+                                    @Html.Kendo().CheckBoxFor(x => x.NoFieldDataEntry).HtmlAttributes(new { @onclick = "javascript:Confirmation(this);" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(l => l.Location, new { @class = "form-label label-required" })
+                        @Html.TextAreaFor(x => x.Location, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(l => l.Purposeofcreationofcampaign, new { @class = "form-label label-required" })
+                        @{
+                            await Html.RenderPartialAsync("~/Views/Shared/EditorTemplates/MultiSelectCheckbox.cshtml", new ViewDataDictionary(ViewData) {
+                    { "Name", "PurposeofcreationofWork" },
+                    {"validationmessage",@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.required_Purposeofcreationofcampaign.ToString()},
+                    { "CheckBoxName", "chkPurposeofcreationofWork" },
+                    { "ActionName" , "GetCascadePurposeofcreationofWork" },
+                    { "ControllerName" , "Campaign" },
+                    { "TextField" , "Text" },
+                    { "ValueField" , "Value" },
+                    {"lst",Model.PurposeofcreationofWork}
+
+                    });
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.BusinessJustifications, new { @class = "form-label label-required" })
+                        @Html.TextAreaFor(x => x.BusinessJustifications, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.KeyBenefits, new { @class = "form-label label-required" })
+                        @Html.TextAreaFor(x => x.KeyBenefits, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-8  col-xl-9 col-xxl-6">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.TargetUsers, new { @class = "form-label label-required" })
+
+                        <div class="row no-gutters">
+
+                            <div class="col">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Q1, new { @class = "input-group-text" })
+                                    @Html.TextBoxFor(x => x.Q1, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" }).
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Q2, new { @class = "input-group-text"})
+                                    @Html.TextBoxFor(x => x.Q2, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" })
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Q3, new { @class = "input-group-text" })
+                                    @Html.TextBoxFor(x => x.Q3, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" })
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Y1, new { @class = "input-group-text"})
+                                    @Html.TextBoxFor(x => x.Y1, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" })
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Y2, new { @class = "input-group-text"})
+                                    @Html.TextBoxFor(x => x.Y2, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" })
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+
+                                    @Html.LabelFor(x => x.Y3, new { @class = "input-group-text"})
+                                    @Html.TextBoxFor(x => x.Y3, new { @class = "form-control", type = "number", @min = "0", onkeyup = "javascript:return onlyInteger(this)" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.sEmail, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.sEmail, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.iThresholdForCompletion, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.iThresholdForCompletion, new { @class = "form-control", onkeyup = "javascript:return onlyInteger(this)" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.iThresholdForToOpen, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.iThresholdForToOpen, new { @class = "form-control", onkeyup = "javascript:return onlyInteger(this)" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.dTargetEfficiency, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.dTargetEfficiency, new { @class = "form-control", onkeyup = "javascript:return onlyInteger(this)" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-2">
+                        <div class="pt-4">
+                            <div class="mx-2 d-inline-block">
+                                <div class="custom-input">
+                                    @Html.Kendo().CheckBoxFor(x => x.bBillingSystem)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-2">
+                        <div class="pt-4">
+                            <div class="mx-2 d-inline-block">
+                                <div class="custom-input">
+                                    @Html.Kendo().CheckBoxFor(x => x.Disable)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                @if (Model.CampaignID == 0)
+                {
+                    <div class="col-sm-4 col-xl-3">
+                        <div class="mb-3">
+                            @Html.LabelFor(a => a.BusinessApprover, new { @class = "form-label label-required" })
+
+                            @(Html.Kendo().DropDownList().Name("BusinessApprover")
+                                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                .DataTextField("sUserName").DataValueField("iUserID").HtmlAttributes(new
+                                {
+                                    @class = "formSelect"
+                                })
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("GetBusinessApprover", "Campaign")
+                                    .Data("filterBusinessApprover");
+                                    })
+                                    .ServerFiltering(true);
+                                })
+                                .Enable(false).AutoBind(false).CascadeFrom("ProcessName").Events(e => e.DataBound("dataBound"))
+                                )
+                            <script>
+                                function filterBusinessApprover() {
+                                    return {
+                                        iProcessID: $("#ProcessName").val()
+                                    };
+                                }
+                            </script>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script type="text/javascript">
+    $("#btnCampaignSave").click(function () {
+        validationForm();
+    });
+
+    var ResourceCampaignIndex = {
+        display_NoField_Confirmation: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_NoField_Confirmation',
+        urlPath_SaveRequestDetail: ResourceLayout.partialURL + "SaveRequestDetail",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_EditingCustom_Destroy: ResourceLayout.partialURL + "EditingCustom_Destroy",
+        urlPath_ApprovalView: ResourceLayout.partialURL + "ApprovalView",
+        urlPath_CampaignSearchView: ResourceLayout.partialURL + "CampaignSearchView"
+    }
+</script>
+@if (Model.CampaignID != 0)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            $("#ClientName").data("kendoDropDownList").readonly();//.enable(false);
+            $("#ProcessName").parent().parent().find("span").attr("disabled", "disabled");
+            //$("#CampaignName").parent().parent().find("input").attr("disabled", "disabled");
+
+        });
+        $("#CampaignName").ready(function () {
+            setTimeout(function () {
+                $("#ProcessName").data("kendoDropDownList").enable(false);
+                $("#ProcessName").parent().parent().find("input").attr("disabled", "disabled");
+            }, 100);
+        })
+    </script>
+}

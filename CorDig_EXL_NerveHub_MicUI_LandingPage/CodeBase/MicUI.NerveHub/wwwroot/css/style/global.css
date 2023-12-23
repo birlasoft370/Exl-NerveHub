@@ -1,0 +1,57 @@
+
+/******************* 
+import icon and fonts Styles 
+*******************/
+@import url(../../assets/font-awesome/css/font-awesome.css);
+/*@import url(../assets/Ionicons/css/ionicons.css);
+@import url(../assets/themify-icons/themify-icons.css);
+@import url(../assets/linea-icons/linea.css);
+@import url(../assets/glyphicons/glyphicon.css);
+@import url(../assets/flag-icon/css/flag-icon.css);
+@import url(../assets/material-design-iconic-font/css/materialdesignicons.css);
+@import url(../assets/simple-line-icons-master/css/simple-line-icons.css);*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+/******************* 
+import Legacy Styles 
+*******************/
+@import "components/style.css";
+@import "components/Site.css";
+@import "components/loader.css";
+@import "components/nprogress.css";
+@import "components/BPA_Style.css";
+@import "components/Images.css";
+@import "components/jqsimplemenu.css";
+@import "components/jquery.alerts.css";
+
+/******************* 
+import New Styles 
+*******************/
+/** KENDO THEME **/
+@import "upgrade/kendo/k-button.css";
+@import "upgrade/kendo/k-form.css";
+@import "upgrade/kendo/k-list.css";
+@import "upgrade/kendo/k-menu.css";
+@import "upgrade/kendo/k-table.css";
+@import "upgrade/kendo/k-tabs.css";
+
+/** THEME **/
+@import "upgrade/theme/m-bootstrap.css";
+@import "upgrade/theme/menu.css";
+@import "upgrade/theme/usermenu.css";
+@import "upgrade/theme/globalmsg.css";
+@import "upgrade/theme/button.css";
+@import "upgrade/theme/form.css";
+
+
+/** GLOBAL **/
+@import "upgrade/common.css";
+@import "upgrade/maincontent.css";
+@import "upgrade/footer.css";
+@import "upgrade/header.css";
+
+
+/** PAGES **/
+@import "upgrade/pages/welcome.css";
+
+
+

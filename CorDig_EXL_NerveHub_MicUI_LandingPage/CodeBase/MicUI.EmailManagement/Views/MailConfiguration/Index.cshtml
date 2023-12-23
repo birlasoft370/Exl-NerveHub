@@ -1,0 +1,354 @@
+﻿@using MicUI.EmailManagement.Models.ViewModels;
+@using MicUI.EmailManagement.Services.ServiceModel;
+@model MailConfigurationViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/lib/bpa/scripts/mailconfiguration-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "MailConfiguration", FormMethod.Post, new { @id = "form1" }))
+{
+    @Html.AntiForgeryToken()
+    <partial name="_ValidationSummary" model="@ViewData.ModelState" />
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @Html.Label(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Title)
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <partial name="~/Views/Shared/_SearchView.cshtml" />
+            </div>
+
+
+            <div class="nextWrap">
+
+
+                <div id="div_Header" class="pb-3">
+
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-6 text-end">
+                            @(Html.Kendo().Button().Icon("plus").Name("gvAddrow").Events(ev => ev.Click("gvAddrow_Click"))
+                                .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                                .Content(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AddRow))
+                            @(Html.Kendo().Button().Icon("plus").Name("gvConfiguration").Events(ev => ev.Click("gvConfiguration_Click"))
+                                .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                                .Content(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_AdvancedConfiguration))
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="formTable">
+                    @(Html.Kendo().Grid<BEMailConfiguration>().Name("gridMailConfig")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.iMailConfigID).Visible(false);
+                            columns.Bound(p => p.sEmailID).Visible(false);
+                            columns.Bound(p => p.sUserID).Visible(false);
+                            columns.Bound(p => p.sPassword).Visible(false);
+                            columns.Bound(p => p.bUseServiceCredentialToPull).Visible(false);
+                            columns.Bound(p => p.bUseUserCredentialToSend).Visible(false);
+                            columns.Bound(p => p.iMailServerTypeID).Visible(false);
+                            columns.Bound(p => p.sAutoDiscoveryPath).Visible(false);
+                            columns.Bound(p => p.sLotusServerPath).Visible(false);
+                            columns.Bound(p => p.sNFSFilePath).Visible(false);
+                            columns.Bound(p => p.bWebEnabled).Visible(false);
+                            columns.Bound(p => p.bEMSWebServerHosting).Visible(false);
+                            columns.Bound(p => p.EMSWebServerURL).Visible(false);
+                            columns.Bound(p => p.isPasswordExpire).Visible(false);
+                            columns.Bound(p => p.AutoReply).Visible(false);
+                            columns.Bound(p => p.MailTemplateID).Visible(false);
+                            columns.Bound(p => p.PoolingValue).Visible(false);
+                            columns.Bound(p => p.IsReadMail).Visible(false);
+                            columns.Bound(p => p.iFolderType).Visible(false);
+                            columns.Bound(p => p.sLotusDomainName).Visible(false);
+                            columns.Bound(p => p.sLotusDomainPrefix).Visible(false);
+                            columns.Bound(p => p.sMailBoxName).Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_MailBoxName);
+                            columns.Bound(p => p.iScheduleInterval).Width(150).Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_ScheduleInterval); ;
+                            columns.Bound(p => p.bDisabled).Width(120).Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Disable);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editRow")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button);
+                        })
+                        .Scrollable()
+                        .HtmlAttributes(new { style = "max-height:550px;" })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+
+
+                        .Model(model => model.Id(p => p.iMailConfigID))
+                        .Create(update => update.Action("EditingPopup_Create", "MailConfiguration"))
+                        .Read(read => read.Action("EditingPopup_Read", "MailConfiguration").Data("GetData"))
+                        .Update(update => update.Action("EditingPopup_Update", "MailConfiguration"))
+                        .Destroy(update => update.Action("EditingPopup_Destroy", "MailConfiguration"))
+                        )
+                        )
+                </div>
+
+                @*@Html.HiddenFor(s => s.ClientName)
+                @Html.HiddenFor(s => s.ProcessName)
+                @Html.HiddenFor(s => s.CampaignName)*@
+
+                @*@(Html.Kendo().Window().Name("SearchViewPopUp").Draggable().Visible(false).Height(800).Width(1100).Modal(true))*@
+                <!--Reference https://stackoverflow.com/questions/30508373/cannot-render-partialview-in-modal-popup-kendo-window-->
+                @(Html.Kendo().Window()
+                    .Name("SearchViewPopUp")
+                    .Actions(actions => actions.Maximize().Close())
+                    .Pinned(true)
+                    .Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EMSMailConfiguration)
+                    .Visible(false)
+                    .Draggable(true)
+                    .LoadContentFrom("SearchViewPopUp", "MailConfiguration")
+                    .Width(1100)
+                    .Height(600)
+                    .Modal(true)
+                    .Resizable()
+                    )
+
+                @(Html.Kendo().Window()
+                    .Name("AdvanceConfigurationPopUp")
+                    .Actions(actions => actions.Maximize().Close())
+                    .Pinned(true)
+                    .Title(@BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EMSMailConfiguration)
+                    .Visible(false)
+                    .Draggable(true)
+                    .LoadContentFrom("AdvanceConfigurationPopUp", "MailConfiguration")
+                    .Width(900)
+                    .Height(550)
+                    .Modal(true)
+                    .Resizable()
+                    )
+
+                @*@(Html.Kendo().Window().Name("AdvanceConfigurationPopUp").Draggable().Visible(false).Height(550).Width(900).Modal(true))*@
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script type="text/javascript">
+    $("#gvAddrow").click(function () {
+        validationForm();
+    });
+
+
+    $("#gvConfiguration").click(function () {
+        validationForm();
+    });
+
+</script>
+
+@if (Model.CampaignID != 0)
+{
+    <script>
+        $(document).ready(function () {
+            $("#ClientName").data("kendoDropDownList").enable(false);
+            $("#ProcessName").parent().parent().find("span").attr("disabled", "disabled");
+            $("#CampaignName").parent().parent().find("input").attr("disabled", "disabled");
+        });
+
+        $("#CampaignName").ready(function () {
+            setTimeout(function () {
+                $("#ProcessName").data("kendoDropDownList").enable(false);
+                $("#ProcessName").parent().parent().find("input").attr("disabled", "disabled");
+            }, 100);
+        })
+
+    </script>
+}
+<script>
+
+    $('#Mode').prepend('<option>' + "<<< Select All >>>" + '</option');
+
+    $("#WorkObjName").on("change", function () {
+        $("#gridMailConfig").data('kendoGrid').dataSource.data([]);
+        if ($("#WorkObjName").val() != "") {
+            $('#gridMailConfig').data('kendoGrid').dataSource.read();
+        }
+
+    });
+
+    $("#ClientName").on("change", function () {
+        $("#gridMailConfig").data('kendoGrid').dataSource.data([]);
+    });
+
+    $("#ProcessName").on("change", function () {
+        $("#gridMailConfig").data('kendoGrid').dataSource.data([]);
+    });
+    $("#CampaignName").on("change", function () {
+        $("#gridMailConfig").data('kendoGrid').dataSource.data([]);
+    });
+
+    function onChangeStoreID(e) {
+        $('#gridMailConfig').data('kendoGrid').dataSource.read();
+    }
+
+
+</script>
+<script>
+
+    var display_PleaseSelectFolderType = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseSelectFolderType)';
+    var display_PleaseSelectClient = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseSelectClient)';
+    var display_PleaseSelectProcess = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseSelectProcess)';
+    var display_PleaseSelectCampaign = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseSelectCampaign)';
+    var display_PleaseEnterEmailID = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterEmailID)';
+    var display_PleaseEnterUserID = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterUserID)';
+    var display_PleaseEnterPassword = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterPassword)';
+    var display_PleaseSelectExchangeServerType = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseSelectExchangeServerType)';
+    var display_PleaseEnterAutoDiscoveryPath = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterAutoDiscoveryPath)';
+    var display_PleaseEnterMailBoxName = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterMailBoxName)';
+    var display_PleaseEnterLotusServerPath = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterLotusServerPath)';
+    var display_PleaseEnterNFSFilePath = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterNFSFilePath)';
+    var display_SomethingWrongHappenedContactAdmin = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_SomethingWrongHappenedContactAdmin)';
+    var display_PleaseEnterScheduleInterval = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterScheduleInterval)';
+
+    var display_PleaseEnterWebServerURL = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_PleaseEnterWebServerURL)';
+    var msg_SelectBatchFrequency = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.msg_SelectBatchFrequency)';
+    var display_Alert = '@(BPA.GlobalResources.UI.Resources_common.display_Alert)';
+
+    var display_DominoServer = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_DominoServer)';
+
+    var display_EMSAdvancedConfiguration = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EMSAdvancedConfiguration)';
+    var display_EMSMailConfiguration = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_EMSMailConfiguration)';
+    var display_MoveFolder = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_MoveFolder)';
+    var display_Name = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Name)';
+    var display_Ingestion = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Ingestion)';
+    var display_Search = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Search)';
+    var display_Disable = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_Disable)';
+    var required_AutoDiscoveryPath = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.required_AutoDiscoveryPath)';
+    var display_NoField_Confirmation = '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_NoField_Confirmation)';
+    var display_office365Exchange = '@(BPA.GlobalResources.UI.EmailManagement.MailConfiguration_Resources.display_office365Exchange)'
+
+</script>
+
+<style>
+    .k-treeview-lines .k-top,
+    .k-treeview-lines .k-mid,
+    .k-treeview-lines .k-bot {
+        background-image: url('~/Content/Kendo/2018.1.221/Default/treeview-nodes.png');
+    }
+
+    .k-treeview-lines .k-item {
+        background-image: url('~/Content/Kendo/2018.1.221/Default/treeview-line.png');
+    }
+
+    .k-treeview-lines .k-last {
+        background-image: none;
+    }
+
+
+    .k-treeview-lines .k-top,
+    .k-treeview-lines .k-mid,
+    .k-treeview-lines .k-bot {
+        background-repeat: no-repeat;
+        margin-left: -16px;
+        padding-left: 16px;
+    }
+
+    .k-treeview-lines .k-top {
+        background-position: -91px 0;
+    }
+
+    .k-treeview-lines .k-bot {
+        background-position: -69px -22px;
+    }
+
+    .k-treeview-lines .k-mid {
+        background-position: -47px -44px;
+    }
+
+
+    .k-treeview-lines .k-last .k-top {
+        background-position: -25px -66px;
+    }
+
+    .k-treeview-lines .k-group .k-last .k-bot {
+        background-position: -69px -22px;
+    }
+
+    .k-treeview-lines .k-item {
+        background-repeat: no-repeat;
+    }
+
+    .k-treeview-lines .k-first {
+        background-repeat: no-repeat;
+        background-position: 0 15px;
+    }
+
+    .round {
+        border-radius: 6px;
+        border: thin solid #e5d9d9;
+        padding: 5px;
+        width: 300px;
+        height: 21px;
+        font-size: small;
+        font-family: Tahoma;
+    }
+
+    #treeViewSearchInput:hover {
+        background: #e8e8e8;
+    }
+</style>
+
+<style>
+    #treeview .k-sprite {
+        background-image: url("@Url.Content("~/Content/web/treeview/coloricons-sprite.png")");
+    }
+
+    .rootfolder {
+        background-position: 0 0;
+    }
+
+    .folder {
+        background-position: 0 -16px;
+    }
+
+    .pdf {
+        background-position: 0 -32px;
+    }
+
+    .html {
+        background-position: 0 -48px;
+    }
+
+    .image {
+        background-position: 0 -64px;
+    }
+</style>
+
+
+<style type="text/css" scoped>
+    span.k-in > span.highlight {
+        background: #7EA700;
+        color: #ffffff;
+        border: 1px solid green;
+        padding: 1px;
+    }
+</style>
+

@@ -1,0 +1,78 @@
+.btn {
+    border-radius: 2px;
+    box-shadow: none;
+    outline: none;
+    background-image: none !important;
+    min-width: 75px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+    .btn:active, .btn:hover, .btn:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        background-image: none !important;
+    }
+
+    .btn .k-icon {
+        font-size: 100%;
+        margin-top: -1px;
+        margin-right: 3px;
+        font-weight: normal;
+    }
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #fb4e0b;
+    border-color: #fb4e0b;
+}
+
+    .btn-primary.active, .btn-primary:active, .btn-primary:hover, .btn-primary:focus {
+        background-color: #fb4e0b;
+        border-color: #fb4e0b;
+        color: #fff;
+    }
+
+.btn-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-outline-primary {
+    color: #fb4e0b !important;
+    border-color: #fb4e0b !important;
+    background-color: transparent !important;
+}
+
+    .btn-outline-primary.active,
+    .btn-outline-primary:active,
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus {
+        background-color: #fb4e0b !important;
+        border-color: #fb4e0b !important;
+        color: #fff !important;
+    }
+
+.btn-orange {
+    color: #fff;
+    background-color: #fb4e0b; /*e65c02*/
+    border-color: #fb4e0b;
+}
+
+    .btn-orange.active,
+    .btn-orange:active,
+    .btn-orange:hover,
+    .btn-orange:focus {
+        background-color: #fb4e0b !important;
+        border-color: #fb4e0b !important;
+        color: #fff !important;
+    }
+
+
+.input-group-text {
+    border-radius: 2px 0 0 2px;
+    border: none;
+    border-bottom: 1px solid #fb4e0b;
+    background-color: #ffeae2;
+    font-size: 12px;
+}

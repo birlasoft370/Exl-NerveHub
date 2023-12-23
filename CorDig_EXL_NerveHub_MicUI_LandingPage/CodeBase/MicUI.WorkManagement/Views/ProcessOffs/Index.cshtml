@@ -1,0 +1,195 @@
+﻿@using Kendo.Mvc.UI;
+
+@model MicUI.WorkManagement.Models.ViewModels.ProcessOffsModel
+
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/processoffs-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "ProcessOffs"))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.iprocessOffId == 0 ? @BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.displayCreateProcessOffs : @BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.ModifyExistingProcessOffs;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").Events(ev => ev.Click("OnProcessOffsClickNew")).HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnGenerate").Icon("plus").Events(ev => ev.Click("OnProcessOffsbtnGenerateClick")).HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.displayGenerate))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnProcessOffsView")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <input name="SubmitMode" id="SubmitMode" type="hidden" value="0">
+            @Html.HiddenFor(hidden => hidden.iprocessOffId)
+            @Html.HiddenFor(hidden => hidden.IsEditMode)
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.Resources_common.display_Client,"", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.mClientID).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sClientName")
+                            .DataValueField("iClientID").DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("GetCascadeClient", "ProcessOffs").Data("filterProcess"); }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.Resources_common.display_Process,"", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.mProcessID).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sProcessName").DataValueField("iProcessID").DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("GetCascadeProcess", "ProcessOffs").Data("filterProcess"); }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }).AutoBind(false).CascadeFrom("mClientID").Enable(Model.IsEditMode))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.display_Month,"", new { @class = "form-label label-required" })
+                        @if (Model.iprocessOffId == 0)
+                        {
+                            @(Html.Kendo().DatePicker().Name("mMonthYear").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(DateTime.Now).Min(DateTime.Now.AddYears(-1)).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                        }
+                        else
+                        {
+                            @(Html.Kendo().DatePicker().Name("mMonthYear").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(Model.mMonthYear).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }).Enable(false))
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                @if (Model.DaysList != null)
+                {
+                    if (Model.DaysList.Rows.Count > 0)
+                    {
+                        <div class="formTable">
+                            <table id="list-grid">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <label class="only-check-input"><input type='checkbox' name="chkAll" id="chkAll" onclick="javascript: ProcessOffsDoTheCheck('chk', this);" /><b></b></label> Select
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
+                                            Day Name
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (System.Data.DataRow item in Model.DaysList.Rows)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (Model.BEProcessOffList.Count != 0)
+                                                {
+                                                    int f = 0;
+                                                    for (int j = 0; j < Model.BEProcessOffList.Count; j++)
+                                                    {
+                                                        string sMonth = Model.BEProcessOffList[j].iMonth.ToString();
+                                                        string sYear = Model.BEProcessOffList[j].iYear.ToString();
+                                                        string sDay = Model.BEProcessOffList[j].iDay.ToString();
+                                                        string disabled = Model.BEProcessOffList[j].bDisabled.ToString();
+                                                        string[] sProcessoff = item["DateName"].ToString().Split('/');
+
+
+                                                        if (int.Parse(sProcessoff[0]) == int.Parse(sMonth) && int.Parse(sProcessoff[2].Trim()) == int.Parse(sYear) && int.Parse(sProcessoff[1].Trim()) == int.Parse(sDay) && disabled == "False")
+                                                        {
+                                                            <label class="only-check-input"><input type="checkbox" class="chkRow" id="chkRow" name="chkRow" value="@(item["DateName"].ToString());@(item["dayName"].ToString())" checked="checked" /><b></b></label>
+                                                            f = 1;
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    if (f == 0)
+                                                    {
+                                                        <label class="only-check-input"><input type="checkbox" class="chkRow" id="chkRow" name="chkRow" value="@(item["DateName"].ToString());@(item["dayName"].ToString())" /><b></b></label>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <label class="only-check-input"><input type="checkbox" class="chkRow" id="chkRow" name="chkRow" value="@(item["DateName"].ToString());@(item["dayName"].ToString())" /><b></b></label>
+
+                                                }
+                                            </td>
+                                            <td>
+                                                @(item["DateName"].ToString())
+                                            </td>
+                                            <td>
+                                                @(item["dayName"].ToString())
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                        <div class="pt-3">
+                            <div class="row align-items-end">
+                                <div class="col-sm-4 col-xl-3">
+                                    <div class="mb-3">
+                                        @Html.Label("Description","", new { @class = "form-label" })
+                                        @(Html.TextAreaFor(display => display.mDescription, new { @class = "form-control" }))
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4 col-xl-auto">
+                                    <div class="mb-3 pb-1">
+                                        @(Html.Kendo().Button().Icon("plus").Name("ProcessOffsbtnSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+<script>
+
+
+    var Resources = {
+        display_Alert: '@BPA.GlobalResources.UI.Resources_common.display_Alert',
+        display_Confirmation: '@BPA.GlobalResources.UI.Resources_common.display_Confirmation',
+        msg_ProcessDeletedConfirm: '@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.msg_ProcessDeletedConfirm',
+        msg_ProcessDeleted: '@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.msg_ProcessDeleted',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_ShowProcessOffs: ResourceLayout.partialURL + 'ShowProcessOffs',
+        url_SetProcessOffsID: ResourceLayout.partialURL + 'SetProcessOffsID',
+        url_Delete: ResourceLayout.partialURL + 'Delete',
+        url_EditingCustom_Edit: ResourceLayout.partialURL + 'EditingCustom_Edit',
+    }
+</script>

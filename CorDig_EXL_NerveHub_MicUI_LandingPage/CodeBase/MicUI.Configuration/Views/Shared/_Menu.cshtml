@@ -1,0 +1,135 @@
+﻿<!--Static Data
+<ul class="k-widget k-reset k-header k-menu" id="MainMenu">
+    <li class="k-item k-state-default">
+        <span class="k-link k-menu-link">Configuration<span class="k-icon k-i-arrow-60-down"></span></span>
+        <ul class="k-group k-menu-group">
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="Client/Index">Client Info Setup</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="Process">Process Info Setup</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="Campaign">Campaign Info Setup</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="SubProcessMaster">Sub Process Info Setup</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="PullSWMData">Pull SWM Data</a></li>
+        </ul>
+    </li>
+    <li class="k-item k-state-default">
+        <span class="k-link k-menu-link">Administration<span class="k-icon k-i-arrow-60-down"></span></span>
+        <ul class="k-group k-menu-group">
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/MasterValue">Master Value Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/SkillMaster">Skill Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Timezone">Time Zone Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Location">Location Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Facility">Facility Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/SBU">SBU Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/LOB">LOB Maintenance</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/VerticalMaster">Vertical Maintenance</a></li>
+        </ul>
+    </li>
+    <li class="k-item k-state-default">
+        <span class="k-link k-menu-link">Security<span class="k-icon k-i-arrow-60-down"></span></span>
+        <ul class="k-group k-menu-group">
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Roles">Roles</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/ERPJobRoleMap">ERP Role Job Mapping</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/UserManagement">User Master</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/PowerUser">Power User Creation</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/ProcessOwner">Process Owner</a></li>
+        </ul>
+    </li>
+    <li class="k-item k-state-default">
+        <span class="k-link k-menu-link">Reports<span class="k-icon k-i-arrow-60-down"></span></span>
+        <ul class="k-group k-menu-group">
+            <li class="k-item k-state-default">
+                <span class="k-link k-menu-link">Application Report<span class="k-icon k-i-arrow-60-right"></span></span>
+                <ul class="k-group k-menu-group">
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_AccessReport">Access Control</a></li>
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_ERPRoleJobMappingReport">ERP Role Job Mapping Report</a></li>
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_RoleFormAccessReport">Role Form Access Report</a></li>
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_UserAccessRequestStatusReport">User Access Request Status Report</a></li>
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_ProcessOwnerRequestStatusReport">Process Owner Request Status Report</a></li>
+                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_ProcessOwnerReport">Process Owner Report</a></li>
+                </ul>
+            </li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/Reports/Rpt_LogReport">Report Center</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/UsageReport">Monthly Usages Report</a></li>
+            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/AppConfiguration/UsageReport">Monthly Usages Report 1</a></li>
+        </ul>
+    </li>
+</ul>
+<script>
+    kendo.syncReady(function () {
+        jQuery("#MainMenu").kendoMenu({});
+    });
+</script>-->
+@using Kendo.Mvc.UI.Fluent;
+@model IEnumerable<MenuViewModel>
+
+@functions {
+
+    public void addChildren(MenuItemBuilder builder, MenuViewModel item, IEnumerable<MenuViewModel> items)
+    {
+
+        var children = items.Where(m => m.ParentId == item.Id);
+        if (children != null)
+        {
+            builder.Items(menuItems =>
+            {
+                foreach (var child in children)
+                {
+                    if (isChildExist(child, Model) || child.Url != "")
+                    {
+                        var menuItem = menuItems.Add().Text(child.Name);
+                        if (child.Areas != "")
+                        {
+                            //menuItem.Action(child.RouterAction, child.RouterController, new { id=child.FormID , area = child.Areas.ToString() });
+                            if (child.Flag != "")
+                            {
+                                menuItem.Action(child.RouterAction, child.RouterController, new { id = child.Flag });//, area = child.Areas.ToString()
+                            }
+                            else
+                            {
+                                menuItem.Action(child.RouterAction, child.RouterController);//, new { area = child.Areas.ToString() }
+                            }
+                        }
+                        addChildren(menuItem, child, items);
+                    }
+                }
+            });
+        }
+    }
+
+    public bool isChildExist(MenuViewModel item, IEnumerable<MenuViewModel> items)
+    {
+
+        bool childexist = false;
+        IEnumerable<MenuViewModel> children = items.Where(m => m.ParentId == item.Id);
+        using (var child = children.GetEnumerator())
+        {
+            while (child.MoveNext())
+            {
+                if ((child.Current.Url != "") || isChildExist(child.Current, items))
+                {
+                    childexist = true;
+                }
+            }
+        }
+        return childexist;
+    }
+}
+
+@(Html.Kendo().Menu()
+        .Name("MainMenu")
+        .Items(menu =>
+        {
+            if (Model != null)
+            {
+                foreach (var item in Model.Where(m => m.ParentId == 0))
+                {
+                    if (isChildExist(item, Model))
+                    {
+                        var builder = menu.Add().Text(item.Name);
+                        addChildren(builder, item, Model);
+                    }
+                }
+            }
+        }))
+
+
+

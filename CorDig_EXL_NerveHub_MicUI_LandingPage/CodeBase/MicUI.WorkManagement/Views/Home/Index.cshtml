@@ -1,0 +1,380 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Work Management | Home</title>
+    <link rel="icon" href="https://bpademo.exlservice.com/Images/exl_21_logo_org.svg" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://bpademo.exlservice.com/Content/kendo/2021.2.616/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/kendo/2021.2.616/kendo.default.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/style/global.css" rel="stylesheet" type="text/css" />
+    <style>
+        .k-loading-image {
+            background-image: url("https://bpademo.exlservice.com/images/PleaseWait_3.gif") !important;
+        }
+
+        .k-filter-row th,
+        .k-grid-header th.k-header {
+            width: 175px !important;
+        }
+
+        .k-grid td {
+            width: 175px !important; /*min-width: 161.8px !important;*/
+        }
+    </style>
+    <script src="https://bpademo.exlservice.com/bundles/modernizr?v=FbJ688fulsybP2-T20QPXT8LQsQ1mhbdTSDTuHaeXms1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jquery?v=rnWitZnwznIHNA7OAcAK6C_h6hX71dx4_VN8pzdDb2Y1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jquerymigrate?v=NWSnT7CTWmNB3lzm_CdfjiD4x92NocSb6lap3wxPQmM1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jqueryui?v=yqCVigxSu97_s_vulMWzX97PVmpAp1RUApV3df4vSeo1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jqueryval?v=AIzZajV8_2Sh3UhTawDtHD8Ryrkt3JckscbvtXKOrmA1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/kendo/20212616?v=tMpBTNHXds-n_tYUpefYgGh9XLFU2jjzrG8V6c0CWgk1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/header?v=CxdH3jZwx1CcbSydy0H66uRdhzz5djNppOXT-Zz0eqs1"></script>
+    <script src="https://bpademo.exlservice.com/Scripts/jsResetSession.js"></script>
+    <script>
+        function onlyInteger(num) {
+            if (/[^0-9]+/.test(num.value)) {
+                num.value = num.value.replace(/[^0-9]*/g, "");
+            }
+        }
+        $(function () {
+            $(".k-textbox").keypress(function (evt) {
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                var charStr = String.fromCharCode(charCode);
+                if (charStr.match(/[A-Za-z0-9 #$%^*()+=?/"!&,:;~'\\-]/)) {
+                    if (charStr.match(/[^A-Za-z 0-9]/g)) {
+                        this.value = this.value + charStr;
+                    }
+                }
+            });
+            $(document).on("input paste", "textarea", function () {
+                if (this.value.match(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                    this.value = this.value.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/, "");
+                }
+            });
+            $(document).on("paste", ":text", function (evt) {
+                // debugger;
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                //this el is just for work definition grid
+                var el = $(this);
+                if (charCode === 1) {
+                    if (el.length > 0) {
+                        if (
+                            el[0].id == "sObjectName" ||
+                            el[0].id == "sObjectDescription" ||
+                            el[0].id == "sObjectLabel" ||
+                            el[0].id == "iReportsOrderSearch" ||
+                            el[0].id == "sChoiceValue" ||
+                            el[0].id == "iOrder" ||
+                            el[0].id == "iGroupID"
+                        ) {
+                        } else {
+                            var charStr = clipboardData.getData("Text"); //String.fromCharCode(charCode);
+                            clipboardData.clearData("Text");
+                            charStr = charStr.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/g, "");
+                            if (charStr.match(/[A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                                this.value = this.value + charStr;
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        var ResourceLayout = { tenantName: "/" + "birlasoft", partialURL: "/" + "birlasoft" + "/" + "WorkManagement" + "/" + "Home" + "/", partiaArea: "/" + "birlasoft" + "/" + "WorkManagement" + "/" };
+    </script>
+    <script src="https://bpademo.exlservice.com/Scripts/kendo/2021.2.616/jszip.min.js"></script>
+    <script src="https://bpademo.exlservice.com/Content/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            jAlert(thrownError, "INTELLIGENT PROCESS AUTOMATION");
+        });
+    </script>
+    <div>
+        <header>
+            <div id="ExpireConfirm_Submit" class="wrong-pass globalMsg warningText">
+                <p>
+                    Your Session will expire in <span id="Timer" class="Timer globalMsg-time"></span> &nbsp;seconds.<br />
+                    To Keep Active Press Keep button.
+                </p>
+                <button type="button" class="btn btn-orange btn-sm" id="btnSessonOK" onclick="KeepSession();">Keep</button>
+            </div>
+            <div class="header">
+                <div class="appTitle" style="margin-top: 0px;">
+                    <a href="#" class="logo"> <img src="https://bpademo.exlservice.com/images/exl_21_logo_org.svg" alt="logo" /> </a>
+                    <h1>NerveHub<sup>&#8482;</sup></h1>
+                </div>
+                <div class="rightheader" style="margin-top: -25px;">
+                    <div class="firstrow">
+                        <div class="login userMenu">
+                            <ul class="k-widget k-reset k-header k-menu" id="NavMenu">
+                                <li class="k-item k-state-default"><span class="k-link k-menu-link">Welcome: Bala Krishnan </span></li>
+                                <li class="k-item k-state-default">
+                                    <span class="k-link k-menu-link"><span class="k-icon k-i-arrow-60-down"></span></span>
+                                    <ul class="k-group k-menu-group">
+                                        <li class="k-item">
+                                            <div class="k-content" id="NavMenu-2">
+                                                <table>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <div class="Images-ico20px-curlang20"></div>
+                                                            <span>Current Language:</span>
+                                                        </td>
+                                                        <td width="180"><span>en-US</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="Images-ico20px-ctimezone20"></div>
+                                                            <span>Current TimeZone:</span>
+                                                        </td>
+                                                        <td><span>India Standard Time/330</span> <input id="hdnCurrentOffset" name="hdnCurrentOffset" type="hidden" value="India&#32;Standard&#32;Time/330" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/birlasoft/UserPreference" tabindex="0">
+                                                                <div class="Images-ico20px-userpref20"></div>
+                                                                <span>Change User Preference</span>
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4"><hr /></td>
+                                                    </tr>
+                                                    <tr></tr>
+                                                    <tr></tr>
+                                                    <tr></tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/Dashboard/Birlasoft_52/DesktopConsole.application?ApplicationURl=https://bpademo.exlservice.com&amp;Tenant=Birlasoft">
+                                                                <div title="Agent Dashboard" class="Images-ico20px-agentdash20"></div>
+                                                                <span>Agent Dashboard</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/WorkManagement">
+                                                                <div title="Work Management" class="Images-ico20px-swm20"></div>
+                                                                <span>Work Management</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/QualityManagement">
+                                                                <div title="Quality Management" class="Images-ico20px-qms20"></div>
+                                                                <span>Quality Management</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/QueryTracker">
+                                                                <div title="Query Tracker" class="Images-ico20px-querytracker20"></div>
+                                                                <span>Query Tracker</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/LetterLibrary">
+                                                                <div title="Letter Library" class="Images-ico20px-letterlib20"></div>
+                                                                <span>Letter Library</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/AssessMe">
+                                                                <div title="AssessME" class="Images-ico20px-assess20"></div>
+                                                                <span>AssessME</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/EmailManagement">
+                                                                <div title="Email Configuration" class="Images-ico20px-emailconfig20"></div>
+                                                                <span>Email Configuration</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/AppConfiguration">
+                                                                <div title="Configuration" class="Images-ico20px-config20"></div>
+                                                                <span>Configuration</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/ProcessGuidance">
+                                                                <div title="Process Guidance" class="Images-ico20px-assist20"></div>
+                                                                <span>Process Guidance</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/BIReports">
+                                                                <div title="Process Performance Reports" class="Images-ico20px-processrepo20"></div>
+                                                                <span>Process Performance Reports</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <a href="/birlasoft/Base/SignOut">
+                                                                <div class="Images-ico20px-signout20"></div>
+                                                                <span>Sign Out</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <script>
+                                kendo.syncReady(function () {
+                                    jQuery("#NavMenu").kendoMenu({});
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mainNavbar">
+                <ul class="k-widget k-reset k-header k-menu" id="MainMenu">
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Configuration<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/SkillCampaignMap">Skill Campaign Mapping</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ProcessBreak">Process Break Mapping</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Processshift">Process Shift Mapping</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/LanguageConfig">Language Configuration</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ProcessConfig">Process Configuration</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ProcessFamily">Process Family Config</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/SharePointConfiguration">SharePoint Configuration</a></li>
+                        </ul>
+                    </li>
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Administration<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default">
+                                <span class="k-link k-menu-link">Holiday, Calendar &amp; MTD Cycle Maintenance<span class="k-icon k-i-arrow-60-right"></span></span>
+                                <ul class="k-group k-menu-group">
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ProcessOffs">Holiday Maintenance</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/CalendarMaster">Calendar Maintenance</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/CalendarData">MTD Cycle Maintenance</a></li>
+                                </ul>
+                            </li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/CampTermMapping">Campaign Resolution code mapping</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ShiftMaster">Shift Maintenance</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/TerminationCode">Resolution Code Maintenance</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/BreakMaster">Break Code Maintenance</a></li>
+                        </ul>
+                    </li>
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Work Management<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/WorkDefinition">Work Master</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/GridConfiguration">Link Campaign </a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/WorkFilter">Work Filter</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/AutoAllocation">Assign Work</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/EmailNotification">Email Notification</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/SLAConfiguration">SLA Configuration</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/UploadWork">Upload Work</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Base/GenerateMenu">Work Rule</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/ManualAllocation">Manual Work Allocation</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/BatchStatusUpdateRequests">Batch Status Update</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/EXLInventory">EXL Inventory</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/DistributionBot">Distribution Bot</a></li>
+                        </ul>
+                    </li>
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Security<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/TeamManagement">Team Management</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/SkillUserMap">User Skill Map</a></li>
+                        </ul>
+                    </li>
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Reports<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default">
+                                <span class="k-link k-menu-link">Time Management<span class="k-icon k-i-arrow-60-right"></span></span>
+                                <ul class="k-group k-menu-group">
+                                    <li class="k-item k-state-default">
+                                        <a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/CfI4isfK4fmaDGPKP9GA57Gw4amzC7AamzH0ampC7Aamp08DoAwcnAbfx9UamtC7Aamt">Break Adjustment Summary</a>
+                                    </li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/AgentStatus">Agent Status</a></li>
+                                    <li class="k-item k-state-default">
+                                        <a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/mgaYamzC7AamzVibfUErCamzC7AamziamzC7AamzSx4pJTIRBJvxBamzC7AamzsIDU6WNLDkKlQamtC7Aamt">Agent Daily Summary</a>
+                                    </li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/T4FpiXkOoQ4Z03ikgtampC7AampoT23cZn1sQqPafWXmMs7nBZ8amtC7Aamt">Break Summary</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/YhEP1bW8x1oyj27AfDWjJiXQvfMeyFampC7AampH6mtFiSaDuCMamtC7Aamt">Session Login</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/FDx51Oh2nosWMtvcjHY1XMttRf56VxtmmWWzYe6WqOIamtC7Aamt">Agent Login</a></li>
+                                    <li class="k-item k-state-default">
+                                        <a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/D1RXwjnGBWd0hPje5mamzC7AamzEnlqioB7rampC7Aamp0F5HqZkU6g9jamzC7Aamz4amtC7Aamt">Schedule Adherence</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="k-item k-state-default">
+                                <span class="k-link k-menu-link">Workflow<span class="k-icon k-i-arrow-60-right"></span></span>
+                                <ul class="k-group k-menu-group">
+                                    <li class="k-item k-state-default">
+                                        <a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/Uy0vT6X2I4VamzC7AamzLbiKMnzlTampC7AampAjxqaRfpXhr5AafUio6xgamtC7Aamt">Transaction</a>
+                                    </li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptBatch">Batch Report</a></li>
+                                    <li class="k-item k-state-default">
+                                        <a class="k-link k-menu-link" href="/birlasoft/WorkManagement/Reports/Index/VjR1eOwamzC7AamzuCamzC7AamzgamzC7AamzaW6aT9SDqYniJk9mE5FyqdV2gNS0AoamtC7Aamt">Transaction Count</a>
+                                    </li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptTransactionAHT">Transaction AHT</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/HourlyProductivity">Hourly Productivity Chart</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptUtilizationChart">Utilization Chart</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptBatchStatus">Batch Status Report</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptRescheduleTransaction">Reschedule Work</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptInventoryinternalSLA">Inventory Internal SLA Report</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/frmTicketJourney">Ticket Journey</a></li>
+                                    <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/WorkManagement/rptTickeDashboard">Ticketing Dashboard</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <script>
+                    kendo.syncReady(function () {
+                        jQuery("#MainMenu").kendoMenu({});
+                    });
+                </script>
+            </div>
+        </header>
+        <section class="content-wrapper main-content clear-fix centerBody">
+            <div class="welcomePage"><div class="mainicons Images-main-main-swm"></div></div>
+        </section>
+        <footer id="footer"><small>&copy; Exl Service Holdings, Inc. 2006-2023</small></footer>
+        <script>
+            var CultureDateFormat = "M/d/yyyy h:mm tt";
+            kendo.culture("en-US");
+        </script>
+        <script>
+            window.location.hash = "";
+            window.location.hash = "";
+            window.onhashchange = function () {
+                window.location.hash = "";
+            };
+        </script>
+        <script src="https://bpademo.exlservice.com/bundles/footer?v=YF-_a8dpaUe6pXNai-K7HNnw9aUeXGIehtdedgrOV101"></script>
+        <input type="hidden"
+               id="forgeryToken"
+               value="D9DqheX-tPsKBhgv0aZ39r7rt788lRuc4ph2Oc0sRL1ATMt06-EwdLvT6uESPkRJ9Etcl-AXhSTIYQ_SkBjRQ7scK8o1,k_XgdoS58z-Sx2r537Nzdl5ADjliay0UW3iAUntnDBwDyF6xenVcBgu1E_ryNfzfTlkg0KPJebDVDTzGUWCcWSvhixhw-Jy8h1hoWLGThQol_guV0" />
+    </div>
+</body>
+</html>

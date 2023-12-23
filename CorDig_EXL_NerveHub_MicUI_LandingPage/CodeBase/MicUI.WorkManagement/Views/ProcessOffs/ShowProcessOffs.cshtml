@@ -1,0 +1,241 @@
+﻿@using Kendo.Mvc.UI;
+
+@model MicUI.WorkManagement.Models.ViewModels.ProcessOffsModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.displaySearchProcessOffs;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/processoffs-1.8.2.js"></script>
+@using (Html.BeginForm("ShowProcessOffs", "ProcessOffs", FormMethod.Post, new { @id = "formShowProcessOffs" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.displaySearchProcessOffs
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnShowProcessOffsClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("ProcessOffsbtnSearch").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <input name="ClientID" id="ClientID" type="hidden" value="0">
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientIDSearch, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.ClientIDSearch).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName").DataValueField("iClientID").DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCascadeClient", "ProcessOffs")
+                                .Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(process => process.ProcessIDSearch, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.ProcessIDSearch).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sProcessName").DataValueField("iProcessID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("GetCascadeProcess", "ProcessOffs").Data("filterProcess"); }).Events(ev => ev.Error("DropDownError"))
+                                .ServerFiltering(true);
+                            }).AutoBind(false).CascadeFrom("ClientIDSearch"))
+                        <script>
+                            function filterProcess() {
+                                return {
+                                    iClientID: $("#ClientIDSearch").val()
+                                };
+                            }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(month => month.MonthSearch, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.MonthSearch).HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>
+                            ()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = "January",
+                    Value = "1"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "February",
+                    Value = "2015"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "March",
+                    Value = "3"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "April",
+                    Value = "4"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "May",
+                    Value = "5"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "June",
+                    Value = "6"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "July",
+                    Value = "7"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "August",
+                    Value = "8"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "September",
+                    Value = "9"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "October",
+                    Value = "10"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "November",
+                    Value = "11"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "December",
+                    Value = "12"
+                    }
+                    }).Value(DateTime.Now.Month.ToString())
+                            )
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(year => year.YearSearch, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.YearSearch)
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" })
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year - 1).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year - 1).ToString()
+                    },
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year).ToString()
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 1).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 1).ToString()
+                    }
+                    }).Value(DateTime.Now.Year.ToString()))
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid((Model.BEProcessOffList))
+                        .Name("BEProcessOffGrid")
+                        .Selectable()
+                        .Scrollable()
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iProcessId).Hidden(true);
+                            columns.Bound(u => u.sName).Title("Name").HeaderHtmlAttributes(new { style = "color:white" }); ;
+                            columns.Command(command => command.Custom(BPA.GlobalResources.UI.Resources_common.display_BtnEdit).Click("edit")).Title(BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //columns.Command(command => command.Custom(BPA.GlobalResources.UI.Resources_common.display_BtnDelete).Click("_delete")).Title(BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .Pageable(pageable => pageable
+                        .PageSizes(new int[] { 5, 10, 20, 50, 100 })
+                        .Refresh(true)
+                        .ButtonCount(5))
+                        .HtmlAttributes(new { @style = "height:350px" })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().PageSize(5).Read(read => read.Action("ProcessOffs_Read", "ProcessOffs").Data("Param"))
+                        ))
+
+                </div>
+                <div id="divOverlay" class="Overlay"></div>
+                <div class="popup SmallPopup" id="divPopup"></div>
+            </div>
+        </div>
+    </div>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+<script>
+    var Resources = {
+        display_Alert: '@BPA.GlobalResources.UI.Resources_common.display_Alert',
+        display_Confirmation: '@BPA.GlobalResources.UI.Resources_common.display_Confirmation',
+        msg_ProcessDeletedConfirm: '@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.msg_ProcessDeletedConfirm',
+        msg_ProcessDeleted: '@BPA.GlobalResources.UI.WorkManagement.Resources_ProcessOff.msg_ProcessDeleted',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_ShowProcessOffs: ResourceLayout.partialURL + 'ShowProcessOffs',
+        url_SetProcessOffsID: ResourceLayout.partialURL + 'SetProcessOffsID',
+        url_Delete: ResourceLayout.partialURL + 'Delete',
+        url_EditingCustom_Edit: ResourceLayout.partialURL + 'EditingCustom_Edit',
+    }
+</script>
+
+
+

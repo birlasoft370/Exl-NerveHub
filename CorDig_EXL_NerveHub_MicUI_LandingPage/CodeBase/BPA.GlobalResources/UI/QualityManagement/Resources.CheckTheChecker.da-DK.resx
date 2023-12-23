@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_AgentName" xml:space="preserve">
+    <value>Agent navn:</value>
+  </data>
+  <data name="display_CamName" xml:space="preserve">
+    <value>Kampagne Navn:</value>
+  </data>
+  <data name="display_GridAgentName" xml:space="preserve">
+    <value>Agent navn</value>
+  </data>
+  <data name="display_GridAssesorName" xml:space="preserve">
+    <value>Assesor Navn</value>
+  </data>
+  <data name="display_GridMonitoringDate" xml:space="preserve">
+    <value>Overvågning Dato</value>
+  </data>
+  <data name="display_GridTransactionNo" xml:space="preserve">
+    <value>Transaktion Nej</value>
+  </data>
+  <data name="display_GridTransactionOutCome" xml:space="preserve">
+    <value>Transaktion resultat</value>
+  </data>
+  <data name="display_GridTransactionType" xml:space="preserve">
+    <value>Transaktion Type</value>
+  </data>
+  <data name="display_LoadExistingDataSets" xml:space="preserve">
+    <value>Load eksisterende datasæt</value>
+  </data>
+  <data name="display_MonitoringDateRange" xml:space="preserve">
+    <value>Overvågning Date Range:</value>
+  </data>
+  <data name="display_MonitoringType" xml:space="preserve">
+    <value>Overvågning Type:</value>
+  </data>
+  <data name="display_PullSampleForCTC" xml:space="preserve">
+    <value>Træk Prøve Til CTC</value>
+  </data>
+  <data name="display_SearchSave" xml:space="preserve">
+    <value>Søg og Gem</value>
+  </data>
+  <data name="display_SubProcess" xml:space="preserve">
+    <value>Sub Process Navn:</value>
+  </data>
+  <data name="display_Tittle" xml:space="preserve">
+    <value>Check The Checker</value>
+  </data>
+  <data name="display_TMName" xml:space="preserve">
+    <value>TM Navn:</value>
+  </data>
+  <data name="display_TransactionDateRange" xml:space="preserve">
+    <value>Transaktion Dato Range:</value>
+  </data>
+  <data name="display_TransactionNumber" xml:space="preserve">
+    <value>Transaktion Antal:</value>
+  </data>
+  <data name="display_TransactionType" xml:space="preserve">
+    <value>Transaktion Type:</value>
+  </data>
+  <data name="display_UpdateExistingCTC" xml:space="preserve">
+    <value>Opdatere eksisterende CTC</value>
+  </data>
+  <data name="required_AgentName" xml:space="preserve">
+    <value>Vælg venligst Agent navn</value>
+  </data>
+  <data name="required_CamName" xml:space="preserve">
+    <value>Vælg venligst Kampagnenavn</value>
+  </data>
+  <data name="required_MonitoringDateRange" xml:space="preserve">
+    <value>Vælg Overvågning datointerval</value>
+  </data>
+  <data name="required_MonitoringType" xml:space="preserve">
+    <value>Vælg venligst Overvågning type</value>
+  </data>
+  <data name="required_SubProcess" xml:space="preserve">
+    <value>Vælg venligst Sub Process</value>
+  </data>
+  <data name="required_TMName" xml:space="preserve">
+    <value>Vælg venligst TM Name</value>
+  </data>
+  <data name="required_TransactionDateRange" xml:space="preserve">
+    <value>Vælg Transaktion datointerval</value>
+  </data>
+  <data name="required_TransactionNumber" xml:space="preserve">
+    <value>Vælg venligst Transaktion Antal</value>
+  </data>
+  <data name="required_TransactionType" xml:space="preserve">
+    <value>Vælg venligst Transaktion Type</value>
+  </data>
+  <data name="dispaly_NoTransaction" xml:space="preserve">
+    <value>Ingen Transaktion for det angivne tidsrum er til rådighed.</value>
+  </data>
+  <data name="display_CTCDate" xml:space="preserve">
+    <value>CTC Dato:</value>
+  </data>
+  <data name="display_CTCEndDate" xml:space="preserve">
+    <value>Slutdato :</value>
+  </data>
+  <data name="display_CTCStartDate" xml:space="preserve">
+    <value>Start dato :</value>
+  </data>
+  <data name="display_EndDateFormat" xml:space="preserve">
+    <value>Transaktion Slutdato er ikke i korrekt format (mm / dd / åååå).</value>
+  </data>
+  <data name="display_GridAuditedBy" xml:space="preserve">
+    <value>revideret af</value>
+  </data>
+  <data name="display_MonitoringEndDateFormat" xml:space="preserve">
+    <value>Overvågning Slutdato er ikke i korrekt format (mm / dd / åååå).</value>
+  </data>
+  <data name="display_MonitoringStartDateFormat" xml:space="preserve">
+    <value>Overvågning Startdato er ikke i korrekt format (mm / dd / åååå).</value>
+  </data>
+  <data name="display_StartDateFormat" xml:space="preserve">
+    <value>Transaktion Startdato er ikke i korrekt format (mm / dd / åååå).</value>
+  </data>
+  <data name="display_ReasonMessage" xml:space="preserve">
+    <value>Giv grund til at afvise.</value>
+  </data>
+  <data name="required_CTCDate" xml:space="preserve">
+    <value>Indtast venligst CTC Dato</value>
+  </data>
+  <data name="btn_txtGetSample" xml:space="preserve">
+    <value>Hent Sample</value>
+  </data>
+  <data name="btn_txtGetSampleSave" xml:space="preserve">
+    <value>Få Sample og Gem</value>
+  </data>
+</root>

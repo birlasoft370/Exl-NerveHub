@@ -1,0 +1,180 @@
+﻿@model WorkDefinitionViewModel
+@using MicUI.WorkManagement.Models.ViewModels;
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_work_seach;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <script type="text/javascript" src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+}
+@{
+    bool isLanguage = false;
+    if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+    {
+        isLanguage = true;
+    }
+}
+<script type="text/javascript">
+
+    var bClientLanguage = '@isLanguage';
+</script>
+<script type="text/javascript" src="~/lib/bpa/scripts/workmanagement-1.8.2.js"></script>
+@using (Html.BeginForm("_WorkPreview", "WorkDefinition", FormMethod.Post, new { @id = "form_WorkPreview" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = (BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_work_seach);
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnRefresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content("Refresh").Events(e => e.Click("OnClickRefresh")))
+                        @(Html.Kendo().Button().Name("btnUpdate").Icon("tick").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content("Update").Events(e => e.Click("OnSaveButtonClick")))
+                        @(Html.Kendo().Button().Name("btnNew").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew).Events(e => e.Click("btnNewClick")))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.PreViewWorkDefinitionName, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(c => c.PreViewWorkDefinitionName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sStoreName").DataValueField("iStoreId")
+                            .DataSource(source => { source.Read(read => { read.Action("FillWorkList", "WorkDefinition"); }).ServerFiltering(true); })
+                            .Events(e => { e.Change("onSelectWork"); }))
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="nextWrap">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="formTable border">
+                            @(Html.Kendo().Grid(Model.oPreView).HtmlAttributes(new { style = "height: 600px;" })
+                                .Name("gdPreView")
+                                .Pageable(pageable => pageable
+                                .PageSizes(new int[] { 5, 10, 15, 20 })
+                                .Refresh(true)
+                                .ButtonCount(5))
+                                .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))
+                                .Sortable().Scrollable()
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(u => u.iObjectID).Hidden(true);
+                                    // columns.Bound(u => u.sObjectName).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName).Width(50)
+                                    //.EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName);
+                                    columns.Bound(u => u.sObjectLabel).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName).Width(50)
+                                    .EditorTemplateName(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName);
+                                    columns.Bound(u => u.PreViewselectedRow).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Row).Width(30)
+                                    .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "PreViewselectedRow" }).ClientTemplate("#=PreViewselectedRow.Text#").HtmlAttributes(new { @class = "clsRowPre" });
+                                    columns.Bound(u => u.PreViewselectedcolumn).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Column).Width(30)
+                                    .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "PreViewselectedcolumn" }).ClientTemplate("#=PreViewselectedcolumn.Text#").HtmlAttributes(new { @class = "clsColumnPre" });
+                                    columns.Bound(u => u.PreViewselectedcolumnSpan).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ColumnSpan).Width(30)
+                                    .EditorTemplateName("_GridDropDown").EditorViewData(new { Name = "PreViewselectedcolumnSpan" }).ClientTemplate("#=PreViewselectedcolumnSpan.Text#");
+                                }).DataSource(dataSource => dataSource
+                                .Ajax().PageSize(20).ServerOperation(false).Model(model =>
+                                {
+                                    model.Id(p => p.iObjectID);
+                                }).Read(read => read.Action("FillPriviewGrid", "WorkDefinition").Data("GetStoreID"))
+                                ))
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="border" style="height: 600px;overflow:auto;">
+                            <div class="bg-table">
+                                <h3> @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_storeLabelName &nbsp; @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_storePriviewName </h3>
+                            </div>
+                            <div class="p-4">
+                                <div id="divPrivew" class="tableForm" style="overflow: auto;">
+                                </div>
+                                <div style="clear:both"></div>
+                                <hr />
+                                <div style="clear:both"></div>
+                                <div class="row">
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("Resolution Code","Resolution Code",  new { @class = "form-label" })
+                                        <div class="input-group">
+                                            @(Html.Kendo().MultiSelect().Name("ResolutionCode").HtmlAttributes(new { @class = "formSelect" }).DataTextField("sTermCodeName").DataValueField("iTerminationCodeID").Filter(FilterType.Contains).DataSource(s => { s.Read(r => { r.Action("GetResolutionCodeList", "WorkDefinition"); }).ServerFiltering(true); }))
+                                            <a onclick="preview();" objid="ddl_100000_6" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("End", "End",new { @class = "form-label" })
+                                        <div>
+                                            <a onclick="preview();" objid="ddl_100002_6" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("StartCase","StartCase", new { @class = "form-label" })
+                                        <div>
+                                            <a onclick="preview();" objid="ddl_100002_7" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("GetFromQueue","GetFromQueue", new { @class = "form-label" })
+                                        <div>
+                                            <a onclick="preview();" objid="ddl_100002_8" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("Search", "Search", new { @class = "form-label" })
+                                        <div>
+                                            <a onclick="preview();" objid="ddl_100002_9" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 reslcode" style="display:none;">
+                                        @Html.Label("Reschedule","Reschedule", new { @class = "form-label" })
+                                        <div>
+                                            <a onclick="preview();" objid="chk_100000_3" id="linkFatal" class="clsFx btn btn-sm btn-link">Fx</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @(Html.Kendo().Window().Name("winOpen").Draggable().Visible(false).Height(850).Width(1050).Modal(true))
+        </div>
+    </div>
+}
+<script type="text/javascript">
+
+    var display_MsgErrorProcessing = '@(BPA.GlobalResources.UI.Resources_common.display_MsgErrorProcessing)';
+    var display_UdateDataPreView = '@(BPA.GlobalResources.UI.Resources_common.display_UdateDataPreView)';
+    var display_Alert = '@(BPA.GlobalResources.UI.Resources_common.display_Alert)';
+    var urlPathGetFilterList = '@Url.Action("GetFilterList", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPatheditWorkDefination = '@Url.Action("editWorkDefination", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSaveWorkData = '@Url.Action("SaveWorkData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathIndex = '@Url.Action("Index", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathObjectFormula = '@Url.Action("ObjectFormula", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathCreateRESTControls = '@Url.Action("CreateRESTControls", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathUpdatePreViewData = '@Url.Action("UpdatePreViewData", "WorkDefinition")';
+    var urlPath_WorkPreview = '@Url.Action("_WorkPreview", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSearchView = '@Url.Action("SearchView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathApprovalView = '@Url.Action("ApprovalView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathGetProcessID = '@Url.Action("GetProcessID", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlGetWorkObjectForControlName = '@Url.Action("GetWorkObjectForControlName", "WorkDefinition", new { area = "WorkManagement" })';
+    if (bClientLanguage == "True") {
+        var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+    }
+    var bClientLanguage = '@bool.Parse(Model.oTenant.ClientMultiLanguage)';
+    var Dispaly_DataRetrieveError = '@(BPA.GlobalResources.UI.WorkManagement.Resources_AutoAllocation.Dispaly_DataRetrieveError)';
+    var display_Alert = '@(BPA.GlobalResources.UI.Resources_common.display_Alert)';
+</script>
+
+
+

@@ -1,0 +1,158 @@
+﻿@using MicUI.WorkManagement.Helper.Sessions;
+@using MicUI.WorkManagement.Helper;
+@inject IGetSetSessionValues _getSessionValues;
+@{
+    var TenantInfo = _getSessionValues.GetTenantInfo();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/images/bpa/exl_21_logo_org.svg" type="image/x-icon">
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="@Url.Content("~/css/bpa/content/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/kendo.default.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/bootstrap/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/content/style/global.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/bpa/assets/font-awesome/css/font-awesome.css")" rel="stylesheet" type="text/css" />
+
+    <style>
+        .k-loading-image {
+            background-image: url("../images/bpa/PleaseWait_3.gif") !important;
+        }
+
+        .k-filter-row th,
+        .k-grid-header th.k-header {
+            width: 175px !important;
+        }
+
+        .k-grid td {
+            width: 175px !important; /*min-width: 161.8px !important;*/
+        }
+    </style>
+
+    <!--Bundles-->
+    <script src="~/lib/bpa/bundles/modernizr.js"></script>
+    <!--Jquery Bundle Start-->
+    <script src="~/lib/bpa/bundles/jquery-3.6.0.js"></script>
+    <!--Jquery Bundle End-->
+    <script src="~/lib/bpa/bundles/jquerymigrate.js"></script>
+    <script src="~/lib/bpa/bundles/jqueryui.js"></script>
+    <script src="~/lib/bpa/bundles/jqueryval.js"></script>
+    <!--Kendo 2023-->
+    <script src="~/lib/20231425_js_kendo.all.min.js"></script>
+    <script src="~/lib/20231425_js_kendo.aspnetmvc.min.js"></script>
+
+    <!--Kendo 2021-->
+    <script src="~/lib/bpa/bundles/kendo/20212616.js"></script>
+    <!--Header Bundle-->
+    <script src="~/lib/bpa/bundles/header/jquery.alerts.min.js"></script>
+    <script src="~/lib/bpa/bundles/header/timezone-ajax.min.js"></script>
+    <script src="~/lib/bpa/bundles/header/jscommon-1.8.2.js"></script>
+    <script>
+        function onlyInteger(num) {
+            if (/[^0-9]+/.test(num.value)) {
+                num.value = num.value.replace(/[^0-9]*/g, "");
+            }
+        }
+        $(function () {
+            $(".k-textbox").keypress(function (evt) {
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                var charStr = String.fromCharCode(charCode);
+                if (charStr.match(/[A-Za-z0-9 #$%^*()+=?/"!&,:;~'\\-]/)) {
+                    if (charStr.match(/[^A-Za-z 0-9]/g)) {
+                        this.value = this.value + charStr;
+                    }
+                }
+            });
+            $(document).on("input paste", "textarea", function () {
+                if (this.value.match(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                    this.value = this.value.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/, "");
+                }
+            });
+            $(document).on("paste", ":text", function (evt) {
+                // debugger;
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                //this el is just for work definition grid
+                var el = $(this);
+                if (charCode === 1) {
+                    if (el.length > 0) {
+                        if (
+                            el[0].id == "sObjectName" ||
+                            el[0].id == "sObjectDescription" ||
+                            el[0].id == "sObjectLabel" ||
+                            el[0].id == "iReportsOrderSearch" ||
+                            el[0].id == "sChoiceValue" ||
+                            el[0].id == "iOrder" ||
+                            el[0].id == "iGroupID"
+                        ) {
+                        } else {
+                            var charStr = clipboardData.getData("Text"); //String.fromCharCode(charCode);
+                            clipboardData.clearData("Text");
+                            charStr = charStr.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/g, "");
+                            if (charStr.match(/[A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                                this.value = this.value + charStr;
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    @if (IsSectionDefined("AddToHead"))
+    {
+        @RenderSection("AddToHead", required: false)
+    }
+    <script>
+        var ResourceLayout = {
+            tenantName: '@TenantInfo.TenantName',
+            partialURL: "@MyHttpContext.AppBaseUrl" + '@Convert.ToString(ViewContext.RouteData.Values["controller"])' + "/",
+            partiaArea: "@MyHttpContext.AppBaseUrl"
+        }
+    </script>
+
+    <script src="~/lib/bpa/bundles/kendo/jszip.min.js"></script>
+    <script src="~/lib/bpa/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/bpa/loadingoverlay.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            jAlert(thrownError, "INTELLIGENT PROCESS AUTOMATION");
+        });
+    </script>
+
+    <div>
+        @await Html.PartialAsync("_Header")
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix centerBody">
+            @RenderBody()
+        </section>
+        <footer id="footer"><small>&copy; Exl Service Holdings, Inc. 2006-2023</small></footer>
+        @RenderSection("scripts", required: false)
+        <script>
+            @Html.Raw(ViewBag.StartupScript)
+        </script>
+        <script>
+            @* // Dissable back button on browser*@
+                window.location.hash = "";
+            window.location.hash = "";
+            window.onhashchange = function () { window.location.hash = ""; }
+
+        </script>
+
+        <!--Footer Bundle-->
+        <script src="~/lib/bpa/bundles/footer/cutomclientvalidation.min.js"></script>
+        <script src="~/lib/bpa/bundles/footer/jsresetsession.js"></script>
+        @if (IsSectionDefined("AddToFoot"))
+        {
+            @RenderSection("AddToFoot", required: false)
+        }
+    </div>
+</body>
+</html>

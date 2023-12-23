@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Back" xml:space="preserve">
+    <value>Espalda</value>
+  </data>
+  <data name="display_BackOffice" xml:space="preserve">
+    <value>Back Office</value>
+  </data>
+  <data name="display_BusinessApprover" xml:space="preserve">
+    <value>aprobador de actividad:</value>
+  </data>
+  <data name="display_BusinessJustifications" xml:space="preserve">
+    <value>Las justificaciones de actividad:</value>
+  </data>
+  <data name="display_CampaignName" xml:space="preserve">
+    <value>Nombre de campaña:</value>
+  </data>
+  <data name="display_Campaign_Title" xml:space="preserve">
+    <value>campaña Maestro</value>
+  </data>
+  <data name="display_ClientName" xml:space="preserve">
+    <value>nombre del cliente</value>
+  </data>
+  <data name="display_CreateNewCampaign" xml:space="preserve">
+    <value>Crear una nueva campaña</value>
+  </data>
+  <data name="display_Delete_Button" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="display_Delete_Confirmation" xml:space="preserve">
+    <value>¿Quieres eliminar esta campaña?</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Descripción:</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Inhabilitar:</value>
+  </data>
+  <data name="display_Edit_Button" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="display_EndDate" xml:space="preserve">
+    <value>Fecha final:</value>
+  </data>
+  <data name="display_Error" xml:space="preserve">
+    <value>Error en los datos de ahorro</value>
+  </data>
+  <data name="display_InBound" xml:space="preserve">
+    <value>en Bound</value>
+  </data>
+  <data name="display_KeyBenefits" xml:space="preserve">
+    <value>Beneficios clave (Tangible / En tangible):</value>
+  </data>
+  <data name="display_Location" xml:space="preserve">
+    <value>Ubicaciones:</value>
+  </data>
+  <data name="display_Mode" xml:space="preserve">
+    <value>Modo:</value>
+  </data>
+  <data name="display_ModifyExistingCampaign" xml:space="preserve">
+    <value>Modificar campaña existente</value>
+  </data>
+  <data name="display_New_Button" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="display_NoFieldDataEntry" xml:space="preserve">
+    <value>Sin Entrada libre Campo de datos:</value>
+  </data>
+  <data name="display_NoField_Confirmation" xml:space="preserve">
+    <value>Al seleccionar esta opción desactivará la posibilidad de cualquier entrada de datos de campo libre por agentes de agente de tablero de instrumentos.</value>
+  </data>
+  <data name="display_OutBound" xml:space="preserve">
+    <value>Fuera Bound</value>
+  </data>
+  <data name="display_ProcessName" xml:space="preserve">
+    <value>Nombre del proceso:</value>
+  </data>
+  <data name="display_Purposeofcreationofcampaign" xml:space="preserve">
+    <value>Propósito de la creación de la campaña:</value>
+  </data>
+  <data name="display_Q1" xml:space="preserve">
+    <value>P1:</value>
+  </data>
+  <data name="display_Q2" xml:space="preserve">
+    <value>P2:</value>
+  </data>
+  <data name="display_Q3" xml:space="preserve">
+    <value>P3:</value>
+  </data>
+  <data name="display_Save" xml:space="preserve">
+    <value>Campaña guardado correctamente!.</value>
+  </data>
+  <data name="display_Save_Button" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="display_SearchCampaign_Title" xml:space="preserve">
+    <value>Campaña de búsqueda</value>
+  </data>
+  <data name="display_Search_Button" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="display_Select_Business_Approver" xml:space="preserve">
+    <value>Seleccionar negocios aprobador ...</value>
+  </data>
+  <data name="display_Select_Client" xml:space="preserve">
+    <value>Seleccione Cliente ...</value>
+  </data>
+  <data name="display_Select_mode" xml:space="preserve">
+    <value>Modo de selección...</value>
+  </data>
+  <data name="display_Select_Process" xml:space="preserve">
+    <value>Proceso de selección de ...</value>
+  </data>
+  <data name="display_Select_Purposeofcampaign" xml:space="preserve">
+    <value>Seleccione Objeto de la campaña ...</value>
+  </data>
+  <data name="display_Select_TechnologyApprover" xml:space="preserve">
+    <value>Seleccione Tecnología aprobador ...</value>
+  </data>
+  <data name="display_Select_TimeZone" xml:space="preserve">
+    <value>Seleccionar zona horaria ...</value>
+  </data>
+  <data name="display_ShiftWindow" xml:space="preserve">
+    <value>Cambiar de ventana:</value>
+  </data>
+  <data name="display_TargetUsers" xml:space="preserve">
+    <value>Los usuarios de destino:</value>
+  </data>
+  <data name="display_TechnologyApprover" xml:space="preserve">
+    <value>aprobador Tecnología:</value>
+  </data>
+  <data name="display_TimeTracking" xml:space="preserve">
+    <value>Tomando Quenta de tiempo</value>
+  </data>
+  <data name="display_TimeZone" xml:space="preserve">
+    <value>Zona horaria:</value>
+  </data>
+  <data name="display_TransactionsMonitoring" xml:space="preserve">
+    <value>Monitoreo transacciones</value>
+  </data>
+  <data name="display_Update" xml:space="preserve">
+    <value>Actualizar la campaña con éxito!.</value>
+  </data>
+  <data name="display_View_Button" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="display_WorkManagement" xml:space="preserve">
+    <value>Dirección de obra</value>
+  </data>
+  <data name="display_Y1" xml:space="preserve">
+    <value>Y1:</value>
+  </data>
+  <data name="display_Y2" xml:space="preserve">
+    <value>Y2:</value>
+  </data>
+  <data name="display_Y3" xml:space="preserve">
+    <value>Y3:</value>
+  </data>
+  <data name="required_BusinessApprover" xml:space="preserve">
+    <value>Por favor, seleccione aprobador de negocios</value>
+  </data>
+  <data name="required_BusinessJustifications" xml:space="preserve">
+    <value>Por favor, introduzca las justificaciones comerciales</value>
+  </data>
+  <data name="required_CampaignName" xml:space="preserve">
+    <value>Por favor, introduzca Nombre de la campaña</value>
+  </data>
+  <data name="required_ClientName" xml:space="preserve">
+    <value>Por favor, seleccione el nombre del cliente</value>
+  </data>
+  <data name="required_EndDate" xml:space="preserve">
+    <value>Por favor, seleccione Fecha de finalización</value>
+  </data>
+  <data name="required_KeyBenefits" xml:space="preserve">
+    <value>Por favor, introduzca Beneficios clave (Tangible / En tangible)</value>
+  </data>
+  <data name="required_Location" xml:space="preserve">
+    <value>Por favor, introduzca la ubicación</value>
+  </data>
+  <data name="required_Mode" xml:space="preserve">
+    <value>Por favor, seleccione el modo de</value>
+  </data>
+  <data name="required_ProcessName" xml:space="preserve">
+    <value>Por favor, seleccione Nombre del proceso</value>
+  </data>
+  <data name="required_Purposeofcreationofcampaign" xml:space="preserve">
+    <value>Por favor, seleccione propósito de la creación de la campaña</value>
+  </data>
+  <data name="required_Q1Q2Q3" xml:space="preserve">
+    <value>Por favor, proporcione el valor numérico</value>
+  </data>
+  <data name="required_ShiftWindow" xml:space="preserve">
+    <value>Por favor, introduzca Ventana Shift</value>
+  </data>
+  <data name="required_TechnologyApprover" xml:space="preserve">
+    <value>Por favor, seleccione Tecnología aprobador:</value>
+  </data>
+  <data name="required_TimeZone" xml:space="preserve">
+    <value>Por favor, seleccione Zona horaria</value>
+  </data>
+  <data name="required_Y1Y2Y3" xml:space="preserve">
+    <value>Por favor, proporcione el valor numérico</value>
+  </data>
+  <data name="display_Submit" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="diplay_ApproveSuccessfully" xml:space="preserve">
+    <value>Campaña Creación solicitud aprobada con éxito</value>
+  </data>
+  <data name="diplay_CancelSuccessfully" xml:space="preserve">
+    <value>Creación Campaña Solicitud cancelada exitosamente</value>
+  </data>
+  <data name="diplay_RejectSuccessfully" xml:space="preserve">
+    <value>Campaña Creación Se rechazó la solicitud con éxito</value>
+  </data>
+  <data name="display_ApporveGridTitle" xml:space="preserve">
+    <value>Las aprobaciones de campaña</value>
+  </data>
+  <data name="display_Approve" xml:space="preserve">
+    <value>Aprobar</value>
+  </data>
+  <data name="display_ApproveTitle" xml:space="preserve">
+    <value>Aprobación campaña</value>
+  </data>
+  <data name="display_BussinessAppprover" xml:space="preserve">
+    <value>bussiness aprobador</value>
+  </data>
+  <data name="display_Campaign" xml:space="preserve">
+    <value>Campaña</value>
+  </data>
+  <data name="display_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="display_Client" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="display_NoRecord" xml:space="preserve">
+    <value>Sin solicitud está pendiente de aprobación</value>
+  </data>
+  <data name="display_Process" xml:space="preserve">
+    <value>Proceso</value>
+  </data>
+  <data name="display_Reject" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+  <data name="display_RequestedOn" xml:space="preserve">
+    <value>solicitado el</value>
+  </data>
+  <data name="display_Requester" xml:space="preserve">
+    <value>solicitante</value>
+  </data>
+  <data name="display_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="display_TechApprover" xml:space="preserve">
+    <value>tecnología aprobador</value>
+  </data>
+  <data name="diplay_submitmsg" xml:space="preserve">
+    <value>Solicitud de Cambio enviado correctamente</value>
+  </data>
+  <data name="dispaly_Changerequest" xml:space="preserve">
+    <value>Cambio adicional de pedidos:</value>
+  </data>
+  <data name="display_ApproveRequester" xml:space="preserve">
+    <value>solicitante</value>
+  </data>
+  <data name="display_commentmsg" xml:space="preserve">
+    <value>Por favor, especifique comentario para cambiar la petición!</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>Partir de la fecha:</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>Hasta la fecha:</value>
+  </data>
+  <data name="display_WorkDefinitionName" xml:space="preserve">
+    <value>Trabajo Nombre de definición</value>
+  </data>
+  <data name="required_WorkDefinationName" xml:space="preserve">
+    <value>Propósito de la Creación Definición de Trabajo</value>
+  </data>
+  <data name="display_BusinessJustifications_Tittle" xml:space="preserve">
+    <value>Las justificaciones de negocio</value>
+  </data>
+  <data name="display_IsemailCampaign" xml:space="preserve">
+    <value>Es campaña de correo electrónico</value>
+  </data>
+  <data name="display_CampaignDeleted" xml:space="preserve">
+    <value>Campaña eliminado correctamente.</value>
+  </data>
+</root>

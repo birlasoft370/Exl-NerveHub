@@ -1,0 +1,77 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.ShiftMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + "Search Shift Name";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/shiftmaster-1.8.2.js"></script>
+@using (Html.BeginForm("ShiftSearchView", "ShiftMaster", FormMethod.Post, new { @id = "formShiftMaster" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resources_Shift.dispSearchShift)
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickShiftMaster")).Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("GoShiftMaster")).Icon("search").Name("btnShiftMasterSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SearchShiftName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(camp => camp.SearchShiftName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.ShiftList).Name("searchGrid").Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Pageable(pageable => pageable.PageSizes(new int[] { 5, 10, 20, 50, 100 }).Refresh(true).ButtonCount(5))
+                        .Scrollable(sc => sc.Virtual(true).Height("350px"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.ShiftID).Hidden(true);
+                            columns.Bound(u => u.SearchShiftName).Title("Shift Name");
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit)
+                            .Click("editShift").HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" })).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                        }).DataSource(dataSource => dataSource.Ajax().Model(model => { model.Id(u => u.ShiftID); model.Field(u => u.ShiftID).DefaultValue(Model.SearchShiftName); })))
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var Shift_Deleted = '@(BPA.GlobalResources.UI.WorkManagement.Resources_Shift.msg_deleted)';
+        var Confirm_Delete = '@(BPA.GlobalResources.UI.WorkManagement.Resources_Shift.msg_confirm)';
+        var OK = '@(BPA.GlobalResources.UI.Resources_common.display_Ok)';
+    </script>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var Resources = {
+        display_TotalShiftHours: '@(BPA.GlobalResources.UI.WorkManagement.Resources_Shift.display_TotalShiftHours)',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_ShiftSearchView: ResourceLayout.partialURL + 'ShiftSearchView',
+        url_EditingCustom_Edit: ResourceLayout.partialURL + 'EditingCustom_Edit',
+        url_EditingCustom_Destroy: ResourceLayout.partialURL + 'EditingCustom_Destroy',
+    }
+</script>

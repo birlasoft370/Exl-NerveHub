@@ -1,0 +1,585 @@
+﻿@using Kendo.Mvc.UI
+
+@if (Convert.ToString(@ViewData["Name"]) == "selectControlType")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectControlType").DataSource(d => d.Read(r => r.Action("FillObjectType", "WorkDefinition")
+                     .Data("WorkDefinition_GetControlType")))
+                    .DataValueField("iControlTypeID").DataTextField("sControlType").HtmlAttributes(new { @class = "ddlObjectType" })
+                    .Events(e =>
+                    {
+                        e.Select("WorkDefinition_onSelect");
+                    }).AutoBind(false)
+                )
+}
+
+else if (@ViewData["Name"] == "selectedDataType")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedDataType").DataSource(d => d.Read(r => r.Action
+                                                                                                ("FillObjectDataType", "WorkDefinition")))
+                                                                                                    .DataTextField("Text ").DataValueField("Value").HtmlAttributes(new { @class = "ddlDataType" })
+                                                                                    .Events(e =>
+                                                                                    {
+                                                                                        e.Select("WorkDefinition_onSelect");
+                                                                                    }).AutoBind(true)
+                )
+
+
+}
+else if (@ViewData["Name"] == "selectedValidation")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedValidation")
+                                                                                    .DataSource(d => d.Read(r => r.Action("FillValidations", "WorkDefinition")))
+                                                                                                    .DataTextField("ValidationType").DataValueField("ValidationId")
+                                                                                    .Events(e =>
+                                                                                    {
+                                                                                        e.Select("WorkDefinition_onSelect");
+                                                                                    })
+                )
+
+
+}
+else if (@ViewData["Name"] == "selectedRow")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedRow")
+                                                                                        .DataSource(d => d.Read(r => r.Action("FillRow", "WorkDefinition").Data("WorkDefinition_GetNoOfRows"))).HtmlAttributes(new { @class = "selectedRow" })
+                                                                                                            .DataTextField("Text").DataValueField("Value")
+                                                                                    .Events(e =>
+                                                                                    {
+                                                                                        e.Select("WorkDefinition_onSelect");
+                                                                                    })
+                )
+
+
+}
+
+else if (@ViewData["Name"] == "selectedcolumn")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedcolumn")
+                                                                                                    .DataSource(d => d.Read(r => r.Action("FillColumn", "WorkDefinition").Data("WorkDefinition_GetNoOfCol"))).HtmlAttributes(new { @class = "selectedColumn" })
+                                                                                                            .DataTextField("Text").DataValueField("Value")
+                                                                                    .Events(e =>
+                                                                                    {
+                                                                                        e.Select("WorkDefinition_onSelect");
+                                                                                    })
+                )
+
+
+}
+
+
+else if (@ViewData["Name"] == "selectedcolumnSpan")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedcolumnSpan")
+                                                                                            .DataSource(d => d.Read(r => r.Action("FillSpan", "WorkDefinition").Data("WorkDefinition_GetNoOfSapn")))
+                                                                                                            .DataTextField("Text").DataValueField("Value")
+                                                                                    .Events(e =>
+                                                                                    {
+                                                                                        e.Select("WorkDefinition_onSelect");
+                                                                                    })
+                )
+
+
+}
+
+else if (@ViewData["Name"] == "ObjectName")
+{
+
+    @(Html.Kendo().DropDownList().Name("iObjectID")
+
+                                                                                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+
+                                                                                                     .DataSource(d => d.Read(r => r.Action("FillObejectName", "WorkFilter").Data("GetCampaignId")))
+                                                                                                                                  .DataTextField("Text").DataValueField("Value").Value("iObjectID")
+                                                                                                                      .Events(e =>
+                                                                                        {
+                                                                                            e.Select("onSelectObjectNameWorkFilter");
+                                                                                        }).AutoBind(true).HtmlAttributes(new { required = "required", data_required_msg = "Select ObjectName" })
+                )
+}
+
+else if (@ViewData["Name"] == "SLAObjectName")
+{
+
+    @(Html.Kendo().DropDownList().Name("iObjectID")
+
+                                                                                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+
+                                                                                                         .DataSource(d => d.Read(r => r.Action("FillObejectName", "SLAConfiguration").Data("GetCampaignId")))
+                                                                                                                                  .DataTextField("Text").DataValueField("Value").Value("iObjectID")
+                                                                                                                      .AutoBind(true)
+                                                                                                                          .Events(e =>
+                                                                                            {
+                                                                                                e.Change("onSelectObjectNameSLAFilter");
+                                                                                            })
+                                                                                                                      .HtmlAttributes(new { @class = "SLAObjectName", required = "required", data_required_msg = "Select ObjectName" })
+                )
+}
+
+else if (@ViewData["Name"] == "Operator")
+{
+
+    List<SelectListItem> list = new List<SelectListItem>(){
+new SelectListItem { Text ="In", Value="In"},
+new SelectListItem { Text ="Not In", Value="Not In"},
+new SelectListItem { Text ="Like", Value="Like"},
+new SelectListItem { Text ="Not Like", Value="Not Like"},
+new SelectListItem { Text ="Is", Value="Is"},
+new SelectListItem { Text =">", Value=">"},
+new SelectListItem { Text =">=", Value=">="},
+new SelectListItem { Text ="<", Value="<"},
+new SelectListItem { Text ="<=", Value="<="},
+new SelectListItem { Text ="=", Value="="},
+new SelectListItem { Text ="<>", Value="<>"}
+};
+
+    @(Html.Kendo().DropDownList().Name("sOperator").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                                          .DataTextField("Text").DataValueField("Value").Value("sOperator").Events(e =>
+                                                            {
+                                                                e.Select("onSelectOperatorWorkFilter");
+                                                            }).HtmlAttributes(new { required = "required", data_required_msg = "Select Operator" })
+                                                             .DataSource(source =>
+                                                                        {
+                                                                            source.Read(read =>
+                                                                            {
+                                                                                read.Action("FillOperatorName", "WorkFilter").Data("GetObjectID");
+                                                                            }).ServerFiltering(true);
+                                                                        })
+
+                                                                 .AutoBind(true)
+                                                    .CascadeFrom("iObjectID")
+            )
+}
+
+else if (@ViewData["Name"] == "SLAOperator")
+{
+
+    List<SelectListItem> list = new List<SelectListItem>(){
+new SelectListItem { Text ="In", Value="In"},
+new SelectListItem { Text ="Not In", Value="Not In"},
+new SelectListItem { Text ="Like", Value="Like"},
+new SelectListItem { Text ="Not Like", Value="Not Like"},
+new SelectListItem { Text ="Is", Value="Is"},
+new SelectListItem { Text =">", Value=">"},
+new SelectListItem { Text =">=", Value=">="},
+new SelectListItem { Text ="<", Value="<"},
+new SelectListItem { Text ="<=", Value="<="},
+new SelectListItem { Text ="=", Value="="},
+new SelectListItem { Text ="<>", Value="<>"}
+};
+
+    @(Html.Kendo().DropDownList().Name("sOperator").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                                          .DataTextField("Text").DataValueField("Value").Value("sOperator").Events(e =>
+                                                            {
+                                                                e.Select("onSelectOperatorWorkFilter");
+                                                            }).HtmlAttributes(new { required = "required", data_required_msg = "Select Operator" })
+                                                                .BindTo(list).AutoBind(true))
+}
+
+else if (@ViewData["Name"] == "LogicalOperator")
+{
+    List<SelectListItem> list = new List<SelectListItem>(){
+new SelectListItem { Text ="And", Value="And"},
+new SelectListItem { Text ="Or", Value="Or"},
+new SelectListItem { Text ="And (", Value="And ("},
+new SelectListItem { Text ="Or (", Value="Or ("},
+new SelectListItem { Text =")", Value=")"},
+new SelectListItem { Text ="(", Value="("}
+};
+
+    @(Html.Kendo().DropDownList().Name("sLogical").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                                            .HtmlAttributes(new { required = "required", data_required_msg = "Select Logical Operator" })
+                                                        .DataTextField("Text").DataValueField("Value").BindTo(list)
+                                                        .Value("sLogical").Events(e =>
+                                                        {
+                                                            e.Select("onSelectLogicalOperatorWorkFilter");
+                                                        }))
+}
+else if (@ViewData["Name"] == "MailCategoryObject")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedDataType").DataSource(d => d.Read(r => r.Action
+                                                                       ("FillObejectName", "MailCategory")))
+                                                                           .DataTextField("Text ").DataValueField("Value").HtmlAttributes(new { @class = "ddlDataType" })
+                                                           .Events(e =>
+                                                           {
+                                                               e.Select("onSelectLogicalOperatorWorkFilter");
+                                                           }).AutoBind(true)
+            )
+
+
+
+
+}
+else if (@ViewData["Name"] == "MailLogicalOperator")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectLogicalOperator").DataSource(d => d.Read(r => r.Action
+                                                                       ("FillLogicalOperater", "MailCategory")))
+                                                                           .DataTextField("Text ").DataValueField("Value").HtmlAttributes(new { @class = "ddlDataType" })
+                                                           .Events(e =>
+                                                           {
+                                                               e.Select("onSelectLogicalOperatorWorkFilter");
+                                                           }).AutoBind(true)
+            )
+
+
+
+
+}
+else if (@ViewData["Name"] == "MailOperatorValues")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectOperatorValues").DataSource(d => d.Read(r => r.Action
+                                                                       ("FillOperater", "MailCategory")))
+                                                                           .DataTextField("Text ").DataValueField("Value").HtmlAttributes(new { @class = "ddlDataType" })
+                                                           .Events(e =>
+                                                           {
+                                                               e.Select("onSelectLogicalOperatorWorkFilter");
+                                                           }).AutoBind(true)
+            )
+
+
+
+
+}
+else if (@ViewData["Name"] == "PreViewselectedRow")
+{
+
+    @(Html.Kendo().DropDownList().Name("PreViewselectedRow")
+                                                                .DataSource(d => d.Read(r => r.Action("FillPreViewRow", "WorkDefinition").Data("GetStoreID"))).HtmlAttributes(new { @class = "prvColumn" })
+                                                                            .DataTextField("Text").DataValueField("Value")
+                                                    .Events(e =>
+                                                    {
+                                                        e.Select("onPreViewSelect");
+                                                    })
+            )
+}
+else if (@ViewData["Name"] == "PreViewselectedOrder")
+{
+
+
+    @(Html.Kendo().DropDownList().Name("PreViewselectedOrder")
+                                                                    .DataSource(d => d.Read(r => r.Action("FillPreViewRow", "SubTaskConfiguration").Data("GetStoreID"))).HtmlAttributes(new { @class = "prvColumn" })
+                                                                            .DataTextField("Text").DataValueField("Value")
+            //.Events(e =>
+            //{
+            //    e.Select("onPreViewSelect");
+            //})
+            )
+}
+
+else if (@ViewData["Name"] == "PreViewselectedcolumn")
+{
+    @(Html.Kendo().DropDownList().Name("PreViewselectedcolumn")
+                                                                        .DataSource(d => d.Read(r => r.Action("FillPreViewcolum", "WorkDefinition").Data("GetStoreID"))).HtmlAttributes(new { @class = "prvColumn" })
+                                                                            .DataTextField("Text").DataValueField("Value")
+                                                    .Events(e =>
+                                                    {
+                                                        e.Select("onPreViewSelect");
+                                                    })
+            )
+}
+
+
+else if (@ViewData["Name"] == "PreViewselectedcolumnSpan")
+{
+
+    @(Html.Kendo().DropDownList().Name("PreViewselectedcolumnSpan")
+                                                                        .DataSource(d => d.Read(r => r.Action("FillPreViewcolumSpan", "WorkDefinition").Data("GetStoreID"))).HtmlAttributes(new { @class = "prvColumnSpn" })
+                                                                            .DataTextField("Text").DataValueField("Value")
+                                                    .Events(e =>
+                                                    {
+                                                        e.Select("onPreViewSelect");
+                                                    })
+            )
+
+
+}
+
+else if (@ViewData["Name"] == "skillList")
+{
+    @(Html.Kendo().MultiSelect().Name("Skills").DataTextField("sSkillName").DataValueField("sSkillName").ValuePrimitive(true)
+                                                                    .DataSource(x => x.Read(p => p.Action("FillSkill", "SkillUserMap").Data("GetCampaignId"))).Events(e => e.Change("change_Skills")).AutoBind(true)
+            )
+}
+else if (@ViewData["Name"] == "ObjectUserName")
+{
+
+    @(Html.Kendo().DropDownList().Name("UserName")
+                                                    .DataSource(d => d.Read(r => r.Action("GetUserName", "BatchMaster").Data("GetProcessID")))
+                                                    .HtmlAttributes(new { @class = "prvColumn" })
+                                                    .DataTextField("sUserName").DataValueField("iUserID").Value("sUserName")
+                                                    .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                                    .Events(e =>
+                                                    {
+                                                        e.Select("BatchMasterUseronSelect");
+                                                    })
+
+            )
+}
+@*-Added by Nabin For Dimension Configuration-*@
+
+else if (@ViewData["Name"] == "selectDymentionType")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectDymentionType")
+                                                                                                        .DataSource(d => d.Read(r => r.Action("jSonGetDimensionList", "DashboardConfiguration"))).HtmlAttributes(new { @class = "prvColumn" })
+                                                                                                                            .DataTextField("sDimensionTypeName").DataValueField("DimensionType")
+                                                                                        .Events(e =>
+                                                                                        {
+                                                                                            e.Select("selectDymentionTypeDimensionConfig_onSelect");
+                                                                                        })
+                )
+}
+
+
+else if (@ViewData["Name"] == "DimentionValueMAPList")
+{
+    @(Html.Kendo().MultiSelect().Name("iDimensionValueID").DataTextField("Text").DataValueField("Text").ValuePrimitive(true).HtmlAttributes(new { @class = "clsRow" })
+                                                                                    .BindTo((IEnumerable<SelectListItem>)@ViewData["FillMappingFields"])
+                                                                                    .Events(e => e.Change("change_DimesionValueType"))
+                                                                                                                .AutoBind(true)
+                )
+
+
+}
+else if (@ViewData["Name"] == "AutoCompleteList")
+{
+    @(Html.Kendo().AutoComplete().Name("sUserName")
+                                                                                              .DataTextField("sUserName")
+                                                                                      .Filter(FilterType.Contains)
+                                                                                      .Suggest(true)
+                                                                                      .DataSource(source =>
+                                                                                      {
+                                                                                          source.Read(read =>
+                                                                                          {
+                                                                                              read.Action("GetUSERName_", "BatchMaster").Data("onAdditionalData");
+                                                                                          })
+                                                                                          .ServerFiltering(false);
+                                                                                      })
+                )
+
+}
+else if (@ViewData["Name"] == "LinkedDecision")
+{
+
+    @(Html.Kendo().DropDownList().Name("LinkedDecisionID")
+                                                                                                                 .DataSource(d => d.Read(r => r.Action("GetUSERName_", "SubTaskContant").Data("onAdditionalData"))).HtmlAttributes(new { @class = "prvColumn" })
+                                                                                                                                  .DataTextField("LinkedDecision").DataValueField("LinkedDecisionID")
+                                                                                                                                      .Events(e =>
+                                                                                           {
+                                                                                               e.Select("selectDymentionTypeDimensionConfig_onSelect");
+                                                                                           })
+
+                )
+
+
+
+}
+else if (@ViewData["Name"] == "ResolutionCode")
+{
+
+    @(Html.Kendo().MultiSelect()
+                                                                                                            .Name("ResolutionCodes")
+                                                                                                            .Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                                                                                            .HtmlAttributes(new { style = "width:150px;" })
+                                                                                                                                          .DataTextField("sTermCodeName")
+                                                                                                            .DataValueField("iTerminationCodeID")
+                                                                                                            .AutoBind(true)
+
+                                                                                                            .DataSource(source =>
+                                                                                                            {
+                                                                                                                source.Read(read =>
+                                                                                                                {
+
+                                                                                                                    read.Url("/WorkManagement/SLAConfiguration/GetResolutionCodeList")
+                                                                                                                    .Data("GetCompaignId");
+
+                                                                                                                }).ServerFiltering(true);
+                                                                                                            }).AutoClose(false)
+                )
+}
+
+else if (@ViewData["Name"] == "SLAWorkObjects")
+{
+    <div class="clsObjectMapping" style="display:block;">
+        @(Html.Kendo().Button().Icon("plus").Name("btnOpenWorkObjectMapping")
+            .HtmlAttributes(new { type = "button", @class = "k-primary", @style = "text-align: left;", @onclick = "OpenObjectMapping(this)" })
+            .Content(@BPA.GlobalResources.UI.WorkManagement.Resources_SLAConfiguration.display_Tab_ObjectMapping))
+    </div>
+}
+else if (@ViewData["Name"] == "EscationUser")
+{
+    <div class="clsEscationUser" style="display:none;">
+        @(Html.Kendo().MultiSelect()
+            .Name("EscationUser").Enable(true)
+            .Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select)
+            .HtmlAttributes(new { @style = "width:150px" })
+
+            .DataTextField("Name")
+            .DataValueField("UserID")
+            .AutoBind(true)
+
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Url("/WorkManagement/SLAConfiguration/GetEsclationUser")
+                .Data("GetCompaignId");
+                }).ServerFiltering(true);
+            }).AutoClose(false))
+    </div>
+}
+else if (@ViewData["Name"] == "SLAFrequency")
+{
+    List<SelectListItem> list = new List<SelectListItem>(){
+new SelectListItem { Text =@BPA.GlobalResources.UI.Resources_common.display_Select, Value="0"},
+new SelectListItem { Text ="Hourly", Value="Hourly"},
+new SelectListItem { Text ="Daily", Value="Daily"},
+};
+
+    <div class="clsFrequency" style="display: none;">
+        @(Html.Kendo().DropDownList().Name("sFrequency").DataTextField("Text").DataValueField("Value").BindTo(list).Value("sFrequency")
+            .HtmlAttributes(new { @style = "text-align: left;width:80px" }))
+    </div>
+
+}
+else if (@ViewData["Name"] == "FilterNames")
+{
+
+    @(Html.Kendo().MultiSelect()
+                                                    .Name("FilterNames")
+                                            .Placeholder(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                            .HtmlAttributes(new { style = "width:150px" })
+                                                .DataTextField("sFilterName")
+                                                .DataValueField("iFilterID")
+                                            .AutoBind(true)
+                                            .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Url("/WorkManagement/SLAConfiguration/GetAssignedFilter")
+                                                    .Data("GetCompaignId");
+                                                }).ServerFiltering(true);
+                                            }).AutoClose(false)
+            )
+
+}
+else if (@ViewData["Name"] == "EmailTemplate")
+{
+    <div class="clsEmailTemplate" style="display: block;">
+        @(Html.Kendo().DropDownList().Name("sEmailTemplate").Value("sEmailTemplate").HtmlAttributes(new { style = "width:150px" })
+            .DataTextField("sMailTemplateName")
+            .DataValueField("iMailTemplateId")
+            .Events(e =>
+            {
+                e.Select("onSelectEmailTemplate");
+            })
+            .AutoBind(true)
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Url("/WorkManagement/SLAConfiguration/GetMailTemplateList")
+                .Data("GetCompaignId");
+                });
+            }))
+    </div>
+}
+else if (@ViewData["Name"] == "BackOffice")
+{
+    <div class="clsIsBackOffice" style="display: none;">
+        @(Html.Kendo().CheckBox().Name("BackOffice").HtmlAttributes(new { @class = "clsCheckIsBack" }))
+    </div>
+}
+else if (@ViewData["Name"] == "sValue")
+{
+
+    <div class="dtddlval" style="display: none;">
+        @(Html.Kendo().MultiSelect()
+            .Name("sValue")
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .Placeholder("Select products...")
+            .Events(e => e.Change("change_Skills"))
+            .AutoBind(false)
+            .Value("sValue")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("FillBatchName", "WorkFilter").Data("GetCampaignId");
+                })
+                .ServerFiltering(true);
+            })
+            )
+
+
+        @*@(Html.Kendo().DropDownList().Name("iBatchsValueID")
+
+    .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+
+    .DataSource(d => d.Read(r => r.Action("FillBatchName", "WorkFilter").Data("GetCampaignId")))
+    .DataTextField("Text").DataValueField("Value").Value("sValue")
+    .Events(e =>
+    {
+    e.Select("onSelectObjectNameBatchID");
+    }).AutoBind(true).HtmlAttributes(new {@style = "width:161px" })
+    )*@
+
+
+
+    </div>
+    <div class="dtpicker" style="display: none;">
+        @(Html.Kendo().DatePicker().Name("sDateValuesValue").Value("sValue").HtmlAttributes(new { style = "width:151px", title = "datepicker", data_bind = "value:sValue" }))
+    </div>
+    <div class="dttext" style="display: none;">
+        @(Html.Kendo().TextBox().Name("sValue").HtmlAttributes(new { @maxLength = 50, @style = "width:151px" }))
+    </div>
+}
+else if (@ViewData["Name"] == "selectedRowTAB")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedRowTAB")
+                                                                            .DataSource(d => d.Read(r => r.Action("FillRowTAB", "WorkDefinition").Data("WorkDefinition_GetNoOfRowsTAB"))).HtmlAttributes(new { @class = "selectedRowTAB" })
+                                                                                                .DataTextField("sTABNameValue").DataValueField("sChoiceValue")
+                                                                        .Events(e =>
+                                                                        {
+                                                                            e.Select("WorkDefinition_onSelect");
+                                                                        })
+            )
+
+
+}
+else if (@ViewData["Name"] == "selectedGridControlObj")
+{
+
+    @(Html.Kendo().DropDownList().Name("selectedGridControlObj")
+                                                                            .DataSource(d => d.Read(r => r.Action("FillRowGridControl", "WorkDefinition").Data("WorkDefinition_GridParameter"))).HtmlAttributes(new { @class = "selectedGridControlObj" })
+                                                                                                .DataTextField("sGridChoiceValue").DataValueField("iObjectGridChoiceID")
+                                                                        .Events(e =>
+                                                                        {
+                                                                            e.Select("WorkDefinition_onSelect");
+                                                                        })
+            )
+
+
+}
+<script>
+
+    function GetProcessID() {
+        return { iProcessID: $("#hdnProcessID").val() }
+    }
+    function GetStoreID() {
+        return {
+            iStoreId: $("#PreViewWorkDefinitionName").val()
+        };
+    }
+
+</script>

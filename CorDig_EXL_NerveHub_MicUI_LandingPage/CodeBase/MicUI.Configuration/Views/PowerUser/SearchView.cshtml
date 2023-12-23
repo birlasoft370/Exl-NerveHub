@@ -1,0 +1,84 @@
+﻿@model PowerUserViewModel
+@using MicUI.Configuration.Models.ViewModels;
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Power_User_View;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+@using (Html.BeginForm("SearchView", "PowerUser", FormMethod.Post, new { @id = "frmSearchPowerUser" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_SearchPowerUser;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNewPowerUser").Icon("insert-m").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearchPowerUser").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Content("Search"))
+                        @*@(Html.Kendo().Button().Icon("refresh").Name("btnClear").Events(ev => ev.Click("OnClickClear")).HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn"}).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Button_Clear))*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserName,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserName, new { @class = "form-label" })
+                        @(Html.Kendo().TextBox().Name("UserName").HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.ApproverList)
+                        .Name("UserNameGrid")
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        //.PageSizes(10)
+                        .ButtonCount(5)
+                        )
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.UserId).Hidden(true);
+                            columns.Bound(u => u.ApproverName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserName).Width(700);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Button_Edit).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editUser")).Width(100);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Button_Delete).HtmlAttributes(new { @style = "font-weight: bold; color: white; width: 85px;", @class = "k-primary" }).Click("deleteUser")).Width(100);
+                        }).Events(e => e.DataBound("onRowBoundPowerUserSearch"))
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().Model(model =>
+                        {
+                            model.Id(u => u.UserId);
+                        }).ServerOperation(true)
+                        .PageSize(5)))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+<script src="~/lib/bpa/scripts/poweruser-1.8.2.js"></script>
+<script>
+    var ResourcePowerUser = {
+        display_UserDeleteConfirmation: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserDeleteConfirmation",
+        display_UserDeletedMessage: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserDeletedMessage",
+        url_SetEditableUserId: ResourceLayout.partialURL + 'SetEditableUserId',
+        urlPath_Index: ResourceLayout.partialURL + "Index"
+    }
+</script>
+
+

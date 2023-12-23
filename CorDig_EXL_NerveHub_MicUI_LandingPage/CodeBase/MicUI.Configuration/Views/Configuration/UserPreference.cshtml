@@ -1,0 +1,81 @@
+﻿@model MicUI.Configuration.Models.ViewModels.UserPreferenceViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources_UserPreference.disp_Page_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (@Html.BeginForm("SaveUserPreference", "Configuration", FormMethod.Post, new { @id = "form1" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.Resources_UserPreference.disp_Page_Heading;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnSaveUserPreference").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm ms-0 mx-2" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.TimeZoneID, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(m => m.TimeZoneID).DataTextField("sTimeZoneID")
+                            .HtmlAttributes(new { @class = "formSelect" }).DataValueField("iTimeZoneID")
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetTimeZone", "Configuration");
+                                });
+                            })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.Language, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(m => m.Language).DataTextField("sLanguage")
+                            .DataValueField("sCulture").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .HtmlAttributes(new { required = "required", @class = "formSelect" })
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetLanguages", "Configuration");
+                                });
+                            })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="custom-input pt-3">
+                            @(Html.Kendo().CheckBoxFor(m => m.Disable).Label(@BPA.GlobalResources.UI.WorkManagement.Resources_WorkFilter.Disp_Disable))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section scripts{
+
+    <script src="~/lib/bpa/scripts/userpreference-1.8.2.js"></script>
+    <script>
+        var urlPathIndex = ResourceLayout.partiaArea + "Home/Index";
+    </script>
+}

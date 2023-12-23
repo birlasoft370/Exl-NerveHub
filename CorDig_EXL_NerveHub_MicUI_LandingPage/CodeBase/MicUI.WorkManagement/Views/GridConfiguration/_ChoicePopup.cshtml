@@ -1,0 +1,92 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/css/bpa/content/themes/jquery.ui.button.css" rel="stylesheet" />
+<div>
+    <div class="tblMainNew" style="float:left; width:100%">
+        <p><button class="btn btn-primary" onclick="Add_Choice();" type="button" id="btnAddChoice">Add Data</button> </p>
+        <div id="grid"></div>
+        <div class="hnavigation">
+            <span>
+                <button type="button" id="btnClosePopup" class="btn btn-default" data-dismiss="modal">Close</button>
+            </span>
+            <span>
+                <button class="btn btn-primary" onclick="saveMappingData();" type="button" id="btnAddChoice">Save</button>
+
+            </span>
+        </div>
+        <div class="modal fade" id="OpenPartialPopupChoice" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" id="btnClosePopupTop" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Fill Choice</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <p><button class="btn btn-primary" onclick="AddChoice();" type="button" id="btnAddChoice">Add Choice</button> </p>
+
+                        <table id="GridChoice" class="table table-hover table-bordered table-condensed table-striped">
+
+                            <tr>
+                                <th style='display: none;'>ObjectChoiceID</th>
+                                <th>ChoiceValue</th>
+                                <th>Disabled</th>
+                                <th style='display: none;'>DisableV</th>
+                                <th style='display: none;'>rowChoiceind</th>
+                                <th>Action</th>
+                            </tr>
+                        </table>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="float:left; text-align:center; width:100%; padding-top:10px">
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    @*@(Html.Kendo().Button().Name("btnSave").Icon("plus").HtmlAttributes(new { type = "button", @class = "k-primary" }).Content(@BPA.GlobalResources.UI.Resources_common.display_btnSaveClose).Events(ev => ev.Click("SaveChoiceClick")))*@
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        $(".bDisabled").on("click", function () {
+            var rin = $(this).parent().parent().index();
+            var grid = $("#GridChoice").data("kendoGrid");
+            /* Get & Set Visibility checkBox*/
+            if (this.className.toLowerCase().indexOf('bdisabled') >= 0) {
+                $(this).is(":checked") == true ? grid.dataSource._data[rin].bDisabled = true : grid.dataSource._data[rin].bDisabled = false;
+            }
+        });
+        var urlPathGetFilterList = ResourceLayout.partialURL + "GetFilterList";
+        var urlPatheditWorkDefination = ResourceLayout.partialURL + "editWorkDefination";
+        var urlPathSaveWorkData = ResourceLayout.partialURL + "SaveWorkData";
+        var urlPathIndex = ResourceLayout.partialURL + "Index";
+        var urlPathObjectFormula = ResourceLayout.partialURL + "ObjectFormula";
+        var urlPathCreateRESTControls = ResourceLayout.partialURL + "CreateRESTControls";
+        var urlPathUpdatePreViewData = ResourceLayout.partialURL + "UpdatePreViewData";
+        var urlPath_WorkPreview = ResourceLayout.partialURL + "_WorkPreview";
+        var urlPathSearchView = ResourceLayout.partialURL + "SearchView";
+        var urlPathApprovalView = ResourceLayout.partialURL + "ApprovalView";
+        var urlPathGetProcessID = ResourceLayout.partialURL + "GetProcessID";
+        var urlTranslateChoice = ResourceLayout.partialURL + "GetTranslateChoiceLanguage";
+        var urlTranslateChoiceSave = ResourceLayout.partialURL + "GetTranslateChoiceLanguageSave";
+
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+
+
+    </script>
+</div>

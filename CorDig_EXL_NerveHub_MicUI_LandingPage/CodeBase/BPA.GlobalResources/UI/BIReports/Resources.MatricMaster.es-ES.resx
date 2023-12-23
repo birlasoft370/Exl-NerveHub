@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Add" xml:space="preserve">
+    <value>Añadir</value>
+  </data>
+  <data name="display_AllowBoxPlot" xml:space="preserve">
+    <value>Permitir Box Terreno:</value>
+  </data>
+  <data name="display_AllowCorrelation" xml:space="preserve">
+    <value>Permitir correlación:</value>
+  </data>
+  <data name="display_AllowParetoAnalysis" xml:space="preserve">
+    <value>Permitir el análisis de Pareto:</value>
+  </data>
+  <data name="display_CategoryName" xml:space="preserve">
+    <value>Nombre de la categoría:</value>
+  </data>
+  <data name="display_ChartType" xml:space="preserve">
+    <value>Tipo de gráfico:</value>
+  </data>
+  <data name="display_ClientMetric" xml:space="preserve">
+    <value>Métricas de cliente:</value>
+  </data>
+  <data name="display_ClientName" xml:space="preserve">
+    <value>Nombre del cliente:</value>
+  </data>
+  <data name="display_DataCapture" xml:space="preserve">
+    <value>Captura de datos:</value>
+  </data>
+  <data name="display_ddlDirectionofGood" xml:space="preserve">
+    <value>1-UP, 2-Down, 3-neutral</value>
+  </data>
+  <data name="display_ddlFrequencyData" xml:space="preserve">
+    <value>1-Daily, 7-semanal, mensual-30</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Descripción:</value>
+  </data>
+  <data name="display_DirectionofGood" xml:space="preserve">
+    <value>Dirección de Buena:</value>
+  </data>
+  <data name="display_FieldLevelDataCapture" xml:space="preserve">
+    <value>Nivel de captura de datos de campo:</value>
+  </data>
+  <data name="display_FormatString" xml:space="preserve">
+    <value>Cadena de formato:</value>
+  </data>
+  <data name="display_Frequency" xml:space="preserve">
+    <value>Frecuencia:</value>
+  </data>
+  <data name="display_Goal" xml:space="preserve">
+    <value>Gol:</value>
+  </data>
+  <data name="display_IsDefault" xml:space="preserve">
+    <value>IsDefault:</value>
+  </data>
+  <data name="display_IsDependencyVariable" xml:space="preserve">
+    <value>La dependencia es variable:</value>
+  </data>
+  <data name="display_L1Target" xml:space="preserve">
+    <value>L1 Objetivo:</value>
+  </data>
+  <data name="display_L2Target" xml:space="preserve">
+    <value>L2 Objetivo:</value>
+  </data>
+  <data name="display_L3Target" xml:space="preserve">
+    <value>L3 Objetivo:</value>
+  </data>
+  <data name="display_MeasurementUnit" xml:space="preserve">
+    <value>Unidad de medida:</value>
+  </data>
+  <data name="display_MetricDefinition" xml:space="preserve">
+    <value>Definición métrica</value>
+  </data>
+  <data name="display_MetricEffectiveDate" xml:space="preserve">
+    <value>Métricas Fecha de vigencia:</value>
+  </data>
+  <data name="display_MetricName" xml:space="preserve">
+    <value>Nombre métrica:</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Nombre:</value>
+  </data>
+  <data name="display_ProcessName" xml:space="preserve">
+    <value>Nombre del proceso:</value>
+  </data>
+  <data name="display_rdAgentLevel" xml:space="preserve">
+    <value>agente de nivel</value>
+  </data>
+  <data name="display_rdClientLevel" xml:space="preserve">
+    <value>Nivel de cliente</value>
+  </data>
+  <data name="display_rdNoFieldLevelData" xml:space="preserve">
+    <value>No hay campo de datos de nivel</value>
+  </data>
+  <data name="display_rdProcessLevel" xml:space="preserve">
+    <value>Nivel proceso</value>
+  </data>
+  <data name="display_Responsibility" xml:space="preserve">
+    <value>Responsabilidad:</value>
+  </data>
+  <data name="display_SampleConfidenceLevel" xml:space="preserve">
+    <value>Muestra Nivel de confianza:</value>
+  </data>
+  <data name="display_SampleSize" xml:space="preserve">
+    <value>Tamaño de la muestra:</value>
+  </data>
+  <data name="Display_Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="display_Specification" xml:space="preserve">
+    <value>Especificación:</value>
+  </data>
+  <data name="display_SubProcessName" xml:space="preserve">
+    <value>Nombre Sub-Proceso:</value>
+  </data>
+  <data name="display_Target" xml:space="preserve">
+    <value>Objetivo:</value>
+  </data>
+  <data name="display_TargetEffectiveDate" xml:space="preserve">
+    <value>Haz objetivo Fecha de vigencia:</value>
+  </data>
+  <data name="display_Weightage" xml:space="preserve">
+    <value>coeficiente de ponderación:</value>
+  </data>
+  <data name="display_WeightageEffectiveStartDate" xml:space="preserve">
+    <value>Weightage Fecha Efectiva de Inicio:</value>
+  </data>
+  <data name="display_AddCriticalParameter" xml:space="preserve">
+    <value>Añadir parámetro crítico</value>
+  </data>
+  <data name="display_AddEfficiencyParameter" xml:space="preserve">
+    <value>Añadir parámetro de eficiencia</value>
+  </data>
+  <data name="display_AddInputParameter" xml:space="preserve">
+    <value>Agregar parámetro de entrada</value>
+  </data>
+  <data name="display_AddOutPutParameter" xml:space="preserve">
+    <value>Añadir parámetro de salida</value>
+  </data>
+  <data name="display_CategoryWeightage" xml:space="preserve">
+    <value>Coeficiente de ponderación total para la categoría, no puede ser mayor que 100</value>
+  </data>
+  <data name="display_CheckCalenderExistance" xml:space="preserve">
+    <value>Sin información Calendario existe para este período!</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Inhabilitar:</value>
+  </data>
+  <data name="display_LowerControlValue" xml:space="preserve">
+    <value>Bajo Valor de control:</value>
+  </data>
+  <data name="display_RollupFormula" xml:space="preserve">
+    <value>Fórmula de resumen:</value>
+  </data>
+  <data name="display_SortOrder" xml:space="preserve">
+    <value>Orden de Clasificación:</value>
+  </data>
+  <data name="display_UpperControlValue" xml:space="preserve">
+    <value>Alto Valor de control:</value>
+  </data>
+  <data name="display_UpperLowerEffectiveDate" xml:space="preserve">
+    <value>Alta / Baja Fecha de vigencia:</value>
+  </data>
+  <data name="display_WeeklyLowerControlValue" xml:space="preserve">
+    <value>Valor semanal de control inferior:</value>
+  </data>
+  <data name="display_WeeklyUpperControlValue" xml:space="preserve">
+    <value>Valor semanal de control superior:</value>
+  </data>
+  <data name="display_WeeklyUpperLowerEffectiveDate" xml:space="preserve">
+    <value>Semanal superior / inferior Fecha de vigencia:</value>
+  </data>
+  <data name="display_cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="display_delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="display_ParameterName" xml:space="preserve">
+    <value>Nombre del parámetro :</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="display_save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="display_close" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="display_ok" xml:space="preserve">
+    <value>DE ACUERDO</value>
+  </data>
+  <data name="display_AllowBoxPlotAnalysis" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_AllowCorrelationAnalysis" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_AllowParetoAnalysis1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_IsDefault1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_MetricDefinitionSearch" xml:space="preserve">
+    <value>Definición métrica Buscar</value>
+  </data>
+  <data name="display_FormulaBuilder" xml:space="preserve">
+    <value>Generador de fórmulas</value>
+  </data>
+  <data name="display_btnSelect" xml:space="preserve">
+    <value>Seleccionar</value>
+  </data>
+  <data name="display_btnRemove" xml:space="preserve">
+    <value>retirar</value>
+  </data>
+  <data name="display_FBActivity" xml:space="preserve">
+    <value>Actividad de PD</value>
+  </data>
+  <data name="display_OperaterFunction" xml:space="preserve">
+    <value>Operador / Funciones</value>
+  </data>
+  <data name="display_Parameters" xml:space="preserve">
+    <value>Parámetros</value>
+  </data>
+  <data name="display_SelectedParameters" xml:space="preserve">
+    <value>Introducir fórmula basada en parámetros elegidos</value>
+  </data>
+</root>

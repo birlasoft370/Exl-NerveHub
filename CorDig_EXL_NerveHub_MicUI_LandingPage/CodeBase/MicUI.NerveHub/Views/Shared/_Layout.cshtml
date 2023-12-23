@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/index.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" href="~/MicUI.NerveHub.styles.css" asp-append-version="true" />
+<script src="~/js/AppConfiguration/Client-1.8.2.js"></script>
+    <script src="~/js/cutomclientvalidation.js"></script>
+    <script src="~/js/kendo-ui-license.js"></script>
+
+
+  @* <link href="@Url.Content("~/css/kendo/2021.2.616/kendo.common.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/kendo/2021.2.616/kendo.default.min.css")" rel="stylesheet" type="text/css" />*@
+   <link href="@Url.Content("~/css/bootstrap/css/bootstrap.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/style/global.css")" rel="stylesheet" type="text/css" />
+	<link href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-ocean-blue.css" rel="stylesheet" type="text/css" />
+	<script src="https://cdn.kendostatic.com/2023.1.425/js/jquery.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2023.1.425/js/jszip.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2023.1.425/js/kendo.all.min.js"></script>
+	<script src="https://cdn.kendostatic.com/2023.1.425/js/kendo.aspnetmvc.min.js"></script>
+</head>
+<body>
+    <header>
+        @Html.Partial("_Header")
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container-fluid">
+           
+        </div>
+    </footer>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

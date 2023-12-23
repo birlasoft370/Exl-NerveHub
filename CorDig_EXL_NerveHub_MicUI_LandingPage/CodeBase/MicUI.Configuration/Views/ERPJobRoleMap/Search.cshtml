@@ -1,0 +1,98 @@
+﻿@model MicUI.Configuration.Models.ViewModels.ERPJobRoleMapViewModel
+@using BPA.GlobalResources.UI;
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.display_ERP_Job_Role_Mapping_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/erpjobrolemapping-1.8.2.js"></script>
+
+@using (Html.BeginForm("ERPJobRoleMapSearch", "ERPJobRoleMap", FormMethod.Post, new { @id = "frmERPJobRoleMapSearch" }))
+{
+    @Html.AntiForgeryToken()
+    ;
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.display_ModifyExistingERPJobRoleMapping</h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @Html.ActionLink("Back", "Index", "ERPJobRoleMap", null, new { @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                        @(Html.Kendo().Button().Name("btnSearchFilter").Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SearchJobRoleMapping, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.SearchJobRoleMapping).HtmlAttributes(new { @class = "form-control", @maxLength = 100 })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div id="divGridFilterSearch" class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(@Model.lstERPJobRoleMapViewModel)
+                        .Name("GridFilterSearch")
+                        .Columns(columns =>
+                        {
+
+                            columns.Bound(u => u.RoleJob);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editFilter")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                        }).Events(e => e.DataBinding("onRowBoundSearchGrid").DataBound("onRowBoundSearchGrid"))
+                        .Sortable()
+                        .Pageable(pageable => pageable.PageSizes(new int[] { 5, 10, 20, 50, 100 }).Refresh(true).ButtonCount(5))
+                        .DataSource(dataSource => dataSource.Ajax().Read(r => r.Action("Read_ERPJobRoleMapSearch", "ERPJobRoleMap").Data("getFilterDataSearchFilter"))
+                        .PageSize(10).ServerOperation(true).Model(m => m.Id(p => p.RoleJob))))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+
+
+<script type="text/javascript">
+
+    function getFilterDataSearchFilter() {
+        var ERPJobRoleMapViewModel =
+        {
+            RoleJobID: $("#RoleJobID").val(),
+            SearchJobRoleMapping: $("#SearchJobRoleMapping").val()
+        };
+
+        return ERPJobRoleMapViewModel;
+    }
+
+    $("#btnSearchFilter").on("click", function (e) {
+        e.preventDefault();
+        var validator = $("#frmERPJobRoleMapSearch").kendoValidator().data("kendoValidator");
+        if (validator.validate()) {
+            $("#GridFilterSearch").data("kendoGrid").dataSource.read()
+        }
+        else {
+            return false;
+        }
+    });
+
+    var Resources = {
+        url_SetEditableId: ResourceLayout.partialURL + "SetEditableId",
+        //urlPath_ERPJobRoleMapSearchRead: ResourceLayout.partialURL + "ERPJobRoleMapSearchRead",
+        url_Index: ResourceLayout.partialURL + "Index",
+
+    }
+</script>
+
+

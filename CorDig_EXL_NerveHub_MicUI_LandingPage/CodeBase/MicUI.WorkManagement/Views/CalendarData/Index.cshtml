@@ -1,0 +1,219 @@
+﻿@using Kendo.Mvc.UI;
+@model  MicUI.WorkManagement.Models.ViewModels.CalendarDataModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayCalendarData;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime date1 = DateTime.Today;
+    var firstDayOfMonth = new DateTime(date1.Year, date1.Month, 1);
+    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+}
+
+@{
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
+    var dsyList = new List<SelectListItem>()
+{
+                    new SelectListItem(){Text = "Monday",Value = "1"},
+                    new SelectListItem(){Text = "Tuesday",Value = "2"},
+                    new SelectListItem(){Text = "Wednessday",Value = "3"},
+                    new SelectListItem(){Text = "Thrusday",Value = "4"},
+                    new SelectListItem(){Text = "Friday",Value = "5"},
+                    new SelectListItem(){Text = "Saturday",Value = "6"},
+                    new SelectListItem(){Text = "Sunday",Value = "7"},
+                };
+}
+<script src="~/lib/bpa/scripts/timezone-ajax.js"></script>
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/calendardata-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "CalendarData", FormMethod.Post, new { @id = "formCalendarDataIndex" }))
+{
+    
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{var text = Model.iCalID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispCreateNewCalData : @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispModifyNewCalData;}@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").Events(ev => ev.Click("OnCalendarDataClickNew")).HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @if (Model.iCalID == 0)
+                        {
+                            @(Html.Kendo().Button().Name("btnDefineWeek").Icon("calendar-date").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("Click_btnDefineWeek")).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispalyDefineWeek))
+                        }
+                        @(Html.Kendo().Button().Name("btnSave_CalendarData").Icon("plus").Events(ev => ev.Click("OnClickbtnSave_CalendarData")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnCalendarDataClickNewView")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+
+            @Html.HiddenFor(a => a.iCalID)
+            @Html.HiddenFor(a => a.mMonth)
+            @Html.HiddenFor(a => a.mYear)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mCalendarDate, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.mCalendarDate)
+                                   .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" })
+                            .DataTextField("CalenderName").DataValueField("CalenderID")
+                                   .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("GetCalendar", "CalendarData");
+                                        }).Events(ev => ev.Error("DropDownError"));
+                                    }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mMonthYear, new { @class = "form-label" })
+                        @if (Model.iCalID == 0)
+                        {
+                            @(Html.Kendo().DatePicker().Name("mMonthYear").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(DateTime.Now).Min(DateTime.Now.AddYears(-1)).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                        }
+                        else
+                        {
+                            @(Html.Kendo().DatePicker().Name("mMonthYear").HtmlAttributes(new { @readOnly = true }).Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(Model.mStartDateofMonth).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }).Enable(false))
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mWeekStartDay, new { @class = "form-label" })
+
+                        @if (Model.iCalID == 0)
+                        {
+                            @(Html.Kendo().DropDownListFor(a => a.mWeekStartDay).HtmlAttributes(new { @class = "formSelect" })
+                                    .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .BindTo(dsyList).Value(startDate.DayOfWeek.ToString("d")))
+                        }
+                        else
+                        {
+                            @(Html.Kendo().DropDownListFor(a => a.mWeekStartDay).HtmlAttributes(new { @class = "formSelect" })
+                                       .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                                        .DataTextField("Text")
+                                         .DataValueField("Value")
+                                    .BindTo(dsyList).Enable(false))
+                        }
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mStartDateofMonth, new { @class = "form-label" })
+                        @if (Model.iCalID == 0)
+                        {
+
+
+                            @(Html.Kendo().DatePicker().Name("mStartDateofMonth").Value(firstDayOfMonth).Events(e => e.Change("startChangeMonth")).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                        }
+                        else
+                        {
+                            @(Html.Kendo().DatePicker().Name("mStartDateofMonth").Value(Model.mStartDateofMonth).HtmlAttributes(new { @class = "form-date" }).Enable(false))
+                        }
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mEndDateofMonth, new { @class = "form-label" })
+                        @if (Model.iCalID == 0)
+                        {
+
+                            @(Html.Kendo().DatePicker().Name("mEndDateofMonth").Value(lastDayOfMonth).Min(firstDayOfMonth).Events(e => e.Change("endChangeMonth")).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                        }
+                        else
+                        {
+                            @(Html.Kendo().DatePicker().Name("mEndDateofMonth").Value(Model.mEndDateofMonth).HtmlAttributes(new { @class = "form-date" }).Enable(false))
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(a => a.Disable).Name("Disable").Checked(Model.Disable))
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="nextWrap">
+                <div id="gvDays" class="formTable"></div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert("@ViewData["Message"]");
+        </script>
+    }
+}
+
+<script>
+    Resources = {
+        display_Alert: '@(BPA.GlobalResources.UI.Resources_common.display_Alert)',
+        requiredWeekList: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.requiredWeekList)',
+        required_DefineCalendar: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.requiredDefineCalendar)',
+        display_EndDateCheck: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.EndDateCheck)',
+        display_save: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgSave)',
+        displayError: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgError)',
+        displayDefineWeek: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispalyDefineWeek)',
+        displayUpdate: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayUpdaed)',
+        displayDeleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgDeleted)',
+        cult: '@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern',
+        CulttureInfo: '@System.Globalization.CultureInfo.CurrentCulture',
+        week: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayWeek',
+        StartDate: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayStartDate',
+        EndDate: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayEndDate',
+        msg_DataDeleted: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msg_DataDeleted',
+        Cultture: '@Url.Content("~/lib/bpa/bundles/kendo/messages/kendo.messages." + System.Globalization.CultureInfo.CurrentCulture.ToString() + ".min.js")',
+        url_ViewCalendarData: ResourceLayout.partialURL + 'ViewCalendarData',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_Products_Read_Grd: ResourceLayout.partialURL + 'Products_Read_Grd',
+        url_ReBindeWeek: ResourceLayout.partialURL + 'ReBindeWeek',
+        url_InsertUpdateCalenderData: ResourceLayout.partialURL + 'InsertUpdateCalenderData',
+        url_Delete: ResourceLayout.partialURL + 'Delete',
+        url_SetCalendarID: ResourceLayout.partialURL + 'SetCalendarID'
+    };
+
+    $(document).ready(function () {
+        var ICalID = $("#iCalID").val();
+        if (ICalID != 0) {
+
+            $("#mCalendarDate").data("kendoDropDownList").readonly();
+            $("#mMonth").attr('disabled', 'disabled');
+            $("#mYear").attr('disabled', 'disabled');
+            $("#mStartDateofMonth").attr('readonly', 'disabled');
+            $("#mEndDateofMonth").attr('disabled', 'disabled');
+            $("#mWeekStartDay").attr('disabled', 'disabled');
+            BindeWeek();
+        };
+    });
+
+</script>

@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dispaly_Title" xml:space="preserve">
+    <value>Subir trabajo</value>
+  </data>
+  <data name="displayApprovar" xml:space="preserve">
+    <value>Approvar</value>
+  </data>
+  <data name="displaybatchCode" xml:space="preserve">
+    <value>Código de lote</value>
+  </data>
+  <data name="displayBatchStatusUpload" xml:space="preserve">
+    <value>Estado de carga por lotes</value>
+  </data>
+  <data name="displayDeleteData" xml:space="preserve">
+    <value>Borrar datos</value>
+  </data>
+  <data name="displayDeleteRecords" xml:space="preserve">
+    <value>eliminar registros</value>
+  </data>
+  <data name="displayDuplicateRecords" xml:space="preserve">
+    <value>registros duplicados</value>
+  </data>
+  <data name="displayFile" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="displayFileType" xml:space="preserve">
+    <value>Tipo de archivo</value>
+  </data>
+  <data name="displayFreshRecords" xml:space="preserve">
+    <value>Registros frescos</value>
+  </data>
+  <data name="displayFreshUpload" xml:space="preserve">
+    <value>Subir fresca</value>
+  </data>
+  <data name="displayDuplicateRecord" xml:space="preserve">
+    <value>Duplicar registro</value>
+  </data>
+  <data name="displayResolutionCode" xml:space="preserve">
+    <value>Código resolución</value>
+  </data>
+  <data name="required_Approvar" xml:space="preserve">
+    <value>Sírvanse proporcionar Approvar.</value>
+  </data>
+  <data name="required_BatchCode" xml:space="preserve">
+    <value>Sírvanse proporcionar Código de lote.</value>
+  </data>
+  <data name="required_File" xml:space="preserve">
+    <value>Por favor, navegar archivo.</value>
+  </data>
+  <data name="required_FileType" xml:space="preserve">
+    <value>Por favor, proporcione el tipo de archivo.</value>
+  </data>
+  <data name="required_ResolutionCode" xml:space="preserve">
+    <value>Sírvanse proporcionar Código de resolución.</value>
+  </data>
+  <data name="display_CampaignDataUpload" xml:space="preserve">
+    <value>Muestreo de Datos Subir</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestApprovedSuccessfully" xml:space="preserve">
+    <value>estado del lote solicitud de actualización aprobado con éxito</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestCancelledSuccessfully" xml:space="preserve">
+    <value>updaterequest estado del lote cancelado correctamente</value>
+  </data>
+  <data name="dispalyWorkNotDefined" xml:space="preserve">
+    <value>Definición de trabajo no está definido para esta campaña por lo que no se pueden cargar.</value>
+  </data>
+  <data name="displarOOPS" xml:space="preserve">
+    <value>OOPS!</value>
+  </data>
+  <data name="displayAllDuplicateRecordsUploadedSuccessfully" xml:space="preserve">
+    <value>Todo Duplicar registro (s) cargado correctamente!</value>
+  </data>
+  <data name="displayBatchStatusUpdateRequestRejectedSuccessfully" xml:space="preserve">
+    <value>Lotes estado de solicitud de actualización rechazada con éxito</value>
+  </data>
+  <data name="displayColumn" xml:space="preserve">
+    <value>Columna:</value>
+  </data>
+  <data name="displayError" xml:space="preserve">
+    <value>Ocurrió un error.</value>
+  </data>
+  <data name="displayError1" xml:space="preserve">
+    <value>Definición de trabajo no existe para esta campaña.</value>
+  </data>
+  <data name="displayError2" xml:space="preserve">
+    <value>El archivo no se puede cargar.</value>
+  </data>
+  <data name="displayError3" xml:space="preserve">
+    <value>Columnas del archivo no coincide con los nombres definidos en la definición del trabajo.</value>
+  </data>
+  <data name="displayExcel" xml:space="preserve">
+    <value>Nota: Puede eliminar cualquier columna de la plantilla generada si no desea cargar los datos de esa columna.</value>
+  </data>
+  <data name="displayFailDownload" xml:space="preserve">
+    <value>Hoja de Excel no tiene ningún campo para descarga desde la definición del trabajo no tienen nombres de columna del objeto de trabajo.</value>
+  </data>
+  <data name="displayFileHeaderDoNotMatch" xml:space="preserve">
+    <value>Subida cabecera del archivo de Excel no coincide</value>
+  </data>
+  <data name="displayFreshRecordUploaded" xml:space="preserve">
+    <value>Fresca Registro (s) cargado correctamente!</value>
+  </data>
+  <data name="displayMustBeUniqueKey" xml:space="preserve">
+    <value>Tiene que haber una clave única se define en el objeto de trabajo Nombre de la columna.</value>
+  </data>
+  <data name="displayNoData2Download" xml:space="preserve">
+    <value>No hay datos para descargar.</value>
+  </data>
+  <data name="displayNoRecordToUpload" xml:space="preserve">
+    <value>No hay ningún registro (s) para cargar!</value>
+  </data>
+  <data name="displayRow" xml:space="preserve">
+    <value>Se encuentra en la fila:</value>
+  </data>
+  <data name="displaySelectedDuplicateRecordUploaded" xml:space="preserve">
+    <value>Duplicar registro seleccionado (s) cargado correctamente!</value>
+  </data>
+  <data name="displayTxt" xml:space="preserve">
+    <value>Nota: Puede eliminar cualquier columna de la plantilla generada si no desea cargar los datos de esa columna.</value>
+  </data>
+  <data name="displayUploaded" xml:space="preserve">
+    <value>El archivo ha subido correctamente.</value>
+  </data>
+  <data name="msgDataIsNotValid" xml:space="preserve">
+    <value>Subida de archivos de datos no es válida</value>
+  </data>
+  <data name="msgEmptyFile" xml:space="preserve">
+    <value>Archivo que se está cargado está vacío.</value>
+  </data>
+  <data name="msgFieldCanNotHaveanyBlankValue" xml:space="preserve">
+    <value>campo no puede tener ningún valor en blanco en la hoja que va a cargar.</value>
+  </data>
+  <data name="msgFieldDoesNotExist" xml:space="preserve">
+    <value>campo no existe en la hoja para ser cargado.</value>
+  </data>
+  <data name="requiredFileType" xml:space="preserve">
+    <value>Por favor seleccione el tipo de archivo.</value>
+  </data>
+  <data name="CheckDate" xml:space="preserve">
+    <value>A partir de la fecha debe ser menor que hasta la fecha.</value>
+  </data>
+  <data name="diplayRequiredFile" xml:space="preserve">
+    <value>Por favor, cargar el archivo en primer lugar!</value>
+  </data>
+  <data name="dispalyPlease_Browse_File_As_Per_File_Type" xml:space="preserve">
+    <value>Por favor, archivos de búsqueda como por tipo de archivo.</value>
+  </data>
+  <data name="displayConfirmForDelete" xml:space="preserve">
+    <value>¿Quiere Eliminar registro!</value>
+  </data>
+  <data name="displayDelete_Request_Send_For_Approval" xml:space="preserve">
+    <value>Eliminar solicitud de envío para su aprobación.</value>
+  </data>
+  <data name="displayFiles_Can_Uploaded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="displayFile_Size_Error" xml:space="preserve">
+    <value>Se permite un máximo de tamaño de archivo de 4 MB!</value>
+  </data>
+  <data name="displayNo_Duplicate_Record_Found" xml:space="preserve">
+    <value>Sin Duplicar registro encontrado!</value>
+  </data>
+  <data name="displayNo_Fresh_Record_Found" xml:space="preserve">
+    <value>Sin registro frescos encontrado!</value>
+  </data>
+  <data name="displayNo_Record_Deleted" xml:space="preserve">
+    <value>Sin registro eliminado!</value>
+  </data>
+  <data name="displayNo_record_found_for_given_date" xml:space="preserve">
+    <value>No hay resultados para la fecha dada récord!</value>
+  </data>
+  <data name="displayOnly" xml:space="preserve">
+    <value>Solamente</value>
+  </data>
+  <data name="displayPlease_Select_Record" xml:space="preserve">
+    <value>Por favor seleccione Grabar!</value>
+  </data>
+  <data name="displayPlease_Select_To_Date" xml:space="preserve">
+    <value>Por favor, seleccione al día!</value>
+  </data>
+  <data name="displaySelect_Option" xml:space="preserve">
+    <value>Por favor, seleccione la opción para Fresh Subir / Borrar o por lotes actualización del estado.</value>
+  </data>
+  <data name="displayTotal_Duplicate" xml:space="preserve">
+    <value>Total de registros duplicados -</value>
+  </data>
+  <data name="displayTotal_Records" xml:space="preserve">
+    <value>Total de entradas frescas -</value>
+  </data>
+  <data name="display_Please_Select_From_Date" xml:space="preserve">
+    <value>Por favor seleccione de fecha!</value>
+  </data>
+  <data name="displayFormDate" xml:space="preserve">
+    <value>Partir de la fecha:</value>
+  </data>
+  <data name="displayPara1" xml:space="preserve">
+    <value>La plantilla para eliminar los datos es fijo.</value>
+  </data>
+  <data name="displayPara2" xml:space="preserve">
+    <value>Tras la eliminación, los datos no puede obtenerse en cualquiera de las circunstancias.</value>
+  </data>
+  <data name="displayPara3" xml:space="preserve">
+    <value>Se eliminarán todos los datos asociados a un WorkId (Si los usuarios también han trabajado en la WorkId).</value>
+  </data>
+  <data name="displayPara4" xml:space="preserve">
+    <value>Todos los detalles de las transacciones se eliminarán sin embargo, el tiempo consumido en los transacción residiría en el sistema.</value>
+  </data>
+  <data name="displayPara5" xml:space="preserve">
+    <value>Los datos borrados no estarán disponibles en ninguno de los informes, sólo el tiempo consumido se reflejará en todos los informes de productividad.</value>
+  </data>
+  <data name="displayTitleBatchList" xml:space="preserve">
+    <value>Campaña Subido Lista de lotes</value>
+  </data>
+  <data name="displayToDate" xml:space="preserve">
+    <value>Hasta la fecha:</value>
+  </data>
+  <data name="displayTable" xml:space="preserve">
+    <value>en mesa</value>
+  </data>
+  <data name="display_InvalidColumn" xml:space="preserve">
+    <value>Las columnas no válidas Se han encontrado -</value>
+  </data>
+  <data name="displayColumnMustExist" xml:space="preserve">
+    <value>Columnas del archivo no coincide con los nombres definidos en la definición del trabajo.</value>
+  </data>
+  <data name="displayFileMustBeIdentical" xml:space="preserve">
+    <value>El archivo no se puede cargar.</value>
+  </data>
+  <data name="display_WorkDefinitionDoesNotExist" xml:space="preserve">
+    <value>Definición de trabajo no existe para esta campaña.</value>
+  </data>
+  <data name="display_DeleteBatch" xml:space="preserve">
+    <value>eliminar por lotes</value>
+  </data>
+  <data name="display_Excel2003Format" xml:space="preserve">
+    <value>Excel (2003) Formato</value>
+  </data>
+  <data name="display_Excel2007Format" xml:space="preserve">
+    <value>Excel (2007) Formato</value>
+  </data>
+  <data name="display_FindDuplicate" xml:space="preserve">
+    <value>Encuentra duplicados</value>
+  </data>
+  <data name="display_PendingApprovalList" xml:space="preserve">
+    <value>A la espera de la aprobación de lista</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="display_Text" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="display_Upload" xml:space="preserve">
+    <value>Subir</value>
+  </data>
+  <data name="display_UploadAllDuplicateRecords" xml:space="preserve">
+    <value>Sube Todos los registros duplicados</value>
+  </data>
+  <data name="display_UploadFreshRecords" xml:space="preserve">
+    <value>Sube frescas Registros</value>
+  </data>
+  <data name="display_UploadSelectedDuplicateRecords" xml:space="preserve">
+    <value>Sube seleccionados registros duplicados</value>
+  </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>El archivo no tiene ningún campo para descarga desde la definición del trabajo no tienen nombres de columna del objeto de trabajo.</value>
+  </data>
+  <data name="required_Filefill" xml:space="preserve">
+    <value>Rellene los campos obligatorios (*)</value>
+  </data>
+</root>

@@ -1,0 +1,127 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MicUI.EmailManagement
+build_property.RootNamespace = MicUI.EmailManagement
+build_property.ProjectDir = D:\Exl-NerveHub\CorDig_EXL_NerveHub_MicUI_LandingPage\CodeBase\MicUI.EmailManagement\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Exl-NerveHub\CorDig_EXL_NerveHub_MicUI_LandingPage\CodeBase\MicUI.EmailManagement
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/EmailManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1haWxNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Error/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Error/InternalServerError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcSW50ZXJuYWxTZXJ2ZXJFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Error/PageNotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcUGFnZU5vdEZvdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Home/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/LanguageConfig/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VDb25maWdcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/LanguageConfig/SearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VDb25maWdcU2VhcmNoVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/LanguageConfig/_LanguageConfig.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGFuZ3VhZ2VDb25maWdcX0xhbmd1YWdlQ29uZmlnLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/MailConfiguration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpbENvbmZpZ3VyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/MailConfiguration/_AdvanceConfigurationView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpbENvbmZpZ3VyYXRpb25cX0FkdmFuY2VDb25maWd1cmF0aW9uVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/MailConfiguration/_MailConfigurationView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpbENvbmZpZ3VyYXRpb25cX01haWxDb25maWd1cmF0aW9uVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/MailTemplate/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpbFRlbXBsYXRlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/MailTemplate/SearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpbFRlbXBsYXRlXFNlYXJjaFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_HeaderLogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXJMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_LayoutLogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_NavMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_SearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TZWFyY2hWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_ValidationSummary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU3VtbWFyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.EmailManagement/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-ntbc6vgylq

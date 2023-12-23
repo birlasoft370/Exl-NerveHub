@@ -1,0 +1,134 @@
+﻿@using MicUI.EmailManagement.Models.ViewModels;
+@model MailTemplateViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.EMSAdapter + " | " + @BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.Display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool enable = true;
+    if (Model.ClientName != null)
+    {
+        enable = false;
+    }
+}
+<script>var isEnable = '@enable';</script>
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+
+@using (Html.BeginForm("Index", "MailTemplate", FormMethod.Post))
+{
+    @Html.HiddenFor(a => a.MailTemplateId)
+    @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState)
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.MailTemplateId == 0 ? @BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.display_CreateNewMailTemplate : @BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.display_ModifyExistingMailTemplate;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0", @onclick = "MoveToUrl( ResourceLayout.partialURL+'Index')" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnMailTemplateSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn", @onclick = "MoveToUrl( ResourceLayout.partialURL+'SearchView')" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <partial name="~/Views/Shared/_SearchView.cshtml" />
+
+                @*  @Html.HiddenFor(s => s.ClientName)
+            @Html.HiddenFor(s => s.ProcessName)
+            @Html.HiddenFor(s => s.CampaignName)*@
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.MailTemplateName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(x => x.MailTemplateName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4 mx-5 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.IsAutoReplay)
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mx-1 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.Disable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-xl-12">
+                    <div class="mb-3 pt-3">
+                        @Html.LabelFor(d => d.MailTemplate, new { @class = "form-label" })
+                        <div class="formEditor">
+                            @(Html.Kendo().Editor().Name("MailTemplate")
+                                .Tools(tools => tools.Clear()
+                                .Bold().Italic().Underline().Strikethrough()
+                                .FontName().FontSize().FontColor().BackColor()
+                                .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+                                .InsertUnorderedList().InsertOrderedList().Indent().Outdent()
+                                .CreateLink().Unlink()
+                                .SubScript().SuperScript().ViewHtml()
+                                @*.FormatBlock()*@
+                                ))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script type="text/javascript">
+    $("#btnMailTemplateSave").click(function () {
+        validationForm();
+    });
+</script>
+@if (Model.ClientName != null)
+{
+
+    <script>
+        $(document).ready(function () {
+            $("#ClientName").data("kendoDropDownList").enable(false);
+            $("#ProcessName").parent().parent().find("span").prop("readonly", "true");
+            $("#CampaignName").parent().parent().find("input").prop("readonly", "true");
+        });
+        $("#CampaignName").ready(function () {
+            setTimeout(function () {
+                $("#ProcessName").data("kendoDropDownList").enable(false);
+                $("#ProcessName").parent().parent().find("input").prop("readonly", "true");
+            }, 100);
+        })
+        $("#MailTemplateName").ready(function () {
+            setTimeout(function () {
+                $("#CampaignName").data("kendoDropDownList").enable(false);
+                $("#CampaignName").parent().parent().find("input").attr("readonly", "readonly");
+            }, 200);
+        })
+    </script>
+}
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">jAlert('@ViewData["Message"]');</script>
+    }
+}

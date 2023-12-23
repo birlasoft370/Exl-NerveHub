@@ -1,0 +1,98 @@
+﻿@model MicUI.Configuration.Models.ViewModels.VerticalMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/verticalmaster-1.8.2.js"></script>
+@{
+    var editable = Model.VerticalID != 0 ? true : false;
+}
+@using (Html.BeginForm("Index", "VerticalMaster", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="formWrap">
+
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.VerticalID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_createnewVerticalmaster : @BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_ModifyVerticalMaster;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickVarticalMaster")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnVarticalMasterSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("Vartical_ViewData")).Icon("search").Name("btnSVB").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            @Html.HiddenFor(a => a.VerticalID)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ERPID, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(camp => camp.ERPID).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.VerticaName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(camp => camp.VerticaName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.VerticaDescription, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(camp => camp.VerticaDescription).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(camp => camp.Disable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+
+<script>
+    var ResourceIndex = {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_VerticalSearchView: ResourceLayout.partialURL + "VerticalSearchView"
+    }
+</script>

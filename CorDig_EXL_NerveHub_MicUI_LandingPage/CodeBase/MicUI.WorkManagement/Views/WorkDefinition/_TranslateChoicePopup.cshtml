@@ -1,0 +1,89 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/css/bpa/content/themes/jquery.ui.button.css" rel="stylesheet" />
+<div>
+    @Html.HiddenFor(a => a.HTranslateTxt)
+    <div class="tblMainNew" style="float:left; width:100%">
+
+        <table id=tblPopup style="display:none;">
+            <tbody>
+                <tr>
+                    <td> @Html.LabelFor(a => a.sTranslatelanguageChoice) </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(a => a.sObjectTranslateChoicetxt)
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(x => x.sObjectTranslateChoicetxt, new { style = " width:230px; height:40px;" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tblMainNew" style="float:left; width:100%">
+            @(Html.Kendo().Grid(Model.TranslateList)
+                .Name("GridChoiceTranslate")
+                .Selectable()
+
+                .Sortable()
+                .Scrollable()
+                .Columns(columns =>
+                {
+                    columns.Bound(u => u.iSDOBJLanID).Hidden(true);
+                    columns.Bound(u => u.iObjID).Hidden(true);
+                    columns.Bound(u => u.iLanguageID).Hidden(true);
+                    columns.Bound(u => u.sCulture).Hidden(true);
+                    columns.Bound(u => u.sLanguage).HtmlAttributes(new { @style = "text-align:left;" }).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ObjectName).Width(200);
+                    columns.Bound(u => u.sConvertText).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_DisplayOrder).Width(300);
+
+                }).Editable(editable => editable.Mode(GridEditMode.InCell))
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model =>
+                {
+                    model.Id(u => u.iSDOBJLanID);
+                    model.Field(u => u.sLanguage).Editable(false);
+
+                })
+
+                ))
+        </div>
+    </div>
+    @*<div style="float:left; text-align:center; width:100%; padding-top:10px">
+    @(Html.Kendo().Button().Name("btnChoiceTranslateSave").Icon("plus").HtmlAttributes(new { type = "button", @class = "k-primary" }).Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_TranslateConvesion).Events(ev => ev.Click("SaveChoiceTranslateClick")))
+    </div>*@
+    <script>
+        $(".bDisabled").on("click", function () {
+            var rin = $(this).parent().parent().index();
+            var grid = $("#GridChoiceTranslate").data("kendoGrid");
+            /* Get & Set Visibility checkBox*/
+            if (this.className.toLowerCase().indexOf('bdisabled') >= 0) {
+                $(this).is(":checked") == true ? grid.dataSource._data[rin].bDisabled = true : grid.dataSource._data[rin].bDisabled = false;
+            }
+        });
+        var urlPathGetFilterList = ResourceLayout.partialURL + "GetFilterList";
+        var urlPatheditWorkDefination = ResourceLayout.partialURL + "editWorkDefination";
+        var urlPathSaveWorkData = ResourceLayout.partialURL + "SaveWorkData";
+        var urlPathIndex = ResourceLayout.partialURL + "Index";
+        var urlPathObjectFormula = ResourceLayout.partialURL + "ObjectFormula";
+        var urlPathCreateRESTControls = ResourceLayout.partialURL + "CreateRESTControls";
+        var urlPathUpdatePreViewData = ResourceLayout.partialURL + "UpdatePreViewData";
+        var urlPath_WorkPreview = ResourceLayout.partialURL + "_WorkPreview";
+        var urlPathSearchView = ResourceLayout.partialURL + "SearchView";
+        var urlPathApprovalView = ResourceLayout.partialURL + "ApprovalView";
+        var urlPathGetProcessID = ResourceLayout.partialURL + "GetProcessID";
+        var urlTranslate = ResourceLayout.partialURL + "GetTranslateLanguage";
+        if (bClientLanguage == "True") {
+            var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+            var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+        }
+        var bClientLanguage = '@Model.oTenant.ClientMultiLanguage';
+        /**/
+    </script>
+</div>

@@ -1,0 +1,101 @@
+﻿@model ProcessViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.display_ProcessSearch;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "frmProcessSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.display_SearchProcess;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Events(ev => ev.Click("OnClickNew")).Icon("insert-m").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearchProcess").Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(c => c.ClientId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_CleintName, new { @class = "form-label label-required" })
+
+                        @(Html.Kendo().DropDownListFor(c => c.ClientId).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName").DataValueField("iClientID").HtmlAttributes(new { @required = "required", @class = "formSelect", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Required_SelectClient })
+                            .DataSource(source => { source.Read(read => { read.Action("GetCascadeClient", "Process"); }).Events(ev => ev.Error("DropDownError")); }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessName, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(a => a.ProcessName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.lBEProcessInfo)
+                        .Name("ProcessGrid")
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5)
+                        ).Events(e => e.DataBound("onRowBoundProcessSearch"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iProcessID).Hidden(true);
+                            columns.Bound(u => u.sProcessName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Name).HtmlAttributes(new { style = "width:55%" }).HeaderHtmlAttributes(new { style = "color:white;width:55%" });
+                            // columns.Bound(u => u.sProcessDescription).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Description);
+                            // columns.Bound(u => u.bDisabled).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Disable).ClientTemplate("<input type='checkbox' disabled='disabled'class='chkbx' #= bDisabled ? checked='checked' : '' #/>");
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn btn-outline-primary btn-sm" }).Click("editProcess")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary" }).Click("deleteProcess")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete);
+                        })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().Read(read => read.Action("GetProcessList", "Process").Data("GetProcessListParam"))
+                        .Model(model =>
+                        {
+                            model.Id(u => u.iProcessID);
+                        })
+                        .PageSize(5)))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/lib/bpa/scripts/process-1.8.2.js"></script>
+
+<script>
+
+    var ResourceProcessSearch =
+    {
+        confirm_DeleteProcess: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Process.confirm_DeleteProcess)',
+        display_ProcessDeleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Process.display_ProcessDeleted)',
+        display_Ok: '@(BPA.GlobalResources.UI.Resources_common.display_Ok)',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_SetEditableProcessId: ResourceLayout.partialURL + "SetEditableProcessId",
+        urlPath_DeleteProcess: ResourceLayout.partialURL + "DeleteProcess"
+
+    }
+
+</script>

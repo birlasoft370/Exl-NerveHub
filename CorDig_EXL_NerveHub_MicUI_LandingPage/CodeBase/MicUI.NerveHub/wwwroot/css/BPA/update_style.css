@@ -1,0 +1,192 @@
+/*****/
+.newHeader {
+  background-image: url("../../../images/Banner_EXL NerveHub.jpg");
+  background-color: #011b3e !important;
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  background-position: left center !important;
+  height: auto;
+  clear: both;
+  border-bottom: none !important;
+}
+.newHeader:after {
+  content: "";
+  position: relative;
+  height: 0;
+  width: 100%;
+  display: block;
+  clear: both;
+}
+.fixedHeader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.fixedHeader .navbar {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.aboveSpace {
+	margin-top: 60px;
+	padding:40px 20px;
+}
+/***/
+.flipWrap {
+  background: #fff;
+  -webkit-box-shadow: 5px 10px #b2b1b1;
+  box-shadow: 5px 10px #b2b1b1;
+  border-radius: 3px;
+  border: solid 1px #b1b1b1;
+  margin-bottom: 25px;
+  height: calc(230px - 25px);
+}
+.flipWrap .flipContent {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+.flipWrap .flipContent .flipCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 500ms ease-in-out;
+  transition: -webkit-transform 500ms ease-in-out;
+  -o-transition: transform 500ms ease-in-out;
+  transition: transform 500ms ease-in-out, -webkit-transform 500ms ease-in-out;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.flipWrap .flipContent .flipCard .flipCard-front, .flipWrap .flipContent .flipCard .flipCard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  padding: 15px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.flipWrap .flipContent .flipCard .flipCard-front {
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+  transition: all 600ms ease-in-out;
+}
+.flipWrap .flipContent .flipCard .flipCard-front .cardFace {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: calc(100% - 30px);
+  text-align: center;
+}
+.flipWrap .flipContent .flipCard .flipCard-front .cardFace .cardLogo {
+  width: 50px;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+.flipWrap .flipContent .flipCard .flipCard-front .cardFace .cardLogo img {
+  display: block;
+  max-width: 100%;
+  border: none;
+}
+.flipWrap .flipContent .flipCard .flipCard-front .cardFace h3 {
+  font-size: 16px;
+  color: #555;
+  font-weight: 400;
+  margin: 0;
+}
+.flipWrap .flipContent .flipCard .flipCard-back {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  transition: all 600ms ease-in-out;
+  opacity: 0;
+}
+.flipWrap .flipContent .flipCard .flipCard-back .cardLinks {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.flipWrap .flipContent .flipCard .flipCard-back .cardLinks ul {
+  margin: 0;
+  padding: 0;
+  padding-left: 25px;
+}
+.flipWrap .flipContent .flipCard .flipCard-back .cardLinks ul li {
+  padding: 5px 0;
+  line-height: 1.5;
+}
+.flipWrap .flipContent .flipCard .flipCard-back .cardLinks ul li a {
+  color: #555;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+}
+    .flipWrap .flipContent .flipCard .flipCard-back .cardLinks ul li a:hover {
+        text-decoration: underline;
+        color: #fb4e0b;
+    }
+.flipWrap .flipContent:hover .flipCard .flipCard-front {
+  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+.flipWrap .flipContent:hover .flipCard .flipCard-back {
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+  opacity: 1;
+}
+
+
+.logoCard {
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.newStyle {
+    background: #fff !important;
+}
+
+.appTitle {
+     padding-left:15px;
+     display:flex;
+     align-items:center;
+}
+
+    .appTitle h1 {
+        color: #000;
+        font-size: 26px;
+        font-weight: 300;
+        line-height:normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        margin-left: 20px;
+        display: inline-block;
+        vertical-align:middle;
+    }
+
+        .appTitle h1 sup {
+            font-size:16px;
+        }
+    .appTitle .logo {
+        width: 75px;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        padding:0;
+    }
+
+        .appTitle .logo img {
+            display: block;
+        }

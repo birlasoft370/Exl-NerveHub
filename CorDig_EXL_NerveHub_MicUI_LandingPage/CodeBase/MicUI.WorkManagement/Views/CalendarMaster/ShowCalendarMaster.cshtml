@@ -1,0 +1,88 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.CalendarMasterModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "| " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.TitleCalendarMaster;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/calendarmaster-1.8.2.js"></script>
+@using (Html.BeginForm(new { @id = "formCalendarMaster" }))
+{
+  
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispSearchCal
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Name("btnNew").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Events(ev => ev.Click("OnClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Events(ev => ev.Click("GoCalendarMaster")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.CalendarSearchName, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(a => a.CalendarSearchName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="formTable">
+                    @(Html.Kendo().Grid<MicUI.WorkManagement.Services.ServiceModel.BECalendarInfo>()
+                        .Name("searchGrid").AutoBind(false)
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iCalendarID).Hidden(true);
+                            columns.Bound(u => u.sCalendarName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayCalendarName.Trim(':'));
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editCalendar")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Edit_Button);
+                        })
+                        .Pageable(pageable => pageable
+                        .PageSizes(new int[] { 5, 10, 20 })
+                        .Refresh(true)
+                        .ButtonCount(5))
+                        .HtmlAttributes(new { @style = "height:350px" })
+                        .Scrollable(sc => sc.Virtual(true).Height("350px"))
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().PageSize(5).Read(read => read.Action("CAL_Read", "CalendarMaster").Data("GetCalenderName"))))
+                </div>
+            </div>
+            <input name="ClientID" id="ClientID" type="hidden" value="0">
+        </div>
+    </div>
+
+   
+    <script>
+
+        var Resources = {
+            display_Alert: '@(BPA.GlobalResources.UI.Resources_common.display_Alert)',
+            display_Comfirm_Delete: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.confirmDelete)',
+            display_deleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgDeleted)',
+            display_OK: '@(BPA.GlobalResources.UI.Resources_common.display_Ok)',
+            url_Index: ResourceLayout.partialURL + 'Index',
+            url_ShowCalendarMaster: ResourceLayout.partialURL + 'ShowCalendarMaster',
+            url_SetCalendarID: ResourceLayout.partialURL + 'SetCalendarID',
+            url_Delete: ResourceLayout.partialURL + 'Delete',
+        }
+    </script>
+
+    if (ViewData["message"] != null)
+    {
+        <script type="text/javascript" language="javascript">
+            jAlert('@ViewData["message"]');
+        </script>
+    }
+
+}

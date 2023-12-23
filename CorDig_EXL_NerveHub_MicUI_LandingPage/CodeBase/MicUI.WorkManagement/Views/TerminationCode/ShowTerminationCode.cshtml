@@ -1,0 +1,86 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.TerminationCodeViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.dispSearchTermCode;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/terminationcode-1.8.2.js"></script>
+@using (Html.BeginForm("ShowTerminationCode", "TerminationCode", FormMethod.Post, new { @id = "formTerminationCode" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @Html.Label(@BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.dispSearchTermCode)
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNewTerminationCode").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnTerminationCodeClickNew")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearchTerminationCode").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mTerminationCodeSearchName, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(a => a.mTerminationCodeSearchName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="formTable">
+                    @(Html.Kendo().Grid((Model.BETerminationCodeList))
+                        .Name("searchGrid").Events(x => x.DataBound("onRowBoundSearchGrid"))
+                        .Pageable(pageable => pageable.PageSizes(new int[] { 5, 10, 20, 50, 100 }).Refresh(true).ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iTerminationCodeID).Hidden(true);
+                            columns.Bound(u => u.sTermCodeName).Title(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Term_NAME).HeaderHtmlAttributes(new { style = "color:white" });
+                            columns.Command(command => command.Custom(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Edit_Button).Click("editTermCode").HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" })).Title(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Edit_Button);
+                            //columns.Command(command => command.Custom(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Delete_Button).Click("deleteTermCode")).Title(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Delete_Button);
+                        })
+                        .DataSource(dataSource => dataSource.Ajax().Model(model => { model.Id(u => u.iTerminationCodeID); }).ServerOperation(false)))
+
+                </div>
+                <div id="divOverlay" class="Overlay"></div>
+                <div class="popup SmallPopup" id="divPopup"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var display_Delete_Message = '@(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.display_Delete_Message)';
+        var Confirm_Delete = '@(BPA.GlobalResources.UI.WorkManagement.Resources_TerminationCode.Confirm_Delete)';
+        var OK = '@(BPA.GlobalResources.UI.Resources_common.display_Ok)';
+    </script>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+<script>
+
+    var Resources = {
+        url_ShowTerminationCode: ResourceLayout.partialURL + 'ShowTerminationCode',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_SetTerminationCodeID: ResourceLayout.partialURL + 'SetTerminationCodeID',
+        url_DeleteTerminationCode: ResourceLayout.partialURL + 'DeleteTerminationCode',
+        url_ShowTerminationCode: ResourceLayout.partialURL + 'ShowTerminationCode',
+    }
+
+</script>

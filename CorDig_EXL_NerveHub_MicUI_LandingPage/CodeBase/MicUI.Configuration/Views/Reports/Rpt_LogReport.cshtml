@@ -1,0 +1,245 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_AccessReport_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmdErrorStatus" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ExceptionHandlerLog;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnUserLogReportClear").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("report-header-section").Name("btnUserLogReport").Events(ev => ev.Click("click_logReports")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(BPA.GlobalResources.UI.Resources_common.display_GenerateReport))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("Start Date", "Start Date", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DatePicker().Name("StartDate").Value(DateTime.Now).Max(DateTime.Now).Events(e => e.Change("startChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("End Date", "End Date", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DatePicker().Name("EndDate").Value(DateTime.Now).Min(DateTime.Now).Events(e => e.Change("endChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("Select Type ", "Select Type ", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DropDownListFor(model => model.SeverityFlag)
+                            .DataTextField("Text")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("JsonGetSeverity", "Reports");
+                                }).ServerFiltering(false);
+                            })
+
+                            )
+                    </div>
+                </div>
+            </div>
+            <div class="nextWrap">
+                @*<div class="text-end pb-3">
+            @(Html.Kendo().Button().Name("btnExportReport").Icon("file-excel").Content("Export To Excel").Events(e => e.Click("OnExportReportClick1")).HtmlAttributes(new { type = "button",  @class = "btn-primary btn-sm btn" }))
+            </div>*@
+                <div class="formTable">
+                    @(Html.Kendo().Grid<ReportsConfigViewModel>()
+                        .Name("gridError")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(e => e.LogID).Width(140).Hidden(true);
+                            columns.Bound(e => e.Severity).Width(140).Hidden(true);
+                            columns.Bound(e => e.Timestamp).Width(140);
+                            columns.Bound(e => e.MachineName).Width(140);
+                            columns.Command(command => command.Custom("ViewDetails").HtmlAttributes(new { @class = "btn-primary btn-sm btn" }).Click("showErrorDetails")).Width(180);
+                            columns.Bound(e => e.Message_cut).Width(350);
+                            columns.Bound(e => e.ProcessID).Width(100);
+                            columns.Bound(e => e.Win32ThreadId).Width(100);
+                            columns.Bound(e => e.FormattedMessage).Width(100);
+
+                        })
+                        .ToolBar(tools => tools.Excel())
+                        .HtmlAttributes(new { style = "max-height: 500px;" })
+                        .Scrollable()
+                        .Sortable()
+                        //.Excel(excel => excel
+                        //      .FileName("Kendo UI Grid Export.xlsx")
+                        //      .Filterable(true)
+
+                        //   )
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(20)
+                        .Read(read => read.Action("GetExceptionHandlerReport", "Reports").Data("ErrorParameter"))
+                        )
+                        )
+                </div>
+                <div id="example">
+                    @*<div id="gridError"></div>*@
+                    <div id="detailsError"></div>
+                </div>
+
+                @(Html.Hidden("CurrentDate", DateTime.Now))
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+}
+
+
+<script>
+
+    function ErrorParameter() {
+
+        var param = {
+            StartDate: $('#StartDate').val(),
+            EndDate: $('#EndDate').val(),
+            SeverityFlag: $('#SeverityFlag').val()
+
+        }
+        return param;
+    }
+
+    function onDataBound() {
+
+        var grid = $("#gridError").data("kendoGrid");
+        var gridData = grid.dataSource.view();
+
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].Severity == 'Information') {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                $(currenRow).css("background-color", "#ecfaec");
+            }
+            else if (gridData[i].Severity == 'Error') {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                $(currenRow).css("background-color", "#fae2dd");
+
+            }
+            else {
+                var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+                $(currenRow).css("background-color", "#f1f6b6");
+            }
+        }
+    }
+
+    function OnExportReportClick1() {
+
+        $.ajax({
+            type: 'GET',
+            async: false,
+            url: ResourceLayout.partialURL + "DownloadReport",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (returnValue) {
+                window.open("/UploadDocs/" + returnValue.trim(), "_blank");
+            }
+        });
+    }
+</script>
+<script type="text/x-kendo-template" id="template">
+
+    <div id="details-container">
+        <h3>Timestamp :  #= Timestamp #</h3>
+        <h4> Note: Show the Error Message Details. </h4>
+
+
+        <table id="grid12">
+            <colgroup>
+                <col />
+                <col />
+                <col style="width:110px" />
+                <col style="width:120px" />
+                <col style="width:130px" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th data-field="make"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-width: 1px; border-style: solid; color: black; ">
+                    <td style="border-width: 1px; border-style: solid; padding: 5px;">#= MessageDetails # </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+    </div>
+</script>
+<script>
+
+    var searchTxt = '';
+    var RequestedByVal = '';
+    var RequestedForVal = '';
+
+
+    function OnSelectRequestedFor(e) {
+        RequestedForVal = this.dataItem(e.item.index()).iUserID;
+    }
+
+    function OnSelectRequestedBy(e) {
+        RequestedByVal = this.dataItem(e.item.index()).iUserID;
+    }
+
+</script>
+<style>
+    .k-i-search {
+        cursor: pointer;
+    }
+
+    .green {
+        background-color: darkseagreen;
+    }
+</style>
+
+<script>
+    var ResourceReport = {
+        display_RecordNotFound: '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+        display_PleaseSelectRequestedFor: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_PleaseSelectRequestedFor)',
+        urlPath_GetExceptionHandlerReport: ResourceLayout.partialURL + "GetExceptionHandlerReport",
+        urlPath_GetExceptionHandlerReport_Message: ResourceLayout.partialURL + "GetExceptionHandlerReport_Message",
+
+
+    }
+
+</script>

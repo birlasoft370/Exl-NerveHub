@@ -1,0 +1,106 @@
+﻿@model MicUI.Configuration.Models.ViewModels.RoleViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_SearchRole_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/roles-1.8.2.js"></script>
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+@using (Html.BeginForm("RolesSearchView", "Roles", FormMethod.Post, new { @id = "formRolesSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+    <div class="formWrap">
+
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_SearchRole_Title;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickRoles")).Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Icon("insert-m").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("Go")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SearchName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(r => r.SearchName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                @*<div class="col-sm-4 col-xl-3">
+            <div class="mb-3">
+            @Html.LabelFor(r => r.SearchApprover, new { @class = "form-label" })
+            @(Html.Kendo().DropDownListFor(a => a.SearchApprover).HtmlAttributes(new { @class = "formSelect" }).Name("SearchApprover").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+            .DataTextField("Text").DataValueField("Value")
+            .DataSource(source =>
+            {
+            source.Read(read =>
+            {
+            read.Action("GetRoleApprover", "Roles");
+            });
+            }))
+            </div>
+            </div>*@
+
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.SearchViewList).Name("searchGrid").Events(x => x.DataBound("onRowBoundSearchGrid")).Pageable(pageable => pageable
+                        .Refresh(true).PageSizes(true).ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.RoleId).Hidden(true);
+                            columns.Bound(u => u.SearchRoleName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_RoleName.TrimEnd(':')).HtmlAttributes(new { style = "width:65%" }).HeaderHtmlAttributes(new { style = "color:white;width:65%" });
+                            columns.Command(command => command.Custom(BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editRole")).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit); ;
+                            // columns.Command(command => command.Custom("Delete").HtmlAttributes(new { @style = "margin:0em -6em 0em 5em" }).Click("deleteRole"));
+
+                        })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(u => u.RoleId);
+                            model.Field(u => u.RoleId).DefaultValue(Model.SearchName);
+                        })
+                        .PageSize(5)
+                        )
+                        )
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        var ResourceSearch = {
+            display_Delete_Confirmation: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Roles.display_Delete_Confirmation",
+            urlPath_Index: ResourceLayout.partialURL + "Index",
+            urlPath_EditingCustom_Edit: ResourceLayout.partialURL + "EditingCustom_Edit",
+            urlPath_EditingCustom_Destroy: ResourceLayout.partialURL + "EditingCustom_Destroy"
+
+        }
+    </script>
+
+
+}

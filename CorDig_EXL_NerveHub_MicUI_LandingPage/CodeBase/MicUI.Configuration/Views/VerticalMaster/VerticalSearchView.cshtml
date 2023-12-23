@@ -1,0 +1,100 @@
+﻿@model MicUI.Configuration.Models.ViewModels.VerticalMasterViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_SearchVerticalMaster_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  //  HtmlHelper.ClientValidationEnabled = false;
+}
+
+<script src="~/lib/bpa/scripts/verticalmaster-1.8.2.js"></script>
+@using (Html.BeginForm("VerticalSearchView", "VerticalMaster", FormMethod.Post, new { @id = "formVerticalSearchView" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_SearchVerticalMaster_Title
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickAddVartical")).Icon("insert-m").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_New_Button))
+                        @(Html.Kendo().Button().Icon("search").Name("btnVerticalSearch").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Search_Button))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.VerticaName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(a => a.VerticaName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.VerticaMasterList).Name("searchGrid").Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5)
+                        ).Events(x => x.DataBound("onRowBoundSearchGrid")).Columns(columns =>
+                        {
+                            columns.Bound(u => u.VerticalID).Hidden(true);
+                            columns.Bound(u => u.EncryptVerticaMasterID).Hidden(true);
+                            columns.Bound(u => u.ERPID).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_ERPName.Trim().TrimEnd(':'));
+                            columns.Bound(u => u.VerticaName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Verticalname.TrimEnd(':'));
+                            // columns.Bound(u => u.VerticaDescription).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_description);
+                            // columns.Bound(u => u.Disable).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_disable);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Edit_Button).HtmlAttributes(new { @class = "btn-outline-primary btn btn-sm" }).Click("editVerticalMaster")).Title(BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                            // columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Delete_Button).HtmlAttributes(new { @style = "margin:0em 0em 0em 0em" }).Click("DeleteVerticalMaster"));
+                        })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax().PageSize(5).ServerOperation(false)
+                        .Model(model =>
+                        {
+                            //model.Id(u => u.VerticalID);
+                            //model.Field(u => u.VerticalID).DefaultValue(Model.VerticaName);
+                        })
+                        .PageSize(5)
+                        ))
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+}
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var ResourceVirticalSearch = {
+        display_deleteSuccessfully: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_deleteSuccessfully',
+        display_Delete_Confirmation: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Vertical.display_Delete_Confirmation',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_VerticalSearchView: ResourceLayout.partialURL + "VerticalSearchView",
+        urlPath_DeleteVerticalMaster: ResourceLayout.partialURL + "DeleteVerticalMaster"
+
+
+    }
+</script>

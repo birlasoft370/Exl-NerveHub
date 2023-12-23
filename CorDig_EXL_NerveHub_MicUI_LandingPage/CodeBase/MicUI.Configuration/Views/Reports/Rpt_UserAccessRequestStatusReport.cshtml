@@ -1,0 +1,167 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_AccessReport_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    List<SelectListItem>
+list = new List<SelectListItem>(){
+new SelectListItem { Text =@BPA.GlobalResources.UI.Resources_common.display_Select, Value=""},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Approved, Value="1"},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Pending, Value="2"},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Cancelled, Value="3"},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Rejected, Value="4"}
+                                };
+}
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmdProcessOwnerRequestStatus" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.disp_UserAccessStatus_Title;}@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnUserAccessRequestStatusReportClear").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Events(e => e.Click("OnNewButtonClick")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("report-header-section").Name("btnUserAccessRequestStatusReport").Events(ev => ev.Click("OnbtnUserAccessRequestStatusReport")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(BPA.GlobalResources.UI.Resources_common.display_GenerateReport))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("StartDate","Start Date", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DatePicker().Name("StartDate").Value(DateTime.Now.AddDays(-1)).Max(DateTime.Now).Events(e => e.Change("startChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("End Date","End Date", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DatePicker().Name("EndDate").Value(DateTime.Now).Max(DateTime.Now.AddDays(0).ToString()).Events(e => e.Change("endChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("RequiredFor","Requested For", new { @class = "form-label " }))
+                        @(Html.Kendo().AutoComplete()
+                                                 .Name("RequestedFor")
+                                                 .DataTextField("Name")
+                                                 .Filter("contains")
+                                                 //.Placeholder(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Type3CharactersToSearch)
+                                                 .MinLength(2)
+                                                 .HtmlAttributes(new { @class = "formSelect" }).Events(ev => ev.Select("OnSelectRequestedFor"))
+                                                 .DataSource(source =>
+                                                 {
+                                                     source.Read(read =>
+                                                     {
+                                                         read.Action("GetRequestedFor", "Reports")
+                                                             .Data("onAdditionalDataRequestedFor");
+                                                     })
+                                                     .ServerFiltering(true);
+                                                 })
+                        )
+                        <small class="demo-hint">@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Type3CharactersToSearch</small>
+                        <script>
+                            function onAdditionalDataRequestedFor() {
+                                return {
+                                    SearchText: $("#RequestedFor").val()
+                                };
+                            }
+                        </script>
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("RequestedBy","Requested By", new { @class = "form-label " }))
+                        @(Html.Kendo().AutoComplete()
+                                   .Name("RequestedBy")
+                                  .DataTextField("Name")
+                                  .Filter("contains")
+                                  //.Placeholder(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Type3CharactersToSearch)
+                                  .MinLength(2)
+                                  .HtmlAttributes(new { @class = "formSelect" }).Events(ev => ev.Select("OnSelectRequestedBy"))
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetRequestedBy", "Reports")
+                                              .Data("onAdditionalDataRequestedBy");
+                                      })
+                                      .ServerFiltering(true);
+                                  })
+                        )
+                        <small class="demo-hint">@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Type3CharactersToSearch</small>
+                        <script>
+                            function onAdditionalDataRequestedBy() {
+                                return {
+                                    SearchText: $("#RequestedBy").val()
+                                };
+                            }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @(Html.Label("RequestedStatus", "Requested Status", new { @class = "form-label label-required" }))
+                        @(Html.Kendo().DropDownListFor(st => st.Status).HtmlAttributes(new { @class = "formSelect" }).DataTextField("Text").DataValueField("Value").BindTo(list).Value("Status"))
+                    </div>
+                </div>
+            </div>
+            <div id="gridUserAccessRequestStatusReport"></div>
+            @(Html.Hidden("CurrentDate", DateTime.Now))
+        </div>
+    </div>
+
+
+}
+<script>
+
+    var searchTxt = '';
+    var RequestedByVal = '';
+    var RequestedForVal = '';
+
+
+    function OnSelectRequestedFor(e) {
+        RequestedForVal = this.dataItem(e.item.index()).iUserID;
+    }
+
+    function OnSelectRequestedBy(e) {
+        RequestedByVal = this.dataItem(e.item.index()).iUserID;
+    }
+
+    function OnNewButtonClick() {
+        window.location.reload();
+    }
+</script>
+<style>
+    .k-i-search {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    var ResourceRptUserAccessRequestStatusReport = {
+          display_RecordNotFound : '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+      display_PleaseSelectRequestedFor : '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_PleaseSelectRequestedFor)',
+      urlPath_GetUserAccessRequestStatusReport: ResourceLayout.partialURL + "GetUserAccessRequestStatusReport",
+      urlPath_Excel_Export_Save: ResourceLayout.partialURL + "Excel_Export_Save"
+
+    }
+
+</script>

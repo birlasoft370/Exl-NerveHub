@@ -1,0 +1,70 @@
+.k-button {
+  border-radius: 2px;
+  border-color: #bbb;
+  color: #2e2e2e;
+  background-color: #e9e9e9;
+  background-image: none !important;
+}
+.k-button.k-state-disabled, .k-button.k-state-disabled:active, .k-button.k-state-disabled:focus, .k-button.k-state-disabled:hover, .k-button[disabled], .k-button[disabled]:active, .k-button[disabled]:focus, .k-button[disabled]:hover, .k-state-disabled .k-button, .k-state-disabled .k-button:active, .k-state-disabled .k-button:focus, .k-state-disabled .k-button:hover {
+  border-color: #ddd !important;
+  color: #888 !important;
+  background-color: #ddd !important;
+  background-image: none !important;
+  opacity: .5;
+  filter: grayscale(100%);
+  user-select: none;
+  pointer-events: none;
+}
+.k-button.k-state-default {
+  border-color: #bbb
+}
+.k-button.k-state-hover, .k-button:hover {
+  color: #2e2e2e;
+  border-color: #b6b6b6;
+  background-color: #a99f9a;
+  background-image: none !important;
+}
+.k-button:focus:active {
+  box-shadow: none !important;
+}
+.k-button.k-state-focused, .k-button.k-state-focused.k-state-disabled, .k-button:focus, .k-button:focus:hover, .k-state-disabled .k-button.k-state-focused {
+  border-color: inherit;
+  box-shadow: none !important;
+}
+.k-button.k-state-disabled, .k-button.k-state-disabled:active, .k-button.k-state-disabled:focus, .k-button.k-state-disabled:hover, .k-button[disabled], .k-button[disabled]:active, .k-button[disabled]:focus, .k-button[disabled]:hover, .k-state-disabled .k-button, .k-state-disabled .k-button:active, .k-state-disabled .k-button:focus, .k-state-disabled .k-button:hover {
+  color: inherit;
+  border-color: inherit;
+  background-color: inherit;
+  box-shadow: none;
+  background-image: none !important;
+}
+.btn-primary.k-button.k-state-active, .btn-primary.k-button.k-state-selected, .btn-primary.k-button:active {
+    background-image: none !important;
+    background-color: #fb4e0b;
+    border-color: #fb4e0b;
+    color: #fff;
+}
+    .btn-primary.k-button.k-state-active:hover, .btn-primary.k-button.k-state-selected:hover {
+        background-color: #fb4e0b;
+        border-color: #fb4e0b;
+        color: #fff;
+    }
+.btn-link.k-button {
+  border-radius: inherit;
+  color: inherit;
+  border-color: transparent;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.btn-link.k-button .k-state-hover, .btn-link.k-button:hover {
+  color: #666;
+  border-color: transparent;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.btn-link.k-button.k-state-active, .btn-link.k-button.k-state-selected, .btn-link.k-button:active {
+  background-image: none !important;
+  background-color: #004e9f;
+  border-color: transparent;
+  color: #666;
+}

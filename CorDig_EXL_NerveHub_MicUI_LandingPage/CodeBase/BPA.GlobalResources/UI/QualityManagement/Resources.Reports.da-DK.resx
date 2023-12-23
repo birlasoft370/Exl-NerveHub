@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ddl_QCTMmonitoringNAMEID" xml:space="preserve">
+    <value>AF-53, AN-52, B-51</value>
+  </data>
+  <data name="display_ActionDate" xml:space="preserve">
+    <value>Action dato</value>
+  </data>
+  <data name="display_ActiontDesc" xml:space="preserve">
+    <value>Handling</value>
+  </data>
+  <data name="display_CalibrationReport" xml:space="preserve">
+    <value>Kalibrering rapport</value>
+  </data>
+  <data name="display_ComplianceSpiritHeading" xml:space="preserve">
+    <value>ERS rapport</value>
+  </data>
+  <data name="display_DefaultDesc" xml:space="preserve">
+    <value>Standard Desc.</value>
+  </data>
+  <data name="display_DefaultID" xml:space="preserve">
+    <value>defekt Id</value>
+  </data>
+  <data name="display_ERSDate" xml:space="preserve">
+    <value>ERS Dato</value>
+  </data>
+  <data name="display_GenerateAlert" xml:space="preserve">
+    <value>Generer Alert</value>
+  </data>
+  <data name="display_processName" xml:space="preserve">
+    <value>Proces Navn</value>
+  </data>
+  <data name="display_QCTMAgentName" xml:space="preserve">
+    <value>Agent navn</value>
+  </data>
+  <data name="display_QCTMAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="display_QCTMAuditorName" xml:space="preserve">
+    <value>revisors navn</value>
+  </data>
+  <data name="display_QCTMClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="display_QCTMCTC" xml:space="preserve">
+    <value>CTC</value>
+  </data>
+  <data name="display_QCTMFromDate" xml:space="preserve">
+    <value>Fra dato</value>
+  </data>
+  <data name="display_QCTMgenerateReports" xml:space="preserve">
+    <value>Generer rapporter</value>
+  </data>
+  <data name="display_QCTMHeading" xml:space="preserve">
+    <value>Transaktion overvågningsrapport</value>
+  </data>
+  <data name="display_QCTMMonitoringType" xml:space="preserve">
+    <value>Overvågning Type:</value>
+  </data>
+  <data name="display_QCTMProcessName" xml:space="preserve">
+    <value>Proces Navn</value>
+  </data>
+  <data name="display_QCTMreset" xml:space="preserve">
+    <value>Nulstil</value>
+  </data>
+  <data name="display_QCTMShowComments" xml:space="preserve">
+    <value>Vis Kommentarer</value>
+  </data>
+  <data name="display_QCTMSubProcess" xml:space="preserve">
+    <value>Sub Proces:</value>
+  </data>
+  <data name="display_QCTMTM" xml:space="preserve">
+    <value>TM</value>
+  </data>
+  <data name="display_QCTMTMName" xml:space="preserve">
+    <value>TM Navn:</value>
+  </data>
+  <data name="display_QCTMToDate" xml:space="preserve">
+    <value>Til dato:</value>
+  </data>
+  <data name="display_QDashboardDaily" xml:space="preserve">
+    <value>Daglige</value>
+  </data>
+  <data name="display_QDashboardMonthly" xml:space="preserve">
+    <value>Månedlige</value>
+  </data>
+  <data name="display_QDashboardRT" xml:space="preserve">
+    <value>Vælg rapporttype:</value>
+  </data>
+  <data name="display_QDashboardWeekly" xml:space="preserve">
+    <value>Ugentlig</value>
+  </data>
+  <data name="display_Remarks" xml:space="preserve">
+    <value>Bemærkninger</value>
+  </data>
+  <data name="display_SamplingReport" xml:space="preserve">
+    <value>Sampling rapport</value>
+  </data>
+  <data name="display_Status" xml:space="preserve">
+    <value>status</value>
+  </data>
+  <data name="display_ExportToExcel" xml:space="preserve">
+    <value>Eksporter til Excel</value>
+  </data>
+  <data name="display_Month" xml:space="preserve">
+    <value>Måned</value>
+  </data>
+  <data name="display_MonthSample" xml:space="preserve">
+    <value>måned Sample</value>
+  </data>
+  <data name="display_NumberoftotalRecords" xml:space="preserve">
+    <value>Antal af totale Records:</value>
+  </data>
+  <data name="display_OutComeType" xml:space="preserve">
+    <value>Outcome Type</value>
+  </data>
+  <data name="display_SampleCompleted" xml:space="preserve">
+    <value>Prøve Afsluttet</value>
+  </data>
+  <data name="display_SamplingTittle" xml:space="preserve">
+    <value>Sampling Volume</value>
+  </data>
+  <data name="display_TransactionCompleted" xml:space="preserve">
+    <value>Transaktion Afsluttet</value>
+  </data>
+  <data name="display_TransactionType" xml:space="preserve">
+    <value>Transaktion Type</value>
+  </data>
+  <data name="display_WeekEndDate" xml:space="preserve">
+    <value>Week End Date</value>
+  </data>
+  <data name="display_WeekNumber" xml:space="preserve">
+    <value>ugenummer</value>
+  </data>
+  <data name="display_WeekSample" xml:space="preserve">
+    <value>Uge Sample</value>
+  </data>
+  <data name="display_WeekStartDate" xml:space="preserve">
+    <value>Uge Startdato</value>
+  </data>
+  <data name="required_SubProcess" xml:space="preserve">
+    <value>Vælg venligst Sub Process</value>
+  </data>
+  <data name="required_TMName" xml:space="preserve">
+    <value>Vælg venligst TM Name</value>
+  </data>
+  <data name="display_TransactionDeletionTitle" xml:space="preserve">
+    <value>Transaktion Overvågning Sletning Log</value>
+  </data>
+  <data name="display_QDashboardGroupOption" xml:space="preserve">
+    <value>Vælg gruppering Option</value>
+  </data>
+  <data name="display_QDashboardHeading" xml:space="preserve">
+    <value>Kvalitet Dashboard</value>
+  </data>
+  <data name="display_QDashboardEndDate" xml:space="preserve">
+    <value>Slutdato:</value>
+  </data>
+  <data name="display_QDashboardEndMonth" xml:space="preserve">
+    <value>End måned</value>
+  </data>
+  <data name="display_QDashboardStartDate" xml:space="preserve">
+    <value>Start dato:</value>
+  </data>
+  <data name="display_QDashboardStartMonth" xml:space="preserve">
+    <value>Start måned</value>
+  </data>
+  <data name="display_Calibration" xml:space="preserve">
+    <value>Kalibrering</value>
+  </data>
+  <data name="required_Calibration" xml:space="preserve">
+    <value>Vælg venligst Kalibrering</value>
+  </data>
+  <data name="display_Clear" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="display_ExporttoPdf" xml:space="preserve">
+    <value>Eksport til PDF</value>
+  </data>
+  <data name="display_MoniteringFeedbacktitle" xml:space="preserve">
+    <value>Monitering</value>
+  </data>
+  <data name="display_year" xml:space="preserve">
+    <value>År:</value>
+  </data>
+  <data name="display_Feedbacktype" xml:space="preserve">
+    <value>Feedback Type</value>
+  </data>
+  <data name="display_GetSamplingDetails" xml:space="preserve">
+    <value>Hent Sampling Detaljer</value>
+  </data>
+  <data name="display_Menter" xml:space="preserve">
+    <value>Menter:</value>
+  </data>
+  <data name="display_MoniteringDate" xml:space="preserve">
+    <value>Monitering Dato:</value>
+  </data>
+  <data name="display_note1_1" xml:space="preserve">
+    <value>Note 1: Hvis poster tæller er mere end én betyder der anmodes data for mere end en uge.</value>
+  </data>
+  <data name="display_note1_2" xml:space="preserve">
+    <value>Note 1: Hvis optegnelser tæller er nul betyder Calander er ikke setup for den angivne dato overvågning.</value>
+  </data>
+  <data name="display_note1_3" xml:space="preserve">
+    <value>Note 1: Hvis optegnelser tæller er nul betyder, ingen mentor mentee foreningen er setup.</value>
+  </data>
+  <data name="display_note1_4" xml:space="preserve">
+    <value>Note 1: Trans Grev angiver reviderede transaktioner for brugeren gennem stikprøver.</value>
+  </data>
+  <data name="display_note1_5" xml:space="preserve">
+    <value>Note 1: Trans Grev angiver de samlede revideret af hele processen hold gennem sampling transaktioner.</value>
+  </data>
+  <data name="display_note2" xml:space="preserve">
+    <value>Note 2: Hvis optegnelser tæller er nul betyder Calander er ikke setup for den angivne perioden.</value>
+  </data>
+  <data name="display_note2_1" xml:space="preserve">
+    <value>Note 2: Hvis Trans count er mindre end &amp;quot;Ingen af Audit Per Agent&amp;quot;, da kun transaktion kan revideres for at brugeren gennem stikprøver.</value>
+  </data>
+  <data name="display_note2_2" xml:space="preserve">
+    <value>Note 2: Hvis Trans count er mindre end &amp;quot;Sample Size Per Week&amp;quot;, da kun transaktion kan revideres gennem stikprøver.</value>
+  </data>
+  <data name="display_TitleFeedbackReport" xml:space="preserve">
+    <value>Feedback rapport</value>
+  </data>
+  <data name="display_TitleSamplingTransactionDetails" xml:space="preserve">
+    <value>Sampling Transaktionsoplysninger</value>
+  </data>
+  <data name="display_WeeksgivenDateRange" xml:space="preserve">
+    <value>Uger for givet datointerval</value>
+  </data>
+  <data name="required_MonthSelect" xml:space="preserve">
+    <value>Vælg måned!</value>
+  </data>
+  <data name="required_YearSelect" xml:space="preserve">
+    <value>Vælg år!</value>
+  </data>
+</root>

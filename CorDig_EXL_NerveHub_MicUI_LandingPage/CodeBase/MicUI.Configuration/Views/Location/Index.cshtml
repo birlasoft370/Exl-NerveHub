@@ -1,0 +1,81 @@
+﻿@model MicUI.Configuration.Models.ViewModels.LocationViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resource_Location.display_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/location-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "Location", FormMethod.Post))
+{
+  //  @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState)
+    <div class="formWrap">
+        <div class="formWrap-head">
+
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.iLocationID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resource_Location.display_CreateNewLocation : @BPA.GlobalResources.UI.AppConfiguration.Resource_Location.display_ModifyExistingLocation;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Events(e => e.Click("btnNewLocationClick")))
+                        @(Html.Kendo().Button().Name("btnSaveWorkMaster").Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Events(ev => ev.Click("OnClickViewLocation")).Name("btnView").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            @Html.HiddenFor(a => a.iLocationID, true)
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.LocationName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.LocationName).HtmlAttributes(new { @class = "form-control", @maxLength = 100 })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.LocationDesc, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.LocationDesc).HtmlAttributes(new { @maxLength = 100, @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(model => model.IsDisable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@{
+    if (ViewData["Message"] != "" && ViewData["Message"] != null)
+    {
+        <script type="text/javascript" language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var ResourceLocationIndex = {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_LocationSearchView: ResourceLayout.partialURL + "LocationSearchView"
+
+    }
+</script>

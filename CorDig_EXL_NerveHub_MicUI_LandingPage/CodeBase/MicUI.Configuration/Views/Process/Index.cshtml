@@ -1,0 +1,652 @@
+﻿@using MicUI.Configuration.Services.ServiceModel;
+@model ProcessViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessMaster;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime StabilizationStartDate = Model.StabilizationStartDate.Year == 1 ? DateTime.Now.AddDays(-1) : Model.StabilizationStartDate;
+    DateTime StabilizationEndDate = Model.StabilizationEndDate.Year == 1 ? DateTime.Now : Model.StabilizationEndDate;
+    DateTime PilotStartDate = Model.PilotStartDate.Year == 1 ? DateTime.Now.AddDays(-1) : Model.PilotStartDate;
+    DateTime PilotEndDate = Model.PilotEndDate.Year == 1 ? DateTime.Now : Model.PilotEndDate;
+    DateTime ProductionStartDate = Model.ProductionStartDate.Year == 1 ? DateTime.Now.AddDays(-1) : Model.ProductionStartDate;
+    DateTime ProductionEndDate = Model.ProductionEndDate.Year == 1 ? DateTime.Now : Model.ProductionEndDate;
+
+}
+@{
+    var editable = true;
+    if (Model.ProcessID == 0)
+    {
+        editable = true;
+    }
+    else
+    {
+        editable = false;
+
+    }
+}
+
+<script src="~/lib/bpa/scripts/process-1.8.2.js"></script>
+@*Reference:-https://stackoverflow.com/questions/61896133/what-is-the-alternative-to-ajax-beginforms-in-asp-net-mvc-core*@
+@using (Html.AjaxBeginForm("SaveUpdateProcess", "Process", FormMethod.Post, new AjaxOptions { OnSuccess = "OnSuccessSavedProcess", UpdateTargetId = "frmProcessMaster" }, new { @id = "frmProcessIndex" }))
+{
+    <div class="formWrap">
+
+
+        @Html.HiddenFor(x => x.sTanatNameWeb)
+        @Html.HiddenFor(x => x.PASProcessType)
+        @Html.HiddenFor(x => x.sPASProcessFlagActionType)
+        @*@Html.HiddenFor(x => x.sPASProcess_U_ActionType)*@
+        @Html.AntiForgeryToken()
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.ProcessID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.display_CreateNewProcess : @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.display_ModifyExistingProcess;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn btn-outline-primary btn-sm mx-2 ms-0" }).Events(ev => ev.Click("OnClickNewProcessMaster")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnSaveProcess").Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn btn-primary btn-sm mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnClickViewProcessMaster")).HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div id="Create_Amend" class="col-sm-12" style="display:none;">
+                    <div class="mb-3 pt-3">
+                        <div class="custom-input mx-4 ms-0 d-inline-block">
+                            @(Html.Kendo().RadioButton().Name("CArdo").Value(1).Checked(true).Label("Create New"))
+                        </div>
+                        <div class="custom-input mx-4 ms-0 d-inline-block">
+                            @(Html.Kendo().RadioButton().Name("CArdo").Value(2).Label("Amend "))
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ClientId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_CleintName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.ClientName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName").DataValueField("iClientID").HtmlAttributes(new { @required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Required_SelectClient, @class = "formSelect" })
+                            .DataSource(source => { source.Read(read => { read.Action("GetCascadeClient", "Process"); }); }).Enable(editable))
+                        @Html.HiddenFor(x => x.ClientId)
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+
+                        @Html.LabelFor(x => x.ProcessName,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().TextBoxFor(x => x.ProcessName).HtmlAttributes(new
+                        {
+
+                            @required = "required",
+                            @maxlength = "70",
+                            validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_ProcessName,
+                            @class = "form-control"
+                        }))
+                        @Html.HiddenFor(x => x.ProcessName)
+                        @Html.HiddenFor(x => x.ProcessID)
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+
+                        @Html.LabelFor(a => a.Description,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Description, new { @class = "form-label" })
+                        @if (Model.ProcessID == 0)
+                        {
+                            @Html.TextAreaFor(a => a.Description, new { @class = "form-control" })
+
+                        }
+                        else
+                        {
+                            @Html.TextAreaFor(a => a.Description, new { @class = "form-control" })
+                        }
+                        @Html.HiddenFor(x => x.Description)
+                    </div>
+                </div>
+
+                <div id="PASProcessMonth" class="col-sm-4 col-xl-3" style="display:none;">
+                    <div class="mb-3">
+                        @Html.LabelFor(m=>m.sPASProcessMonth,"PAS Process Month", new { @class = "form-label label-required" })
+                        @if (Model.ProcessID == 0)
+                        {
+                            @(Html.Kendo().DatePicker().Name("sPASProcessMonth12").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(DateTime.Now).Min(DateTime.Now.AddYears(0)).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                        }
+                        else
+                        {
+                            if (Model.sTanatName == Model.sTanatNameWeb)
+                            {
+                                @(Html.Kendo().DatePicker().Name("sPASProcessMonth12").Start(CalendarView.Year).Depth(CalendarView.Year).Format("MMMM yyyy").Value(Model.sPASProcessMonth).Min(Model.sPASProcessMonth).Max(DateTime.Now.AddYears(1)).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }).Enable(true))
+                            }
+                        }
+
+
+
+
+                    </div>
+                </div>
+
+
+                <div id="Row_14" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.sCalendarId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Calender, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(x => x.sCalendarId).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sCalendarName").DataValueField("iCalendarID")
+                            .HtmlAttributes(new
+                            {
+
+                                @required = "required",
+                                validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_Calender,
+                                @class = "formSelect"
+                            })
+                            .DataSource(source => { source.Read(read => { read.Action("FillCalendarList", "Process"); }); })
+                            )
+                    </div>
+                </div>
+
+                <div id="Row_15" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ProcessType,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessType, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(m => m.ProcessType).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text").DataValueField("Value")
+                            .HtmlAttributes(new
+                            {
+                                @required = "required",
+                                validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_ProcessType,
+                                @class = "formSelect"
+                            })
+                            .DataSource(source => { source.Read(read => { read.Action("FillProcessType", "Process"); }); }).Enable(editable))
+                        @Html.HiddenFor(m => m.ProcessTypeId)
+                    </div>
+                </div>
+
+                <div id="Row_16" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ProcessWorkTypeId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessWorkType, new { @class = "form-label label-required" })
+
+                        @(Html.Kendo().DropDownListFor(x => x.ProcessWorkTypeId).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sValue ").DataValueField("iMasterId ")
+                            .HtmlAttributes(new { @required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_ProcessWorkType, @class = "formSelect" })
+                            .DataSource(source => { source.Read(read => { read.Action("FillProcessWorkType", "Process"); }); })
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.SBUID,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_SBUName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(x => x.SBUID).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sName").DataValueField("iSBUID").AutoBind(true)
+                            .DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("FillSUBName", "Process").Data("GetClientSelectedValue"); })
+                                .ServerFiltering(true);
+                            })
+                            .CascadeFrom("ClientName").HtmlAttributes(new
+                            {
+
+                                @required = "required",
+                                validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_SUBName,
+                                @class = "formSelect"
+
+                            }).Enable(editable)
+                            )
+                    </div>
+                </div>
+                <div id="Row_1" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.Scope,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Scope, new { @class = "form-label" })
+
+                        @Html.TextAreaFor(x => x.Scope, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div id="Row_2" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.StabilizationStartDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_StabilizationStartDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePickerFor(m => m.StabilizationStartDate).Value(StabilizationStartDate).Events(e => e.Change("StabilizationstartChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+
+                    </div>
+                </div>
+                <div id="Row_3" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.StabilizationEndDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_StabilizationEndDate, new { @class = "form-label" })
+
+                        @(Html.Kendo().DatePickerFor(m => m.StabilizationEndDate).Value(StabilizationEndDate).Min(StabilizationStartDate).Events(e => e.Change("StabilizationendChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div id="Row_4" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.PilotStartDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_PilotStartDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePickerFor(m => m.PilotStartDate).Value(PilotStartDate).Events(e => e.Change("PilotstartChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                        @*@(Html.Kendo().DatePickerFor(m => m.PilotStartDate).Value(PilotStartDate).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)" }))*@
+
+                    </div>
+                </div>
+                <div id="Row_5" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.PilotEndDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_PilotEndDate, new { @class = "form-label" })
+
+                        @(Html.Kendo().DatePickerFor(m => m.PilotEndDate).Value(PilotEndDate).Min(PilotStartDate).Events(e => e.Change("PilotendChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+                <div id="Row_6" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ProductionStartDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProductionStartDate, new { @class = "form-label" })
+                        @(Html.Kendo().DatePickerFor(m => m.ProductionStartDate).Value(ProductionStartDate).Events(e => e.Change("ProductionstartChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                        @*@(Html.Kendo().DatePickerFor(m => m.ProductionStartDate).Value(ProductionStartDate).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)" }))*@
+                    </div>
+                </div>
+
+                <div id="Row_7" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.ProductionEndDate,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProductionEndDate, new { @class = "form-label" })
+
+                        @(Html.Kendo().DatePickerFor(m => m.ProductionEndDate).Value(ProductionEndDate).Min(ProductionStartDate).Events(e => e.Change("ProductionendChange")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+
+                <div id="Row_8" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.FrequencyFeedbackSupervisorId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_FrequencyFeedbackSupervisor, new { @class = "form-label" })
+                        <div>
+                            <div style="float: left; width: 60%;">
+                                @(Html.Kendo().DropDownListFor(x => x.FrequencyFeedbackSupervisorId).DataTextField("Text").DataValueField("Value").HtmlAttributes(new { @class = "formSelect" })
+                                    .DataSource(source => { source.Read(read => { read.Action("FillFrequencyFeedbacksupervisor", "Process"); }); }))
+                            </div>
+                            <div style="float: left; width: calc(40% - 32px); margin-left:30px;">
+                                @*@(Html.Kendo().TextBoxFor(freq => freq.FrequencyFeedbackSupervisor).HtmlAttributes(new { validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_FrequencyFeedbackSupervisor, style = "width: 50px; margin:0px;" }))*@
+                                @(Html.Kendo().NumericTextBoxFor(freq => freq.FrequencyFeedbackSupervisor).Min(0).Decimals(0).Format("#").Max(9999).HtmlAttributes(new { validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_FrequencyFeedbackSupervisor, onkeyup = "javascript:return onlyInteger(this)", @class = "form-num" }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Row_9" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.FrequencyQCA, new { @class = "form-label" })
+
+                        @(Html.Kendo().NumericTextBoxFor(model => model.FrequencyQCA).Min(0).Decimals(0).Format("#").Max(9999).HtmlAttributes(new { onkeyup = "javascript:return onlyInteger(this)", @class = "form-num" }))
+                        @*.Min(0).Max(int.MaxValue))*@
+                    </div>
+                </div>
+
+                <div id="Row_10" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.TargetAuditPerMonth,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_TargetAuditPerMonth, new { @class = "form-label" })
+                        <div>
+                            <div style="float: left; width: 55%;">
+
+                                @*@Html.Kendo().NumericTextBoxFor(model => model.TargetAuditPerMonth).Min(0).Max(int.MaxValue).HtmlAttributes(new { @style = "width: 190px" })*@
+                                @(Html.Kendo().NumericTextBoxFor(model => model.TargetAuditPerMonth).Min(0).Decimals(0).Format("#").Max(9999).HtmlAttributes(new { onkeyup = "javascript:return onlyInteger(this)", @class = "form-num" }))
+                            </div>
+                            <div class="pt-2" style="float: left; width: calc(45% - 17px); margin-left:15px;">
+                                @Html.LabelFor(a => a.Agent)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Row_11" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @*@Html.LabelFor(a => a.TargetQCAPerMonth)*@
+                        @Html.LabelFor(model => model.TargetQCAPerMonth,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_TargetQCAPerMonth, new { @class = "form-label" })
+
+                        @(Html.Kendo().NumericTextBoxFor(model => model.TargetQCAPerMonth).Min(0).Decimals(0).Format("#").Max(9999).HtmlAttributes(new
+                        {
+                            onkeyup = "javascript:return onlyInteger(this)",
+                            @required = "required",
+                            @validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_TargetQCAPerMonth,
+                            @class = "form-num"
+
+                        }))
+                    </div>
+                </div>
+
+
+                <div id="Row_12" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ProcessComplexityId,BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessComplexity, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(x => x.ProcessComplexityId).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sValue").DataValueField("iMasterId")
+                            .DataSource(source => { source.Read(read => { read.Action("FillProcessComplexity", "Process"); }); })
+                            .HtmlAttributes(new { @required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_ProcessComplexity, @class = "formSelect" })
+                            )
+                    </div>
+                </div>
+                <div id="Row_13" class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ERSCAPTypeId,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERSCAPType, new { @class = "form-label label-required" })
+
+                        @(Html.Kendo().DropDownListFor(x => x.ERSCAPTypeId).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("Text").DataValueField("Value")
+                            .DataSource(source => { source.Read(read => { read.Action("FillERSCAPType", "Process"); }); })
+                            .HtmlAttributes(new { @required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Req_ERSCAPType, @class = "formSelect" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-2">
+                        <div class="pt-4">
+
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(Tar => Tar.Disable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="nextWrap">
+                <div>
+                    <div id="tabstrip">
+                        <ul>
+                            <li class="k-state-active">
+                                @BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_BtnGetERPProcesses
+                            </li>
+                        </ul>
+                        <div id="ProcessERPMapping">
+                            <div class="text-end mb-3 mt-1">
+                                @(Html.Kendo().Button().Name("partListLink").Icon("search").Events(e => e.Click("OpenBusinessJustifications")).HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_BtnGetERPProcesses))
+                            </div>
+                            <div id="dprocess" class="formTable">
+
+                                @(Html.Kendo().Grid<BEProcessGroup>(Model.lProcessGroup).Name("GridErpGroup").HtmlAttributes(new { @style = "min-height:80px;" })
+                                    .Columns(columns =>
+                                    {
+                                        columns.Bound(Erp => Erp.iProcessGroupID).Hidden(true);
+                                        columns.Bound(Erp => Erp.oERPProcess.iERPProcessID).Hidden(true);
+                                        columns.Bound(Erp => Erp.oERPProcess.iERPCode).Sortable(false).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERPCode.TrimEnd(':')).Width(100);
+                                        columns.Bound(Erp => Erp.oERPProcess.sName).Sortable(false).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERPName.TrimEnd(':')).Width(700);
+                                        columns.Bound("").Sortable(false).ClientTemplate("<button type='button' iLoc='#=oERPProcess.oLocation.iLocationID#' iERPProcessID='#=oERPProcess.iERPProcessID#' class='DelteRowProcess btn btn-primary btn-sm' iProcessGroupID='#=iProcessGroupID#' tabindex='0'><span class='k-icon k-delete'></span>" + BPA.GlobalResources.UI.Resources_common.display_BtnDelete + "</button>");
+                                    })
+                                    .Sortable().Selectable(s => s.Mode(GridSelectionMode.Multiple)).DataSource(dataSource => dataSource
+                                    .Ajax().ServerOperation(true).Model(model =>
+                                    {
+                                        model.Id(p => p.iProcessGroupID);
+                                    })))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ERPPopup" style="display:none">
+                <div class="px-3">
+                    <div class="row align-items-end">
+                        <div class="col">
+                            <div class="mb-3">
+                                @Html.LabelFor(x => x.ERPProcess,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Display_ERPProcess, new { @class = "form-label" })
+                                @Html.Kendo().TextBoxFor(x => x.ERPProcess).HtmlAttributes(new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                @Html.LabelFor(c => c.Location,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Location, new { @class = "form-label" })
+                                @(Html.Kendo().DropDownListFor(c => c.Location).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sLocationName").DataValueField("iLocationID").DataSource(source =>
+                                    {
+                                        source.Read(read => { read.Action("FillLocation", "Process"); });
+                                    }).HtmlAttributes(new { @class = "formSelect" })
+                                    )
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                @(Html.Kendo().Button().Name("btnSearch").Events(e => e.Click("OnBtnSearchClickProcessMaster")).Icon("search").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm ms-2" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div id="ProcessERPMapping" class="tblMainNew formTable checkboxTable">
+                            @(Html.Kendo().Grid<BEERPProcess>()
+                                .Name("ErpPopupGrid")
+                                .Columns(columns =>
+                                {
+                                    columns.Template("<label class='only-check-input'><input type='checkbox' value='#=iERPProcessID#' class='checkbox'/><b></b></label>")
+                                    .Title("<label class='only-check-input'><input type='checkbox' class='chkbxErpPopupGrid' /><b></b></label>");
+                                    columns.Bound(Erp => Erp.sClient).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERPProcess).Width(250);
+                                    columns.Bound(Erp => Erp.iERPCode).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERPProcessCode).Width(140);
+                                    columns.Bound(Erp => Erp.sName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ERPProcessName).Width(160);
+                                    columns.Bound(Erp => Erp.oLocation.sLocationName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_Location).Width(140);
+                                })
+                                .Sortable().Pageable(pageable => pageable.PageSizes(new int[] { 5, 10, 20, 50, 100 }).Refresh(true).ButtonCount(5))
+                                .Scrollable(sc => sc.Virtual(true).Height("300px"))
+                                .Selectable(s => s.Mode(GridSelectionMode.Multiple))
+                                .DataSource(dataSource => dataSource.Ajax().PageSize(20).ServerOperation(true).Model(model =>
+                                {
+                                    model.Id(p => p.sClient);
+                                })
+                                .Read(read => read.Action("FillERPGridWithSearch", "Process").Data("GridFillterValueProcessMaster"))
+                                )
+                                )
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 k-window-footer">
+                    @(Html.Kendo().Button().Name("btnAdd").Icon("insert-m").Events(e => e.Click("OnClickAddProcessMaster")).HtmlAttributes(new { type = "button", @class = "btn btn-primary" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnAdd))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+
+    $(function () {
+        var grid = $("#ErpPopupGrid").data("kendoGrid");
+        $(document).on("change", ".chkbxErpPopupGrid", function () {
+            var checkbox = $(this);
+            $('.chkbxErpPopupGrid').attr("checked", checkbox.is(":checked"));
+            grid.table.find("tr").find("td:first input").prop("checked", checkbox.is(":checked"));
+        });
+
+    });
+
+    var ResourceProcess =
+    {
+        urlPath_GetProcess: ResourceLayout.tenantName.toUpperCase().replace("/", ""),
+        Msg_NoCalenderExist: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_NoCalenderExist",
+        Msg_PeocessCreatePermission: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_PeocessCreatePermission",
+        Msg_ProcessNameAlreadyExist: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_ProcessNameAlreadyExist",
+        Msg_ProcessSaved: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_ProcessSaved",
+        Msg_ProcessUpdated: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_ProcessUpdated",
+        Msg_ProcessSavedError: "@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Msg_ProcessSavedError",
+        urlPath_DeleteProcessGroup: ResourceLayout.partialURL + "DeleteProcessGroup",
+        urlPath_fillErpGroupGridRead: ResourceLayout.partialURL + "fillErpGroupGridRead",
+        urlPath_DeleteErpGroupGridRead: ResourceLayout.partialURL + "DeleteErpGroupGridRead",
+        urlPath_SearchView: ResourceLayout.partialURL + "SearchView",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_PASProcessMonth: ResourceLayout.partialURL + "PASProcessMonth"
+    }
+    debugger;
+    if (ResourceProcess.urlPath_GetProcess == $("#sTanatNameWeb").val()) {
+
+        $('input:radio[name=CArdo]').val([$("#PASProcessType").val()]);
+        if ($("#sPASProcessFlagActionType").val() == 3) {
+            $('input[name=CArdo][value=2]').prop('disabled', true);
+        }
+        else if ($("#sPASProcessFlagActionType").val() == 1 || $("#sPASProcessFlagActionType").val() == 2) {
+
+            $('input[name=CArdo][value=1]').prop('disabled', true);
+
+        }
+        else {
+            $('input[name=CArdo][value=2]').prop('disabled', true);
+        }
+        $("#PASProcessMonth").show();
+        $("#Create_Amend").show();
+        $("#sCalendarId").val(1);
+        $("#ProcessType").val(1);
+        $("#ProcessWorkTypeId").val(60);
+        $("#SBUID").val('');
+        $("#ProcessComplexityId").val(51);
+        $("#ERSCAPTypeId").val(1);
+        $("#Row_1").hide();
+        $("#Row_2").hide();
+        $("#Row_3").hide();
+        $("#Row_4").hide();
+        $("#Row_5").hide();
+        $("#Row_6").hide();
+        $("#Row_7").hide();
+        $("#Row_8").hide();
+        $("#Row_9").hide();
+        $("#Row_10").hide();
+        $("#Row_11").hide();
+        $("#Row_12").hide();
+        $("#Row_13").hide();
+        $("#Row_14").hide();
+        $("#Row_15").hide();
+        $("#Row_16").hide();
+
+        debugger;
+        var startPicker = $("#sPASProcessMonth12").data("kendoDatePicker");
+        // endDate = this.value();
+        var cdate = new Date();
+        //if (startPicker) {
+        //    startPicker = new Date(cdate);
+        //    startPicker.setDate(cdate.getDate());
+        //    // startPicker.max(endDate);
+        //}
+    }
+    else {
+        $("#PASProcessMonth").hide();
+        $("#Create_Amend").hide();
+
+
+        $("#Row_1").show();
+        $("#Row_2").show();
+        $("#Row_3").show();
+        $("#Row_4").show();
+        $("#Row_5").show()
+        $("#Row_6").show();
+        $("#Row_7").show();
+        $("#Row_8").show();
+        $("#Row_9").show();
+        $("#Row_10").show();
+        $("#Row_11").show();
+        $("#Row_12").show();
+        $("#Row_13").show();
+        $("#Row_14").show();
+        $("#Row_15").show();
+        $("#Row_16").show();
+    }
+    $(document.body).on('click', ".clsRemoveERP", function (e) {
+
+        var iProcessGroupID = $(this).attr("iProcessGroupID");
+        var iERPProcessID = $(this).attr("iERPProcessID");
+        var iLocationID = $(this).attr("iLocationID");
+        var token = $("#frmProcessIndex input").val();
+        var remvEl = this;
+        jConfirm('@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.required_RemoveselectedERP', "Confirmation", function (r) {
+            if (r) {
+
+                $.ajax({
+                    // url: ResourceProcess.urlPath_DeleteProcessGroup, + "?iProcessGroupID=" + iProcessGroupID + "&iERPProcessID=" + iERPProcessID + "&iLocationID=" + iLocationID,
+                    url: ResourceProcess.urlPath_DeleteProcessGroup,
+                    type: 'Post',
+                    data: {
+                        __RequestVerificationToken: token, iProcessGroupID: iProcessGroupID,
+                        iERPProcessID: iERPProcessID,
+                        iLocationID: iLocationID
+                    },
+                    dataType: 'json',
+
+                    success: function (result) {
+                        if (result.isGroupDeleted) {
+
+                            $(remvEl).parent().parent().remove();
+                        }
+                        if (result.isLocationDelete) {
+                            //var count = 0;
+                            //var item = $("#GridProcessEtE").data("kendoGrid").dataSource.data();
+
+                            //for (var i = 0 ; i < item.length; i++) {
+
+                            //    if (item[i].iLocationID == iLocationID || item[i].oLocation.iLocationID == iLocationID) {
+                            //        item.splice(i, 1);
+                            //    }
+                            //}
+                            //$("#GridProcessEtE").data("kendoGrid").dataSource.data(item);
+                            //$("#GridProcessEtE").data("kendoGrid").refresh();
+                        }
+                        return false;
+                    },
+                    error: function (err) { }
+                });
+            }
+        })
+    });
+</script>
+<script type="text/javascript">
+    $("#btnSaveProcess").click(function () {
+        if (ResourceProcess.urlPath_GetProcess == $("#sTanatNameWeb").val()) {
+            if ($("#sPASProcessMonth").val() == '') {
+                jAlert("Please Select PAS Process Month !");
+                return false;
+            }
+            // alert($("#sPASProcessMonth").val());
+            validationForm();
+            $.ajax({
+                url: ResourceProcess.urlPath_PASProcessMonth,
+                type: 'Post',
+                data: { PASProcessMonth: $("#sPASProcessMonth12").val(), iProcessID: $("#ProcessID").val(), TenantName: ResourceProcess.urlPath_GetProcess, PASProcessFlagActionType: $("#sPASProcessFlagActionType").val() == '' ? "0" : $("#sPASProcessFlagActionType").val() },
+                dataType: 'json',
+                success: function (result) {
+                    //debugger;
+                    //var ProcessMonthYear = $("#sPASProcessMonth12").val();
+                    //if (result.sProcessMonthDraft == 'DRAFT') {
+                    //    if (result.dPASProcessMonthYear != ProcessMonthYear.toUpperCase()) {
+                    //        jAlert("You cannot change Process Month Year. Because this process is Working on 1st Stage.!");
+                    //        return false;
+                    //    }
+                    //}
+                },
+                error: function (err) { }
+            });
+        }
+        else {
+            validationForm();
+
+        }
+
+    });
+    $(':radio[name=CArdo]').on("click", function (e) {
+        var value = $(this)[0].value;
+        $("#PASProcessType").val(value);
+    });
+    function disableDates(date) {
+        var dates = [
+            new Date("1/1/2022"),
+            new Date("1/21/2022"),
+            new Date("2/18/2022"),
+            new Date("5/27/2022"),
+            new Date("7/4/2022"),
+            new Date("9/2/2022"),
+            new Date("10/14/2022"),
+            new Date("11/11/2022"),
+            new Date("11/28/2022"),
+            new Date("12/25/2022")
+        ];
+        debugger;
+        if (date != null) {
+            if (compareDates(date, dates)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    function compareDates(date, dates) {
+        debugger;
+        for (var i = 0; i < dates.length; i++) {
+            if (dates[i].getYear() == date.getYear()) {
+                return true
+            }
+        }
+    }
+</script>
+

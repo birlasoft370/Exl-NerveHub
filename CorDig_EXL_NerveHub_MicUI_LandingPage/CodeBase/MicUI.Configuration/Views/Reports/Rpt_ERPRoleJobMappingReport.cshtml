@@ -1,0 +1,80 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ERPRoleJobMappingReport_Tittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "Rpt_ERPRoleJobMappingReport" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ERPRoleJobMappingReport_Tittle;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnRefreshERPRoleJobMapping").Events(ev => ev.Click("OnClickERPRoleJobMappingRefresh")).HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh"))
+
+                        @(Html.Kendo().Button().Name("btnGenerateReport").Icon("report-header-section").Events(e => e.Click("OnSelect_ERPRoleJobMapping")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_btnGenerateReport))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.JobName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownList().Name("Job").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sJobDesc").DataValueField("iJOBID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Url("GetJob/Reports");
+                                });
+                            }))
+                    </div>
+                </div>
+            </div>
+
+            <div id="divRptERPRoleJobMapping"></div>
+        </div>
+
+
+
+
+
+    </div>
+}
+
+
+<script>
+    var ResourceRptERPRoleJobMappingReport = {
+        display_RecordNotFound: '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+        display_RoleJobID: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_RoleJobID)',
+        dsplay_Role: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Role)',
+        dsplay_Job: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.dispJob)',
+        display_RoleJob: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_RoleJob)',
+        display_MappedOn: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_MappedOn)',
+        display_DefaultRole: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_DefaultRole)',
+        display_Disabled: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Disabled)',
+        display_FreshTransaction: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_FreshTransaction)',
+        display_CreatedBy: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_CreatedBy)',
+        display_CreateDate: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_CreateDate)',
+        display_ModifiedBy: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ModifiedBy)',
+        display_ModifyDate: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_ModifyDate)',
+        urlPath_GetERPJobRoleMappingReport: ResourceLayout.partialURL + "GetERPJobRoleMappingReport"
+    }
+
+</script>

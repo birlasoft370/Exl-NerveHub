@@ -1,0 +1,237 @@
+﻿@using MicUI.WorkManagement.Module.WorkManagement.WorkMaster;
+@using MicUI.WorkManagement.Services.ServiceModel;
+@using Microsoft.AspNetCore.Html;
+@using Microsoft.Extensions.WebEncoders;
+@using MicUI.WorkManagement.Helper.Extensions;
+@inject IWorkObjectService _repositoryWork;
+
+@model List<BEWorkObject>
+@{
+    int iRowNumber = 0;
+}
+<table id="tblWork" style="width:100%">
+
+    @{
+        System.Text.StringBuilder ObjWork = new System.Text.StringBuilder();
+
+        for (int i = 0; i < Model.Count; i++)
+        {
+            if (int.Parse(Model[i].irow_No.ToString()) != 0)
+            {
+                if (iRowNumber != int.Parse(Model[i].irow_No.ToString()))
+                {
+                    ObjWork.Append("<tr>");
+                    if (Model[i].bVisible == true)
+                    {
+                        iRowNumber = int.Parse(Model[i].irow_No.ToString());
+                        ObjWork.Append("<td style='width:150px'>" + Html.Label(Model[i].sObjectLabel).ToHtmlString());
+                        ObjWork.Append("<td style='width:150px'>" + GenerateControl(Html, Model[i].iObjectType, Model[i].sObjectLabel, Model[i].iObjectID, Model[i].bEditable, Model[i].bReadOnly, Model[i].iLength, Model[i].iColumnNumber, Model[i].iColSpan, Model[i].sDataType, Model[i].iValidationID));
+                        ObjWork.Append("<td style='width:10px'>" + "  <a onclick='preview(this);'style='cursor:pointer;font-size:12px;font-weight:200;color:#336699' id='linkFatal' class='clsFx' objid='" + GetControlID(Model[i].iObjectType, Model[i].iObjectID, Model[i].sDataType) + "' > Fx</a>");
+                    }
+                }
+                else
+                {
+                    if (Model[i].bVisible == true)
+                    {
+                        iRowNumber = int.Parse(Model[i].irow_No.ToString());
+                        ObjWork.Append("<td style='width:150px'>" + Html.Label(Model[i].sObjectLabel).ToHtmlString());
+                        ObjWork.Append("<td style='width:150px'>" + GenerateControl(Html, Model[i].iObjectType, Model[i].sObjectLabel, Model[i].iObjectID, Model[i].bEditable, Model[i].bReadOnly, Model[i].iLength, Model[i].iColumnNumber, Model[i].iColSpan, Model[i].sDataType, Model[i].iValidationID));
+                        ObjWork.Append("<td style='width:10px'>" + " <a onclick='preview(this);'style='cursor:pointer;font-size:12px;font-weight:200;color:#336699' id='linkFatal' class='clsFx' objid='" + GetControlID(Model[i].iObjectType, Model[i].iObjectID, Model[i].sDataType) + "'> Fx</a>");
+                    }
+                }
+            }
+            else
+            {
+                iRowNumber = int.Parse(Model[i].irow_No.ToString());
+                ObjWork.Append("<td style='width:150px;display:none;'>" + Html.Label(Model[i].sObjectLabel).ToHtmlString());
+                ObjWork.Append("<td style='width:150px;display:none;'>" + GenerateControl(Html, Model[i].iObjectType, Model[i].sObjectLabel, Model[i].iObjectID, Model[i].bEditable, Model[i].bReadOnly, Model[i].iLength, Model[i].iColumnNumber, Model[i].iColSpan, Model[i].sDataType, Model[i].iValidationID));
+                ObjWork.Append("<td style='width:10px;display:none;'>" + " <a onclick='preview(this);'style='cursor:pointer;font-size:12px;font-weight:200;color:#336699' id='linkFatal' class='clsFx' objid='" + GetControlID(Model[i].iObjectType, Model[i].iObjectID, Model[i].sDataType) + "' >Fx</a>");
+                ObjWork.Append("</tr>");
+            }
+        }
+    }
+    @Html.Raw(ObjWork.ToString())
+
+</table>
+@{
+    string GetControlID(int iObjectType, int iObjectId, string sDataType)
+    {
+        string objID = string.Empty;
+
+        switch (iObjectType)
+        {
+            case 1:
+                if (sDataType != "DateTime")
+                {
+                    objID = "txt_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                }
+                else
+                {
+                    objID = "txt_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                }
+                break;
+
+            case 2:
+                objID = "lbl_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            case 3:
+                objID = "chk_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            case 4:
+
+                objID = "chkl_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+
+                break;
+
+            case 5:
+
+                objID = "lst_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            case 6:
+                objID = "ddl_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+
+                break;
+
+            case 7:
+                objID = "rd_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            case 8:
+                objID = "rdl_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+            case 9:
+
+                objID = "lst_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+            case 10:
+                objID = "txt_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+            case 11:
+                objID = "Email_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            case 12:
+                objID = "txt_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+            case 14:
+                objID = "ddl_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+
+                break;
+            case 15:
+                objID = "btn_" + iObjectId.ToString() + "_" + iObjectType.ToString();
+                break;
+
+            default:
+                break;
+        }
+
+        return objID;
+    }
+}
+
+@{
+
+    string GenerateControl(IHtmlHelper<List<BEWorkObject>> html, int ObjectType, string strlebel, int iObjectId, bool bEditable, bool bReadOnly, int iMaxLength, int ColumnNumber, int ColSpan, string sDataType, int ValidationID)
+    {
+        string ObjControl = string.Empty;
+        switch (ObjectType)
+        {
+            case 1:
+                if (sDataType != "DateTime")
+                {
+                    ObjControl = html.Kendo().TextBox().HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable).Name("txt_" + iObjectId.ToString()).ToHtmlString();
+                }
+                else
+                {
+                    ObjControl = html.Kendo().DatePicker().HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable).Name("txt_" + iObjectId.ToString()).ToHtmlString();
+                }
+                break;
+
+            case 2:
+                ObjControl = html.Label("lbl_" + iObjectId.ToString()).ToHtmlString();
+                break;
+
+            case 3:
+                ObjControl = html.Kendo().CheckBox().HtmlAttributes(new { @style = "width:10px" }).Enable(bEditable).Name("chk_" + iObjectId.ToString()).ToHtmlString();
+                break;
+
+            case 4:
+                List<BEWorkObjectChoice> Objchecklist = new List<BEWorkObjectChoice>();
+                string strlist = "";
+                Objchecklist = _repositoryWork.GetObjectChoiceList(iObjectId);
+                foreach (var item in Objchecklist)
+                {
+                    strlist = strlist + "&nbsp&nbsp&nbsp" + html.Kendo().CheckBox().Name("chkl_" + item.sChoiceValue).ToHtmlString() + "&nbsp" + item.sChoiceValue;
+
+                }
+                ObjControl = strlist;
+                break;
+
+            case 5:
+
+                List<BEWorkObjectChoice> Objlist = new List<BEWorkObjectChoice>();
+                Objlist = _repositoryWork.GetObjectChoiceList(iObjectId);
+                ObjControl = html.ListBox("lst_" + iObjectId.ToString(), new MultiSelectList(Objlist, "iObjectChoiceID", "sChoiceValue"), new { style = " width:100%; height:60px;" }).ToHtmlString();
+                break;
+
+            case 6:
+                ObjControl = html.Kendo().DropDownList().Name("ddl_" + iObjectId.ToString()).HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable)
+                .DataSource(d => d.Read(r => r.Action("FillDrpChoiceData", "WorkDefinition").Data("{ iObjectId : " + iObjectId + "}")).ServerFiltering(true))
+                .DataTextField("sChoiceValue").DataValueField("iObjectChoiceID")
+                .ToHtmlString();
+                break;
+
+            case 7:
+                ObjControl = html.Kendo().RadioButton().HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable).Name("rd_" + iObjectId.ToString()).ToHtmlString();
+                break;
+
+            case 8:
+                List<BEWorkObjectChoice> ObjRadiolist = new List<BEWorkObjectChoice>();
+                string strrdolist = "";
+                ObjRadiolist = _repositoryWork.GetObjectChoiceList(iObjectId);
+                foreach (var item in ObjRadiolist)
+                {
+                    strrdolist = strrdolist + "&nbsp&nbsp&nbsp" + html.Kendo().RadioButton().Name("rdl_" + item.sChoiceValue).HtmlAttributes(new { @name = "engine" }).ToHtmlString() + "&nbsp" + item.sChoiceValue;
+                }
+                ObjControl = strrdolist;
+                break;
+
+            case 9:
+
+                List<BEWorkObjectChoice> Objlistm = new List<BEWorkObjectChoice>();
+                Objlist = _repositoryWork.GetObjectChoiceList(iObjectId);
+                ObjControl = html.ListBox("lst_" + iObjectId.ToString(), new MultiSelectList(Objlistm, "iObjectChoiceID", "sChoiceValue"), new { style = " width:100%; height:60px;" }).ToHtmlString();
+                break;
+            case 10:
+                ObjControl = html.TextArea("txt_" + iObjectId.ToString(), new { style = " width:100%; height:35px;" }).ToHtmlString();
+                break;
+
+            case 11:
+                //Vipul Changes
+                // ObjControl = html.Kendo().TextBox().HtmlAttributes(new { @style = "width:100%" }).Format(@"^[._A-Za-z0-9-\\+]+(\\.[._A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$").Enable(bEditable).Name("Email_" + iObjectId.ToString()).ToHtmlString();
+                ObjControl = html.Kendo().TextBox().HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable).Name("Email_" + iObjectId.ToString()).ToHtmlString().FormatWith(@"^[._A-Za-z0-9-\\+]+(\\.[._A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+                break;
+
+            case 12:
+                ObjControl = html.Kendo().MaskedTextBox().HtmlAttributes(new { @style = "width:100%" }).HtmlAttributes(new { @style = "width:10px" }).Enable(bEditable).Name("txt_" + iObjectId.ToString()).ToHtmlString();
+                break;
+            case 14:
+                ObjControl = html.Kendo().MultiSelect().Name("ddl_" + iObjectId.ToString()).HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable)
+                .DataSource(d => d.Read(r => r.Action("FillDrpChoiceData", "WorkDefinition").Data("{ iObjectId : " + iObjectId + "}")).ServerFiltering(true))
+                .DataTextField("sChoiceValue").DataValueField("iObjectChoiceID")
+                .ToHtmlString();
+                break;
+            case 15:
+                ObjControl = html.Kendo().Button().HtmlAttributes(new { @style = "width:100%" }).Enable(bEditable).Name("btn_" + iObjectId.ToString()).ToHtmlString();
+
+                break;
+            default:
+                break;
+        }
+        return ObjControl;
+    }
+}
+

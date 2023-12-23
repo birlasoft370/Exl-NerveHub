@@ -1,0 +1,94 @@
+﻿@using MicUI.EmailManagement.Models.ViewModels;
+@model MailTemplateViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.EMSAdapter + " | " + @BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.display_SearchMailTemplate;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("SearchView", "MailTemplate", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.display_SearchMailTemplate;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0", @onclick = "MoveToUrl( ResourceLayout.partialURL+'Index')" })
+                            .Icon("insert-m").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Icon("search").Name("btnSearch").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                @{
+                    await Html.RenderPartialAsync("~/Views/Shared/_SearchView.cshtml", new SearchViewModel(new string[] { BPA.GlobalResources.UI.Resources_common.display_Client, BPA.GlobalResources.UI.Resources_common.display_Process, BPA.GlobalResources.UI.Resources_common.display_Campaign_Dropdown }));
+                }
+            </div>
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.SearchViewList)
+                        .Name("searchGrid")
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5)
+                        ).Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.MailTemplateId).Hidden(true);
+                            columns.Bound(u => u.MailTemplateName).Title(@BPA.GlobalResources.UI.EmailManagement.MailTemplate_Resources.display_SearchTemplateName);
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Edit_Button).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editMailTempalte")).HeaderHtmlAttributes(new { @style = "width:22.5%" }).Title(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit);
+                        })
+                        .DataSource(dataSource => dataSource.Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(u => u.MailTemplateId);
+                            model.Field(u => u.MailTemplateId).DefaultValue(Model.MailTemplateName);
+                        })
+                        .PageSize(10)
+                        .ServerOperation(false)
+                        )
+                        )
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+<script type="text/javascript">
+    $("#btnSearch").click(function () {
+        validationForm();
+    });
+</script>
+<script>
+    function editMailTempalte(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            type: "POST"
+            , url: ResourceLayout.partialURL + "EditingCustom_Edit"
+            , data: { iMailTemplateId: dataItem.MailTemplateId }
+            , dataType: "json"
+            , success: function (result) {
+                if (result == "OK") {
+                    window.location.href = "@Url.Action("Index", "MailTemplate")"
+                }
+            }
+        });
+    }
+
+</script>

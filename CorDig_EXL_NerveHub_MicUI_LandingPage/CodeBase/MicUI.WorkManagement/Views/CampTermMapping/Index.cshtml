@@ -1,0 +1,220 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.CampTermMappingViewModel
+
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.dispaly_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/lib/bpa/scripts/camptermmapping-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "CampTermMapping", FormMethod.Post, new { @id = "formCampTermMapping" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.miCampaignID == 0 ? @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.dispNewCampTermMap : @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.dispModifyCampTermMap;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNewCampTermMapping").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnCampTermMappingNewClick")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnSaveCampTermMapping").Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <input name="ClientID" id="ClientID" type="hidden" value="0">
+            @Html.HiddenFor(a => a.miCampaignID)
+            @Html.HiddenFor(a => a.sltTerminationID)
+            @Html.HiddenFor(a => a.sltTerminationNameID)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.iClientID, new { @class = "form-label  label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.iClientID).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName").DataValueField("iClientID").DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCascadeClient", "CampTermMapping").Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }).Events(Ev => Ev.DataBound("OnBoundClient").Change("OnChangeClientID")))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.iProcessID, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.iProcessID).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).HtmlAttributes(new { @class = "formSelect" })
+                            .DataTextField("sProcessName").DataValueField("iProcessID").DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCascadeProcess", "CampTermMapping").Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }).Events(Ev => Ev.DataBound("OnBoundProcess")).Enable(false).AutoBind(false).CascadeFrom("iClientID"))
+                        <script>
+                            function filterProcess() {
+                                return {
+                                    iClientID: $("#iClientID").val()
+                                };
+                            }
+                        </script>
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.sCampaignName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.sCampaignName).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName")
+                            .DataValueField("iCampaignID").DataSource(source =>
+                            {
+                                source.Read(read => { read.Action("GetCascadeCamp", "CampTermMapping").Data("filterSubProcess"); }).Events(ev => ev.Error("DropDownError"))
+                                .ServerFiltering(true);
+                            }).Enable(false).AutoBind(false).CascadeFrom("iProcessID").Events(Ev => Ev.DataBound("OnBoundCampaign").Change("OnChangeCampaignID")))
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="nextWrap">
+                <div class="pb-3 text-end">
+                    @(Html.Kendo().Button().Name("BreakListLink").Icon("search").Events(e => e.Click("OpenBusinessJustifications")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_getterminationcode))
+                </div>
+
+
+                <div class="fillgrdData formTable checkboxTable">
+
+                    @*@if (Model.GridTermCodeMap.Count > 0)
+                {*@
+                    @(Html.Kendo().Grid(Model.GridTermCodeMap).Name("gvGridTermCodeMap").Scrollable(sv => sv.Height("450px").Virtual(true))
+
+                        .Scrollable(sc => sc.Virtual(true).Height("350px"))
+                        .Columns(
+                        columns =>
+                        {
+                            columns.Bound(u => u.TerminationID).Hidden(true).ClientTemplate("<label class='only-check-input'><input type='hidden' name='chkTerminationID' id='chkTerminationID' enabled value='#= TerminationID#'><b></b></label>");
+                            columns.Bound(u => u.Selected).Width(10).ClientTemplate("<label class='only-check-input'><input type='checkbox' name='chkSelected' class='chkFormolsCampTermMap' id='chkSelected' ${ Selected == true ? checked='checked' : ''}   enabled value='#= TerminationID#'><b></b></label>")
+                            .ClientHeaderTemplate("<label class='only-check-input'><input type='checkbox' id='chkSelectAll' onclick='DoTheCheck(this)' name='chk[]'/><b></b></label>");
+                            columns.Bound(u => u.TerminatioName).Width(30).Title(@BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_Termination_Code_Name).HtmlAttributes(new { style = "text-align: left;" });
+                            columns.Bound(u => u.IsProductive).Width(15).ClientTemplate("<label class='only-check-input'><input type='checkbox' name='chkIsProductive' id='chkIsProductive' ${ IsProductive == true ? checked='checked' : ''} class='chkIsProductive'  enabled value='#= TerminationID#'><b></b></label>").ClientHeaderTemplate("<label class='only-check-input'><input type='checkbox' id='chkAllIsProductive' onclick='DoTheCheck(this)'/> <b></b></label><b></b></label>" + @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_IsProductive).Width(22);
+                            columns.Bound(u => u.IsEnd).Width(15).ClientTemplate("<label class='only-check-input'><input type='checkbox' name='chkIsEnd' id='chkIsEnd' ${ IsEnd == true ? checked='checked' : ''} class='chkIsEnd'  enabled value='#= TerminationID#'><b></b></label>").ClientHeaderTemplate("<label class='only-check-input'><input type='checkbox' id='chkAllIsEnd' onclick='DoTheCheck(this)'/> <b></b></label><b></b></label>" + @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_IsEnd).Width(22);
+                            columns.Bound(u => u.Disabled).Width(15).ClientTemplate("<label class='only-check-input'><input type='checkbox' name='chkDisabled' id='chkDisabled' ${ Disabled == true ? checked='checked' : ''}  class='chkDisabled' enabled value='#= TerminationID#'> <b></b></label>").ClientHeaderTemplate("<label class='only-check-input'><input type='checkbox' id='chkAllDisabled' onclick='DoTheCheck(this)'/> <b></b></label>" + @BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_Disable).Width(22);
+                        })
+                        .DataSource(x => x.Ajax().PageSize(1000).Read(a => a.Action("GetCampTermMappingDataAll", "CampTermMapping").Data("GetCampkMapID"))
+                        .ServerOperation(false)))
+                    @*}*@
+
+                </div>
+
+            </div>
+
+            <div id="ERPPopup" style="display:none" class="k-window-content">
+                <div class="px-3 py-2">
+                    <div class="row align-items-end">
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label("","Termination Code", new { @class = "form-label" })
+                                @Html.Kendo().TextBoxFor(x => x.sTerminationName).HtmlAttributes(new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xl-auto">
+                            <div class="mb-3 pb-1">
+                                @(Html.Kendo().Button().Name("btnSearch").Events(e => e.Click("OnBtnSearchClickBreakMaster")).Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div id="ProcessERPMapping" class="tblMainNew formTable mt-2">
+                        @(Html.Kendo().Grid<MicUI.WorkManagement.Services.ServiceModel.BETerminationCodeInfo>()
+                            .Name("ErpPopupGrid").Events(events => events.Change("gridViewSerachedUsers_OnRowSelect"))
+                            .Columns(columns =>
+                            {
+                                //columns.Template(Erp => Erp.iBreakID).ClientTemplate("<input  type='checkbox' value='#=iBreakID#' class='checkbox'/> ")
+                                //.Title("<input type='checkbox' class='chkbxErpPopupGrid' />").Width(70);
+                                columns.Bound(x => x.iTerminationCodeID).Hidden(true);
+                                columns.Bound(Erp => Erp.sTermCodeName).Title("Termination Code");
+
+                            })
+                            .Sortable().Pageable(pageable => pageable.PageSizes(new int[] { 5, 10, 20, 50, 100 }).Refresh(true).ButtonCount(5))
+                            .Scrollable(sc => sc.Virtual(true).Height("200px"))
+                            .Selectable()
+                            .DataSource(dataSource => dataSource.Ajax().PageSize(20).ServerOperation(true).Model(model =>
+                            {
+                                model.Id(p => p.sTermCodeName);
+                            })
+                            .Read(read => read.Action("FillERPGridWithSearch", "CampTermMapping").Data("GetBreakNameDetials"))
+                            )
+                            .NoRecords(x => x.Template("<div class='empty-grid'></div>"))
+                            )
+                    </div>
+                    <div class="formTable mt-3">
+                        @(Html.Kendo().Grid(Model.GetTerminationList)
+                            .Name("gridViewSelectedUsers").Scrollable()
+                            .Columns(columns =>
+                            {
+                                columns.Bound(x => x.iTerminationCodeID).Hidden(true);
+                                columns.Bound(x => x.sTermCodeName).Title("Termination Code");
+                                columns.Bound(x => x.iTerminationCodeID).Title("").ClientTemplate("<button type='button' class='clsRemoveSelectedUsers btn-outline-primary btn-sm btn' data-role='button' role='button' aria-disabled='false' tabindex='0'><span class='k-icon k-delete'></span>Remove</button>").Width(110);
+                            }))
+                    </div>
+
+                </div>
+                <div class="k-window-footer text-end">
+                    @(Html.Kendo().Button().Name("btnAdd").Icon("insert-m").Events(e => e.Click("OnClickAddProcessMaster")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnAdd))
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+@{
+    if (ViewData["Message"] != "" && ViewData["Message"] != null)
+    {
+        <script type="text/javascript" language="javascript">
+            jAlert('@ViewData["Message"]');
+
+        </script>
+    }
+}
+<style>
+    .empty-grid::before {
+        padding: 1em;
+        line-height: 3em;
+        content: "No records found.";
+    }
+</style>
+<script>
+    var lstTerminationID = '';
+    var lstTerminationName = '';
+    var Resources = {
+        Confirm_Delete: '@(BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.Confirm_Delete)',
+        display_Delete_Message: '@(BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.display_Delete_Message)',
+        OK: '@(BPA.GlobalResources.UI.Resources_common.display_Ok)',
+        display_Alert: '@(BPA.GlobalResources.UI.Resources_common.display_Alert)',
+        display_Confirmation: '@(BPA.GlobalResources.UI.Resources_common.display_Confirmation)',
+        requiredTermCode: '@(BPA.GlobalResources.UI.WorkManagement.Resources_CampTermMapping.requiredTermCode)',
+        url_ShowCampTermMapping: ResourceLayout.partialURL + 'ShowCampTermMapping',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_SetCampTermID: ResourceLayout.partialURL + 'SetCampTermID',
+        url_DeleteCampaignTermCode: ResourceLayout.partialURL + 'DeleteCampaignTermCode',
+        url_GetCampTermMappingData: ResourceLayout.partialURL + 'GetCampTermMappingData',
+    }
+</script>

@@ -1,0 +1,95 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.disp_ProcessOwnerReport_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<SelectListItem>
+    list = new List<SelectListItem>(){
+new SelectListItem { Text =@BPA.GlobalResources.UI.Resources_common.display_Select, Value=""},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Approved, Value="1"},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Pending, Value="2"}
+                                                                        };
+}
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(new { id = "Rpt_ProcessOwnerReport" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.disp_ProcessOwnerReport_Title;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnProcessOwnerReportClear").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("action").Name("btnProcessOwnerReport").Events(e => e.Click("OnClickProcessOwnerReport")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(BPA.GlobalResources.UI.Resources_common.display_GenerateReport))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_CleintName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.ClientName).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sClientName").DataValueField("iClientID")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCascadeClient", "Reports")
+                                .Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName,@BPA.GlobalResources.UI.AppConfiguration.Resources_Process.Disp_ProcessName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.ProcessName)
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID").HtmlAttributes(new { @class = "formSelect" })
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetClientWiseProcessList", "Reports")
+                                .Data("GetClientId");
+                                })
+                                .ServerFiltering(true);
+                            }).Enable(false).AutoBind(false).CascadeFrom("ClientName"))
+                    </div>
+                </div>
+            </div>
+            <div id="gridProcessOwnerReport"></div>
+        </div>
+    </div>
+
+}
+<script>
+    function GetClientId() {
+        return {
+            ClientID: $("#ClientName").val()
+        }
+    }
+
+    var Resource = {
+        display_RecordNotFound: '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+        urlPath_GetProcessOwnerReport: ResourceLayout.partialURL + "GetProcessOwnerReport",
+        urlPath_Excel_Export_Save: ResourceLayout.partialURL + "Excel_Export_Save"
+
+
+    }
+
+</script>

@@ -1,0 +1,105 @@
+﻿@model MicUI.Configuration.Models.ViewModels.LOBViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_LOB_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string ValidationIcon = "<span style='color:red;font-size:12px;' class='allLabelFields'>*</span>";
+}
+
+<script src="~/lib/bpa/scripts/lob-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "LOB"))
+{
+    @Html.AntiForgeryToken()
+    @*@Html.ValidationSummary(true)*@
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.LOBID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_CreateNewLOB : @BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_ModifyExistingLOB;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickLOBRefresh")).Icon("refresh")
+                            .Name("btnNew").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @*@(Html.Kendo().Button().Name("btnNew").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh")
+                    .HtmlAttributes(new { type = "button", @class = "k-primary kendobutton", @onclick = "MoveToUrl('/AppConfiguration/LOB/Index')" }))*@
+
+                        @(Html.Kendo().Button().Name("btnSave").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave)
+                            .HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickLOBView")).Icon("search")
+                            .Name("btnView").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                        @*@(Html.Kendo().Button().Icon("search").Name("btnView").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch)
+                    .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn", @onclick = "MoveToUrl('/AppConfiguration/LOB/LOBSearchView')" }))*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            @(Html.HiddenFor(m => m.LOBID))
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ERPID, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.ERPID).HtmlAttributes(new { @class = "form-control", @maxLength = 5 })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.LOBName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.LOBName).HtmlAttributes(new { @class = "form-control", @maxLength = 50 })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.Description, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.Description).HtmlAttributes(new { @class = "form-control", @maxLength = 300 })
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(model => model.IsDisable)
+                            </div>
+                            @Html.HiddenFor(model => model.LOBID)
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+<script>
+    var ResourceLOBIndex = {
+
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_LOBSearchView: ResourceLayout.partialURL + "LOBSearchView"
+
+    }
+</script>

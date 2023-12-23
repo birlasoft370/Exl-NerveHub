@@ -1,0 +1,22 @@
+﻿@inject IConfiguration _configuration
+@{
+    ViewBag.Title = "Logout";
+    Layout = "~/Views/Shared/_LayoutLogOut.cshtml";
+    var NerveHubUrl = _configuration.GetValue<string>("NerveHubUrl");
+}
+
+<div class="coverPage">
+    <div class="logoutMsg">
+        <h2>@BPA.GlobalResources.UI.Resources_common.display_LogOutText</h2>
+        <p><a href="@NerveHubUrl">@BPA.GlobalResources.UI.Resources_common.display_clickhere </a>@BPA.GlobalResources.UI.Resources_common.display_returnLoginagain | <a href="#" id="linkClose">@BPA.GlobalResources.UI.Resources_common.display_clickhere </a>@BPA.GlobalResources.UI.Resources_common.display_toCloseApplication</p>
+    </div>
+</div>
+
+
+
+<script>
+    $("#linkClose").on('click', function () {
+        window.close(false);
+    });
+
+</script>

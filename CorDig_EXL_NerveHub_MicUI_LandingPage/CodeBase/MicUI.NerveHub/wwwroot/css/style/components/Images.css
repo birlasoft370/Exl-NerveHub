@@ -1,0 +1,285 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+
+.Images-ico20px-agentdash20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 0;
+    float: left;
+}
+
+.Images-ico20px-assess20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -20px;
+    float: left;
+}
+
+.Images-ico20px-assist20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -40px;
+    float: left;
+}
+
+.Images-ico20px-config201 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -60px;
+    float: left;
+}
+
+.Images-ico20px-config20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -60px;
+    float: left;
+}
+
+.Images-ico20px-ctimezone20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -100px;
+    float: left;
+}
+
+.Images-ico20px-timezone20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -100px;
+    float: left;
+}
+
+.Images-ico20px-letterlib20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -120px;
+    float: left;
+}
+
+.Images-ico20px-emailconfig20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -140px;
+    float: left;
+}
+
+.Images-ico20px-processrepo20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -160px;
+    float: left;
+}
+
+.Images-ico20px-qms20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -180px;
+    float: left;
+}
+
+.Images-ico20px-querytracker20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -200px;
+    float: left;
+}
+.Images-ico20px-userpref20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -220px;
+    float: left;
+}
+.Images-ico20px-signout20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -240px;
+    float: left;
+}
+
+.Images-ico20px-swm20 {
+    /* You may have to set 'display: block' */
+    width: 20px;
+    height: 20px;
+    background: url('/Images/ico20px/ico20px.png') 0 -260px;
+    float: left;
+}
+
+.Images-ico20px-curlang20 {
+    width: 20px;
+    height: 20px;
+    float: left;
+    background: url('/Images/ico20px/ico20px.png') 0 -280px;
+}
+
+/************************************************************************/
+.Images-main-main-agent {
+    /* You may have to set 'display: block' */
+    width: 675px;
+    height: 310px;
+    background: url('/Images/main/Main.png') -1px -1px;
+}
+
+.Images-main-main-assessme {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 355px;
+    background: url('/Images/main/Main.png') -1px -419px;
+}
+
+.Images-main-main-assistme {
+    /* You may have to set 'display: block' */
+    width: 675px;
+    height: 310px;
+    background: url('/Images/main/Main.png') -1px -623px;
+}
+
+.Images-main-main-config {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 395px;
+    background: url('/Images/main/Main.png') -1px -1204px;
+}
+
+.Images-main-main-emailconfig {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 375px;
+    background: url('/Images/main/Main.png') -1px -1620px;
+}
+
+.Images-main-main-letterlib {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 396px;
+    background: url('/Images/main/Main.png') -1px -1999px;
+}
+
+.Images-main-main-ppr {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 355px;
+    background: url('/Images/main/Main.png') -1px -2445px;
+}
+
+.Images-main-main-processrepo {
+    /* You may have to set 'display: block' */
+    width: 675px;
+    height: 310px;
+    background: url('/Images/main/Main.png') -1px -2178px;
+}
+
+.Images-main-main-qms {
+    /* You may have to set 'display: block' */
+    width: 900px;
+    height: 346px;
+    background: url('/Images/main/Main.png') -1px -3145px;
+}
+
+.Images-main-main-query {
+    /* You may have to set 'display: block' */
+    width: 920px;
+    height: 395px;
+    background: url('/Images/main/Main.png') -1px -7855px;
+}
+
+.Images-main-main-swm {
+    /* You may have to set 'display: block' */
+    width: 900px;
+    height: 360px;
+    background: url('/Images/main/Main.png') -1px -3970px;
+}
+/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-mlogo-magent {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -1px;
+}
+
+.Images-mlogo-massess {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -60px;
+}
+
+.Images-mlogo-massist {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -119px;
+}
+
+.Images-mlogo-mconfig {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -178px;
+}
+
+.Images-mlogo-meconfig {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -237px;
+}
+
+.Images-mlogo-mletterlib {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -296px;
+}
+
+.Images-mlogo-mppr {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -355px;
+}
+
+.Images-mlogo-mqms {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -414px;
+}
+
+.Images-mlogo-mquery {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -473px;
+}
+
+.Images-mlogo-mswm {
+    /* You may have to set 'display: block' */
+    width: 216px;
+    height: 56px;
+    background: url('/Images/mlogo/mLogo.png') -1px -532px;
+}
+
+.Images-mbPGT {
+    /* You may have to set 'display: block' */
+    width: 126px;
+    height: 124px;
+    background: url('/Images/processGuidance.jpg');
+}

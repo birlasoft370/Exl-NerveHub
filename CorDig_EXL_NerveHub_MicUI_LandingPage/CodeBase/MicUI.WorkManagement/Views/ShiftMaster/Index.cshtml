@@ -1,0 +1,142 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.ShiftMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "|" + @BPA.GlobalResources.UI.WorkManagement.Resources_Shift.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/shiftmaster-1.8.2.js"></script>
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+@using (Html.BeginForm("Index", "ShiftMaster"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => a.ShiftID)
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.ShiftID == 0 ? @BPA.GlobalResources.UI.WorkManagement.Resources_Shift.dispCreateNewShift : @BPA.GlobalResources.UI.WorkManagement.Resources_Shift.dispModifyShift;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickShiftMaster")).Icon("refresh").Name("btnReset").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("plus").Name("btnShiftMasterSave").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Events(ev => ev.Click("OnClickShiftMasterSearch")).Icon("search").Name("btnSearch").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ShiftName, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(a => a.ShiftName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(d => d.Description, new { @class = "form-label" })
+                        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.ShiftStartTime, new { @class = "form-label" })
+                        <div class="input-group">
+                            @(Html.Kendo().TimePicker().Name("ShiftStartTime").Events(e => e.Change("startChange")).Format("HH:mm").Value(Model.ShiftStartTime).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                            <div class="input-group-append">
+                                <span class="input-group-text">Hrs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(t => t.ShiftEndTime, new { @class = "form-label" })
+                        <div class="input-group">
+                            @(Html.Kendo().TimePicker().Name("ShiftEndTime").Format("HH:mm").Value(Model.ShiftEndTime).HtmlAttributes(new { @class = "form-date", onkeydown = "javascript:return AllowTabOnly(event)" }))
+                            <div class="input-group-append">
+                                <span class="input-group-text">Hrs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.Disable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+
+    $('#Description').keypress(function (e) {
+        // return false;
+        //alert('Do Me');
+        //e.stopPropagation();
+        //e.preventDefault();
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            $('#Description').append('\n');
+        }
+        else {
+            if (e.keyCode == 8) {
+                //e.stopPropagation();
+                e.preventDefault();
+                var result = $('#Description').val();
+                $('#Description').val(result.slice(0, -1));
+                //e.stopPropagation();
+                //e.preventDefault();
+            }
+            else {
+                if (e.originalEvent.key == 'Spacebar') {
+                    e.preventDefault();
+                    $('#Description').append(' ');
+                }
+                else {
+                    e.preventDefault();
+                    $('#Description').append(e.originalEvent.key);
+                }
+            }
+        }
+    });
+
+
+    var Resources = {
+        display_TotalShiftHours: '@(BPA.GlobalResources.UI.WorkManagement.Resources_Shift.display_TotalShiftHours)',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_ShiftSearchView: ResourceLayout.partialURL + 'ShiftSearchView',
+        url_EditingCustom_Edit: ResourceLayout.partialURL + 'EditingCustom_Edit',
+        url_EditingCustom_Destroy: ResourceLayout.partialURL + 'EditingCustom_Destroy',
+    }
+
+</script>

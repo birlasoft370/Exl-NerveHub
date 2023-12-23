@@ -1,0 +1,138 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model MicUI.Configuration.Models.ViewModels.MasterValueViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + "| " + @BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.dispTitleMasterValue;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "MasterValue", FormMethod.Post, new { @id = "formMaster", @name = "formMaster" }))
+{
+    @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.MasterValueID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.dispCreateNewMasterType : @BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.dispModifyExistingMasterType;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNewMasterValue").Events(ev => ev.Click("OnMasterValueClickNew")).Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnSaveMasterValue").Events(ev => ev.Click("OnMasterValueClickSave")).Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnMasterValueClickView")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="formWrap-body">
+            @Html.HiddenFor(a => a.MasterValueID)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.MasterType, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(a => a.MasterType).HtmlAttributes(new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(a => a.bDisable))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nextWrap">
+
+                <div class="text-end pb-2">
+                    @*<input type="button" value="Add New Row" id="gvAddrow" class="buttonadd" />*@
+                    @(Html.Kendo().Button().Icon("plus").Name("gvAddrow").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }).Content("Add New Row"))
+                </div>
+                <div class="SearchPageDiv formTable">
+
+                    @(Html.Kendo().Grid<MasterValueList>()
+                        .Name("gvMasterValue").HtmlAttributes(new { @pattern = "^[/w,/-]+$" })
+                        .Editable(editable => editable.Mode(GridEditMode.InCell).CreateAt(GridInsertRowPosition.Bottom))//.Events(e => e.Edit("onEdit"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.FieldID).Hidden();
+                            columns.Bound(u => u.Values).Title("Values").HtmlAttributes(new { style = "width:55%" });
+                            // columns.Bound(u => u.Disable).ClientTemplate("<input type='checkbox' name='chkIsProductive' class='chkIsProductive form-control' id='chkIsProductive' ${ disable == true ? checked='checked': '' } class='chkIsProductive' enabled value='#= FieldID#'>").HeaderTemplate("Disable") ;
+                            columns.Command(u => u.Destroy().HtmlAttributes(new { @class = "btn-outline-primary btn btn-sm" }));
+
+                        })
+
+                        .Editable(editable => editable.Mode(GridEditMode.InCell)) // Use in-cell editing mode
+                        .DataSource(dataSource =>
+                        dataSource.Ajax()
+                        .Batch(true) // Enable batch updates
+                        .Model(model =>
+                        {
+                            model.Id(v => v.FieldID);
+                            model.Field(v => v.Values); // Specify the property which is the unique identifier of the model
+                            model.Field(v => v.Disable); // Make the ProductID property not editable
+                        })
+                        .Create(create => create.Action("MasterValue_Create", "MasterValue")) // Action method invoked when the user saves a new data item
+                        .Read(read => read.Action("MasterValue_Read", "MasterValue"))  // Action method invoked when the grid needs data
+                        .Update(update => update.Action("MasterValue_Update", "MasterValue"))  // Action method invoked when the user saves an updated data item
+                        .Destroy(destroy => destroy.Action("MasterValue_Destroy", "MasterValue")) // Action method invoked when the user removes a data item
+                        )
+                        .Pageable()
+                        )
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="~/lib/BPA/scripts/MasterValue-1.8.2.js"></script>
+
+    <script type="text/javascript">
+
+        function db(e) {
+            var grid = this;
+            $(".templateCell").each(function () {
+                eval($(this).children("script").last().html());
+                var tr = $(this).closest('tr');
+                var item = grid.dataItem(tr);
+                kendo.bind($(this), item);
+            });
+        }
+    </script>
+
+}
+
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]', "Alert", function (r) {
+                return true;
+            });
+        </script>
+    }
+}
+<script>
+    var ResourceMasterValueIndex = {
+        MasterValueExist: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.display_MasterValueExist)',
+        disp_SaveMasterValue: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.disp_SaveMasterValue)',
+        disp_UpdatedMasterValue: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_MasterValue.disp_UpdatedMasterValue)',
+        urlPath_MasterValueSearchView: ResourceLayout.partialURL + "MasterValueSearchView",
+        urlPath_LOBSearchView: ResourceLayout.partialURL + "LOBSearchView",
+        urlPath_InsertData: ResourceLayout.partialURL + "InsertData",
+        urlPath_Index: ResourceLayout.partialURL + "Index"
+
+    }
+</script>

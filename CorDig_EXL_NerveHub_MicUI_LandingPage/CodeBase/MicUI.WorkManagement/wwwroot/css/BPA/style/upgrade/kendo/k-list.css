@@ -1,0 +1,176 @@
+.formSelect {
+  display: block;
+  width: 100%;
+}
+.formSelect .k-state-disabled, .formSelect .k-multiselect-wrap, .formSelect .k-autocomplete, .formSelect .k-dropdown-wrap.k-state-default, .formSelect .k-numeric-wrap.k-state-default, .formSelect .k-picker-wrap.k-state-default {
+  background-image: none !important;
+  background-color: #fff !important;
+  border-radius: 2px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #d2d6de !important;
+  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+}
+.formSelect .k-dropdown-wrap .k-readonly, .formSelect .k-multiselect-wrap .k-readonly {
+  opacity: 1;
+}
+.formSelect .k-multiselect-wrap.k-state-default.k-state-focused, .formSelect .k-dropdown-wrap.k-state-default.k-state-focused {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.20);
+  border-bottom-color: #aaa;
+}
+.formSelect .k-multiselect-wrap .k-input, .formSelect .k-autocomplete .k-input, .formSelect .k-dropdown-wrap .k-input, .formSelect .k-multiselect-wrap .k-input, .formSelect .k-numeric-wrap .k-input, .formSelect .k-picker-wrap .k-input, .formSelect .k-selectbox .k-input, .formSelect .k-textbox > .k-input, .formSelect .k-textbox > input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: .75rem;
+  text-indent: 0;
+	font-size: 13px;
+}
+.formSelect .k-state-disabled > .k-clear-value .k-icon,
+.formSelect .k-multiselect-wrap > .k-clear-value .k-icon,
+.formSelect .k-state-disabled > .k-select .k-icon, .formSelect .k-state-default > .k-select .k-icon {
+  font: normal normal normal 14px/1 FontAwesome;
+}
+.formSelect .k-state-disabled > .k-clear-value .k-i-x:before,
+.formSelect .k-multiselect-wrap > .k-clear-value .k-i-x:before {
+  content: "\f12d";
+}
+.formSelect .k-state-disabled > .k-select .k-i-arrow-60-down:before, .formSelect .k-state-default > .k-select .k-i-arrow-60-down:before {
+  content: "\f107";
+}
+.formSelect .k-state-disabled > .k-select .k-i-arrow-60-right:before, .formSelect .k-state-default > .k-select .k-i-arrow-60-right:before {
+  content: "\f105";
+}
+.k-animation-container {
+  margin-top: 0 !important;
+}
+.k-list-container {
+  border: 0 !important;
+  box-shadow: 3px 5px 3px rgba(0, 0, 0, 0.12) !important;
+  background: #f4f6f9;
+  transition: all 300ms ease-in-out;
+  margin-left: 0 !important;
+}
+.k-list-container .k-state-selected {
+  border-color: rgba(0, 0, 0, 0.05);
+  color: #004286 !important;
+  background-color: #edf6ff !important;
+  font-weight: 500;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+.k-list-container .k-list-optionlabel {
+  padding: 5px 10px !important;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  color: #000;
+  font-weight: 400;
+}
+.k-list-container .k-list-optionlabel.k-state-hover {
+  color: #004286 !important;
+  background-color: #edf6ff !important;
+  font-weight: inherit;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.k-list-container .k-list-scroller .k-list .k-state-hover {
+  border-radius: 0;
+}
+.k-list-container .k-list-scroller .k-list .k-item {
+  padding: 5px 10px !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.k-list-container .k-list-scroller .k-list .k-item.k-state-focused {
+	box-shadow: none !important;
+}
+.k-list-container .k-list-scroller .k-list .k-item input {
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-top: -1px;
+}
+.k-list-container .k-list-scroller .k-list .k-item:last-child {
+  border-bottom: none;
+}
+.k-list-container .k-list-scroller .k-list .k-item.k-state-hover, .k-list-container .k-list-scroller .k-list .k-item.k-state-hover, .k-list-container .k-list-scroller .k-list .k-item.k-state-active {
+  color: #004286 !important;
+  background-color: #edf6ff !important;
+  font-weight: 400;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.k-multiselect-wrap li {
+  margin: 4px 0 0 4px;
+  padding: .1em 1.6em .1em .6em;
+}
+.k-multiselect-wrap li.k-button {
+  background-color: #e6f2ff !important;
+  border-color: #004286 !important;
+  color: #004286 !important;
+  font-size: 12px;
+}
+.k-multiselect-wrap li.k-button .k-icon{
+  color: #004286 !important;
+  font-size: 11px;
+}
+
+
+/**/
+
+.k-dropdown {
+  display: block;
+  width: 100%;
+}
+.k-dropdown .k-state-disabled,
+.k-dropdown .k-multiselect-wrap,
+.k-dropdown .k-autocomplete,
+.k-dropdown .k-dropdown-wrap.k-state-default,
+.k-dropdown .k-numeric-wrap.k-state-default,
+.k-dropdown .k-picker-wrap.k-state-default {
+  background-image: none !important;
+  background-color: #fff !important;
+  border-radius: 2px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #d2d6de !important;
+  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+}
+.k-dropdown .k-dropdown-wrap .k-readonly,
+.k-dropdown .k-multiselect-wrap .k-readonly {
+  opacity: 1;
+}
+.k-dropdown .k-multiselect-wrap.k-state-default.k-state-focused,
+.k-dropdown .k-dropdown-wrap.k-state-default.k-state-focused {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.20);
+  border-bottom-color: #aaa;
+}
+.k-dropdown .k-multiselect-wrap .k-input,
+.k-dropdown .k-autocomplete .k-input,
+.k-dropdown .k-dropdown-wrap .k-input,
+.k-dropdown .k-multiselect-wrap .k-input,
+.k-dropdown .k-numeric-wrap .k-input,
+.k-dropdown .k-picker-wrap .k-input,
+.k-dropdown .k-selectbox .k-input,
+.k-dropdown .k-textbox > .k-input,
+.k-dropdown .k-textbox > input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: .75rem;
+  text-indent: 0;
+	font-size: 13px;
+}
+.k-dropdown .k-state-disabled > .k-clear-value .k-icon,
+.k-dropdown .k-multiselect-wrap > .k-clear-value .k-icon,
+.k-dropdown .k-state-disabled > .k-select .k-icon,
+.k-dropdown .k-state-default > .k-select .k-icon {
+  font: normal normal normal 14px/1 FontAwesome;
+}
+.k-dropdown .k-state-disabled > .k-clear-value .k-i-x:before,
+.k-dropdown .k-multiselect-wrap > .k-clear-value .k-i-x:before {
+  content: "\f12d";
+}
+.k-dropdown .k-state-disabled > .k-select .k-i-arrow-60-down:before,
+.k-dropdown .k-state-default > .k-select .k-i-arrow-60-down:before {
+  content: "\f107";
+}
+.k-dropdown .k-state-disabled > .k-select .k-i-arrow-60-right:before,
+.k-dropdown .k-state-default > .k-select .k-i-arrow-60-right:before {
+  content: "\f105";
+}

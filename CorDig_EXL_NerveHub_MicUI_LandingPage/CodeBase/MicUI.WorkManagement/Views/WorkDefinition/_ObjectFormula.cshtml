@@ -1,0 +1,318 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+
+<style>
+    .sortable {
+        list-style-type: none;
+        padding: 6px 8px;
+        margin: 0;
+        color: #666;
+        font-size: 1em;
+        overflow: auto;
+    }
+</style>
+<script src="~/lib/bpa/scripts/workmanagement-1.8.2.js"></script>
+
+@using (Html.BeginForm("_ObjectFormula", "WorkDefinition", FormMethod.Post, new { @id = "formObjectFormula" }))
+{
+    @Html.AntiForgeryToken()
+    ;
+
+
+    @Html.HiddenFor(hidden => hidden.ObjFormulaID)
+    ; //Object ID
+    @Html.HiddenFor(hidden => hidden.EventName)
+    ; // EventName
+
+    <div>
+        <div class="px-4">
+            <div>
+                <div class="formTable">
+                    @(Html.Kendo().TabStrip()
+                            .Name("tabstrip")
+                            .Animation(animation =>
+                            animation.Open(effect =>
+                            effect.Fade(FadeDirection.In)))
+                            .Items(tabstrip =>
+                            {
+                                tabstrip.Add().Text(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayListOfFormulae)
+                            .Selected(true)
+                            .Content(@<text>
+                                @(Html.Kendo().Grid(Model.ListFormula)
+                                    .Name("searchGrid")
+                                    .Pageable()
+                                    .Columns(columns =>
+                                    {
+                                    columns.Bound(u => u.iCampaignId).Hidden(true);
+                                    columns.Bound(u => u.iObjectId).Hidden(true);
+                                    columns.Bound(u => u.ObjectEevent).Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayEvents);
+                                    columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Edit_Button).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("editObjectFormula2")).Title(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Edit_Button);
+                                    columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Delete_Button).HtmlAttributes(new { @class = "btn-outline-primary btn-sm btn" }).Click("deleteObjectFormula")).Title(@BPA.GlobalResources.UI.AppConfiguration.ResourceLOB.display_Delete_Button);
+
+                                }).Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                                    .Scrollable(sc => sc.Virtual(true).Height("250px"))
+                                    //.Filterable(ftb => ftb.Mode(GridFilterMode.Row))
+                                    .HtmlAttributes(new { style = "height:250px;width:100%" })
+                                    .DataSource(dataSource =>
+                                    dataSource.Ajax().PageSize(5)
+                                    .ServerOperation(true)
+                                    .Read(read => read.Action("Formula_Read", "WorkDefinition"))
+                                    )
+                                    )
+                                </text>);
+
+                                tabstrip.Add().Text(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_listofcontrol)
+                            .Content(@<text>
+                                <div id="unmappedtag_listview" class="sortable" style="height: 272px;overflow: auto;"></div>
+                            </text>);
+
+
+
+                            })
+                        )
+                </div>
+                <div class="pt-4 pb-4 text-end">
+                    @(Html.Kendo().Button().Icon("refresh")
+                        .Name("btnRef").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" })
+                        .Content("Refresh"))
+                    @(Html.Kendo().Button().Icon("plus")
+                        .Name("btnSubmitObjectFormula").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                        .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.required_btnSubmit))
+                    @(Html.Kendo().Button().Icon("trash")
+                        .Name("btnClearFormula").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                        .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ClearFormula))
+                    @(Html.Kendo().Button().Icon("undo")
+                        .Name("btnUndo").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" })
+                        .Content("Undo"))
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.LabelFor(a => a.Events, new { @class = "form-label label-reqiured" })
+                                @(Html.Kendo().DropDownListFor(a => a.Events)
+                                    .HtmlAttributes(new { @class = "formSelect" })
+                                    .DataTextField("Text").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("GetEventsList", "WorkDefinition");
+
+                                        }).Events(ev => ev.Error("DropDownError"))
+                                        .ServerFiltering(true);
+                                    }).Events(e =>
+                                    {
+                                        e.Select("onSelectEvents");
+                                    }).AutoBind(true))
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.LabelFor(a => a.lstObject, new { @class = "form-label" })
+                                <div class="row">
+                                    <div class="col-9">
+                                        @(Html.Kendo().DropDownListFor(c => c.lstObject).HtmlAttributes(new { @class = "formSelect" }).DataTextField("Text").DataValueField("Value").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataSource(source => source.Read(read => read.Action("GetTargetlstObject", "WorkDefinition")).Events(ev => ev.Error("DropDownError")).ServerFiltering(true)).Events(e => { e.Select("onSelectlstObject"); }))
+                                    </div>
+                                    <div class="col-3 pt-1">
+                                        @(Html.Kendo().Button().Name("btnAdd").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn w-100" }).Content(">>"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.LabelFor(a => a.Operator, new { @class = "form-label" })
+
+                                <div class="row">
+                                    <div class="col-9">
+                                        @(Html.Kendo().DropDownListFor(a => a.Operator).HtmlAttributes(new { @class = "formSelect" }).DataTextField("Text").DataValueField("Value").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataSource(source => source.Read(read => read.Action("GetOperatorList", "WorkDefinition")).Events(ev => ev.Error("DropDownError"))).Events(e => { e.Select("onSelectOperator"); }))
+
+                                    </div>
+                                    <div class="col-3 pt-1">
+                                        @(Html.Kendo().Button().Name("btnOperator").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn w-100" }).Content(">>"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.LabelFor(a => a.Constant, new { @class = "form-label" })
+                                <div class="row">
+                                    <div class="col-9">
+                                        @(Html.Kendo().DropDownListFor(c => c.Constant).DataTextField("Text").DataValueField("Value").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                            .DataSource(source => source.Read(read => read.Action("GetConstant", "WorkDefinition")).Events(ev => ev.Error("DropDownError")))
+                                            .Events(e =>
+                                            {
+                                                e.Select("onSelectConstants");
+                                            })
+                                            )
+                                    </div>
+
+                                    <div class="col-3 pt-1">
+                                        @(Html.Kendo().Button().Name("btnConstant").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn w-100" }).Content(">>"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.LabelFor(a => a.ddlproperty, new { @class = "allLabelFields form-label", id = "lblProperty" })
+
+                                <div class="row">
+                                    <div class="col-9">
+                                        @(Html.Kendo().TextBoxFor(x => x.txtproperty).HtmlAttributes(new { @class = "form-control" }))
+                                        @(Html.Kendo().DropDownList().DataTextField("Text").DataValueField("Value").Events(ev => { ev.Select("OnSelectProperty"); }).Name("ddlproperty").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select))
+                                    </div>
+
+                                    <div class="col-3 pt-1">
+                                        @(Html.Kendo().Button().Name("btnPropertyValue").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn w-100 k-primary" }).Content(">>"))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                @Html.TextAreaFor(x => x.remarks, new { @class = "form-control", @style = " height: 50px;" })
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mb-3 pt-3">
+                                <div class="custom-input">
+                                    @(Html.Kendo().CheckBoxFor(c => c.Disable).Checked(false).Label("Disable"))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 pt-5">
+                    <div class="mt-5 formTable border">
+                        @Html.TextAreaFor(x => x.Formula, new { @class = "form-control", @readonly = "readonly", @style = " height: 160px;" })
+                        @*<input type="text" id="Total" readonly="readonly" style="width:100%" />*@
+                    </div>
+                    <div class="mt-2  border">
+                        @(Html.Kendo().EditorFor(a => a.HiddenFormula).Tools(tools => tools.Clear()).HtmlAttributes(new { @style = " height: 120px;" }))
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <div id="unmappedtag_listview" style="max-height: 200px; overflow: auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@if (ViewData["Message"] != null)
+{
+
+    <script language="javascript">
+
+        jAlert(ViewData["Message"]);
+
+    </script>
+
+}
+<script>
+    //scriptBybabar//working fine on internet explorer
+    //$(function () {
+    //    $(document).on('paste', ':text', function (evt) {
+    //        evt.preventDefault();
+    //        evt = evt || window.event;
+    //        var charCode = evt.which || evt.keyCode || evt.charCode;
+    //        if (charCode === 1) {
+    //            var charStr = clipboardData.getData('Text')//String.fromCharCode(charCode);
+    //            clipboardData.clearData("Text");
+    //            var position = this.selectionEnd;
+    //            this.value = this.value.substring(0, position) + chacharStrrse + this.value.substring(position);
+    //            this.focus();
+    //            this.selectionEnd = position + 1;
+    //        }
+    //    });
+
+    //    $('#HiddenFormula').keydown(function (e) {
+    //        if (e.keyCode === 8) {
+    //            e.preventDefault();
+    //            var position = this.selectionEnd;
+    //            this.value = this.value.substring(0, this.selectionEnd).substring(0, this.value.substring(0, this.selectionEnd).length - 1) + this.value.substring(this.selectionEnd);
+    //            this.focus();
+    //            this.selectionEnd = position -1;
+    //        }
+    //    });
+    //    $('#HiddenFormula').keypress(function (e) {
+    //        if (e.keyCode == 13) {
+    //            e.preventDefault();
+    //            var position = this.selectionEnd;
+    //            this.value = this.value.substring(0, position) + '\n' + this.value.substring(position);
+    //            this.focus();
+    //            this.selectionEnd = position + 1;
+    //        }
+    //        else {
+    //            if (e.originalEvent.key == 'Spacebar') {
+    //                e.preventDefault();
+    //                var position = this.selectionEnd;
+    //                this.value = this.value.substring(0, position) + ' ' + this.value.substring(position);
+    //                this.focus();
+    //                this.selectionEnd = position + 1;
+    //            }
+    //            else {
+    //                e.preventDefault();
+    //                var position = this.selectionEnd;
+    //                this.value = this.value.substring(0, position) + e.originalEvent.key + this.value.substring(position);
+    //                this.focus();
+    //                this.selectionEnd = position + 1;
+    //            }
+    //        }
+    //    });
+    //});
+
+    var display_Delete_Confirmation = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Delete_Confirmation)';
+    var display_Delete = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_FormulaDeleted)';
+    var displayNoFormulaToClear = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayNoFormulaToClear)';
+    var displayPleaseSelectObject = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayPleaseSelectObject)';
+    var requiredOperator = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredOperator)';
+    var requiredConstant = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredConstant)';
+    var requiredEvents = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredEvents)';
+    var requiredFormula = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredFormula)';
+    var confirmFormulaReplacement = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.confirmFormulaReplacement)';
+    var displayFormulaSavedSuccessfully = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayFormulaSavedSuccessfully)';
+    var displayFormilaUpdatedSuccessfully = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.displayFormilaUpdatedSuccessfully)';
+    var display_Confirmation = '@(BPA.GlobalResources.UI.Resources_common.display_Confirmation)';
+    var requiredFixValue = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredFixValue)';
+    var requiredProoperty = '@(BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.requiredProoperty)';
+    var display_Alert = '@(BPA.GlobalResources.UI.Resources_common.display_Alert)';
+    var urlPathGetFilterList = '@Url.Action("GetFilterList", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPatheditWorkDefination = '@Url.Action("editWorkDefination", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSaveWorkData = '@Url.Action("SaveWorkData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathIndex = '@Url.Action("Index", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathObjectFormula = '@Url.Action("ObjectFormula", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathCreateRESTControls = '@Url.Action("CreateRESTControls", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathUpdatePreViewData = '@Url.Action("UpdatePreViewData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPath_WorkPreview = '@Url.Action("_WorkPreview", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSearchView = '@Url.Action("SearchView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathApprovalView = '@Url.Action("ApprovalView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathGetProcessID = '@Url.Action("GetProcessID", "WorkDefinition", new { area = "WorkManagement" })';
+    if (bClientLanguage == "True") {
+        var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+    }
+    var bClientLanguage = '@Model.oTenant.ClientMultiLanguage';
+
+            // Method to edit formula
+
+
+</script>
+<style>
+    .tagcontainer {
+        float: left;
+        margin-left: 10px;
+        min-width: 400px;
+        min-height: 510px;
+        width: 400px;
+    }
+</style>

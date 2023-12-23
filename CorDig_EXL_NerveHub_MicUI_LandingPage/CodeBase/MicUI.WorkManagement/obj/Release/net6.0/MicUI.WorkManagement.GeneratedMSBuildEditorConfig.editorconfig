@@ -1,0 +1,203 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MicUI.WorkManagement
+build_property.RootNamespace = MicUI.WorkManagement
+build_property.ProjectDir = D:\Exl-NerveHub\CorDig_EXL_NerveHub_MicUI_LandingPage\CodeBase\MicUI.WorkManagement\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Exl-NerveHub\CorDig_EXL_NerveHub_MicUI_LandingPage\CodeBase\MicUI.WorkManagement
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/BreakMaster/BreakMasterSearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJlYWtNYXN0ZXJcQnJlYWtNYXN0ZXJTZWFyY2hWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/BreakMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJlYWtNYXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/CalendarData/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJEYXRhXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/CalendarData/ViewCalendarData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJEYXRhXFZpZXdDYWxlbmRhckRhdGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/CalendarMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJNYXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/CalendarMaster/ShowCalendarMaster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FsZW5kYXJNYXN0ZXJcU2hvd0NhbGVuZGFyTWFzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/CampTermMapping/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FtcFRlcm1NYXBwaW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Error/InternalServerError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcSW50ZXJuYWxTZXJ2ZXJFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Error/PageNotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcUGFnZU5vdEZvdW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/GridConfiguration/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JpZENvbmZpZ3VyYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/GridConfiguration/_ChoicePopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JpZENvbmZpZ3VyYXRpb25cX0Nob2ljZVBvcHVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Home/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/ProcessOffs/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvY2Vzc09mZnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/ProcessOffs/ShowProcessOffs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvY2Vzc09mZnNcU2hvd1Byb2Nlc3NPZmZzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/EditorTemplates/_GridDropDown.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRvclRlbXBsYXRlc1xfR3JpZERyb3BEb3duLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_HeaderLogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXJMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_LayoutLogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_NavMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9OYXZNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/ShiftMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hpZnRNYXN0ZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/ShiftMaster/ShiftSearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hpZnRNYXN0ZXJcU2hpZnRTZWFyY2hWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/TerminationCode/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluYXRpb25Db2RlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/TerminationCode/ShowTerminationCode.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVybWluYXRpb25Db2RlXFNob3dUZXJtaW5hdGlvbkNvZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/ApprovalView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cQXBwcm92YWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/SearchView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cU2VhcmNoVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_Add_Modify_TAB.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX0FkZF9Nb2RpZnlfVEFCLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_ChoicePopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX0Nob2ljZVBvcHVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_CreateRESTControls.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX0NyZWF0ZVJFU1RDb250cm9scy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_GridConfigurations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX0dyaWRDb25maWd1cmF0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_LetterLibraryConfiguration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX0xldHRlckxpYnJhcnlDb25maWd1cmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_ObjectFormula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX09iamVjdEZvcm11bGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_TranslateChoicePopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX1RyYW5zbGF0ZUNob2ljZVBvcHVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_TranslatePopup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX1RyYW5zbGF0ZVBvcHVwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_WorkDefinationKeyBenefits.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX1dvcmtEZWZpbmF0aW9uS2V5QmVuZWZpdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_WorkPreview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX1dvcmtQcmV2aWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkDefinition/_WorkRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya0RlZmluaXRpb25cX1dvcmtSZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/WorkManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya01hbmFnZW1lbnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Exl-NerveHub/CorDig_EXL_NerveHub_MicUI_LandingPage/CodeBase/MicUI.WorkManagement/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-m2x3l9q3k5

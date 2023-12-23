@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding;
+@model ModelStateDictionary
+
+<script src="~/lib/bpa/scripts/validator.js"></script>
+<div class="@(Html.ViewData.ModelState.IsValid ? "validation-summary-valid" : "validation-summary-errors") panel panel-danger"
+     data-valmsg-summary="true">
+    <div class="panel-heading">
+        * Please fill mandatory fields.
+    </div>
+    <div class="panel-body">
+        <ul>
+            @foreach (var modelError in Model.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <li>@modelError.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+</div>

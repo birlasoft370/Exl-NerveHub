@@ -1,0 +1,224 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model PowerUserViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}@{
+    List<SelectListItem> Role = new List<SelectListItem>();
+
+    //Role.Add(new SelectListItem { Text = "" + @BPA.GlobalResources.UI.Resources_common.display_Select + "", Value = "" });
+    Role.Add(new SelectListItem { Text = "Functional Admin", Value = "276" });
+    Role.Add(new SelectListItem { Text = "FM Agent", Value = "262" });
+    Role.Add(new SelectListItem { Text = "Super Admin", Value = "1" });
+    Role.Add(new SelectListItem { Text = "Internal Audit", Value = "274" });
+    Role.Add(new SelectListItem { Text = "SWM Admin", Value = "287" });
+
+}
+
+@using (Html.AjaxBeginForm("SaveUpdatePowerUser", "PowerUser", new AjaxOptions { OnSuccess = "OnSuccessSavePowerUser", HttpMethod = "Post" }, new { @id = "frmPowerUser" }))
+{
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.UserId == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_CreateNewPowerUser : @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_ModifyExistingPowerUser;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickNewPowerUser")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("btnSavePowerUser").Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Events(ev => ev.Click("OnClickViewPowerUser")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn " }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div id="divAccountInformation">
+                <div class="innerWrap-head">
+                    <div class="row">
+                        <div class="col-6"><h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Account_Information</h3></div>
+                        <div class="col-6 text-end">
+                            @(Html.Kendo().Button().Name("btnSearchLan").Icon("search").Events(ev => ev.Click("OnClickSearchLan")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_SearchLANId))
+                        </div>
+                    </div>
+
+                </div>
+                <div class="innerWrap-body">
+                    <div class="row">
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_LoginName,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_LoginName, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.LoginName).HtmlAttributes(new { required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.required_LoginName }).HtmlAttributes(new { @class = "form-control" }))
+                                @Html.HiddenFor(a => a.UserId)
+                                @Html.HiddenFor(a => a.LanId)
+                                @Html.HiddenFor(a => a.PendingApproval)
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_EmpId,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_EmpId, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.EmployeeId).HtmlAttributes(new { @class = "form-control" }))
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_FirstName,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_FirstName, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.FirstName).HtmlAttributes(new { required = "required", @class = "form-control", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.required_FirstName }))
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_MiddleName,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_MiddleName, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.MiddleName).HtmlAttributes(new { @class = "form-control" }))
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_LastName, @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_LastName, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.LastName).HtmlAttributes(new { @class = "form-control" }))
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Email,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Email, new { @class = "form-label label-required" })
+                                @(Html.Kendo().TextBoxFor(m => m.Email).HtmlAttributes(new { @class = "form-control" }))
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3 pt-3">
+                                <div class="p-4">
+                                    <div class="custom-input">
+                                        @(Html.Kendo().CheckBoxFor(m => m.Disabled).Label(string.Empty))
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-1" id="divAccountInformation">
+                <div class="innerWrap-head">
+                    <div class="row">
+                        <div class="col-6"><h3>@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_User_Permission</h3></div>
+                    </div>
+                </div>
+                <div class="innerWrap-body">
+                    <div class="row">
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role, new { @class = "form-label label-required" })
+                                @(Html.Kendo().DropDownListFor(m => m.Role).BindTo(Role).Events(e => e.Select("OnSelectRolePowerUser")).HtmlAttributes(new { required = "required", @class = "formSelect", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.required_Role }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select))
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-xl-3">
+                            <div class="mb-3">
+                                @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Approver,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Approver,  new { @class = "form-label label-required" })
+                                @(Html.Kendo().DropDownListFor(m => m.Approver).DataTextField("ApproverName").OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                                    .DataValueField("UserId").BindTo(Model.ApproverList).HtmlAttributes(new { required = "required", @class = "formSelect", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.required_Approver }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div id="frmLanUserPowerUser">
+    @(Html.Kendo().Window().Name("KendoWindowSearchLAN").Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Search_Lan).Content(@<text>
+        <div class="px-3 py-2">
+            <div class="row align-items-end">
+                <div class="col-sm-7 col-xl-8">
+                    <div class="mb-3">
+                        @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Lan_Id,@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Lan_Id, new { @class = "form-label" })
+                        @(Html.Kendo().TextBox().Name("txtLanId").HtmlAttributes(new { @class = "form-control", required = "required", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.required_UserName }))
+                        </div>
+                    </div>
+
+                    <div class="col-sm-auto col-xl-auto">
+                        <div class="mb-3 pb-1">
+                            @(Html.Kendo().Button().Name("btnSearchLanId").Icon("plus").Events(ev => ev.Click("OnClickbtnSearchLanId")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Search_LanId_Button))
+                        </div>
+                    </div>
+                </div> <div class="formTable mt-3" id="divLanGrid" style="display: none;">
+                    @(Html.Kendo().Grid(Model.ApproverList)
+                        .Name("UserNameGridByLan")
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(3)
+                        ).Columns(columns =>
+                        {
+                            columns.Bound(u => u.UserName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_UserName).Width(700);
+                            columns.Bound(u => u.Email).Hidden(true);
+                            columns.Bound(u => u.FirstName).Hidden(true);
+                            columns.Bound(u => u.LastName).Hidden(true);
+                            columns.Bound(u => u.MiddleName).Hidden(true);
+                            columns.Bound(u => u.Email).Hidden(true);
+                            columns.Bound(u => u.LanId).Hidden(true);
+                            columns.Bound(u => u.IsDisabled).Hidden(true);
+                        })
+                        .DataSource(dataSource => dataSource.Ajax().ServerOperation(false)
+                        .Model(model =>
+                        {
+                            model.Id(u => u.UserName);
+                        }).Read(read => read.Action("GetLdapUsers", "PowerUser").Data("GetParamLANID"))
+
+                        .PageSize(10))
+                        )
+                </div>
+            </div>
+        </text>).Draggable().Resizable().Width(600).Modal(true).Height(300).Visible(false).Actions(actions => actions.Pin().Minimize().Maximize().Close())
+        )
+</div>
+
+<script src="~/lib/bpa/scripts/poweruser-1.8.2.js"></script>
+<script>
+    var ResourcePowerUser = {
+        display_Role_Request_Made: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role_Request_Made",
+        display_Role_Not_Allowed: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role_Not_Allowed",
+        display_Role_Change_Request: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role_Change_Request",
+        display_Role_Request_Pending: "@BPA.GlobalResources.UI.AppConfiguration.Resources_PowerUser.display_Role_Request_Pending",
+        url_GetApprover: ResourceLayout.partialURL + 'GetApprover',
+        urlPath_SearchView: ResourceLayout.partialURL + "SearchView",
+        urlPath_Index: ResourceLayout.partialURL + "Index"
+    }
+
+    $(document).on("click", "#UserNameGridByLan tbody tr", function (e) {
+        var $tds = $(this).find('td');
+        debugger;
+        $("#LoginName").val($tds[6].innerText);
+        $("#Email").val($tds[1].innerText);
+        $("#FirstName").val($tds[2].innerText);
+        $("#LastName").val($tds[4].innerText);
+        $("#MiddleName").val($tds[3].innerText);
+        $("#Email").val($tds[5].innerText);
+        $("#LanId").val($tds[6].innerText);
+        if ($tds[7].innerText == "true") {
+            $("#IsDisabled").prop("checked", "checked");
+        }
+        $("#Role").data("kendoDropDownList").select(0);
+        var dropdownlist = $("#Role").data("kendoDropDownList");
+        dropdownlist.trigger("select");
+        $("#KendoWindowSearchLAN").data("kendoWindow").close();
+    });
+
+</script>
+
+

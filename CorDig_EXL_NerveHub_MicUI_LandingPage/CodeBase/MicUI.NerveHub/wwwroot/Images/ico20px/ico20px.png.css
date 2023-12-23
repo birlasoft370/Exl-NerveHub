@@ -1,0 +1,87 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-ico20px-agentdash20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -1px;
+}
+.Images-ico20px-assess20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -22px;
+}
+.Images-ico20px-assist20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -43px;
+}
+.Images-ico20px-config20(1) {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -64px;
+}
+.Images-ico20px-config20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -85px;
+}
+.Images-ico20px-ctimezone20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -106px;
+}
+.Images-ico20px-emailconfig20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -127px;
+}
+.Images-ico20px-letterlib20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -148px;
+}
+.Images-ico20px-processrepo20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -169px;
+}
+.Images-ico20px-qms20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -190px;
+}
+.Images-ico20px-querytracker20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -211px;
+}
+.Images-ico20px-signout20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -232px;
+}
+.Images-ico20px-swm20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -253px;
+}
+.Images-ico20px-timezone20 {
+/* You may have to set 'display: block' */
+	width: 20px;
+	height: 20px;
+	background: url('/Images/ico20px/ico20px.png') -1px -274px;
+}

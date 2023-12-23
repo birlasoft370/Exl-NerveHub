@@ -1,0 +1,15 @@
+
+footer {
+    clear: both;
+    background:none;
+    color: rgba(0,0,0,0.5);
+    font-size: 12px;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-weight: 300;
+    letter-spacing: .5px;
+}

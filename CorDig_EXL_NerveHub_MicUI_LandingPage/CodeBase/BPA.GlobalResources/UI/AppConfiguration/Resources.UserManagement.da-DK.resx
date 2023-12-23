@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Approver" xml:space="preserve">
+    <value>godkender</value>
+  </data>
+  <data name="display_Client" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="display_ClientUser" xml:space="preserve">
+    <value>Er Client Bruger</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Deaktiver</value>
+  </data>
+  <data name="display_DOJ" xml:space="preserve">
+    <value>Dato for at deltage</value>
+  </data>
+  <data name="display_DOL" xml:space="preserve">
+    <value>Dato Of Leaving</value>
+  </data>
+  <data name="display_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="display_EmployeeID" xml:space="preserve">
+    <value>Medarbejder-id</value>
+  </data>
+  <data name="display_ERP" xml:space="preserve">
+    <value>ERP Job</value>
+  </data>
+  <data name="display_Facility" xml:space="preserve">
+    <value>Facility</value>
+  </data>
+  <data name="display_FirstName" xml:space="preserve">
+    <value>Fornavn</value>
+  </data>
+  <data name="display_LastName" xml:space="preserve">
+    <value>Efternavn</value>
+  </data>
+  <data name="display_LOB" xml:space="preserve">
+    <value>LOB</value>
+  </data>
+  <data name="display_LocationName" xml:space="preserve">
+    <value>Placering Navn</value>
+  </data>
+  <data name="display_LoginName" xml:space="preserve">
+    <value>Login-navn</value>
+  </data>
+  <data name="display_MiddleName" xml:space="preserve">
+    <value>Mellemnavn</value>
+  </data>
+  <data name="display_Password" xml:space="preserve">
+    <value>Adgangskode</value>
+  </data>
+  <data name="display_RetriveSuperwiserError" xml:space="preserve">
+    <value>Falid at retrive Superwisers</value>
+  </data>
+  <data name="display_RetriveUserError" xml:space="preserve">
+    <value>Falid at retrive Brugere</value>
+  </data>
+  <data name="display_Role" xml:space="preserve">
+    <value>rolle</value>
+  </data>
+  <data name="display_SBU" xml:space="preserve">
+    <value>SBU</value>
+  </data>
+  <data name="display_SearchPopName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
+  <data name="display_SearchUserTypeLink" xml:space="preserve">
+    <value>Søg Bruger af Lan ID</value>
+  </data>
+  <data name="display_SelectApprover" xml:space="preserve">
+    <value>Vælg Godkender ----</value>
+  </data>
+  <data name="display_SelectClient" xml:space="preserve">
+    <value>Vælg Client ----</value>
+  </data>
+  <data name="display_SelectFacility" xml:space="preserve">
+    <value>Vælg Facility ----</value>
+  </data>
+  <data name="display_SelectLOB" xml:space="preserve">
+    <value>Vælg LOB ----</value>
+  </data>
+  <data name="display_SelectRole" xml:space="preserve">
+    <value>Vælg Rolle ----</value>
+  </data>
+  <data name="display_SelectSBU" xml:space="preserve">
+    <value>Vælg SBU ----</value>
+  </data>
+  <data name="display_Supervisor" xml:space="preserve">
+    <value>Tilsynsførende</value>
+  </data>
+  <data name="display_Team" xml:space="preserve">
+    <value>Hold</value>
+  </data>
+  <data name="display_UserDetailLink" xml:space="preserve">
+    <value>Hent User Detail</value>
+  </data>
+  <data name="display_UserLevel" xml:space="preserve">
+    <value>brugerniveau</value>
+  </data>
+  <data name="required_Client" xml:space="preserve">
+    <value>Vælg venligst Client.</value>
+  </data>
+  <data name="required_EmployeeID" xml:space="preserve">
+    <value>Venligst Indtast MedarbejderId.</value>
+  </data>
+  <data name="required_Facility" xml:space="preserve">
+    <value>Vælg venligst Facility.</value>
+  </data>
+  <data name="required_FirstName" xml:space="preserve">
+    <value>Venligst Indtast Fist navn.</value>
+  </data>
+  <data name="required_LanID" xml:space="preserve">
+    <value>Venligst Indtast Login Name.</value>
+  </data>
+  <data name="required_LOB" xml:space="preserve">
+    <value>Vælg venligst LOB.</value>
+  </data>
+  <data name="required_Role" xml:space="preserve">
+    <value>Vælg venligst Rolle.</value>
+  </data>
+  <data name="required_RoleApprover" xml:space="preserve">
+    <value>Vælg Rolle Godkender.</value>
+  </data>
+  <data name="required_SBU" xml:space="preserve">
+    <value>Vælg venligst SBU.</value>
+  </data>
+  <data name="required_Search" xml:space="preserve">
+    <value>Indtast Search Text.</value>
+  </data>
+  <data name="display_EffectiveDate" xml:space="preserve">
+    <value>Ikrafttrædelsesdatoen</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>Fra dato</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>Til dato</value>
+  </data>
+  <data name="required_FromDate" xml:space="preserve">
+    <value>Vælg venligst Fra dato.</value>
+  </data>
+  <data name="required_ToDate" xml:space="preserve">
+    <value>Vælg venligst til dato.</value>
+  </data>
+  <data name="confirm_DeleteUser" xml:space="preserve">
+    <value>Har du ønsker at slette brugeren?</value>
+  </data>
+  <data name="display_AccessAndApproval" xml:space="preserve">
+    <value>Bruger Kortlægning &amp; Godkendelsesstatus</value>
+  </data>
+  <data name="display_AccountInformationLbl" xml:space="preserve">
+    <value>Kontooplysninger</value>
+  </data>
+  <data name="display_btnApproveText" xml:space="preserve">
+    <value>Godkende</value>
+  </data>
+  <data name="display_btnCancelReqText" xml:space="preserve">
+    <value>Annuller Request</value>
+  </data>
+  <data name="display_btnGetStatusText" xml:space="preserve">
+    <value>Få status List</value>
+  </data>
+  <data name="display_btnRaiseReqText" xml:space="preserve">
+    <value>Hæv Request</value>
+  </data>
+  <data name="display_btnRejectText" xml:space="preserve">
+    <value>Afvise</value>
+  </data>
+  <data name="display_btnSaveText" xml:space="preserve">
+    <value>Spare</value>
+  </data>
+  <data name="display_ClientProcAccesslLbl" xml:space="preserve">
+    <value>Klient / Process Access Detaljer</value>
+  </data>
+  <data name="display_PageHeader" xml:space="preserve">
+    <value>Bruger Management</value>
+  </data>
+  <data name="display_PopUpBTNSearch" xml:space="preserve">
+    <value>Søge</value>
+  </data>
+  <data name="display_QuotaLbl" xml:space="preserve">
+    <value>kvote Detaljer</value>
+  </data>
+  <data name="display_ReqApprovalHeader" xml:space="preserve">
+    <value>Anmodning Godkendelse List</value>
+  </data>
+  <data name="display_RequestApprovalTabLbl" xml:space="preserve">
+    <value>Anmodning Godkendelse List</value>
+  </data>
+  <data name="display_RequestStatusLbl" xml:space="preserve">
+    <value>Anmodning status List</value>
+  </data>
+  <data name="display_RequestStatusTabLbl" xml:space="preserve">
+    <value>Anmodning status List</value>
+  </data>
+  <data name="display_ResentErpChangeLbl" xml:space="preserve">
+    <value>Nylige ERP Ændringer</value>
+  </data>
+  <data name="display_SearchPageHeader" xml:space="preserve">
+    <value>Bruger Management Søg</value>
+  </data>
+  <data name="display_ShiftDetailLbl" xml:space="preserve">
+    <value>Shift Detail</value>
+  </data>
+  <data name="display_UserDetailPageHeader" xml:space="preserve">
+    <value>Bruger Detaljer</value>
+  </data>
+  <data name="display_UserMapDetailTabLbl" xml:space="preserve">
+    <value>Bruger Kortlægning Detaljer</value>
+  </data>
+  <data name="display_UserPermissionLbl" xml:space="preserve">
+    <value>Bruger Tilladelse</value>
+  </data>
+  <data name="display_UserName" xml:space="preserve">
+    <value>Brugernavn:</value>
+  </data>
+  <data name="required_ThreeCharsForSearch" xml:space="preserve">
+    <value>Indtast venligst mindst 3 tegn til bedre søgning.</value>
+  </data>
+  <data name="display_ApproverAllSelectedProcess" xml:space="preserve">
+    <value>Vælg Godkender for alle de udvalgte processer.</value>
+  </data>
+  <data name="display_ChangesDoneSuccessfully" xml:space="preserve">
+    <value>Ændringer gjort med succes.</value>
+  </data>
+  <data name="display_ItemShouldUnique" xml:space="preserve">
+    <value>Item skal være unikt.</value>
+  </data>
+  <data name="display_NoProcessAssignedProcess" xml:space="preserve">
+    <value>Ingen Proces er tildelt til brugeren!</value>
+  </data>
+  <data name="display_RequestApprovedSuccessfully" xml:space="preserve">
+    <value>Anmodning Godkendt Succesfuld.</value>
+  </data>
+  <data name="display_RequestCanceledSuccessfully" xml:space="preserve">
+    <value>Anmodning annulleret med succes.</value>
+  </data>
+  <data name="display_RequestRaisedSuccessfully" xml:space="preserve">
+    <value>Anmodning rejst med succes</value>
+  </data>
+  <data name="display_RequestRejectedSuccessfully" xml:space="preserve">
+    <value>Anmodning Afvist Succesfuld.</value>
+  </data>
+  <data name="display_UserAlreadyExist" xml:space="preserve">
+    <value>Bruger-id findes allerede! &amp;lt;/ Br&amp;gt; Hvis du ønsker at ændre det skal du klikke på knappen Søg i bunden.</value>
+  </data>
+  <data name="display_UserDeletedSucessfully" xml:space="preserve">
+    <value>Bruger slettet med succes.</value>
+  </data>
+  <data name="display_UserDetailsModifiedSuccessfully" xml:space="preserve">
+    <value>Bruger detaljer ændret med succes.</value>
+  </data>
+  <data name="display_UserSavedSucessFully" xml:space="preserve">
+    <value>Brugeroplysninger gemt med succes.</value>
+  </data>
+  <data name="display_UserUpdatedSucessFully" xml:space="preserve">
+    <value>Brugeroplysninger Opdateret held.</value>
+  </data>
+  <data name="required_sSearchText" xml:space="preserve">
+    <value>Indtast søgetekst.</value>
+  </data>
+  <data name="display_CanNotAssignYouSelf" xml:space="preserve">
+    <value>Undskyld! Du kan ikke tildele dig selv for denne operation.</value>
+  </data>
+  <data name="required_Supervisor" xml:space="preserve">
+    <value>Vælg Supervisor</value>
+  </data>
+</root>

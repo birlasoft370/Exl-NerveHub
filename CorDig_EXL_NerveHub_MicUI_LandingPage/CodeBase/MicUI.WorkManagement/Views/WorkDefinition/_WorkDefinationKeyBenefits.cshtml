@@ -1,0 +1,208 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = "_WorkDefinationKeyBenefits";
+}
+@{
+    bool enable1 = true;
+    if (!String.IsNullOrEmpty(Model.Location))
+    {
+        enable1 = false;
+    }
+}
+<link href="~/css/bpa/content/themes/jquery.ui.button.css" rel="stylesheet" />
+<form id="form2">
+    <div class="px-4">
+        <div class="row">
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @Html.LabelFor(l => l.Location, new { @class = "form-label label-required" })
+                    @Html.TextAreaFor(x => x.Location, new { @required = "required", @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @Html.LabelFor(l => l.ShiftWindow, new { @class = "form-label label-required" })
+                    @(Html.Kendo().TextBoxFor(d => d.ShiftWindow).HtmlAttributes(new { @required = "required", @class = "form-control" }))
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @Html.LabelFor(l => l.PurposeofcreationofWork, new { @class = "form-label label-required" })
+                    @(Html.Kendo().MultiSelect().Name("Purposeofcreationofwork").AutoClose(false)
+                        .Placeholder(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Select_PurposeofWork)
+                        .BindTo(new List<string>() {@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_WorkManagement  ,
+                    @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_TimeTracking ,
+                    @BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_TransactionsMonitoring})
+                        .Value(Model.PurposeofcreationofWork)
+                    .HtmlAttributes(new { @required = "required", @validationmessage = "Please choose at least one purpuse of work creation", @class = "formSelect" }))
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-xl-12">
+                <div class="mb-4">
+                    @Html.LabelFor(d => d.TargetUsers, new { @class = "form-label mb-2" })
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Q1, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Q1, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Q2, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Q2, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Q3, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Q3, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Y1, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Y1, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Y2, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Y2, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.Y3, new { @class = "allLabelFields form-label mb-0 label-required" })
+                                @Html.TextBoxFor(x => x.Y3, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-4 col-xl-4">
+                <div class="mb-3">
+                    @Html.LabelFor(d => d.KeyBenefits, new { @class = "form-label label-required" })
+                    @Html.TextAreaFor(x => x.KeyBenefits, new { @required = "required", @class = "form-control" })
+                </div>
+            </div>
+
+            @if (enable1)
+            {
+                <div class="col-sm-4 col-xl-4">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.BusinessApprover, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(x => x.BusinessApprover).HtmlAttributes(new { @required = "required", @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).AutoBind(true).Enable(enable1)
+                            .DataTextField("sBusinessUserName").DataValueField("iBusinessUserID").DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetBusinessApprover", "WorkDefinition").Data("filterBusinessApprover");
+                                }).ServerFiltering(true);
+                            }))
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="k-window-footer text-end">
+        @(Html.Kendo().Button().Name("btnClose").Icon("close").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content("Close").Events(ev => ev.Click("CloseClick")))
+        @(Html.Kendo().Button().Name("btnRefresh").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content("Refresh").Events(ev => ev.Click("RefreshClick")))
+        @(Html.Kendo().Button().Name("btnAddBussinessJustification").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content("Add"))
+
+    </div>
+</form>
+<script>
+    var urlPathGetFilterList = ResourceLayout.partialURL + "GetFilterList";
+    var urlPatheditWorkDefination = ResourceLayout.partialURL + "editWorkDefination";
+    var urlPathSaveWorkData = ResourceLayout.partialURL + "SaveWorkData";
+    var urlPathIndex = ResourceLayout.partialURL + "Index";
+    var urlPathObjectFormula = ResourceLayout.partialURL + "ObjectFormula";
+    var urlPathCreateRESTControls = ResourceLayout.partialURL + "CreateRESTControls";
+    var urlPathUpdatePreViewData = ResourceLayout.partialURL + "UpdatePreViewData";
+    var urlPath_WorkPreview = ResourceLayout.partialURL + "_WorkPreview";
+    var urlPathSearchView = ResourceLayout.partialURL + "SearchView";
+    var urlPathApprovalView = ResourceLayout.partialURL + "ApprovalView";
+    var urlPathGetProcessID = ResourceLayout.partialURL + "GetProcessID";
+    var urlPathSaveBusJustData = ResourceLayout.partialURL + "SaveBusJustData";
+
+    if (bClientLanguage == "True") {
+        var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+        var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+    }
+    debugger;
+    var bClientLanguage = '@bool.Parse(Model.oTenant.ClientMultiLanguage)';
+
+    /*Check Validation in Bussness Page*/
+    $(function () {
+        $.validator.setDefaults({ ignore: "" });
+        var validator1 = $("#form2").kendoValidator().data("kendoValidator");
+
+        $("#btnAddBussinessJustification").on("click", function (event) {
+
+            event.preventDefault();
+            if (validator1.validate()) {
+                SaveBussnessData();
+            } else {
+                return false;
+            }
+        });
+    });
+
+    /*Save Bussness Benefit data*/
+    function SaveBussnessData() {
+
+        var BEWorkObjectApprover = {};
+        var postUrl;
+        BEWorkObjectApprover.sLocations = $("#Location").val();
+        BEWorkObjectApprover.sShiftwindows = $("#ShiftWindow").val();
+        BEWorkObjectApprover.PurposeofcreationofWork = $("#Purposeofcreationofwork").val();
+        BEWorkObjectApprover.sBusinessJustifications = $("#BusinessJustifications").val();
+        BEWorkObjectApprover.sTargetq1 = $("#Q1").val();
+        BEWorkObjectApprover.sTargetq2 = $("#Q2").val();
+        BEWorkObjectApprover.sTargetq3 = $("#Q3").val();
+        BEWorkObjectApprover.sTargety1 = $("#Y1").val();
+        BEWorkObjectApprover.sTargety2 = $("#Y2").val();
+        BEWorkObjectApprover.sTargety3 = $("#Y3").val();
+        BEWorkObjectApprover.skeybenifits = $("#KeyBenefits").val();
+        BEWorkObjectApprover.iBuisnessID = $("#BusinessApprover").val();
+        BEWorkObjectApprover.iTechID = $("#TechnologyApprover").val();
+
+        postUrl = urlPathSaveBusJustData;
+        // BEWorkObjectApprover = JSON.stringify({ 'objBEWorkObjectApprover': BEWorkObjectApprover });
+
+        var token = $("#formWorkMaster input[name=__RequestVerificationToken]").val();
+
+        BEWorkObjectApprover = { __RequestVerificationToken: token, 'objBEWorkObjectApprover': BEWorkObjectApprover };
+
+
+        $.ajax({
+            url: postUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: BEWorkObjectApprover,
+            //  contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                SaveFlag = true;
+                SaveConfirmationFlag = true;
+                ClosePopup();
+            },
+            error: function (err) {
+
+            }
+        });
+    };
+</script>

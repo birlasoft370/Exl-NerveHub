@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="display_Assessmentfinish" xml:space="preserve">
+    <value>Your assessment time has been finished !</value>
+  </data>
+  <data name="display_AssessmentName" xml:space="preserve">
+    <value>Assessment Name</value>
+  </data>
+  <data name="display_AssessmentQuestion" xml:space="preserve">
+    <value>Assessment Question</value>
+  </data>
+  <data name="display_AttemptCount" xml:space="preserve">
+    <value>Attempt Count</value>
+  </data>
+  <data name="display_BACK" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="display_BatchName" xml:space="preserve">
+    <value>Batch Name</value>
+  </data>
+  <data name="display_CLOSEASSESSMENT" xml:space="preserve">
+    <value>CLOSE ASSESSMENT </value>
+  </data>
+  <data name="display_Completed" xml:space="preserve">
+    <value>COMPLETED</value>
+  </data>
+  <data name="display_ContAssessment" xml:space="preserve">
+    <value>CONTINUE ASSESSMENT</value>
+  </data>
+  <data name="display_CurrentQueueStatus" xml:space="preserve">
+    <value>Current Queue Status</value>
+  </data>
+  <data name="display_Descriptive" xml:space="preserve">
+    <value>Descriptive</value>
+  </data>
+  <data name="display_FINISHASSESSMENT" xml:space="preserve">
+    <value>FINISH ASSESSMENT</value>
+  </data>
+  <data name="display_GreenAnsweredQuestion" xml:space="preserve">
+    <value>Green-Answered Question</value>
+  </data>
+  <data name="display_InProgress" xml:space="preserve">
+    <value>INPROGRESS</value>
+  </data>
+  <data name="display_Instruction1" xml:space="preserve">
+    <value>Participants found breaching the examination code of conduct will not be allowed to continue with the assessment and would also not be permitted to take any future assessments.</value>
+  </data>
+  <data name="display_Instruction10" xml:space="preserve">
+    <value>Click on the &lt;b&gt; "START ASSESSMENT"&lt;/b&gt; button to begin the assessment.</value>
+  </data>
+  <data name="display_Instruction2" xml:space="preserve">
+    <value>The assessment can be attempted only once.</value>
+  </data>
+  <data name="display_Instruction3" xml:space="preserve">
+    <value>All question have a Single Choice i.e. there is only one right answer to a question</value>
+  </data>
+  <data name="display_Instruction4" xml:space="preserve">
+    <value>Use the &lt;b&gt;"PREV" &lt;/b&gt; button to go back to the previous question and the &lt;b&gt; "NEXT" &lt;/b&gt; button to move to the next question.</value>
+  </data>
+  <data name="display_Instruction5" xml:space="preserve">
+    <value>Use the &lt;b&gt; "SUMMARY" &lt;/b&gt; button to review your assessment. On the summary screen, the question numbers will be getting displayed. The &lt;b&gt;"attempted question" &lt;/b&gt; number will get displayed in "Green" while the &lt;b&gt;"un-attempted" &lt;/b&gt; question number in &lt;b&gt;"Red" &lt;/b&gt;. Please not that a question displayed in Green does not mean that it has been answered correctly.</value>
+  </data>
+  <data name="display_Instruction6" xml:space="preserve">
+    <value>To end the assessment, click on the &lt;b&gt; "FINISH ASSESSMENT” &lt;/b&gt; button. You can end the assessment either after the last question or from the summary page.</value>
+  </data>
+  <data name="display_Instruction7" xml:space="preserve">
+    <value>A minimum of 20 % is required to pass the assessment successfully.</value>
+  </data>
+  <data name="display_Instruction8" xml:space="preserve">
+    <value>Once you submit the assessment, your &lt;b&gt;“Grade Report” &lt;/b&gt; would get displayed which will display your score and result. It will also display a bar graph which will show how you have scored in each chapter (bars in blue) and your overall performance (bar in green).</value>
+  </data>
+  <data name="display_Instruction9" xml:space="preserve">
+    <value>You can review the assessment after you have submitted the assessment. This page will display your answer and the right answer to each question you attempted. Question you answered correctly will show a &lt;b&gt;"Green Tick (√)"&lt;/b&gt; and question that were answered     incorrectly would display a &lt;b&gt;"Red Cross (X)" &lt;/b&gt;</value>
+  </data>
+  <data name="display_Instructions" xml:space="preserve">
+    <value>INSTRUCTIONS</value>
+  </data>
+  <data name="display_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="display_Multiple" xml:space="preserve">
+    <value>Multiple</value>
+  </data>
+  <data name="display_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="display_NoteGreen" xml:space="preserve">
+    <value>Note - Green does not mean that the question has been answered correctly .</value>
+  </data>
+  <data name="display_Of" xml:space="preserve">
+    <value>Of</value>
+  </data>
+  <data name="display_ParticipantName" xml:space="preserve">
+    <value>Participant Name</value>
+  </data>
+  <data name="display_PerformancelastBatch" xml:space="preserve">
+    <value>Performance in last 3 Batch</value>
+  </data>
+  <data name="display_PleaseclickQuestionnumber" xml:space="preserve">
+    <value>Please click on the question number to navigate to that question.</value>
+  </data>
+  <data name="display_PREV" xml:space="preserve">
+    <value> Prev</value>
+  </data>
+  <data name="display_Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="display_Questions" xml:space="preserve">
+    <value>Questions</value>
+  </data>
+  <data name="display_ReadUnansweredQuestion" xml:space="preserve">
+    <value>Read-Unanswered Question</value>
+  </data>
+  <data name="display_Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="display_Score" xml:space="preserve">
+    <value>Score %</value>
+  </data>
+  <data name="display_Seconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="display_Single" xml:space="preserve">
+    <value>Single</value>
+  </data>
+  <data name="display_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="display_SUMMARY" xml:space="preserve">
+    <value> Summary</value>
+  </data>
+  <data name="display_TimeLeft" xml:space="preserve">
+    <value>Time Left</value>
+  </data>
+  <data name="display_Tittle" xml:space="preserve">
+    <value>Assessment</value>
+  </data>
+  <data name="required_AssessmentName" xml:space="preserve">
+    <value>Please select Assessment Name</value>
+  </data>
+  <data name="required_BatchName" xml:space="preserve">
+    <value>Please select Batch Name</value>
+  </data>
+  <data name="display_Save" xml:space="preserve">
+    <value>Assessment data saved successfully !.</value>
+  </data>
+  <data name="display_Hr" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="display_ReportsMonthSummaryRepoprts" xml:space="preserve">
+    <value>Month Summary Reports</value>
+  </data>
+  <data name="display_ReportVerticalWiseAssignmentList" xml:space="preserve">
+    <value>Report- Vertical Wise Assignment List</value>
+  </data>
+  <data name="display_ReportUserFinalScoreCard" xml:space="preserve">
+    <value>User Final Score Card</value>
+  </data>
+</root>

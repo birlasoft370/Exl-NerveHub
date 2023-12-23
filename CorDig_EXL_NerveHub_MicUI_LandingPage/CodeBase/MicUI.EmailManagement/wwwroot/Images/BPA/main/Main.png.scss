@@ -1,0 +1,69 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-main-main-agent() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -1px;
+}
+@mixin sprite-Images-main-main-assessme() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -402px;
+}
+@mixin sprite-Images-main-main-assistme() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -803px;
+}
+@mixin sprite-Images-main-main-config() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -1204px;
+}
+@mixin sprite-Images-main-main-emailconfig() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -1605px;
+}
+@mixin sprite-Images-main-main-letterlib() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -2006px;
+}
+@mixin sprite-Images-main-main-ppr() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -2407px;
+}
+@mixin sprite-Images-main-main-processrepo() {
+/* You may have to set 'display: block' */
+	width: 675px;
+	height: 310px;
+	background: url('Main.png') -1px -2808px;
+}
+@mixin sprite-Images-main-main-qms() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -3119px;
+}
+@mixin sprite-Images-main-main-query() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -3520px;
+}
+@mixin sprite-Images-main-main-swm() {
+/* You may have to set 'display: block' */
+	width: 900px;
+	height: 400px;
+	background: url('Main.png') -1px -3921px;
+}

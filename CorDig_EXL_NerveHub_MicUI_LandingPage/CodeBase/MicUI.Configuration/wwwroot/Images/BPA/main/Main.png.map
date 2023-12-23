@@ -1,0 +1,81 @@
+{
+  "images": [
+    {
+      "name": "/Images/main/main-agent.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 1
+    },
+    {
+      "name": "/Images/main/main-assessme.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 402
+    },
+    {
+      "name": "/Images/main/main-assistme.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 803
+    },
+    {
+      "name": "/Images/main/main-config.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 1204
+    },
+    {
+      "name": "/Images/main/main-emailconfig.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 1605
+    },
+    {
+      "name": "/Images/main/main-letterlib.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 2006
+    },
+    {
+      "name": "/Images/main/main-ppr.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 2407
+    },
+    {
+      "name": "/Images/main/main-processrepo.png",
+      "width": 675,
+      "height": 310,
+      "offsetX": 1,
+      "offsetY": 2808
+    },
+    {
+      "name": "/Images/main/main-qms.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 3119
+    },
+    {
+      "name": "/Images/main/main-query.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 3520
+    },
+    {
+      "name": "/Images/main/main-swm.png",
+      "width": 900,
+      "height": 400,
+      "offsetX": 1,
+      "offsetY": 3921
+    }
+  ]
+}

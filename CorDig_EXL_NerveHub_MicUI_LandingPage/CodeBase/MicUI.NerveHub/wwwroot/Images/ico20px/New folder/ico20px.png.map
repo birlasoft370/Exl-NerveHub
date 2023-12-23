@@ -1,0 +1,102 @@
+{
+  "images": [
+    {
+      "name": "/Images/ico20px/agentdash20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 1
+    },
+    {
+      "name": "/Images/ico20px/assess20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 22
+    },
+    {
+      "name": "/Images/ico20px/assist20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 43
+    },
+    {
+      "name": "/Images/ico20px/config20(1).png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 64
+    },
+    {
+      "name": "/Images/ico20px/config20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 85
+    },
+    {
+      "name": "/Images/ico20px/ctimezone20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 106
+    },
+    {
+      "name": "/Images/ico20px/emailconfig20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 127
+    },
+    {
+      "name": "/Images/ico20px/letterlib20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 148
+    },
+    {
+      "name": "/Images/ico20px/processrepo20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 169
+    },
+    {
+      "name": "/Images/ico20px/qms20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 190
+    },
+    {
+      "name": "/Images/ico20px/querytracker20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 211
+    },
+    {
+      "name": "/Images/ico20px/signout20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 232
+    },
+    {
+      "name": "/Images/ico20px/swm20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 253
+    },
+    {
+      "name": "/Images/ico20px/timezone20.png",
+      "width": 20,
+      "height": 20,
+      "offsetX": 1,
+      "offsetY": 274
+    }
+  ]
+}

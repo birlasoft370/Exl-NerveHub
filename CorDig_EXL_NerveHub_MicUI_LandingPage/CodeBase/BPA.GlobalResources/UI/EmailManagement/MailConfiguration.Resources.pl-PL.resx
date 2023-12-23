@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_AddRow" xml:space="preserve">
+    <value>Dodaj wiersz</value>
+  </data>
+  <data name="display_AutoDiscoveryPath" xml:space="preserve">
+    <value>Ścieżka Auto Discovery</value>
+  </data>
+  <data name="display_AutoReply" xml:space="preserve">
+    <value>Automatyczna odpowiedź</value>
+  </data>
+  <data name="display_chkDefaultWebServerURL" xml:space="preserve">
+    <value>Użyj domyślnego adresu URL serwera sieci Web:</value>
+  </data>
+  <data name="display_ConfigurationName" xml:space="preserve">
+    <value>Nazwa konfiguracji</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Wyłączyć</value>
+  </data>
+  <data name="display_DominoServer" xml:space="preserve">
+    <value>Serwer Domino</value>
+  </data>
+  <data name="display_EmailID" xml:space="preserve">
+    <value>ID e-mail</value>
+  </data>
+  <data name="display_ExchangeServerType" xml:space="preserve">
+    <value>Rodzaj Exchange Server</value>
+  </data>
+  <data name="display_Foldertype" xml:space="preserve">
+    <value>Typ folderu</value>
+  </data>
+  <data name="display_IsClientService" xml:space="preserve">
+    <value>Czy Obsługi Klienta</value>
+  </data>
+  <data name="display_IsReadMail" xml:space="preserve">
+    <value>Poczta jest odczytywany</value>
+  </data>
+  <data name="display_LotusServerPath" xml:space="preserve">
+    <value>Ścieżka serwera Lotus</value>
+  </data>
+  <data name="display_MailBoxFolder" xml:space="preserve">
+    <value>Mail Box / folderu</value>
+  </data>
+  <data name="display_MailBoxName" xml:space="preserve">
+    <value>Nazwa Mail Box</value>
+  </data>
+  <data name="display_MailTemplate" xml:space="preserve">
+    <value>Szablon Poczta</value>
+  </data>
+  <data name="display_MoveFolder" xml:space="preserve">
+    <value>Przenieś folder</value>
+  </data>
+  <data name="display_NFSFilePath" xml:space="preserve">
+    <value>NFS File Path</value>
+  </data>
+  <data name="display_Nonodeschecked" xml:space="preserve">
+    <value>Nie sprawdził węzły.</value>
+  </data>
+  <data name="display_Office2007Sp1" xml:space="preserve">
+    <value>Office 2007 SP1</value>
+  </data>
+  <data name="display_Office2010Sp1" xml:space="preserve">
+    <value>Office 2010 SP1</value>
+  </data>
+  <data name="display_Office2010Sp2" xml:space="preserve">
+    <value>Office 2010 SP2</value>
+  </data>
+  <data name="display_Office365" xml:space="preserve">
+    <value>office 365</value>
+  </data>
+  <data name="display_Passwords" xml:space="preserve">
+    <value>Hasło</value>
+  </data>
+  <data name="display_PleaseEnterAutoDiscoveryPath" xml:space="preserve">
+    <value>Proszę podać ścieżkę Auto Discovery.</value>
+  </data>
+  <data name="display_PleaseEnterEmailID" xml:space="preserve">
+    <value>Proszę podać poprawny adres e-mail.</value>
+  </data>
+  <data name="display_PleaseEnterLotusServerPath" xml:space="preserve">
+    <value>Proszę podać ścieżkę Lotus Server.</value>
+  </data>
+  <data name="display_PleaseEnterMailBoxName" xml:space="preserve">
+    <value>Proszę podać e-mail polu Nazwa.</value>
+  </data>
+  <data name="display_PleaseEnterNFSFilePath" xml:space="preserve">
+    <value>Proszę podać NFS ścieżkę do pliku.</value>
+  </data>
+  <data name="display_PleaseEnterPassword" xml:space="preserve">
+    <value>Proszę wpisać hasło.</value>
+  </data>
+  <data name="display_PleaseEnterScheduleInterval" xml:space="preserve">
+    <value>Proszę podać Harmonogram interwał.</value>
+  </data>
+  <data name="display_PleaseEnterUserID" xml:space="preserve">
+    <value>Proszę podać nazwę użytkownika.</value>
+  </data>
+  <data name="display_PleaseEnterWebServerURL" xml:space="preserve">
+    <value>Proszę podać adres URL serwera sieci Web.</value>
+  </data>
+  <data name="display_PleaseSelectCampaign" xml:space="preserve">
+    <value>Wybierz kampanię.</value>
+  </data>
+  <data name="display_PleaseSelectClient" xml:space="preserve">
+    <value>Wybierz Client.</value>
+  </data>
+  <data name="display_PleaseSelectExchangeServerType" xml:space="preserve">
+    <value>Wybierz Exchange Server Type.</value>
+  </data>
+  <data name="display_PleaseSelectFolderType" xml:space="preserve">
+    <value>Wybierz typ folderu.</value>
+  </data>
+  <data name="display_PleaseSelectProcess" xml:space="preserve">
+    <value>Wybierz Process.</value>
+  </data>
+  <data name="display_PleaseWaitLoadingMailFolders" xml:space="preserve">
+    <value>Czekaj Ładowanie folderów poczty .....</value>
+  </data>
+  <data name="display_Primary" xml:space="preserve">
+    <value>Podstawowa</value>
+  </data>
+  <data name="display_PublicFolder" xml:space="preserve">
+    <value>Folder publiczny</value>
+  </data>
+  <data name="display_RootSubRootPath" xml:space="preserve">
+    <value>Root / Sub ścieżka główna</value>
+  </data>
+  <data name="display_SaveMailConfig" xml:space="preserve">
+    <value>Konfiguracja poczty zapisany pomyślnie.</value>
+  </data>
+  <data name="display_ScheduleInterval" xml:space="preserve">
+    <value>harmonogram Interval</value>
+  </data>
+  <data name="display_ScheduleIntervalTime" xml:space="preserve">
+    <value>Harmonogram Interwał</value>
+  </data>
+  <data name="display_SearchFolder" xml:space="preserve">
+    <value>Szukaj Folder</value>
+  </data>
+  <data name="display_SharedMailbox" xml:space="preserve">
+    <value>wspólna skrzynka pocztowa</value>
+  </data>
+  <data name="display_SomethingWrongHappenedContactAdmin" xml:space="preserve">
+    <value>Coś złego się stało, Kontakt Admin.</value>
+  </data>
+  <data name="display_StoreWorkDefinitionName" xml:space="preserve">
+    <value>Pracuj Definicja Nazwa</value>
+  </data>
+  <data name="display_TestMailServerConnectivity" xml:space="preserve">
+    <value>Test Mail Server Connectivity</value>
+  </data>
+  <data name="display_Title" xml:space="preserve">
+    <value>Konfiguracja e-mail</value>
+  </data>
+  <data name="display_UpdateMialConfig" xml:space="preserve">
+    <value>Konfiguracja poczty pomyślnie zaktualizowane</value>
+  </data>
+  <data name="display_UseCredentialToPull" xml:space="preserve">
+    <value>Użyj poświadczeń identyfikatora usługi do ściągania maili</value>
+  </data>
+  <data name="display_UseCredentialToSend" xml:space="preserve">
+    <value>Sprawdź poświadczenia użytkownika w celu wysłania wiadomości</value>
+  </data>
+  <data name="display_UserID" xml:space="preserve">
+    <value>identyfikator użytkownika</value>
+  </data>
+  <data name="display_WebEnabled" xml:space="preserve">
+    <value>Web Włączone</value>
+  </data>
+  <data name="display_WebServerURL" xml:space="preserve">
+    <value>Adres serwera WWW</value>
+  </data>
+  <data name="required_WorkDefinitionName" xml:space="preserve">
+    <value>Proszę podać Work Definicja Nazwa.</value>
+  </data>
+  <data name="display_TimeZone" xml:space="preserve">
+    <value>Strefa czasowa:</value>
+  </data>
+  <data name="required_TimeZone" xml:space="preserve">
+    <value>Proszę wybrać strefę czasową.</value>
+  </data>
+  <data name="display_EMSAdvancedConfiguration" xml:space="preserve">
+    <value>EMS | Zaawansowana konfiguracja</value>
+  </data>
+  <data name="display_EMSMailConfiguration" xml:space="preserve">
+    <value>EMS | Konfiguracja poczty</value>
+  </data>
+  <data name="display_Ingestion" xml:space="preserve">
+    <value>Przyjmowanie pokarmu</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="display_Search" xml:space="preserve">
+    <value>Nazwa</value>
+  </data>
+  <data name="display_OutofOffice" xml:space="preserve">
+    <value>Out of Office</value>
+  </data>
+  <data name="display_BCCEnabled" xml:space="preserve">
+    <value>BCC Enabled</value>
+  </data>
+  <data name="display_Impersonation" xml:space="preserve">
+    <value>Impersonation</value>
+  </data>
+  <data name="display_ImpersonationID" xml:space="preserve">
+    <value>Impersonation Id </value>
+  </data>
+  <data name="display_ImpersonationIDType" xml:space="preserve">
+    <value>Impersonation Id Type </value>
+  </data>
+  <data name="display_PrincipalName" xml:space="preserve">
+    <value>PrincipalName</value>
+  </data>
+  <data name="display_SID" xml:space="preserve">
+    <value>SID</value>
+  </data>
+  <data name="display_SmtpAddress" xml:space="preserve">
+    <value>SmtpAddress</value>
+  </data>
+  <data name="display_OutLook" xml:space="preserve">
+    <value>OutLook Enable</value>
+  </data>
+  <data name="display_Translated" xml:space="preserve">
+    <value>Translation Enable</value>
+  </data>
+  <data name="display_LanguageConfiguration" xml:space="preserve">
+    <value>Language Configuration</value>
+  </data>
+</root>

@@ -1,0 +1,220 @@
+﻿@using MicUI.EmailManagement.Helper.Sessions;
+@using MicUI.EmailManagement.Helper;
+@using MicUI.EmailManagement.Models.ViewModels;
+@using MicUI.EmailManagement.Module.Common;
+@model LanguageApproval
+@inject IWorkObjectService _repositoryWorkObjectService
+@inject IGetSetSessionValues _getSetSessionValues
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.WorkManagement.Resource_LanguageConfig.dispaly_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int UserIsSuperOrFunctionalAdmin = _repositoryWorkObjectService.CheckUserIsSuperOrFunctionalAdmin();
+    int userId = _getSetSessionValues.GetSessionUserInfo().iUserID;
+    string tenantName = MyHttpContext.AppBaseUrl;
+}
+
+@using (Html.BeginForm("SearchView", "LanguageConfig", FormMethod.Post, new { @id = "SearchViewForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @BPA.GlobalResources.UI.WorkManagement.Resource_LanguageConfig.dispaly_Title
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("ClientName", "ClientName",new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.ClientNameSearch).HtmlAttributes(new { @class = "formSelect" }).DataTextField("sClientName").DataValueField("iClientID")
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Url(tenantName + "SearchView/GetCascadeClient");
+                                }).Events(ev => ev.Error("DropDownError"));
+                            })
+                            .Events(e => e.DataBound("dataBound")))
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("ProcessName","ProcessName", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownList().Name("ProcessNameSearch").HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("sProcessName").DataValueField("iProcessID").Enable(false).AutoBind(false)
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Url(tenantName + "SearchView/GetCascadeProcess").Data("filterProcess");
+                                }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true);
+                            })
+                            .Events(e => e.DataBound("dataBound"))
+                            .CascadeFrom("ClientNameSearch").Value("0"))
+                        <script>
+                            function filterProcess() {
+                                return { iClientID: $("#ClientNameSearch").val() };
+                            }
+                        </script>
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("CampaignName", "CampaignName", new { @class = "form-label" })
+                        @(Html.Kendo().DropDownList().Name("CampaignNameSearch").DataTextField("sCampaignName").HtmlAttributes(new { @class = "formSelect" }).DataValueField("iCampaignID")
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Url(tenantName + "SearchView/GetCascadeCamp").Data("filterCampaignName");
+                                    @*read.Url("/" + this.ViewContext.RouteData.Values["tenantName"] + "/SearchView/GetCascadeCamp").Data("filterCampaignName");*@
+                                }).ServerFiltering(true);
+                            })
+
+                            .Enable(false).AutoBind(false).CascadeFrom("ProcessNameSearch"))
+                        <script>
+                            function filterCampaignName() {
+                                return { iProcessID: $("#ProcessNameSearch").val() };
+                            }
+                        </script>
+
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(p => p.ProfileName, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownList().Name("ProfileName").HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("ProfileID").DataValueField("LanguageConfigID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetLanguageProfile", "LanguageConfig").Data("GetFilter1");
+                                }).ServerFiltering(true);
+                            }).AutoBind(false).CascadeFrom("CampaignNameSearch"))
+                        <script>
+                            function GetFilter1() {
+
+                                return { CampaignID: $("#CampaignNameSearch").val() };
+                            }
+                        </script>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="nextWrap">
+
+                <div id="spnNoRecord" class="pb-3 text-center" style="display: none;">
+
+                    <small>
+                        @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_NoRecord
+                    </small>
+                </div>
+
+                <div class="formTable">
+                    @(Html.Kendo().Grid<LanguageApproval>()
+                        .Name("Approvalgrid").Events(x => x.DataBound("Binding_WorkApproval")).Scrollable().Navigatable(true)
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.LngID).Hidden(true);
+                            columns.Bound(p => p.CreatedBy).Hidden(true);
+                            columns.Bound(p => p.CampaignID).Hidden(true);
+                            @*columns.Select().Width(50).PersistSelection();*@
+                            columns.Bound(u => u.IsChecked).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' &&  (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1 )) {#" +
+                            "<input type='checkbox' class='chkbox' name='chkSelected' id='chkSelected' ${ IsChecked == true ? checked='checked' : ''}   enabled value='#= LngID#'/>" +
+                            "#}#").Width(50)
+                            .ClientHeaderTemplate("<input id='chkSelectAll' type='checkbox' />").Groupable(true);
+                            columns.Bound(p => p.OriginalText).Width(150);
+                            columns.Bound(p => p.TranslatedText).Width(150);
+                            columns.Bound(p => p.SMEChangesText).Width(250);
+                            columns.Bound(p => p.StatusToShowHideButtons).Hidden(true);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending') {#" +
+                            "<input type='button' class='btn btn-sm btn-primary' onClick='Work_Approval(this,#= LngID #)' name='btnApprove' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve + "' />" +
+                            "#}#").Width(40).Title("Approve");
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending') {#" +
+                            "<input type='button' class='btn btn-sm btn-primary' onClick='Work_Approval(this,#= LngID #)' name='btnReject' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject + "' />" +
+                            "#}#")
+                            .Title("Reject").Width(40);
+                        }).Editable(editable => editable.Mode(GridEditMode.InCell))
+                        .HtmlAttributes(new { style = "height:550px;overflow:auto;" }).DataSource(dataSource => dataSource.Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(p => p.LngID);
+                            model.Field(p => p.IsChecked).Editable(false);
+                            model.Field(p => p.OriginalText).Editable(false);
+                            model.Field(p => p.TranslatedText).Editable(false);
+                        }).Read(read => read.Action("LanguageApproval_ReadP", "LanguageConfig").Data("GetFilter"))))
+                </div>
+
+                <div class="py-3 text-end btnAction">
+                    <input type="button" class="btn-primary btn-sm btn mx-2 ms-0" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" name="BtnApprove" id="BtnApprove" />
+                    <input type="button" class="btn-outline-primary btn-sm btn " onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" name="BtnReject" id="BtnReject" />
+                    @*<input type="button" class="k-primary" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" name="BtnCancel" id="BtnCancel" />*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/lib/bpa/scripts/emslanguageconfig-1.8.2.js"></script>
+<script type="text/javascript">
+    title_WorkRequest = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.title_WorkRequest'
+
+    cancel_workApporval = 'Language translation request cancelled successfully'
+    reject_workApproval = 'Language translation request rejected successfully'
+    approve_workApproval = 'Language translation request approved successfully'
+    error_workApproval = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_error'
+    display_Approve = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve'
+    display_Reject = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject'
+    display_Cancel = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel'
+
+
+</script>
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<style type="text/css">
+    .anchorTag {
+        color: blue;
+        outline: none;
+        padding-left: 3px;
+        padding-right: 3px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .k-grid .k-edit-cell {
+        white-space: normal;
+    }
+</style>
+
+
+
+

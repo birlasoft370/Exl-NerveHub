@@ -1,0 +1,63 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-mlogo-magent {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -1px;
+}
+.Images-mlogo-massess {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -60px;
+}
+.Images-mlogo-massist {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -119px;
+}
+.Images-mlogo-mconfig {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -178px;
+}
+.Images-mlogo-meconfig {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -237px;
+}
+.Images-mlogo-mletterlib {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -296px;
+}
+.Images-mlogo-mppr {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -355px;
+}
+.Images-mlogo-mqms {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -414px;
+}
+.Images-mlogo-mquery {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -473px;
+}
+.Images-mlogo-mswm {
+/* You may have to set 'display: block' */
+	width: 210px;
+	height: 58px;
+	background: url('mlogo.png') -1px -532px;
+}

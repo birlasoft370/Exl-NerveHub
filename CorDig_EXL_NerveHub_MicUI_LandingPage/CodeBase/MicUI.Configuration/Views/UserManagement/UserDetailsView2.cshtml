@@ -1,0 +1,71 @@
+﻿@using System.Data;
+@if (Model != null)
+{
+
+    @(Html.Kendo().Grid<dynamic>()
+                    .Name("Grid")
+                    .ToolBar(t => t.Search())
+                    .Columns(columns =>
+                    {
+                        foreach (System.Data.DataColumn column in Model.Columns)
+                        {
+                            var c = columns.Bound(column.ColumnName);
+
+                            if (column.DataType == typeof(DateTime))
+                            {
+                                c.Format("{0:dd MMM yyyy}");
+                            }
+                        }
+                    })
+                    .Pageable()
+                    .Sortable()
+                    .Scrollable()
+                    .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Model(model =>
+                    {
+                        foreach (System.Data.DataColumn column in Model.Columns)
+                        {
+                            var field = model.Field(column.ColumnName, column.DataType);
+                        }
+                    })
+                    .Read(read => read.Action("GetDataTable", "UserManagement"))
+                    .ServerOperation(false)
+                    )
+                )
+
+
+    <div>
+        @(Html.Kendo().Grid<dynamic>()
+            .Name("gvClientProcessDetail")
+            .Columns(columns =>
+            {
+                foreach (System.Data.DataColumn column in Model.Columns)
+                {
+                    if (column.ColumnName != "ClientID" || column.ColumnName != "ProcessID")
+                        columns.Bound(column.ColumnName).Title(column.Caption);
+                }
+            }
+            )
+            .Scrollable(scr => scr.Height(100))
+            .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                if (Model.Columns.Count > 0)
+                {
+                    model.Id(Model.Columns[0].ColumnName);
+
+                    foreach (System.Data.DataColumn column in Model.Columns)
+                    {
+                        if (column.Ordinal > 0)
+                            model.Field(column.ColumnName, column.DataType);
+                    }
+                }
+            }
+            ).Read(read => read.Action("GetDataTable", "UserManagement"))
+            .ServerOperation(false)
+            )
+            )
+    </div>
+}

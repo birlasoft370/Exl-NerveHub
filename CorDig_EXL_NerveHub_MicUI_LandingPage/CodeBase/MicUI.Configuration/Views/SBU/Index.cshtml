@@ -1,0 +1,105 @@
+﻿@model MicUI.Configuration.Models.ViewModels.SBUViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/lib/bpa/scripts/sbu-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "SBU", new { @id = "Sbuform" }))
+{
+
+    @* @Html.AntiForgeryToken()*@
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+
+                    <h2>
+                        @{
+                            var text = Model.SBUID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.displayCreateNewSBU : @BPA.GlobalResources.UI.AppConfiguration.ResourceSBU.displayModifySBU;
+                        }@text
+
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh").Events(ev => ev.Click("OnClickNewSubProcess"))
+                            .HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Name("btnSave").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave)
+                            .HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).Events(ev => ev.Click("OnClickSearchSubProcess"))
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }))
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+            <div class="row">
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SBUName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().TextBoxFor(model => model.SBUName).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.Description, new { @class = "form-label" })
+                        @(Html.Kendo().TextBoxFor(model => model.Description).HtmlAttributes(new { @class = "form-control" }))
+                        @Html.HiddenFor(model => model.SBUID)
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ERPID, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.ERPID).HtmlAttributes(new { @class = "form-control", @maxLength = 5 })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4 mx-5 ms-0 d-inline-block">
+                            <div class="custom-input">
+                                @(Html.Kendo().CheckBoxFor(model => model.IsClientSBU))
+                            </div>
+                        </div>
+
+                        <div class="pt-4 mx-1 ms-0  d-inline-block">
+                            <div class="custom-input ">
+                                @Html.Kendo().CheckBoxFor(model => model.Disable)
+                                @Html.HiddenFor(model => model.SBUID)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var ResourceSubProcess =
+    {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_SearchView: ResourceLayout.partialURL + "SearchView"
+    }
+</script>

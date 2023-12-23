@@ -1,0 +1,299 @@
+﻿@using Kendo.Mvc.UI;
+@model MicUI.WorkManagement.Models.ViewModels.CalendarDataModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + "| " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayCalendarData;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+<script src="~/lib/bpa/scripts/calendardata-1.8.2.js"></script>
+@using (Html.BeginForm("ViewCalendarData", "CalendarData", FormMethod.Post, new { @id = "formViewCalendarData" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.SearchCreateCalData)
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnViewCalendarDataNewClick")).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearchCalendarData").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" }).Events(ev => ev.Click("GoCalendarData")).Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            @Html.Hidden("ID")
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mCalendarDate, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.mCalendarDateSearch)
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("CalenderName")
+                            .DataValueField("CalenderID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetCalendar", "CalendarData");
+                                }).Events(ev => ev.Error("DropDownError"));
+
+                            })
+                            )
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mMonth, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.mMonthSearch).HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = "January",
+                    Value = "1"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "February",
+                    Value = "2"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "March",
+                    Value = "3"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "April",
+                    Value = "4"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "May",
+                    Value = "5"
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "June",
+                    Value = "6"
+                    },
+                    new SelectListItem()
+                    {
+                    Text = "July",
+                    Value = "7"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "August",
+                    Value = "8"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "September",
+                    Value = "9"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "October",
+                    Value = "10"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "November",
+                    Value = "11"
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = "December",
+                    Value = "12"
+                    }
+                    })
+                            )
+
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.mYear, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(a => a.mYearSearch).HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .BindTo(new List<SelectListItem>()
+                    {
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year - 1).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year - 1).ToString()
+                    },
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year).ToString()
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 1).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 1).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 2).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 2).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 3).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 3).ToString()
+                    }
+
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 4).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 4).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 5).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 5).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 5).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 5).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 6).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 6).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 7).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 7).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 8).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 8).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 9).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 9).ToString()
+                    }
+                    ,
+                    new SelectListItem()
+                    {
+                    Text = Convert.ToInt32(DateTime.Now.Year + 10).ToString(),
+                    Value = Convert.ToInt32(DateTime.Now.Year + 10).ToString()
+                    }
+                    })
+                            )
+                    </div>
+                </div>
+            </div>
+            <div class="nextWrap">
+                <div class="formTable">
+                    @if (Model.mCalendarList != null)
+                    {
+                        @(Html.Kendo().Grid(Model.mCalendarList)
+                            .Name("searchGrid")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(u => u.sDescription).Hidden(true);
+                                columns.Bound(u => u.sCalendarName).Title("Calendar Name").HtmlAttributes(new { @style = "text-align:left" });
+                                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Edit_Button).Click("edit")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Edit_Button);
+                                columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Delete_Button).Click("_delete")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Campaign.display_Delete_Button);
+
+                            })
+                            .Scrollable(sc => sc.Virtual(true).Height("350px"))
+                            .Pageable(pageable => pageable
+                            .PageSizes(new int[] { 5, 10, 20 })
+                            .Refresh(true)
+                            .ButtonCount(5))
+                            .DataSource(dataSource =>
+                            dataSource.Ajax()
+                            )
+
+                            )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+
+
+<script>
+
+    Resources = {
+        display_Alert: '@(BPA.GlobalResources.UI.Resources_common.display_Alert)',
+        requiredWeekList: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.requiredWeekList)',
+        required_DefineCalendar: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.requiredDefineCalendar)',
+        display_EndDateCheck: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.EndDateCheck)',
+        display_save: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgSave)',
+        displayError: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgError)',
+        displayDefineWeek: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.dispalyDefineWeek)',
+        displayUpdate: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayUpdaed)',
+        displayDeleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msgDeleted)',
+        cult: '@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern',
+        CulttureInfo: '@System.Globalization.CultureInfo.CurrentCulture',
+        week: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayWeek',
+        StartDate: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayStartDate',
+        EndDate: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.displayEndDate',
+        msg_DataDeleted: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Calender.msg_DataDeleted',
+        Cultture: '@Url.Content("~/lib/bpa/bundles/kendo/messages/kendo.messages." + System.Globalization.CultureInfo.CurrentCulture.ToString() + ".min.js")',
+        url_ViewCalendarData: ResourceLayout.partialURL + 'ViewCalendarData',
+        url_Index: ResourceLayout.partialURL + 'Index',
+        url_Products_Read_Grd: ResourceLayout.partialURL + 'Products_Read_Grd',
+        url_ReBindeWeek: ResourceLayout.partialURL + 'ReBindeWeek',
+        url_InsertUpdateCalenderData: ResourceLayout.partialURL + 'InsertUpdateCalenderData',
+        url_Delete: ResourceLayout.partialURL + 'Delete',
+        url_SetCalendarID: ResourceLayout.partialURL + 'SetCalendarID'
+    };
+</script>

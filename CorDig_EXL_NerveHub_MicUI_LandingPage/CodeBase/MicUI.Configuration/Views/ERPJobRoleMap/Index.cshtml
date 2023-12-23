@@ -1,0 +1,172 @@
+﻿@model MicUI.Configuration.Models.ViewModels.ERPJobRoleMapViewModel
+@using BPA.GlobalResources.UI;
+@{
+    /**/
+
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.display_ERP_Job_Role_Mapping_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/erpjobrolemapping-1.8.2.js"></script>
+@{
+    List<SelectListItem> lstMappingOn = new List<SelectListItem>();
+
+    //lstMappingOn.Add(new SelectListItem { Text = "" + @BPA.GlobalResources.UI.Resources_common.display_Select + "", Value = "" });
+    lstMappingOn.Add(new SelectListItem { Text = "Client", Value = "1" });
+    lstMappingOn.Add(new SelectListItem { Text = "Process", Value = "2" });
+    lstMappingOn.Add(new SelectListItem { Text = "Campaign", Value = "3" });
+
+
+}
+<script src="~/Scripts/AppConfiguration/ERPJobRoleMapping-1.8.2.js"></script>
+
+@using (Html.BeginForm("Index", "ERPJobRoleMap", FormMethod.Post, new { @id = "ERPJobRoleMap" }))
+{
+    @Html.AntiForgeryToken()
+    ;
+    @Html.HiddenFor(m => m.iMode, new { @id = "hfmode" })
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.display_ERP_Job_Role_Mapping_Title</h2>
+
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnrefresh").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Events(x => x.Click("ReloadPage")))
+                        @(Html.Kendo().Button().Name("btnERPJobRoleMapSave").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave)
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(x => x.Click("btnERPJobRoleMapSaveClick")))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch)
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(x => x.Click("ERPJobRoleMappingSearch")))
+                        @(Html.Kendo().Button().Icon("tick").Name("btnRequestStatus").Content(@BPA.GlobalResources.UI.Resources_common.display_Request_Button)
+                            .HtmlAttributes(new { type = "button", @class = "btn-orange btn-sm btn mx-2 ms-0" }).Events(x => x.Click("onClickRequest")))
+                        @(Html.Kendo().Button().Icon("tick").Name("btnApproveStatus").Content(@BPA.GlobalResources.UI.Resources_common.display_Approval_Button)
+                            .HtmlAttributes(new { type = "button", @class = "btn-orange btn-sm btn" }).Events(x => x.Click("onClickApprove")))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.iJobCode, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(model => model.iJobCode)
+
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataValueField("iJobCode")
+                            .DataTextField("sJobDesc")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .Events(e => e.Open("onOpenJobCode"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("JsonGetJobCode", "ERPJobRoleMap");
+                                }).ServerFiltering(false);
+                            })
+
+                            )
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.sRoleName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(model => model.sRoleName)
+
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataValueField("iRoleID")
+                            .DataTextField("sRoleName")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .Events(e => e.Open("onOpenRolelist"))
+                            
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("JsonGetRoleList", "ERPJobRoleMap");
+                                }).ServerFiltering(false);
+                            })
+
+                            )
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.iMappedOn, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(m => m.iMappedOn).BindTo(lstMappingOn).Events(e => e.Select("OnSelectRoleApproveUser")).HtmlAttributes(new { required = "required", @class = "formSelect", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.required_MappedOn }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4 ms-0 mx-5 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.bDefaultRole)
+                            </div>
+                        </div>
+                        <div class="pt-4 ms-0 mx-1 d-inline-block">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.bDisable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.iApprover, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(a => a.iApprover).OptionLabel(BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataTextField("Text").DataValueField("Value").HtmlAttributes(new { @class = "formSelect" }).AutoBind(false).CascadeFrom("sRoleName").Events(e => e.Change("onOpenUserRoleApprover"))
+                            .DataSource(source => { source.Read(read => { read.Action("JsonGetUserRoleApproverList", "ERPJobRoleMap").Data("filterApprover"); }).Events(ev => ev.Error("DropDownError")).ServerFiltering(true); }))
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+
+<script type="text/javascript">
+
+    var Resources = {
+        ERPJobRoleMappingSaveMsg: '@BPA.GlobalResources.UI.AppConfiguration.Resource_ERPJobRoleMapping.display_Save',
+        url_SaveERPJobRoleMapping: ResourceLayout.partialURL + "SaveERPJobRoleMappingData",
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_Request: ResourceLayout.partialURL + "ERPJobRoleMapRequest",
+        urlPath_Approve: ResourceLayout.partialURL + "ERPJobRoleMapApprove",
+        urlPath_Search: ResourceLayout.partialURL + "Search",
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        if ($('#hfmode').val() != '') {
+            //alert($('#hfmode').val());
+            var mode = $('#hfmode').val();
+            if (mode == "2") {
+
+                $("#iJobCode").data("kendoDropDownList").enable(false);
+                $('#sRoleName').data('kendoDropDownList').enable = false;
+            }
+            else
+                $("#iJobCode").data("kendoDropDownList").enable(true);
+            $("#sRoleName").data("kendoDropDownList").enable(true);
+        }
+    });
+
+</script>
+

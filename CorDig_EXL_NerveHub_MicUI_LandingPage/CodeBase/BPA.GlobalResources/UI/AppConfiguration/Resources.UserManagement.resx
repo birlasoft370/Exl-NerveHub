@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Approver" xml:space="preserve">
+    <value>Approver</value>
+  </data>
+  <data name="display_Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="display_ClientUser" xml:space="preserve">
+    <value>Is Client User</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="display_DOJ" xml:space="preserve">
+    <value>Date Of Joining</value>
+  </data>
+  <data name="display_DOL" xml:space="preserve">
+    <value>Date Of Leaving</value>
+  </data>
+  <data name="display_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="display_EmployeeID" xml:space="preserve">
+    <value>Employee ID</value>
+  </data>
+  <data name="display_ERP" xml:space="preserve">
+    <value>ERP Job</value>
+  </data>
+  <data name="display_Facility" xml:space="preserve">
+    <value>Facility</value>
+  </data>
+  <data name="display_FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="display_LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="display_LOB" xml:space="preserve">
+    <value>LOB</value>
+  </data>
+  <data name="display_LocationName" xml:space="preserve">
+    <value>Location Name</value>
+  </data>
+  <data name="display_LoginName" xml:space="preserve">
+    <value>Login Name</value>
+  </data>
+  <data name="display_MiddleName" xml:space="preserve">
+    <value>Middle Name</value>
+  </data>
+  <data name="display_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="display_RetriveSuperwiserError" xml:space="preserve">
+    <value>Falid to retrive Superwisers</value>
+  </data>
+  <data name="display_RetriveUserError" xml:space="preserve">
+    <value>Falid to retrive Users</value>
+  </data>
+  <data name="display_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="display_SBU" xml:space="preserve">
+    <value>SBU</value>
+  </data>
+  <data name="display_SearchPopName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="display_SearchUserTypeLink" xml:space="preserve">
+    <value>Search User by Lan ID</value>
+  </data>
+  <data name="display_SelectApprover" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_SelectClient" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_SelectFacility" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_SelectLOB" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_SelectRole" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_SelectSBU" xml:space="preserve">
+    <value>Select </value>
+  </data>
+  <data name="display_Supervisor" xml:space="preserve">
+    <value>Supervisor</value>
+  </data>
+  <data name="display_Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="display_UserDetailLink" xml:space="preserve">
+    <value>Get User Detail</value>
+  </data>
+  <data name="display_UserLevel" xml:space="preserve">
+    <value>User Level</value>
+  </data>
+  <data name="required_Client" xml:space="preserve">
+    <value>Please select Client Name.</value>
+  </data>
+  <data name="required_EmployeeID" xml:space="preserve">
+    <value>Please enter EmployeeID.</value>
+  </data>
+  <data name="required_Facility" xml:space="preserve">
+    <value>Please select Facility Name.</value>
+  </data>
+  <data name="required_FirstName" xml:space="preserve">
+    <value>Please enter First Name.</value>
+  </data>
+  <data name="required_LanID" xml:space="preserve">
+    <value>Please enter Login Name.</value>
+  </data>
+  <data name="required_LOB" xml:space="preserve">
+    <value>Please select LOB.</value>
+  </data>
+  <data name="required_Role" xml:space="preserve">
+    <value>Please select Role.</value>
+  </data>
+  <data name="required_RoleApprover" xml:space="preserve">
+    <value>Please select Role Approver.</value>
+  </data>
+  <data name="required_SBU" xml:space="preserve">
+    <value>Please select SBU.</value>
+  </data>
+  <data name="required_Search" xml:space="preserve">
+    <value>Enter search text.</value>
+  </data>
+  <data name="display_EffectiveDate" xml:space="preserve">
+    <value>Effective Date</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="required_FromDate" xml:space="preserve">
+    <value>Please select From Date.</value>
+  </data>
+  <data name="required_ToDate" xml:space="preserve">
+    <value>Please select To Date.</value>
+  </data>
+  <data name="confirm_DeleteUser" xml:space="preserve">
+    <value>Do you wish  to delete user?</value>
+  </data>
+  <data name="display_AccessAndApproval" xml:space="preserve">
+    <value>User Mapping &amp;  Approval Status</value>
+  </data>
+  <data name="display_AccountInformationLbl" xml:space="preserve">
+    <value>Account Information</value>
+  </data>
+  <data name="display_btnApproveText" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="display_btnCancelReqText" xml:space="preserve">
+    <value>Cancel Request</value>
+  </data>
+  <data name="display_btnGetStatusText" xml:space="preserve">
+    <value>Get Status List</value>
+  </data>
+  <data name="display_btnRaiseReqText" xml:space="preserve">
+    <value>Raise Request</value>
+  </data>
+  <data name="display_btnRejectText" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="display_btnSaveText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="display_ClientProcAccesslLbl" xml:space="preserve">
+    <value>Client/Process Access Details</value>
+  </data>
+  <data name="display_PageHeader" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="display_PopUpBTNSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="display_QuotaLbl" xml:space="preserve">
+    <value>Quota Details</value>
+  </data>
+  <data name="display_ReqApprovalHeader" xml:space="preserve">
+    <value>Request Approval List</value>
+  </data>
+  <data name="display_RequestApprovalTabLbl" xml:space="preserve">
+    <value>Request Approval List</value>
+  </data>
+  <data name="display_RequestStatusLbl" xml:space="preserve">
+    <value>Request Status List</value>
+  </data>
+  <data name="display_RequestStatusTabLbl" xml:space="preserve">
+    <value>Request Status List</value>
+  </data>
+  <data name="display_ResentErpChangeLbl" xml:space="preserve">
+    <value>Recent ERP Changes</value>
+  </data>
+  <data name="display_SearchPageHeader" xml:space="preserve">
+    <value>User Management Search</value>
+  </data>
+  <data name="display_ShiftDetailLbl" xml:space="preserve">
+    <value>Shift Detail</value>
+  </data>
+  <data name="display_UserDetailPageHeader" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="display_UserMapDetailTabLbl" xml:space="preserve">
+    <value>User Mapping Details</value>
+  </data>
+  <data name="display_UserPermissionLbl" xml:space="preserve">
+    <value>User Permission</value>
+  </data>
+  <data name="display_UserName" xml:space="preserve">
+    <value>User Name :</value>
+  </data>
+  <data name="required_ThreeCharsForSearch" xml:space="preserve">
+    <value>Please enter at least 3 characters for better search.</value>
+  </data>
+  <data name="display_ApproverAllSelectedProcess" xml:space="preserve">
+    <value>Please select approver for all the selected processes.</value>
+  </data>
+  <data name="display_ChangesDoneSuccessfully" xml:space="preserve">
+    <value>User data saved successfully !.</value>
+  </data>
+  <data name="display_ItemShouldUnique" xml:space="preserve">
+    <value>Item should be unique.</value>
+  </data>
+  <data name="display_NoProcessAssignedProcess" xml:space="preserve">
+    <value>No Process is assigned to the user! Please assign a Process.</value>
+  </data>
+  <data name="display_RequestApprovedSuccessfully" xml:space="preserve">
+    <value>User request approved successfully !.</value>
+  </data>
+  <data name="display_RequestCanceledSuccessfully" xml:space="preserve">
+    <value>User request cancelled successfully !.</value>
+  </data>
+  <data name="display_RequestRaisedSuccessfully" xml:space="preserve">
+    <value>User request raised successfully !.</value>
+  </data>
+  <data name="display_RequestRejectedSuccessfully" xml:space="preserve">
+    <value>User request rejected successfully !.</value>
+  </data>
+  <data name="display_UserAlreadyExist" xml:space="preserve">
+    <value>User Id already exists!&lt;/br&gt; If you want to modify it please click on the Search button at the bottom. &lt;/br&gt;If you are not able to search his/her Id then please contact your SPOC.</value>
+  </data>
+  <data name="display_UserDeletedSucessfully" xml:space="preserve">
+    <value>User data deleted sucessfully !.</value>
+  </data>
+  <data name="display_UserDetailsModifiedSuccessfully" xml:space="preserve">
+    <value>User data modified successfully !</value>
+  </data>
+  <data name="display_UserSavedSucessFully" xml:space="preserve">
+    <value>User Information data saved sucessfully !</value>
+  </data>
+  <data name="display_UserUpdatedSucessFully" xml:space="preserve">
+    <value>User Information data updated sucessfully !</value>
+  </data>
+  <data name="required_sSearchText" xml:space="preserve">
+    <value>Please enter search text.</value>
+  </data>
+  <data name="display_CanNotAssignYouSelf" xml:space="preserve">
+    <value>Sorry! You cannot assign yourself for this operation.</value>
+  </data>
+  <data name="required_mail" xml:space="preserve">
+    <value>Please enter Mail ID.</value>
+  </data>
+  <data name="required_CorrectMailAdress" xml:space="preserve">
+    <value>Please Enter Correct Email Address</value>
+  </data>
+  <data name="required_EmployeeIDNumeric" xml:space="preserve">
+    <value>Employee ID must be a numeric</value>
+  </data>
+  <data name="required_ApproverLevel" xml:space="preserve">
+    <value>Please select approver Level !</value>
+  </data>
+  <data name="display_designation" xml:space="preserve">
+    <value>Designation :</value>
+  </data>
+  <data name="required_designation" xml:space="preserve">
+    <value>Please select designation.</value>
+  </data>
+  <data name="display_Isbot" xml:space="preserve">
+    <value>Is BOT</value>
+  </data>
+  <data name="required_Supervisor" xml:space="preserve">
+    <value>Please select Supervisor</value>
+  </data>
+</root>

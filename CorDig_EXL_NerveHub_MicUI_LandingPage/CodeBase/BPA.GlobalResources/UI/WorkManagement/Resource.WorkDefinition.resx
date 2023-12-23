@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dispaly_Client" xml:space="preserve">
+    <value>Client Name:</value>
+  </data>
+  <data name="display_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="display_ApporveGridTitle" xml:space="preserve">
+    <value>Work Object Approvals</value>
+  </data>
+  <data name="display_Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="display_ApproveBussinesApprover" xml:space="preserve">
+    <value>Business Approver</value>
+  </data>
+  <data name="display_ApproveCampaign" xml:space="preserve">
+    <value>Campaign</value>
+  </data>
+  <data name="display_ApproveClient" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="display_ApproveProcess" xml:space="preserve">
+    <value>Process</value>
+  </data>
+  <data name="display_ApproveRequestedon" xml:space="preserve">
+    <value>Requested On</value>
+  </data>
+  <data name="display_ApproveRequester" xml:space="preserve">
+    <value>Requester:</value>
+  </data>
+  <data name="display_ApproveStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="display_ApproveTechApprover" xml:space="preserve">
+    <value>Technology Approver</value>
+  </data>
+  <data name="display_ApproveTitle" xml:space="preserve">
+    <value>Work Definition Approval</value>
+  </data>
+  <data name="display_BtnBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="display_BtnNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="display_BtnSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="display_BtnSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="display_Campaign" xml:space="preserve">
+    <value>Campaign Name:</value>
+  </data>
+  <data name="display_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="display_Choice" xml:space="preserve">
+    <value>Choice</value>
+  </data>
+  <data name="display_ChoiceValue" xml:space="preserve">
+    <value>Choice Value</value>
+  </data>
+  <data name="display_Column" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="display_ColumnSpan" xml:space="preserve">
+    <value>Column Span</value>
+  </data>
+  <data name="display_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Disable:</value>
+  </data>
+  <data name="display_DisplayOrder" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="display_Editable" xml:space="preserve">
+    <value>Editable</value>
+  </data>
+  <data name="Display_EmpidLanID" xml:space="preserve">
+    <value>Emp ID/Lan ID</value>
+  </data>
+  <data name="display_ErrorSnapshot" xml:space="preserve">
+    <value>Error Snapshot:</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>From Date:</value>
+  </data>
+  <data name="display_GenerateLetter" xml:space="preserve">
+    <value>Generate Letter:</value>
+  </data>
+  <data name="display_IsVisible" xml:space="preserve">
+    <value>Is Visible</value>
+  </data>
+  <data name="display_Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="display_NoColumns" xml:space="preserve">
+    <value>No. of Columns:</value>
+  </data>
+  <data name="display_NoRows" xml:space="preserve">
+    <value>No. of Rows:</value>
+  </data>
+  <data name="display_ObjectDataType" xml:space="preserve">
+    <value>Object Data Type</value>
+  </data>
+  <data name="display_ObjectLabel" xml:space="preserve">
+    <value>Object Label</value>
+  </data>
+  <data name="display_ObjectName" xml:space="preserve">
+    <value>Object Name</value>
+  </data>
+  <data name="display_ObjectType" xml:space="preserve">
+    <value>Object Type</value>
+  </data>
+  <data name="display_Process" xml:space="preserve">
+    <value>Process Name:</value>
+  </data>
+  <data name="display_Purposeofcreationofwork" xml:space="preserve">
+    <value>Purpose of Creation Work Definition:</value>
+  </data>
+  <data name="display_Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="display_Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="display_Row" xml:space="preserve">
+    <value>Row</value>
+  </data>
+  <data name="display_Searchable" xml:space="preserve">
+    <value>Searchable</value>
+  </data>
+  <data name="display_selectedValue" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_Select_PurposeofWork" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="display_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="display_Title" xml:space="preserve">
+    <value>Work Definition Master</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>To Date:</value>
+  </data>
+  <data name="display_TrasactionType" xml:space="preserve">
+    <value>Trasaction Type</value>
+  </data>
+  <data name="display_Unique" xml:space="preserve">
+    <value>Unique</value>
+  </data>
+  <data name="display_Validation" xml:space="preserve">
+    <value>Validation</value>
+  </data>
+  <data name="display_ViewDetail" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="display_WorkDefinitionName" xml:space="preserve">
+    <value>Work Definition Name:</value>
+  </data>
+  <data name="required_Campaign" xml:space="preserve">
+    <value>Please select Campaign Name</value>
+  </data>
+  <data name="required_CampTermCodeName" xml:space="preserve">
+    <value>Please select Client Name</value>
+  </data>
+  <data name="required_Client" xml:space="preserve">
+    <value>Please select Client Name</value>
+  </data>
+  <data name="required_Columns" xml:space="preserve">
+    <value>Please select no Columns</value>
+  </data>
+  <data name="required_NoOfRows" xml:space="preserve">
+    <value>Please enter no. of Rows</value>
+  </data>
+  <data name="required_Process" xml:space="preserve">
+    <value>Please select Process Name</value>
+  </data>
+  <data name="required_WorkDefinationName" xml:space="preserve">
+    <value>Purpose of Creation Work Definition</value>
+  </data>
+  <data name="display_NoRecord" xml:space="preserve">
+    <value>No request is pending for Approval</value>
+  </data>
+  <data name="display_work_seach" xml:space="preserve">
+    <value>Search Work Definition</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="diplay_ApproveSuccessfully" xml:space="preserve">
+    <value>Work Definition request approved successfully !.</value>
+  </data>
+  <data name="diplay_CancelSuccessfully" xml:space="preserve">
+    <value>Work Definition request cancelled successfully !.</value>
+  </data>
+  <data name="diplay_RejectSuccessfully" xml:space="preserve">
+    <value>Work Definition request rejected successfully !.</value>
+  </data>
+  <data name="display_error" xml:space="preserve">
+    <value>Error while saving data !</value>
+  </data>
+  <data name="display_PreView" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="dispaly_Changerequest" xml:space="preserve">
+    <value>Additional Change Request:</value>
+  </data>
+  <data name="display_WorkPreView" xml:space="preserve">
+    <value>PreView Work defination</value>
+  </data>
+  <data name="display_StoreWorkDefinitionName" xml:space="preserve">
+    <value>Work Definition Name</value>
+  </data>
+  <data name="display_storeLabelName" xml:space="preserve">
+    <value>Work Definition Layout</value>
+  </data>
+  <data name="display_storePriviewName" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="diplay_submitmsg" xml:space="preserve">
+    <value>Work Definition change request submitted successfully !.</value>
+  </data>
+  <data name="display_commentmsg" xml:space="preserve">
+    <value>Please enter comment to change the request!</value>
+  </data>
+  <data name="diaplay_TargetObject" xml:space="preserve">
+    <value>Target Object</value>
+  </data>
+  <data name="display_ClearFormula" xml:space="preserve">
+    <value>Clear Formula</value>
+  </data>
+  <data name="display_Constant" xml:space="preserve">
+    <value>Constant</value>
+  </data>
+  <data name="display_Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="display_Object" xml:space="preserve">
+    <value>Object</value>
+  </data>
+  <data name="display_Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="display_Property" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="display_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="dispaly_TargetObject" xml:space="preserve">
+    <value>Target Object</value>
+  </data>
+  <data name="display_Formula" xml:space="preserve">
+    <value>Formula</value>
+  </data>
+  <data name="required_Event" xml:space="preserve">
+    <value>Required Event.</value>
+  </data>
+  <data name="required_object" xml:space="preserve">
+    <value>Please enter Object</value>
+  </data>
+  <data name="required_TargetObject" xml:space="preserve">
+    <value>Please enter Target Object.</value>
+  </data>
+  <data name="display_Delete_Confirmation" xml:space="preserve">
+    <value>Formula will be deleted parmanently. Are You Sure?</value>
+  </data>
+  <data name="confirmFormulaReplacement" xml:space="preserve">
+    <value>Formula exist for this Object Event combination. Do you want to replace?</value>
+  </data>
+  <data name="displayEvents" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="displayFormilaUpdatedSuccessfully" xml:space="preserve">
+    <value>Formula data updated successfully !.</value>
+  </data>
+  <data name="displayFormulaSavedSuccessfully" xml:space="preserve">
+    <value>Formula data saved successfully !.</value>
+  </data>
+  <data name="displayNoFormulaToClear" xml:space="preserve">
+    <value>There is no formula to clear.</value>
+  </data>
+  <data name="displayPleaseSelectObject" xml:space="preserve">
+    <value>Please select Object.</value>
+  </data>
+  <data name="displaySeelct" xml:space="preserve">
+    <value>--select--</value>
+  </data>
+  <data name="displayWorkCreated" xml:space="preserve">
+    <value>Work Definition data saved successfully !.</value>
+  </data>
+  <data name="requiredConstant" xml:space="preserve">
+    <value>Please select Constant</value>
+  </data>
+  <data name="requiredEvents" xml:space="preserve">
+    <value>Please select Events</value>
+  </data>
+  <data name="requiredFixValue" xml:space="preserve">
+    <value>Please enter any fix value while trying to compare/ set the value of selected Object.</value>
+  </data>
+  <data name="requiredFormula" xml:space="preserve">
+    <value>Please create correct formula</value>
+  </data>
+  <data name="requiredOperator" xml:space="preserve">
+    <value>Please select Operator</value>
+  </data>
+  <data name="requiredProoperty" xml:space="preserve">
+    <value>Please select one of the possible properties while trying to compare/ set the value of selected Object</value>
+  </data>
+  <data name="display_bisReport" xml:space="preserve">
+    <value>IsReport</value>
+  </data>
+  <data name="display_bisReportOrder" xml:space="preserve">
+    <value>Report Order</value>
+  </data>
+  <data name="display_IsUploaded" xml:space="preserve">
+    <value>IsUpload</value>
+  </data>
+  <data name="required_btnSubmit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="display_ErrorDurationInDay" xml:space="preserve">
+    <value>Error duration in days</value>
+  </data>
+  <data name="display_btnClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="display_LetterMaping" xml:space="preserve">
+    <value>Letter Maping Field</value>
+  </data>
+  <data name="display_datatype" xml:space="preserve">
+    <value>DataType</value>
+  </data>
+  <data name="display_msgBlankRow" xml:space="preserve">
+    <value>Please fill the blank row in grid like..</value>
+  </data>
+  <data name="title_WorkRequest" xml:space="preserve">
+    <value>Work Object Creation Request Details</value>
+  </data>
+  <data name="displayListOfFormulae" xml:space="preserve">
+    <value>List Of Formula</value>
+  </data>
+  <data name="display_CreateNewWorkDefinitionMaster" xml:space="preserve">
+    <value>Create New Work Definition Master</value>
+  </data>
+  <data name="display_Descriptiongrid" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="display_ModifyExistingWorkDefinitionMaster" xml:space="preserve">
+    <value>Modify Existing Work Definition Master</value>
+  </data>
+  <data name="display_ViewDetails" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+  <data name="display_ViewDetailsRequestAdditionalChange" xml:space="preserve">
+    <value>View Details/Request Additional Change</value>
+  </data>
+  <data name="display_ViewEditDetails" xml:space="preserve">
+    <value>View/Edit Details</value>
+  </data>
+  <data name="display_GroupID" xml:space="preserve">
+    <value>Group ID</value>
+  </data>
+  <data name="display_LANID" xml:space="preserve">
+    <value>LAN ID</value>
+  </data>
+  <data name="display_AddNewRecord" xml:space="preserve">
+    <value>Add New Record</value>
+  </data>
+  <data name="display_Letter" xml:space="preserve">
+    <value>Letter</value>
+  </data>
+  <data name="display_LetterLibrary" xml:space="preserve">
+    <value>Letter Library</value>
+  </data>
+  <data name="required_LetterName" xml:space="preserve">
+    <value>Please select Letter Name</value>
+  </data>
+  <data name="required_Purpuse" xml:space="preserve">
+    <value>Please choose at least one purpuse of work creation.</value>
+  </data>
+  <data name="display_FormulaDeleted" xml:space="preserve">
+    <value>Formula data deleted successfully !.</value>
+  </data>
+  <data name="display_CustomerIdentifier" xml:space="preserve">
+    <value>Case Identifier</value>
+  </data>
+  <data name="msg_SameRowCol" xml:space="preserve">
+    <value>Same row and column combination can not be there!</value>
+  </data>
+  <data name="display_listofcontrol" xml:space="preserve">
+    <value>List Of Control ID</value>
+  </data>
+  <data name="display_Translate" xml:space="preserve">
+    <value>Translate</value>
+  </data>
+  <data name="display_ObjectLabelTranslate" xml:space="preserve">
+    <value>Object Translate Label</value>
+  </data>
+  <data name="display_puptranslate" xml:space="preserve">
+    <value>TR</value>
+  </data>
+  <data name="display_Translatelanguage" xml:space="preserve">
+    <value>Translate Language :</value>
+  </data>
+  <data name="display_Translatetxt" xml:space="preserve">
+    <value>Translate Text :</value>
+  </data>
+  <data name="display_TranslateConvesion" xml:space="preserve">
+    <value>Translate Convert</value>
+  </data>
+  <data name="ddl_Language" xml:space="preserve">
+    <value>1-Microsoft  App,2-Google App,3-Systren App</value>
+  </data>
+  <data name="display_DisplatTABName" xml:space="preserve">
+    <value>Display Tab Name</value>
+  </data>
+  <data name="display_ObjectNameTAB" xml:space="preserve">
+    <value>Object Tab Name</value>
+  </data>
+  <data name="display_TABValue" xml:space="preserve">
+    <value>TAB Value</value>
+  </data>
+  <data name="display_TabName" xml:space="preserve">
+    <value>TAB Name</value>
+  </data>
+  <data name="display_IscontrolInTAB" xml:space="preserve">
+    <value>Is Controls In Tab</value>
+  </data>
+  <data name="required_IscontrolInTAB" xml:space="preserve">
+    <value>Please Select Is Controls In Tab</value>
+  </data>
+  <data name="display_GrdConfig" xml:space="preserve">
+    <value>Grid Configuration</value>
+  </data>
+  <data name="display_GridControlName" xml:space="preserve">
+    <value>Add Grid Control </value>
+  </data>
+  <data name="display_IscontrolInGrid" xml:space="preserve">
+    <value>Is Grid Configuration</value>
+  </data>
+  <data name="display_GridName" xml:space="preserve">
+    <value>Grid Name</value>
+  </data>
+  <data name="display_BtnBackWorkMater" xml:space="preserve">
+    <value>Back Work Master</value>
+  </data>
+  <data name="display_IsSearchShow" xml:space="preserve">
+    <value>Is Searchable Show</value>
+  </data>
+  <data name="display_SearchableOrder" xml:space="preserve">
+    <value>Searchable Order</value>
+  </data>
+</root>

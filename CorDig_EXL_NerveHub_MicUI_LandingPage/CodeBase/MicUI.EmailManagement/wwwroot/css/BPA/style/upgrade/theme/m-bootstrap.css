@@ -1,0 +1,19 @@
+.row {
+    box-sizing: border-box;
+}
+
+    .row > * {
+        padding-right: 15px;
+        padding-left: 15px;
+        box-sizing: border-box;
+    }
+
+.g-0 > * {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: .75;
+}

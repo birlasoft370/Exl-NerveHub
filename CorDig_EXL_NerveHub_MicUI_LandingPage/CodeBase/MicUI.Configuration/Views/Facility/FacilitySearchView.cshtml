@@ -1,0 +1,102 @@
+﻿@model MicUI.Configuration.Models.ViewModels.FacilityViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_SearchFacility;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/lib/bpa/scripts/facility-1.8.2.min.js"></script>
+
+
+@using (Html.BeginForm("FacilitySearchView", "Facility", FormMethod.Post, new { @id = "formFacilitySearchView", @name = "formFacilitySearchView" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_SearchFacility;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("insert-m").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnFacilityNew"))
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        <label class="form-label w-100">@BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_FacilityName</label>
+                       @* @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_FacilityName, new { @class = "form-label w-100" })
+*@                        @Html.EditorFor(model => model.sSearchText, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+                    @(Html.Kendo().Grid(Model.lstFacilities)
+                        .Name("searchGrid").Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iFacilityID).Hidden(true);
+                            columns.Bound(u => u.sFacilityName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_FacilityName.TrimEnd(':')).HtmlAttributes(new { style = "width:55%" }).HeaderHtmlAttributes(new { style = "color:white;width:55%" }); ;
+                            // columns.Bound(u => u.sFacilityDescription).Column.Title = @BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_FacilityDescription;
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HtmlAttributes(new { @class = "btn-outline-primary btn btn-sm" }).Click("FillSearch")).Title(BPA.GlobalResources.UI.Resources_common.display_BtnEdit).HeaderHtmlAttributes(new { @style = "width:22.5%" });
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HtmlAttributes(new { @class = "k-primary  buttonstyle" }).Click("DeleteFacility")).Title(BPA.GlobalResources.UI.Resources_common.display_BtnDelete).HeaderHtmlAttributes(new { @style = "width:25%" });
+
+                        })
+                        .DataSource(dataSource =>
+                        dataSource.Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(u => u.iFacilityID);
+                        }).PageSize(5).ServerOperation(false)
+                        ))
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        var ResourceFacilitySearch = {
+            confirmDelete: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.confirmDelete',
+            msgDeletedFacility: '@BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.msgDeletedFacility',
+            urlPath_Index: ResourceLayout.partialURL + "Index",
+            urlPath_SetTempFacility: ResourceLayout.partialURL + "SetTempFacility",
+            urlPath_DeleteFacility: ResourceLayout.partialURL + "DeleteFacility"
+
+        }
+
+
+
+        function PostForm() {
+            var form = $('#form1');
+            form.data('validator').settings.ignore = '';
+            $("#form1").submit();
+        }
+
+    </script>
+
+}

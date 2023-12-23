@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dispaly_Title" xml:space="preserve">
+    <value>Upload Work</value>
+    <comment>Upload Work </comment>
+  </data>
+  <data name="displayApprover" xml:space="preserve">
+    <value>Approver:</value>
+    <comment>Upload Work</comment>
+  </data>
+  <data name="displaybatchCode" xml:space="preserve">
+    <value>Batch Code:</value>
+    <comment>Upload Work</comment>
+  </data>
+  <data name="displayBatchStatusUpload" xml:space="preserve">
+    <value>Batch Status Update</value>
+  </data>
+  <data name="displayDeleteData" xml:space="preserve">
+    <value>Delete Data</value>
+    <comment>Upload Work</comment>
+  </data>
+  <data name="displayDeleteRecords" xml:space="preserve">
+    <value>Delete Records</value>
+  </data>
+  <data name="displayDuplicateRecords" xml:space="preserve">
+    <value>Duplicate Records</value>
+  </data>
+  <data name="displayFile" xml:space="preserve">
+    <value>File:</value>
+    <comment>Upload Work </comment>
+  </data>
+  <data name="displayFileType" xml:space="preserve">
+    <value>File Type:</value>
+    <comment>Upload Work </comment>
+  </data>
+  <data name="displayFreshRecords" xml:space="preserve">
+    <value>Fresh Records</value>
+  </data>
+  <data name="displayFreshUpload" xml:space="preserve">
+    <value>Fresh Upload</value>
+    <comment>Upload Work</comment>
+  </data>
+  <data name="displayDuplicateRecord" xml:space="preserve">
+    <value>Duplicate Record</value>
+    <comment>Upload Work</comment>
+  </data>
+  <data name="displayResolutionCode" xml:space="preserve">
+    <value>Resolution Code</value>
+  </data>
+  <data name="required_Approver" xml:space="preserve">
+    <value>Please select Approver</value>
+  </data>
+  <data name="required_BatchCode" xml:space="preserve">
+    <value>Please select Batch Code</value>
+  </data>
+  <data name="required_File" xml:space="preserve">
+    <value>Please browse file. </value>
+  </data>
+  <data name="required_FileType" xml:space="preserve">
+    <value>Please select file type</value>
+  </data>
+  <data name="required_ResolutionCode" xml:space="preserve">
+    <value>Please select Resolution Code</value>
+  </data>
+  <data name="display_CampaignDataUpload" xml:space="preserve">
+    <value>Sampling Data Upload</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestApprovedSuccessfully" xml:space="preserve">
+    <value>Batch status data request approved successfully !.</value>
+  </data>
+  <data name="dispalyBatchStatusUpdateRequestCancelledSuccessfully" xml:space="preserve">
+    <value>Batch status data request cancelled successfully !.</value>
+  </data>
+  <data name="dispalyWorkNotDefined" xml:space="preserve">
+    <value>Work Definition is not defined for this campaign so it cannot be uploaded</value>
+  </data>
+  <data name="displarOOPS" xml:space="preserve">
+    <value>OOPS! Invalid character</value>
+  </data>
+  <data name="displayAllDuplicateRecordsUploadedSuccessfully" xml:space="preserve">
+    <value>All Duplicate Record(s) data uploaded successfully!</value>
+  </data>
+  <data name="displayBatchStatusUpdateRequestRejectedSuccessfully" xml:space="preserve">
+    <value>Batch status data request rejected successfully !</value>
+  </data>
+  <data name="displayColumn" xml:space="preserve">
+    <value>Column: </value>
+  </data>
+  <data name="displayError" xml:space="preserve">
+    <value>Error Occured.</value>
+  </data>
+  <data name="displayError1" xml:space="preserve">
+    <value>Work Definition does not exist for this campaign.</value>
+  </data>
+  <data name="displayError2" xml:space="preserve">
+    <value>File cannot be uploaded. Work Object column names and excel file header names must be Identical.</value>
+  </data>
+  <data name="displayError3" xml:space="preserve">
+    <value>Columns in the file does not match with the names defined in work definition.</value>
+  </data>
+  <data name="displayExcel" xml:space="preserve">
+    <value>Note: You can delete any column from the template generated if you don't want to upload data for that Column. The ordering of these Columns in generated template may be altered; however change in any of the Column Name is not accepted.  "\n"  Please also be sure that while uploading, the Name of the Text File having the data should be Data.txt.</value>
+  </data>
+  <data name="displayFailDownload" xml:space="preserve">
+    <value>Excel Sheet has not any field to download since Work Definition do not have Work Object Column Names.</value>
+  </data>
+  <data name="displayFileHeaderDoNotMatch" xml:space="preserve">
+    <value>Uploaded excel file header does not match</value>
+  </data>
+  <data name="displayFreshRecordUploaded" xml:space="preserve">
+    <value>Fresh Record(s) data uploaded successfully !.</value>
+  </data>
+  <data name="displayMustBeUniqueKey" xml:space="preserve">
+    <value>There must be one unique key defined in work object column name.</value>
+  </data>
+  <data name="displayNoData2Download" xml:space="preserve">
+    <value>No data to download !.</value>
+  </data>
+  <data name="displayNoRecordToUpload" xml:space="preserve">
+    <value>There is no record(s) to uploaded !.</value>
+  </data>
+  <data name="displayRow" xml:space="preserve">
+    <value>Found in Row: </value>
+  </data>
+  <data name="displaySelectedDuplicateRecordUploaded" xml:space="preserve">
+    <value>Selected duplicate record(s) uploaded successfully !. </value>
+  </data>
+  <data name="displayTxt" xml:space="preserve">
+    <value>Note: You can delete any column from the template generated if you don't want to upload data for that Column. The ordering of these Columns in generated template may be altered; however change in any of the Column Name is not accepted."\n"Please also be sure that while uploading, the Name of the Work Sheet having the data should be  Sheet1.</value>
+  </data>
+  <data name="displayUploaded" xml:space="preserve">
+    <value>File Uploaded Successfully.</value>
+  </data>
+  <data name="msgDataIsNotValid" xml:space="preserve">
+    <value>Uploaded Data file is not valid</value>
+  </data>
+  <data name="msgEmptyFile" xml:space="preserve">
+    <value>File being uploaded is empty.</value>
+  </data>
+  <data name="msgFieldCanNotHaveanyBlankValue" xml:space="preserve">
+    <value>field can not have any blank value in the sheet to be uploaded.</value>
+  </data>
+  <data name="msgFieldDoesNotExist" xml:space="preserve">
+    <value>field is not there in the sheet to be uploaded.</value>
+  </data>
+  <data name="requiredFileType" xml:space="preserve">
+    <value>Please select File Type</value>
+  </data>
+  <data name="CheckDate" xml:space="preserve">
+    <value>From date must be smaller than To date !.</value>
+  </data>
+  <data name="diplayRequiredFile" xml:space="preserve">
+    <value>Select the template first</value>
+  </data>
+  <data name="dispalyPlease_Browse_File_As_Per_File_Type" xml:space="preserve">
+    <value>Please browse file as per file type</value>
+  </data>
+  <data name="displayConfirmForDelete" xml:space="preserve">
+    <value>Do you wish to delete this record ?</value>
+  </data>
+  <data name="displayDelete_Request_Send_For_Approval" xml:space="preserve">
+    <value>Delete request send for Approval.</value>
+  </data>
+  <data name="displayFiles_Can_Uploaded" xml:space="preserve">
+    <value> files can be uploaded!</value>
+  </data>
+  <data name="displayFile_Size_Error" xml:space="preserve">
+    <value>Max 4 MB file size is allowed!</value>
+  </data>
+  <data name="displayNo_Duplicate_Record_Found" xml:space="preserve">
+    <value>No duplicate record found !.</value>
+  </data>
+  <data name="displayNo_Fresh_Record_Found" xml:space="preserve">
+    <value>No fresh record found !.</value>
+  </data>
+  <data name="displayNo_Record_Deleted" xml:space="preserve">
+    <value>No record deleted !.</value>
+  </data>
+  <data name="displayNo_record_found_for_given_date" xml:space="preserve">
+    <value>No record found for given date !.</value>
+  </data>
+  <data name="displayOnly" xml:space="preserve">
+    <value>Only </value>
+  </data>
+  <data name="displayPlease_Select_Record" xml:space="preserve">
+    <value>Please select Record</value>
+  </data>
+  <data name="displayPlease_Select_To_Date" xml:space="preserve">
+    <value>Please select To Date</value>
+  </data>
+  <data name="displaySelect_Option" xml:space="preserve">
+    <value>Please select option for Fresh Upload/Delete or Batch Status Update</value>
+  </data>
+  <data name="displayTotal_Duplicate" xml:space="preserve">
+    <value>Total Duplicate Records - </value>
+  </data>
+  <data name="displayTotal_Records" xml:space="preserve">
+    <value>Total Fresh Records - </value>
+  </data>
+  <data name="display_Please_Select_From_Date" xml:space="preserve">
+    <value>Please select From Date</value>
+  </data>
+  <data name="displayFormDate" xml:space="preserve">
+    <value>From Date:</value>
+  </data>
+  <data name="displayPara1" xml:space="preserve">
+    <value>� The template to delete data is fixed. You need to keep only WorkId column in the Excel sheet.
+                                            The value of WorkId can be obtained from Batch Report (Reports &gt; Workflow &gt; Batch Reports) and necessary processing at Ops end.</value>
+  </data>
+  <data name="displayPara2" xml:space="preserve">
+    <value>� After deletion, the data would not be recoverable in any of the circumstances.</value>
+  </data>
+  <data name="displayPara3" xml:space="preserve">
+    <value>� All the data associated with a WorkId will be deleted (If users have also worked on the WorkId).</value>
+  </data>
+  <data name="displayPara4" xml:space="preserve">
+    <value>� All the details of those transaction will be deleted however, time consumed on those transaction would reside in the system.</value>
+  </data>
+  <data name="displayPara5" xml:space="preserve">
+    <value>� Data deleted will not be available in any of the reports, only Time Consumed will be reflected in all Productivity Reports.</value>
+  </data>
+  <data name="displayTitleBatchList" xml:space="preserve">
+    <value>Campaign Uploaded Batch List</value>
+  </data>
+  <data name="displayToDate" xml:space="preserve">
+    <value>To Date:</value>
+  </data>
+  <data name="displayTable" xml:space="preserve">
+    <value>in Table</value>
+  </data>
+  <data name="display_InvalidColumn" xml:space="preserve">
+    <value>Invalid columns found </value>
+  </data>
+  <data name="displayColumnMustExist" xml:space="preserve">
+    <value>Columns in the file does not match with the names defined in work definition.</value>
+  </data>
+  <data name="displayFileMustBeIdentical" xml:space="preserve">
+    <value>File cannot be uploaded. Work Object Column Names and Excel File Header Names must be Identical.  </value>
+  </data>
+  <data name="display_WorkDefinitionDoesNotExist" xml:space="preserve">
+    <value>Work Definition does not exist for this campaign.</value>
+  </data>
+  <data name="display_DeleteBatch" xml:space="preserve">
+    <value>Delete Batch</value>
+  </data>
+  <data name="display_Excel2003Format" xml:space="preserve">
+    <value>Excel(2003) Format</value>
+  </data>
+  <data name="display_Excel2007Format" xml:space="preserve">
+    <value>Excel(2007) Format</value>
+  </data>
+  <data name="display_FindDuplicate" xml:space="preserve">
+    <value>Find Duplicate</value>
+  </data>
+  <data name="display_PendingApprovalList" xml:space="preserve">
+    <value>Pending Approval List</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="display_Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="display_Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="display_UploadAllDuplicateRecords" xml:space="preserve">
+    <value>Upload All Duplicate Records</value>
+  </data>
+  <data name="display_UploadFreshRecords" xml:space="preserve">
+    <value>Upload Fresh Records</value>
+  </data>
+  <data name="display_UploadSelectedDuplicateRecords" xml:space="preserve">
+    <value>Upload Selected Duplicate Records</value>
+  </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>File has not any field to download since Work Definition do not have Work Object Column Names.</value>
+  </data>
+  <data name="display_NotValidFile" xml:space="preserve">
+    <value>Not a valid file or Data mismatch, Please Check.</value>
+  </data>
+  <data name="mgs_SelectAtleastOneRecords" xml:space="preserve">
+    <value>Please select at least one row!</value>
+  </data>
+  <data name="window_TitleCampaignBatchList" xml:space="preserve">
+    <value>Campaign Batch List</value>
+  </data>
+  <data name="window_TitleCampaignUploade" xml:space="preserve">
+    <value>Campaign Uploaded Batch Status</value>
+  </data>
+  <data name="required_Filefill" xml:space="preserve">
+    <value>Please fill required fields (*)</value>
+  </data>
+</root>

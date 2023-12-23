@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "Email Configuration|Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<ol class="breadcrumb">
+        <li><a href="home.html">Home</a></li>
+        <li>Email Configuration</li>
+    </ol>*@
+
+<div class="welcomePage">
+    <div class="mainicons Images-main-main-emailconfig"></div>
+</div>
+<!-- Full Page Design 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Email Configuration|Home</title>
+    <link rel="icon" href="https://bpademo.exlservice.com/Images/exl_21_logo_org.svg" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="https://bpademo.exlservice.com/Content/kendo/2021.2.616/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/kendo/2021.2.616/kendo.default.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="https://bpademo.exlservice.com/Content/style/global.css" rel="stylesheet" type="text/css" />
+    <style>
+        .k-loading-image {
+            background-image: url("https://bpademo.exlservice.com/images/PleaseWait_3.gif") !important;
+        }
+
+        .k-filter-row th,
+        .k-grid-header th.k-header {
+            width: 175px !important;
+        }
+
+        .k-grid td {
+            width: 175px !important; /*min-width: 161.8px !important;*/
+        }
+    </style>
+    <script src="https://bpademo.exlservice.com/bundles/modernizr?v=FbJ688fulsybP2-T20QPXT8LQsQ1mhbdTSDTuHaeXms1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jquery?v=rnWitZnwznIHNA7OAcAK6C_h6hX71dx4_VN8pzdDb2Y1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jquerymigrate?v=NWSnT7CTWmNB3lzm_CdfjiD4x92NocSb6lap3wxPQmM1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jqueryui?v=yqCVigxSu97_s_vulMWzX97PVmpAp1RUApV3df4vSeo1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/jqueryval?v=AIzZajV8_2Sh3UhTawDtHD8Ryrkt3JckscbvtXKOrmA1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/kendo/20212616?v=tMpBTNHXds-n_tYUpefYgGh9XLFU2jjzrG8V6c0CWgk1"></script>
+    <script src="https://bpademo.exlservice.com/bundles/header?v=CxdH3jZwx1CcbSydy0H66uRdhzz5djNppOXT-Zz0eqs1"></script>
+    <script src="https://bpademo.exlservice.com/Scripts/jsResetSession.js"></script>
+    <script>
+        function onlyInteger(num) {
+            if (/[^0-9]+/.test(num.value)) {
+                num.value = num.value.replace(/[^0-9]*/g, "");
+            }
+        }
+        $(function () {
+            $(".k-textbox").keypress(function (evt) {
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                var charStr = String.fromCharCode(charCode);
+                if (charStr.match(/[A-Za-z0-9 #$%^*()+=?/"!&,:;~'\\-]/)) {
+                    if (charStr.match(/[^A-Za-z 0-9]/g)) {
+                        this.value = this.value + charStr;
+                    }
+                }
+            });
+            $(document).on("input paste", "textarea", function () {
+                if (this.value.match(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                    this.value = this.value.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/, "");
+                }
+            });
+            $(document).on("paste", ":text", function (evt) {
+                // debugger;
+                evt = evt || window.event;
+                var charCode = evt.which || evt.keyCode || evt.charCode;
+                //this el is just for work definition grid
+                var el = $(this);
+                if (charCode === 1) {
+                    if (el.length > 0) {
+                        if (
+                            el[0].id == "sObjectName" ||
+                            el[0].id == "sObjectDescription" ||
+                            el[0].id == "sObjectLabel" ||
+                            el[0].id == "iReportsOrderSearch" ||
+                            el[0].id == "sChoiceValue" ||
+                            el[0].id == "iOrder" ||
+                            el[0].id == "iGroupID"
+                        ) {
+                        } else {
+                            var charStr = clipboardData.getData("Text"); //String.fromCharCode(charCode);
+                            clipboardData.clearData("Text");
+                            charStr = charStr.replace(/[^A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/g, "");
+                            if (charStr.match(/[A-Za-z0-9 '@@'#$%^*()_+=?/"!&,.:;~'\\-]/)) {
+                                this.value = this.value + charStr;
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        var ResourceLayout = { tenantName: "/" + "birlasoft", partialURL: "/" + "birlasoft" + "/" + "EmailManagement" + "/" + "Home" + "/", partiaArea: "/" + "birlasoft" + "/" + "EmailManagement" + "/" };
+    </script>
+    <script src="https://bpademo.exlservice.com/Scripts/kendo/2021.2.616/jszip.min.js"></script>
+    <script src="https://bpademo.exlservice.com/Content/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+            jAlert(thrownError, "INTELLIGENT PROCESS AUTOMATION");
+        });
+    </script>
+    <div>
+        <header>
+            <div id="ExpireConfirm_Submit" class="wrong-pass globalMsg warningText">
+                <p>
+                    Your Session will expire in <span id="Timer" class="Timer globalMsg-time"></span> &nbsp;seconds.<br />
+                    To Keep Active Press Keep button.
+                </p>
+                <button type="button" class="btn btn-orange btn-sm" id="btnSessonOK" onclick="KeepSession();">Keep</button>
+            </div>
+            <div class="header">
+                <div class="appTitle" style="margin-top: 0px;">
+                    <a href="#" class="logo"> <img src="https://bpademo.exlservice.com/images/exl_21_logo_org.svg" alt="logo" /> </a>
+                    <h1>NerveHub<sup>&#8482;</sup></h1>
+                </div>
+                <div class="rightheader" style="margin-top: -25px;">
+                    <div class="firstrow">
+                        <div class="login userMenu">
+                            <ul class="k-widget k-reset k-header k-menu" id="NavMenu">
+                                <li class="k-item k-state-default"><span class="k-link k-menu-link">Welcome: Bala Krishnan </span></li>
+                                <li class="k-item k-state-default">
+                                    <span class="k-link k-menu-link"><span class="k-icon k-i-arrow-60-down"></span></span>
+                                    <ul class="k-group k-menu-group">
+                                        <li class="k-item">
+                                            <div class="k-content" id="NavMenu-2">
+                                                <table>
+                                                    <tr>
+                                                        <td width="180">
+                                                            <div class="Images-ico20px-curlang20"></div>
+                                                            <span>Current Language:</span>
+                                                        </td>
+                                                        <td width="180"><span>en-US</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="Images-ico20px-ctimezone20"></div>
+                                                            <span>Current TimeZone:</span>
+                                                        </td>
+                                                        <td><span>India Standard Time/330</span> <input id="hdnCurrentOffset" name="hdnCurrentOffset" type="hidden" value="India&#32;Standard&#32;Time/330" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="/birlasoft/UserPreference" tabindex="0">
+                                                                <div class="Images-ico20px-userpref20"></div>
+                                                                <span>Change User Preference</span>
+                                                            </a>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4"><hr /></td>
+                                                    </tr>
+                                                    <tr></tr>
+                                                    <tr></tr>
+                                                    <tr></tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/Dashboard/Birlasoft_52/DesktopConsole.application?ApplicationURl=https://bpademo.exlservice.com&amp;Tenant=Birlasoft">
+                                                                <div title="Agent Dashboard" class="Images-ico20px-agentdash20"></div>
+                                                                <span>Agent Dashboard</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/WorkManagement">
+                                                                <div title="Work Management" class="Images-ico20px-swm20"></div>
+                                                                <span>Work Management</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/QualityManagement">
+                                                                <div title="Quality Management" class="Images-ico20px-qms20"></div>
+                                                                <span>Quality Management</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/QueryTracker">
+                                                                <div title="Query Tracker" class="Images-ico20px-querytracker20"></div>
+                                                                <span>Query Tracker</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/LetterLibrary">
+                                                                <div title="Letter Library" class="Images-ico20px-letterlib20"></div>
+                                                                <span>Letter Library</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/AssessMe">
+                                                                <div title="AssessME" class="Images-ico20px-assess20"></div>
+                                                                <span>AssessME</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/EmailManagement">
+                                                                <div title="Email Configuration" class="Images-ico20px-emailconfig20"></div>
+                                                                <span>Email Configuration</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/AppConfiguration">
+                                                                <div title="Configuration" class="Images-ico20px-config20"></div>
+                                                                <span>Configuration</span>
+                                                            </a>
+                                                        </td>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/ProcessGuidance">
+                                                                <div title="Process Guidance" class="Images-ico20px-assist20"></div>
+                                                                <span>Process Guidance</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="80">
+                                                            <a href="/birlasoft/BIReports">
+                                                                <div title="Process Performance Reports" class="Images-ico20px-processrepo20"></div>
+                                                                <span>Process Performance Reports</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <a href="/birlasoft/Base/SignOut">
+                                                                <div class="Images-ico20px-signout20"></div>
+                                                                <span>Sign Out</span>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <script>
+                                kendo.syncReady(function () {
+                                    jQuery("#NavMenu").kendoMenu({});
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mainNavbar">
+                <ul class="k-widget k-reset k-header k-menu" id="MainMenu">
+                    <li class="k-item k-state-default">
+                        <span class="k-link k-menu-link">Configuration<span class="k-icon k-i-arrow-60-down"></span></span>
+                        <ul class="k-group k-menu-group">
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/EmailManagement/MailConfiguration">E-Mail Configuration</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/EmailManagement/MailTemplate">E-Mail Template</a></li>
+                            <li class="k-item k-state-default"><a class="k-link k-menu-link" href="/birlasoft/EmailManagement/LanguageConfig">EMS Language Configuration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <script>
+                    kendo.syncReady(function () {
+                        jQuery("#MainMenu").kendoMenu({});
+                    });
+                </script>
+            </div>
+        </header>
+        <section class="content-wrapper main-content clear-fix centerBody">
+            <div class="welcomePage">
+                <div class="mainicons Images-main-main-emailconfig"></div>
+                </div>
+        </section>
+        <footer id="footer"><small>&copy; Exl Service Holdings, Inc. 2006-2023</small></footer>
+        <script>
+            var CultureDateFormat = "M/d/yyyy h:mm tt";
+            kendo.culture("en-US");
+        </script>
+        <script>
+            window.location.hash = "";
+            window.location.hash = "";
+            window.onhashchange = function () {
+                window.location.hash = "";
+            };
+        </script>
+        <script src="https://bpademo.exlservice.com/bundles/footer?v=YF-_a8dpaUe6pXNai-K7HNnw9aUeXGIehtdedgrOV101"></script>
+        <input type="hidden"
+               id="forgeryToken"
+               value="hnpGCZCAifDlxOwKcVSMUwnQlZPXKitXmNkBM32A_-vwnruzHHss6N_9PxrdZbfEyCk0o-eZJ_rUlMoyzRPioOI-Xeo1,OPWFk7IhBGoLoCBfFVkKxLVndrnIV8jpFCJnjf1A-pt2rMJL4kgJA34xcwERHEHKSG01Jzgya09wqOYd9se411qY7AWs2AdnjCxE_qFRzSV455h60" />
+    </div>
+</body>
+</html>-->
+
+

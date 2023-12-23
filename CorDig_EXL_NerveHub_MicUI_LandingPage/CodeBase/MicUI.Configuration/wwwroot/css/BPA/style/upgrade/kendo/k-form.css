@@ -1,0 +1,51 @@
+.k-invalid {
+  border-color: #f00 !important;
+}
+.k-form-error, .k-form-hint {
+  font-size: 11px;
+  font-weight: 300;
+}
+.k-invalid-msg {
+  color: #f00;
+}
+/****/
+.k-upload {
+  border: none;
+  border-bottom: 1px solid #d2d6de;
+  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
+  border-radius: 0;
+}
+.k-dropzone {
+  background-color: #fff;
+  padding: .429rem .75rem !important;
+  line-height: normal !important;
+  text-indent: inherit !important;
+  transition: all 300ms ease-in-out;
+  background-image: none;
+}
+.k-upload-button {
+	border-radius: 2px;
+	box-shadow: none;
+	outline: none;
+	background-image: none !important;
+	min-width: 85px;
+	font-weight: 300;
+	padding: .179rem .25rem;
+	font-size: .75rem;
+	color: #fff !important;
+	background-color: #fb4e0b;
+	border-color: #fb4e0b;
+}
+	.k-upload-button.active,
+	.k-upload-button:active,
+	.k-upload-button:hover,
+	.k-upload-button:focus {
+		background-color: #fb4e0b;
+		border-color: #fb4e0b;
+		color: #fff;
+	}
+.k-dropzone-hint {
+  font-size: 11px;
+	font-weight: 300;
+  font-style: normal;
+}

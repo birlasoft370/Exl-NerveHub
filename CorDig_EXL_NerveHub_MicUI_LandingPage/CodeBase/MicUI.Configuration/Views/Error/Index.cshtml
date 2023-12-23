@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Error Page";
+    Layout = "~/Views/Shared/_LayoutLogOut.cshtml";
+}
+<h2>
+    Error Page >> @if (@Model.ControllerName != "" && @Model.Area != "")
+    {
+        string partialURL = "";// "/" + @Convert.ToString(ViewContext.RouteData.Values["tenantName"]) + "/" + @Convert.ToString(ViewContext.RouteData.DataTokens["area"]) + "/" + @Convert.ToString(ViewContext.RouteData.Values["controller"]) + "/",
+        <a href="@partialURL">
+            Back
+        </a>
+        @*<a href="@Url.Action("Index", @Model.ControllerName, new { area = @Model.Area })">
+    Back
+    </a>*@
+    }
+</h2>
+
+<div>
+    <div>
+        <b>An unexpected error has occurred. Please contact the system administrator.</b>
+
+
+    </div>
+
+</div>

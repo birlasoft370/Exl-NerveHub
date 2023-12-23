@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Action" xml:space="preserve">
+    <value>Handling</value>
+  </data>
+  <data name="display_Assessmentfinish" xml:space="preserve">
+    <value>Din Vurdering tid er slut!</value>
+  </data>
+  <data name="display_AssessmentName" xml:space="preserve">
+    <value>Vurdering Navn</value>
+  </data>
+  <data name="display_AssessmentQuestion" xml:space="preserve">
+    <value>Vurdering Spørgsmål</value>
+  </data>
+  <data name="display_AttemptCount" xml:space="preserve">
+    <value>forsøg Count</value>
+  </data>
+  <data name="display_BACK" xml:space="preserve">
+    <value>TILBAGE</value>
+  </data>
+  <data name="display_BatchName" xml:space="preserve">
+    <value>Batch Name</value>
+  </data>
+  <data name="display_CLOSEASSESSMENT" xml:space="preserve">
+    <value>LUK VURDERING</value>
+  </data>
+  <data name="display_Completed" xml:space="preserve">
+    <value>AFSLUTTET</value>
+  </data>
+  <data name="display_ContAssessment" xml:space="preserve">
+    <value>FORTSÆT VURDERING</value>
+  </data>
+  <data name="display_CurrentQueueStatus" xml:space="preserve">
+    <value>Nuværende køstatus</value>
+  </data>
+  <data name="display_Descriptive" xml:space="preserve">
+    <value>Beskrivende</value>
+  </data>
+  <data name="display_FINISHASSESSMENT" xml:space="preserve">
+    <value>FINISH VURDERING</value>
+  </data>
+  <data name="display_GreenAnsweredQuestion" xml:space="preserve">
+    <value>Grøn-Besvaret spørgsmål</value>
+  </data>
+  <data name="display_InProgress" xml:space="preserve">
+    <value>I GANG</value>
+  </data>
+  <data name="display_Instruction1" xml:space="preserve">
+    <value>Deltagere fundet overskride undersøgelsen adfærdskodeks vil ikke få lov til at fortsætte med vurdering og vil heller ikke være tilladt at tage eventuelle fremtidige vurderinger.</value>
+  </data>
+  <data name="display_Instruction10" xml:space="preserve">
+    <value>Klik på &amp;lt;b&amp;gt; &amp;quot;START VURDERING&amp;quot; &amp;lt;/ b&amp;gt; for at starte vurderingen.</value>
+  </data>
+  <data name="display_Instruction2" xml:space="preserve">
+    <value>Vurderingen kan forsøges kun én gang.</value>
+  </data>
+  <data name="display_Instruction3" xml:space="preserve">
+    <value>Alle spørgsmål har et enkelt valg, dvs. der er kun ét rigtigt svar på et spørgsmål</value>
+  </data>
+  <data name="display_Instruction4" xml:space="preserve">
+    <value>Brug &amp;lt;b&amp;gt; &amp;quot;PREV&amp;quot; &amp;lt;/ b&amp;gt; for at gå tilbage til det foregående spørgsmål og &amp;lt;b&amp;gt; &amp;quot;NEXT&amp;quot; &amp;lt;/ b&amp;gt; for at flytte til det næste spørgsmål.</value>
+  </data>
+  <data name="display_Instruction5" xml:space="preserve">
+    <value>Brug &amp;lt;b&amp;gt; &amp;quot;RESUME&amp;quot; &amp;lt;/ b&amp;gt; for at gennemgå din vurdering.</value>
+  </data>
+  <data name="display_Instruction6" xml:space="preserve">
+    <value>For at afslutte vurderingen, skal du klikke på &amp;lt;b&amp;gt; &amp;quot;FINISH VURDERING&amp;quot; &amp;lt;/ b&amp;gt;. Du kan afslutte vurderingen enten efter det sidste spørgsmål, eller fra oversigtssiden.</value>
+  </data>
+  <data name="display_Instruction7" xml:space="preserve">
+    <value>Mindst 20% er påkrævet for at bestå vurderingen med succes.</value>
+  </data>
+  <data name="display_Instruction8" xml:space="preserve">
+    <value>Når du har indsendt vurderingen, &amp;lt;b&amp;gt; &amp;quot;Grade rapport&amp;quot; &amp;lt;/ b&amp;gt; ville få vist som vil vise din score og resultat.</value>
+  </data>
+  <data name="display_Instruction9" xml:space="preserve">
+    <value>Du kan gennemgå vurderingen efter du har indsendt vurderingen.</value>
+  </data>
+  <data name="display_Instructions" xml:space="preserve">
+    <value>VEJLEDNING</value>
+  </data>
+  <data name="display_Minutes" xml:space="preserve">
+    <value>Minutter</value>
+  </data>
+  <data name="display_Multiple" xml:space="preserve">
+    <value>Multiple</value>
+  </data>
+  <data name="display_Next" xml:space="preserve">
+    <value>NÆSTE</value>
+  </data>
+  <data name="display_NoteGreen" xml:space="preserve">
+    <value>Bemærk - Grøn betyder ikke, at spørgsmålet er blevet besvaret korrekt.</value>
+  </data>
+  <data name="display_Of" xml:space="preserve">
+    <value>Af</value>
+  </data>
+  <data name="display_ParticipantName" xml:space="preserve">
+    <value>Deltager Navn</value>
+  </data>
+  <data name="display_PerformancelastBatch" xml:space="preserve">
+    <value>Performance i sidste 3 Batch</value>
+  </data>
+  <data name="display_PleaseclickQuestionnumber" xml:space="preserve">
+    <value>Klik på Spørgsmål nummer for at navigere til det spørgsmål.</value>
+  </data>
+  <data name="display_PREV" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_Question" xml:space="preserve">
+    <value>Spørgsmål</value>
+  </data>
+  <data name="display_Questions" xml:space="preserve">
+    <value>spørgsmål</value>
+  </data>
+  <data name="display_ReadUnansweredQuestion" xml:space="preserve">
+    <value>Læs-Ubesvaret spørgsmål</value>
+  </data>
+  <data name="display_Result" xml:space="preserve">
+    <value>Resultat</value>
+  </data>
+  <data name="display_Score" xml:space="preserve">
+    <value>score%</value>
+  </data>
+  <data name="display_Seconds" xml:space="preserve">
+    <value>Sekunder</value>
+  </data>
+  <data name="display_Single" xml:space="preserve">
+    <value>Enkelt</value>
+  </data>
+  <data name="display_Status" xml:space="preserve">
+    <value>status</value>
+  </data>
+  <data name="display_SUMMARY" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_TimeLeft" xml:space="preserve">
+    <value>Tid tilbage</value>
+  </data>
+  <data name="display_Tittle" xml:space="preserve">
+    <value>Vurdering</value>
+  </data>
+  <data name="required_AssessmentName" xml:space="preserve">
+    <value>Vælg venligst Vurdering Navn</value>
+  </data>
+  <data name="required_BatchName" xml:space="preserve">
+    <value>Vælg venligst Kladdenavn</value>
+  </data>
+  <data name="display_Save" xml:space="preserve">
+    <value>Gemt med succes</value>
+  </data>
+  <data name="display_Hr" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="display_ReportsMonthSummaryRepoprts" xml:space="preserve">
+    <value>Måned Resumé Rapporter</value>
+  </data>
+  <data name="display_ReportVerticalWiseAssignmentList" xml:space="preserve">
+    <value>Rapport- Vertical Wise Assignment List</value>
+  </data>
+  <data name="display_ReportUserFinalScoreCard" xml:space="preserve">
+    <value>Bruger Final Score Card</value>
+  </data>
+</root>

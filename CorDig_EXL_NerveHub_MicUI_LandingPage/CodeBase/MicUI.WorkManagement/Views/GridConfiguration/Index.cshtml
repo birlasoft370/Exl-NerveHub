@@ -1,0 +1,2039 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Vector CSS -->
+<link href="~/css/bpa/assets/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+
+@section AddToHead{
+    <style type="text/css">
+        .custom-input .k-checkbox{
+            z-index: 2 !important;
+            opacity: 10 !important;
+        }
+        </style>
+}
+
+<!-- Unique_Admin skins -->
+<!--
+<link href="~/Content/jquery.alerts.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    -->
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { @id = "formWorkMaster" }))
+{
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Create New Configuration</h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Name("btnSaveWorkMaster").Icon("plus").Events(e => e.Click("SaveWorkMater")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn"}).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @*<span>
+                                @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "k-primary", })
+                                                                                     .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Events(e => e.Click("btnNewClick")))
+                            </span>
+                            <span>
+                                @(Html.Kendo().Button().Name("btnSaveWorkMaster").Icon("plus").Events(e => e.Click("SaveWorkMater")).HtmlAttributes(new { type = "button", @class = "k-primary", })
+                                                    .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                            </span>
+                            <span>
+                                @(Html.Kendo().Button().Icon("search").Events(ev => ev.Click("OnClickView")).Name("btnView").HtmlAttributes(new { type = "button", @class = "k-primary", })
+                                                    .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                            </span>
+                            <span>
+                                @(Html.Kendo().Button().Events(ev => ev.Click("OnClickGridConfig")).Icon("seek-w").Name("btnGrdConfig").HtmlAttributes(new { type = "button", @class = "k-primary", })
+                                                    .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_GrdConfig))
+                            </span>
+                            <span>
+                                @(Html.Kendo().Button().Events(ev => ev.Click("OnClickPreView")).Icon("seek-w").Name("btnPreView").HtmlAttributes(new { type = "button", @class = "k-primary", })
+                                                    .Content(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_PreView))
+                            </span>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+
+            <div class="row">
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.ClientName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sClientName").DataValueField("iClientID").Events(e => e.DataBound("dataBound")).DataSource(source => { source.Read(read => { read.Action("GetCascadeClient", "WorkDefinition"); }); }).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Client }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.ProcessName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class="formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.CampaignName, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(c => c.CampaignName).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.Select("onSelect").DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName").HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign }))
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="nextWrap">
+                <div id="GridBind" class="formTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Process Name</th>
+                                <th>Campaign Name</th>
+                                <th>User Current Pending Transactions</th>
+                                <th>Mapping</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="iDLinkCampaignID1" name="iDLinkCampaignID1" value="0">
+                                    @(Html.Kendo().DropDownListFor(c => c.ProcessName1).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                                </td>
+
+                                <td>
+                                    @(Html.Kendo().DropDownListFor(c => c.CampaignName1).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName1"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName1").HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign}))
+                                </td>
+                                <td>
+                                    <div class="custom-input">
+                                        @(Html.Kendo().CheckBox().Name("Checkbox1"))
+
+                                    </div>
+                                </td>
+                                <td>
+                                    @(Html.Kendo().Button().Name("btnNew1").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn", }).Content("Mapping").Events(e => e.Click("btnNewClick1")))
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="iDLinkCampaignID2" name="iDLinkCampaignID2" value="0">
+                                    @(Html.Kendo().DropDownListFor(c => c.ProcessName2).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                                </td>
+
+                                <td>
+                                    @(Html.Kendo().DropDownListFor(c => c.CampaignName2).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName2"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName2").HtmlAttributes(new { @class = "formSelect",  @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign }))
+                                </td>
+                                <td>
+                                    <div class="custom-input">
+
+                                        @(Html.Kendo().CheckBox().Name("Checkbox2"))
+                                    </div>
+                                </td>
+                                <td>
+                                    @(Html.Kendo().Button().Name("btnNew2").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn", }).Content("Mapping").Events(e => e.Click("btnNewClick2")))
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="iDLinkCampaignID3" name="iDLinkCampaignID3" value="0">
+                                    @(Html.Kendo().DropDownListFor(c => c.ProcessName3).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                                </td>
+
+                                <td>
+                                    @(Html.Kendo().DropDownListFor(c => c.CampaignName3).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName3"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName3").HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign}))
+                                </td>
+                                <td>
+                                    <div class="custom-input">
+
+                                        @(Html.Kendo().CheckBox().Name("Checkbox3"))
+                                        @*@(Html.Kendo().CheckBox().Name("Checkbox3").HtmlAttributes(new { @onclick = "javascript:WorkDefinition_GridConfig_ShowHide(this);" }).Label(string.Empty))*@
+                                    </div>
+                                </td>
+                                <td>
+                                    @(Html.Kendo().Button().Name("btnNew3").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn", }).Content("Mapping").Events(e => e.Click("btnNewClick3")))
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="iDLinkCampaignID4" name="iDLinkCampaignID4" value="0">
+                                    @(Html.Kendo().DropDownListFor(c => c.ProcessName4).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                                </td>
+
+                                <td>
+                                    @(Html.Kendo().DropDownListFor(c => c.CampaignName4).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName4"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName4").HtmlAttributes(new { @class = "formSelect",  @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign }))
+                                </td>
+                                <td>
+                                    <div class="custom-input">
+
+                                        @(Html.Kendo().CheckBox().Name("Checkbox4"))
+                                    </div>
+                                </td>
+                                <td>
+                                    @(Html.Kendo().Button().Name("btnNew4").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn", }).Content("Mapping").Events(e => e.Click("btnNewClick4")))
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="iDLinkCampaignID5" name="iDLinkCampaignID5" value="0">
+                                    @(Html.Kendo().DropDownListFor(c => c.ProcessName5).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+.Events(e => e.DataBound("onDataBoundProcess")).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); })
+.CascadeFrom("ClientName").AutoBind(false).HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Process }))
+                                </td>
+
+                                <td>
+                                    @(Html.Kendo().DropDownListFor(c => c.CampaignName5).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+.Events(e => e.DataBound("onDataBoundCompaign")).DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName5"); }).ServerFiltering(true); })
+.CascadeFrom("ProcessName5").HtmlAttributes(new { @class = "formSelect", @required = "required", @validationmessage = @BPA.GlobalResources.UI.Resources_common.required_Campaign }))
+                                </td>
+                                <td>
+                                    <div class="custom-input">
+
+                                        @(Html.Kendo().CheckBox().Name("Checkbox5"))
+                                    </div>
+                                </td>
+                                <td>
+                                    @(Html.Kendo().Button().Name("btnNew5").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn", }).Content("Mapping").Events(e => e.Click("btnNewClick5")))
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<div id="OpenPartialPopupChoice" style="display:none">
+    <partial name="~/Views/GridConfiguration/_ChoicePopup.cshtml" />
+</div>
+@*<div id="OpenPartialPopupChoice1" style="display:none">
+        @Html.Partial("~/Areas/WorkManagement/Views/GridConfiguration/_ChoicePopup1.cshtml")
+    </div>
+    <div id="OpenPartialPopupChoice2" style="display:none">
+        @Html.Partial("~/Areas/WorkManagement/Views/GridConfiguration/_ChoicePopup2.cshtml")
+    </div>
+    <div id="OpenPartialPopupChoice3" style="display:none">
+        @Html.Partial("~/Areas/WorkManagement/Views/GridConfiguration/_ChoicePopup3.cshtml")
+    </div>
+    <div id="OpenPartialPopupChoice4" style="display:none">
+        @Html.Partial("~/Areas/WorkManagement/Views/GridConfiguration/_ChoicePopup4.cshtml")
+    </div>*@
+<script>
+
+    var clsCtype = {};
+    var clsDtype = {};
+    var clsVtype = {};
+    var clsChkReq = {};
+    var clsChkVisible = {};
+    var clsChkDisable = {};
+    var clsChkDtc = {}
+    clsCtype.editFlg = 0;
+    clsDtype.editFlg = 0;
+    clsVtype.editFlg = 0;
+    var RowMappID = "0";
+
+    var brands;
+    var S_Object;
+    var D_Object;
+    var IschoicenewRow = 0
+    var RowChoiceNo = 0;
+    var clsChkChoiceDidable = {};
+    clsChkChoiceDidable.dval = false;
+
+    //--------------------
+    var IsFfieldnewRow = 0;
+    var tdata = ''
+    var controltypeItem = '';
+    var DatatypeItem = '';
+    var VelidationtItem = '';
+    var rowno = 100;
+    clsChkReq.editFlg = 0;
+    clsChkDisable.editFlg = 0;
+    clsChkVisible.editFlg = 0;
+    clsChkDtc.editFlg = 0;
+    var FreeFTableData;
+    var arrRowBackup = [];
+    var arrRowBackupChoices = [];
+
+    Resources_Search = {
+        urlPath_FillObjectType: ResourceLayout.partialURL + "FillObjectType",
+        urlPath_FillWDObjectType: ResourceLayout.partialURL + "FillWDObjectType",
+        urlPath_SaveData: ResourceLayout.partialURL + "SaveData",
+        urlPath_SaveFinalData: ResourceLayout.partialURL + "SaveFinalData",
+        urlPath_GetLinkCampaignData: ResourceLayout.partialURL + "GetLinkCampaignData",
+        urlPath_GetLinkCampaignMappingData: ResourceLayout.partialURL + "GetLinkCampaignMappingData",
+
+    }
+    $(document).ready(function () {
+
+        $.ajax({
+            //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+            url: Resources_Search.urlPath_FillObjectType,
+            type: 'Post',
+            cache: false,
+            success: function (data) {
+
+                brands = data;
+            },
+
+            error: function (err) {
+
+            }
+        });
+    });
+
+    function onDataBoundProcess(e) {
+
+        //if (isEnable == "False") {
+        //    var dropdownlist = $("#ProcessName").data("kendoDropDownList");
+        //    dropdownlist.readonly();
+        //}
+        //else {
+        //    dataBound(e);
+        //}
+    }
+    function onDataBoundCompaign(e) {
+
+        //if (isEnable == "False") {
+        //    var dropdownlist = $("#CampaignName").data("kendoDropDownList");
+        //    dropdownlist.readonly();
+        //}
+        //else {
+        //    dataBound(e);
+        //}
+    }
+    /*Get Client Selected Value.*/
+    function WorkDefinition_filterProcess() {
+
+        return {
+            iClientID: $("#ClientName").val()
+
+        };
+    };
+    /*Get Process Selected Value*/
+    function WorkDefinition_filterCampaignName() {
+
+        return {
+            iProcessID: $("#ProcessName").val()
+
+        };
+    };
+    function WorkDefinition_filterCampaignName1() {
+
+        return {
+            iProcessID: $("#ProcessName1").val()
+
+        };
+    };
+    function WorkDefinition_filterCampaignName2() {
+
+        return {
+            iProcessID: $("#ProcessName2").val()
+
+        };
+    };
+    function WorkDefinition_filterCampaignName3() {
+
+        return {
+            iProcessID: $("#ProcessName3").val()
+
+        };
+    };
+    function WorkDefinition_filterCampaignName4() {
+
+        return {
+            iProcessID: $("#ProcessName4").val()
+
+        };
+    };
+    function WorkDefinition_filterCampaignName5() {
+
+        return {
+            iProcessID: $("#ProcessName5").val()
+
+        };
+    };
+    function deleteClick(e) {
+
+        var dataItem = this.dataItem($(e.target).closest("tr"));
+        jConfirm(display_MsgConfirm, display_Confirmation, function (r) {
+            var dataSource = $("#GridChoice").data("kendoGrid").dataSource;
+            dataSource.remove(dataItem);
+            // dataSource.sync();
+        });
+    };
+
+    function FillMappingCampaignData(RowNum) {
+        var num = RowNum / 10000;
+        $.LoadingOverlay("show");
+        $.ajax({
+            url: Resources_Search.urlPath_GetLinkCampaignMappingData,
+            type: 'POST',
+            dataType: 'json',
+            data: { 'iCampaignID': $("#CampaignName").val(), 'RowNum': RowNum },
+            async: false,
+            // contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+               $.LoadingOverlay("hide");
+                if (result.strMessage == 'YES') {
+
+
+                    var val = result.lstGridMapp;
+                    if (val != undefined && val.length > 0) {
+
+                        //Added by Nitin
+
+                        $.each(val, function (key, value) {
+                            // if (value.FreeName != "FR") {
+                            //alert(DCampaignName(value.iDestination, num));
+                            tdata = ''
+                            tdata = '<tr>  <td style="display: none;">' + value.iObjectID + '</td>';
+                            tdata += '<td style="display: none;">' + value.iObjectID + '</td>';
+                            tdata += '<td>' + brandName(value.iSourceObjID) + '</td>'; //value.ControlType
+                            tdata += '<td>' + DCampaignName(value.iDestination, num) + '</td> '; //value.dataType
+                            tdata += '<td style="display: none;">' + 0 + '</td> ';  //value.ValidateName
+
+                            tdata += ' <td class="text-center" style="display: none;"> <input disabled="disabled" onclick="chkIsRequiredSetVal(this)"   type="checkbox" id="chkIsRequired' + (rowno + 1) + '" class="filled-in" /><label for="chkIsRequired' + (rowno + 1) + '"></label> </td>';
+
+                            tdata += '<td class="text-center" style="display: none;"> <input disabled="disabled" onclick="chkIsVisibleSetVal(this)"  type="checkbox" id="chkIsVisible' + (rowno + 1) + '" class="filled-in" /> <label for="chkIsVisible' + (rowno + 1) + '"></label></td>';
+                            tdata += '<td class="text-center" style="display: none;"><input disabled="disabled" onclick="chkIsCTCSetVal(this)"  type="checkbox" id="chkIsCTC' + (rowno + 1) + '"  class="filled-in" /> <label for="chkIsCTC' + (rowno + 1) + '"></label></td>';
+                            tdata += '<td class="text-center"><input disabled="disabled" onclick="chkIsDisableSetVal(this)"  type="checkbox" id="chkIsDisable' + (rowno + 1) + '"  class="filled-in" /> <label for="chkIsDisable' + (rowno + 1) + '"></label></td>';
+                            //tdata += '<td><button type="button" class="btnEdit"> Edit</button> <button type="button" class="btnDelete"> Delete</button></td><td>' + (rowno + 1) + ' </td><td>' + value.iControlTypeID + '</td><td>' + value.DataTypeValue + '</td><td>' + value.ValidateId + '</td><td>' + value.IsRequired + '</td><td>' + value.IsVasible + '</td><td>' + value.IsCTC + '</td><td>' + value.Disable + '</td><td>' + value.FreeFieldID + '</td> </tr>';
+                            //tdata += '<td><button  class="btnEdit" type="button" id="btnEdit_'+(rowno + 1)+'"> Edit</button> <button class="btnDelete"  id="btnDelete_' + (rowno + 1) +'"  type="button"> Delete</button></td><td>' + (rowno + 1) + ' </td><td>' + value.iControlTypeID + '</td><td>' + value.DataTypeValue + '</td><td>' + value.ValidateId + '</td><td>' + value.IsRequired + '</td><td>' + value.IsVasible + '</td><td>' + value.IsCTC + '</td><td>' + value.Disable + '</td><td>' + value.FreeFieldID + '</td> </tr>';
+
+                            tdata += '<td><button  class="btnEdit" style = "cursor: pointer;" type="button" id="btnEdit_' + (rowno + 1) + '"> Edit</button>'
+                                //  < a class="btnEdit" style = "cursor: pointer;"  id = "btnEdit_' + (rowno + 1)
+                                //    + '"><i class="fa fa-pencil fs17 fontblue" data-toggle="tooltip" data-placement="top" title="Edit" data-original-title="Edit"></i></a>'
+                                //Removed
+                                //+ '<a id="btnDelete_' + (rowno + 1)
+                                //+ '" class="btnDelete" style="cursor: pointer; display:none;"><i class="fa fa-trash fs17 fontred" style="float:right;margin-right:10px;" data-toggle="tooltip" data-placement="top" title="Remove" data-original-title="Remove"></i></a>'
+                                + '</td><td style="display: none;">' + (rowno + 1) + ' </td><td style="display: none;">' + value.iSourceObjID + '</td><td style="display: none;">' + value.iDestination + '</td><td style="display: none;">' + value.ValidateId + '</td><td style="display: none;">' + value.bDesabled + '</td><td style="display: none;">' + value.bDesabled + '</td><td style="display: none;">' + value.bDesabled + '</td><td style="display: none;">' + value.bDesabled + '</td><td style="display: none;">' + value.iMappID + '</td> </tr>';
+
+
+                            // setTimeout(function () {
+                            $("#tblFrfields tr:last").after(tdata);
+                            // }, 200);
+
+                            $(".btnEdit").bind("click", Edit);
+                            $(".btnDelete").bind("click", Delete);
+
+
+
+                            $("#chkIsRequired" + (rowno + 1)).attr('checked', (value.bDesabled.toString() === "true") ? true : false);
+                            $("#chkIsVisible" + (rowno + 1)).attr('checked', (value.bDesabled.toString() === "true") ? true : false);
+                            $("#chkIsCTC" + (rowno + 1)).attr('checked', (value.bDesabled.toString() === "true") ? true : false);
+                            $("#chkIsDisable" + (rowno + 1)).attr('checked', (value.bDesabled.toString() === "true") ? true : false);
+                            rowno = rowno + 1;
+
+                            // }
+
+                        });
+
+                        /// Ended by Nitin
+                    }
+                    else {
+                        tdata = '<tr><td colspan="10">No Data</td></tr>';
+                        $("#tblFrfields tr:last").after(tdata);
+                    }
+
+                }
+                else {
+                    //jAlert("")
+                }
+
+
+            }, error: function (err) {
+                $.LoadingOverlay("hide");
+            }
+
+        });
+    }
+
+    function btnNewClick1() {
+
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select   Campaign Name !");
+        }
+        else
+            if ($("#CampaignName1").val() == '') {
+                jAlert("Please Select First Row Campaign Name !");
+            }
+            else {
+                RowMappID = "10000";
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName").val() },
+                    type: 'Post',
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+
+                        S_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName1").val() },
+                    type: 'Post',
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+
+                        D_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                var objBEWorkObjectChoice = [];
+
+                var accessWindow = $("#OpenPartialPopupChoice").kendoWindow({
+                    actions: ["Close"],
+                    draggable: true,
+                    height: "400px",
+                    modal: true,
+                    resizable: false,
+                    title: "Fill Choice",
+                    width: "700px"
+                }).data("kendoWindow").center().open();
+                $("#grid").html(
+                    ' <div class="box-body no-padding">' +
+                    '<div class="table-responsive">' +
+                    ' <table id="tblFrfields" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                    '<th style="display: none;">Name</th>' +
+                    '<th style="display: none;">Description</th>' +
+                    '<th>Source Object</th>' +
+                    '<th>Destination Object</th>' +
+                    '<th style="display: none;">Validation</th>' +
+                    '<th style="display: none;" class="text-center">Required</th>' +
+                    '<th style="display: none;" class="text-center">Visible</th>' +
+                    ' <th style="display: none;" class="text-center">CTC</th>' +
+                    '<th>Disable</th>' +
+                    ' <th style="min-width:102px;">Action</th>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+                    '</div>' +
+                    '</div> ')
+                FillMappingCampaignData(RowMappID);
+            }
+    }
+    function btnNewClick2() {
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select   Campaign Name !");
+        }
+        else
+            if ($("#CampaignName2").val() == '') {
+                jAlert("Please Select 2nd Row Campaign Name !");
+            }
+            else {
+                RowMappID = "20000";
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        S_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName2").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        D_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                var objBEWorkObjectChoice = [];
+
+                var accessWindow = $("#OpenPartialPopupChoice").kendoWindow({
+                    actions: ["Close"],
+                    draggable: true,
+                    height: "400px",
+                    modal: true,
+                    resizable: false,
+                    title: "Fill Choice",
+                    width: "700px"
+                }).data("kendoWindow").center().open();
+                $("#grid").html(
+                    ' <div class="box-body no-padding">' +
+                    '<div class="table-responsive">' +
+                    ' <table id="tblFrfields" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                    '<th style="display: none;">Name</th>' +
+                    '<th style="display: none;">Description</th>' +
+                    '<th>Source Object</th>' +
+                    '<th>Destination Object</th>' +
+                    '<th style="display: none;">Validation</th>' +
+                    '<th style="display: none;" class="text-center">Required</th>' +
+                    '<th style="display: none;" class="text-center">Visible</th>' +
+                    ' <th style="display: none;" class="text-center">CTC</th>' +
+                    '<th>Disable</th>' +
+                    ' <th style="min-width:102px;">Action</th>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+                    '</div>' +
+                    '</div> ')
+                FillMappingCampaignData(RowMappID);
+            }
+
+    }
+    function btnNewClick3() {
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select   Campaign Name !");
+        }
+        else
+            if ($("#CampaignName3").val() == '') {
+                jAlert("Please Select 3rd Row Campaign Name !");
+            }
+            else {
+                RowMappID = "30000";
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        S_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName3").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        D_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                var objBEWorkObjectChoice = [];
+
+                var accessWindow = $("#OpenPartialPopupChoice").kendoWindow({
+                    actions: ["Close"],
+                    draggable: true,
+                    height: "400px",
+                    modal: true,
+                    resizable: false,
+                    title: "Fill Choice",
+                    width: "700px"
+                }).data("kendoWindow").center().open();
+                $("#grid").html(
+                    ' <div class="box-body no-padding">' +
+                    '<div class="table-responsive">' +
+                    ' <table id="tblFrfields" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                    '<th style="display: none;">Name</th>' +
+                    '<th style="display: none;">Description</th>' +
+                    '<th>Source Object</th>' +
+                    '<th>Destination Object</th>' +
+                    '<th style="display: none;">Validation</th>' +
+                    '<th style="display: none;" class="text-center">Required</th>' +
+                    '<th style="display: none;" class="text-center">Visible</th>' +
+                    ' <th style="display: none;" class="text-center">CTC</th>' +
+                    '<th>Disable</th>' +
+                    ' <th style="min-width:102px;">Action</th>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+                    '</div>' +
+                    '</div> ')
+                FillMappingCampaignData(RowMappID);
+            }
+
+    }
+    function btnNewClick4() {
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select   Campaign Name !");
+        }
+        else
+            if ($("#CampaignName4").val() == '') {
+                jAlert("Please Select 4th Row Campaign Name !");
+            }
+            else {
+                RowMappID = "40000";
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        S_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName4").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        D_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                var objBEWorkObjectChoice = [];
+                var accessWindow = $("#OpenPartialPopupChoice").kendoWindow({
+                    actions: ["Close"],
+                    draggable: true,
+                    height: "400px",
+                    modal: true,
+                    resizable: false,
+                    title: "Fill Choice",
+                    width: "700px"
+                }).data("kendoWindow").center().open();
+                $("#grid").html(
+                    ' <div class="box-body no-padding">' +
+                    '<div class="table-responsive">' +
+                    ' <table id="tblFrfields" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                    '<th style="display: none;">Name</th>' +
+                    '<th style="display: none;">Description</th>' +
+                    '<th>Source Object</th>' +
+                    '<th>Destination Object</th>' +
+                    '<th style="display: none;">Validation</th>' +
+                    '<th style="display: none;" class="text-center">Required</th>' +
+                    '<th style="display: none;" class="text-center">Visible</th>' +
+                    ' <th style="display: none;" class="text-center">CTC</th>' +
+                    '<th>Disable</th>' +
+                    ' <th style="min-width:102px;">Action</th>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+                    '</div>' +
+                    '</div> ')
+                FillMappingCampaignData(RowMappID);
+            }
+    }
+    function btnNewClick5() {
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select   Campaign Name !");
+        }
+        else
+            if ($("#CampaignName5").val() == '') {
+                jAlert("Please Select 5th Row Campaign Name !");
+            }
+            else {
+                RowMappID = "50000";
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        S_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                $.ajax({
+                    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                    url: Resources_Search.urlPath_FillWDObjectType,
+                    data: { campID: $("#CampaignName5").val() },
+                    type: 'Post',
+                    cache: false,
+                    success: function (data) {
+
+                        D_Object = data;
+                    },
+
+                    error: function (err) {
+
+                    }
+                });
+                var objBEWorkObjectChoice = [];
+                var accessWindow = $("#OpenPartialPopupChoice").kendoWindow({
+                    actions: ["Close"],
+                    draggable: true,
+                    height: "400px",
+                    modal: true,
+                    resizable: false,
+                    title: "Fill Choice",
+                    width: "700px"
+                }).data("kendoWindow").center().open();
+                $("#grid").html(
+                    ' <div class="box-body no-padding">' +
+                    '<div class="table-responsive">' +
+                    ' <table id="tblFrfields" class="table table-hover table-bordered table-condensed table-striped">' +
+                    '<tr>' +
+                    '<th style="display: none;">Name</th>' +
+                    '<th style="display: none;">Description</th>' +
+                    '<th>Source Object</th>' +
+                    '<th>Destination Object</th>' +
+                    '<th style="display: none;">Validation</th>' +
+                    '<th style="display: none;" class="text-center">Required</th>' +
+                    '<th style="display: none;" class="text-center">Visible</th>' +
+                    ' <th style="display: none;" class="text-center">CTC</th>' +
+                    '<th>Disable</th>' +
+                    ' <th style="min-width:102px;">Action</th>' +
+                    '</tr>' +
+
+
+                    '</table>' +
+                    '</div>' +
+                    '</div> ')
+                FillMappingCampaignData(RowMappID);
+            }
+    }
+
+    function resetfChoice() {
+        debugger;
+        clsChkChoiceDidable.dval = false;
+        clsChkChoiceDidable.EditFlg = 0;
+        arrRowBackupChoices = [];
+        IschoicenewRow = 0;
+    }
+    function DeleteChoice() {
+        if (IschoicenewRow == 0) {
+            var par = $(this).parent().parent(); //tr
+            par.remove();
+            resetfChoice();
+        }
+    }
+    function dlCtypesetval(cid, ridx, actiontype) {
+
+        clsCtype = null;
+        clsCtype = {};
+        clsCtype.dval = $(cid).find(":selected").val();
+        clsCtype.dtext = $(cid).find(":selected").text();
+        clsCtype.editFlg = 1;
+    }
+    function dlDtypesetval(cid, ridx, actiontype) {
+
+        clsDtype = null;
+        clsDtype = {};
+        clsDtype.dval = $(cid).find(":selected").val();
+        clsDtype.dtext = $(cid).find(":selected").text();
+        clsDtype.editFlg = 1;
+
+    };
+    function SaveChoice() {
+        debugger;
+        var par = $(this).parent().parent(); //tr
+        tdIdChoice = par.children("td:nth-child(6)").text();
+        tdIdChoice = tdIdChoice.trim();
+        var strarr = this.id.split('_');
+        if (strarr[1] == tdIdChoice) {
+            var tdChiceid = par.children("td:nth-child(1)");
+
+            var tdChice = par.children("td:nth-child(2)");
+            var tdChiceDisable = par.children("td:nth-child(3)");
+            var tdchoiceDisableVal = par.children("td:nth-child(4)");
+            //var tdchoicerowno = par.children("td:nth-child(5)");
+            var tdchoiceButtons = par.children("td:nth-child(7)");
+
+            //if (tdChice.children("input[type=text]").val().trim() === '') {
+            //    jAlert("Choice name is mandatory.");
+            //    return false;
+            //}
+            if (clsCtype.editFlg == 1) {
+                tdChiceid.html(clsCtype.dtext);
+                //  tdCtypeValField.html(clsCtype.dval);
+            }
+            else {
+                // tdChiceid.html(brandName(tdCtypeValField.text().trim()));
+            }
+            //   tdChice.html(tdChice.children("input[type=text]").val());
+
+            //tdchoiceDisableVal.html('');
+            //tdchoiceDisableVal.html(clsChkChoiceDidable.dval.toString());
+
+            if (clsChkChoiceDidable.EditFlg == 1) {
+                tdchoiceDisableVal.html(clsChkChoiceDidable.dval.toString());
+            } else {
+                if (tdchoiceDisableVal.text().trim() === 'true') {
+                    clsChkChoiceDidable.dval = true;
+                }
+                else {
+                    clsChkChoiceDidable.dval = false;
+                }
+            }
+
+
+            // tdChiceDisable.html("<input type='checkbox' onclick='ClssetChoiceDisableVal(this);'  id='chkChoicedisable" + tdIdChoice + "' class='filled-in'/><label for='chkChoicedisable" + tdIdChoice + "'></label>");
+            //tdchoiceButtons.html("<button type='button' id='btnchoiceDelete_" + tdIdChoice + "'  class='btnchoiceDelete'>Del</button><button type='button' id='btnchoiceEdit_" + tdIdChoice + "' class='btnchoiceEdit'>Edit</button>");
+            tdchoiceButtons.html(
+                "<button class='btnchoiceEdit' type='button' style='cursor:pointer;margin-right:15px;' id='btnchoiceEdit_" + tdIdChoice + "' > Edit</button >"
+
+                //"<a id='btnchoiceEdit_" + tdIdChoice + "' class='btnchoiceEdit' style='cursor:pointer;margin-right:15px;'><i class='fa fa-pencil fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Edit' data-original-title='Edit'></i></a>"
+                //Removed
+                //    + "<a id='btnchoiceDelete_" + tdIdChoice + "'  class='btnchoiceDelete' style='cursor:pointer;'><i style='margin-right:10px;' class='fa fa-trash fs17 fontred'  data-toggle='tooltip' data-placement='top' title='Remove' data-original-title='Remove'></i></a>"
+            );
+
+
+            $(".btnchoiceEdit").bind("click", EditChoice);
+            $(".btnchoiceDelete").bind("click", DeleteChoice);
+
+            $("#chkChoicedisable" + tdIdChoice).attr('checked', clsChkChoiceDidable.dval);
+
+            $("#chkChoicedisable" + tdIdChoice).attr('disabled', 'disabled');
+        }
+        resetfChoice();
+    };
+
+    function EditChoice() {
+        if (IschoicenewRow == 0) {
+            var par = $(this).parent().parent(); //tr
+            tdIdChoice = par.children("td:nth-child(5)").text();
+            tdIdChoice = tdIdChoice.trim();
+            var strarr = this.id.split('_');
+            if (strarr[1] == tdIdChoice) {
+                IschoicenewRow = 1;
+                var tdChice = par.children("td:nth-child(2)");
+
+                var tdChiceid = par.children("td:nth-child(1)");
+                var tdChiceDisable = par.children("td:nth-child(3)");
+                var tdchoiceDisableVal = par.children("td:nth-child(4)").text();
+                var tdchoiceButtons = par.children("td:nth-child(6)");
+
+                arrRowBackupChoices.push(tdChice.text().trim());
+
+                tdChice.html("<input type='text' class='form-control' id='txtNameCh' value='" + tdChice.html() + "'/>");
+                ///for hidden field
+
+
+                // clsChkChoiceDidable.dval = tdchoiceDisableVal;
+                if (tdchoiceDisableVal === 'true') {
+                    clsChkChoiceDidable.dval = true;
+                }
+                else {
+                    clsChkChoiceDidable.dval = false;
+                }
+
+                //tdchoiceButtons.html("<button type='button' id='btnSaveChoice_" + tdIdChoice+"'  class='btnSaveChoice'>save<button>");
+                //tdchoiceButtons.html("<a id='btnSaveChoice_" + tdIdChoice +"' class='btnSaveChoice'><i class='fa fa-save fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Save' data-original-title='Save'></i></a><button type='button' class='closeChoiceRow' aria-label='Close'>C</button>");
+                tdchoiceButtons.html("<button   class='btnSaveChoice'  type = 'button'  style = 'cursor:pointer;' id = 'btnSaveChoice_" + tdIdChoice + "'  > Save</button ><button   class='closeChoiceRow'  type = 'button'  style = 'cursor:pointer;'   > Cancel</button >");
+
+                // " < a id = 'btnSaveChoice_" + tdIdChoice + "' class= 'btnSaveChoice' style = 'cursor:pointer;' > <i class='fa fa-save fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Save' data-original-title='Save'></i></a > <a class='closeChoiceRow' style='cursor:pointer;'><i class='fa fa-times fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Cancel' data - original - title='Cancel'></i ></a > ");
+
+                tdChiceDisable.html('<input class="filled-in" type="checkbox" onclick="ClssetChoiceDisableVal(this)" id="chkChoicedisable' + tdIdChoice + '" /><label for="chkChoicedisable' + tdIdChoice + '"></label>');
+
+                $(".btnSaveChoice").bind("click", SaveChoice);
+
+                $(".closeChoiceRow").bind("click", closeChoiceRow);
+
+                $("#chkChoicedisable" + tdIdChoice).attr('checked', clsChkChoiceDidable.dval);
+            }
+        }
+    };
+    function closeChoiceRow() {
+        var par = $(this).parent().parent(); //tr
+        tdIdChoice = par.children("td:nth-child(5)").text();
+        tdIdChoice = tdIdChoice.trim();
+
+        var tdChiceid = par.children("td:nth-child(1)");
+
+        var tdChice = par.children("td:nth-child(2)");
+        var tdChiceDisable = par.children("td:nth-child(3)");
+        var tdchoiceDisableVal = par.children("td:nth-child(4)");
+        //var tdchoicerowno = par.children("td:nth-child(5)");
+        var tdchoiceButtons = par.children("td:nth-child(6)");
+        //tdChice.html(tdChice.children("input[type=text]").val());
+        tdChice.html(arrRowBackupChoices[0]);
+        //tdchoiceDisableVal.html('');
+        //tdchoiceDisableVal.html(clsChkChoiceDidable.dval.toString());
+
+        if (tdchoiceDisableVal.text().trim() === 'true') {
+            clsChkChoiceDidable.dval = true;
+        }
+        else {
+            clsChkChoiceDidable.dval = false;
+        }
+
+        tdChiceDisable.html("<input type='checkbox' onclick='ClssetChoiceDisableVal(this);'  id='chkChoicedisable" + tdIdChoice + "' class='filled-in'/><label for='chkChoicedisable" + tdIdChoice + "'></label>");
+        //tdchoiceButtons.html("<button type='button' id='btnchoiceDelete_" + tdIdChoice + "'  class='btnchoiceDelete'>Del</button><button type='button' id='btnchoiceEdit_" + tdIdChoice + "' class='btnchoiceEdit'>Edit</button>");
+        tdchoiceButtons.html("<a style='cursor:pointer;' id='btnchoiceEdit_" + tdIdChoice + "' class='btnchoiceEdit'><i class='fa fa-pencil fs17 fontblue' style='margin-right:15px;' data-toggle='tooltip' data-placement='top' title='Edit' data-original-title='Edit'></i></a>"
+            //Removed
+            //+ "<a style='cursor:pointer;' id='btnchoiceDelete_"+ tdIdChoice + "' style='margin-right:7px;'  class='btnchoiceDelete'><i style='margin-right:10px;' class='fa fa-trash fs17 fontred'  data-toggle='tooltip' data-placement='top' title='Remove' data-original-title='Remove'></i></a>"
+        );
+
+
+        $(".btnchoiceEdit").bind("click", EditChoice);
+        $(".btnchoiceDelete").bind("click", DeleteChoice);
+
+        $("#chkChoicedisable" + tdIdChoice).attr('checked', clsChkChoiceDidable.dval);
+
+        $("#chkChoicedisable" + tdIdChoice).attr('disabled', 'disabled');
+        resetfChoice();
+
+    }
+    function SaveWorkMater() {
+        debugger;
+        if ($("#CampaignName").val() == '') {
+            jAlert("Please Select Campaign Name !");
+            return;
+        }
+        var GridConfigurationViewModel = {};
+        var objobject = [];
+        objobject.push({
+            iObjectID: "10000",
+            iObjProcessID: $("#ProcessName1").val(),
+            iObjCampaignID: $("#CampaignName1").val(),
+            bCPendingTransactions: $("input[name=Checkbox1]:checked").val()
+
+        });
+        objobject.push({
+            iObjectID: "20000",
+            iObjProcessID: $("#ProcessName2").val(),
+            iObjCampaignID: $("#CampaignName2").val(),
+            bCPendingTransactions: $("input[name=Checkbox2]:checked").val()
+
+        });
+        objobject.push({
+            iObjectID: "30000",
+            iObjProcessID: $("#ProcessName3").val(),
+            iObjCampaignID: $("#CampaignName3").val(),
+            bCPendingTransactions: $("input[name=Checkbox3]:checked").val()
+
+        });
+        objobject.push({
+            iObjectID: "40000",
+            iObjProcessID: $("#ProcessName4").val(),
+            iObjCampaignID: $("#CampaignName4").val(),
+            bCPendingTransactions: $("input[name=Checkbox4]:checked").val()
+
+        });
+        objobject.push({
+            iObjectID: "50000",
+            iObjProcessID: $("#ProcessName5").val(),
+            iObjCampaignID: $("#CampaignName5").val(),
+            bCPendingTransactions: $("input[name=Checkbox5]:checked").val()
+
+        });
+        GridConfigurationViewModel.iClientID = $("#ClientName").val();
+        GridConfigurationViewModel.iProcessID = $("#ProcessName").val();
+        GridConfigurationViewModel.iCampaignID = $("#CampaignName").val();
+        GridConfigurationViewModel.lstObject = objobject;
+        BEFreeFieldObject = { 'objMappingObject': GridConfigurationViewModel };
+                $.LoadingOverlay("show");
+        $.ajax({
+            url: Resources_Search.urlPath_SaveFinalData,
+            type: 'POST',
+            dataType: 'json',
+            data: BEFreeFieldObject,
+            async: false,
+            // contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $.LoadingOverlay("hide");
+                jAlert("Configuration Save Sucessfully", "Alert", function (r) {
+                    if (r) {
+                        window.location.href = ResourceLayout.partialURL + "Index";
+                    }
+                });
+            },error: function (err) {
+                 $.LoadingOverlay("hide");
+            }
+        });
+    }
+
+
+    //---------------------------------
+    function Add_Choice() {
+        debugger;
+        if (IsFfieldnewRow == 0) {
+
+            //DcontroltypeItem = '';
+            //ScontroltypeItem = '';
+            //$.each(D_Object, function (key, value) {
+
+            //    DcontroltypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+            //});
+            //$.each(S_Object, function (key, value) {
+
+            //    ScontroltypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+            //});
+
+            controltypeItem = '';
+            controltypeItem += '<option value="0"> --select-- </option>';
+            $.each(S_Object, function (key, value) {
+
+                controltypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+            });
+
+            //   if ($("#TMTabIndex").val() == 2) {
+            DatatypeItem = '';
+            //Added new code for cascading-------
+            //   var arr = models.filter(function (el) { return el.iControlTypeID == 3; });
+            DatatypeItem += '<option value="0"> --select-- </option>';
+            $.each(D_Object, function (key, value) {
+                DatatypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+            });
+
+            //VelidationtItem += '<option value="0"> --select-- </option>';
+            VelidationtItem += '<option value="NS"> --select-- </option>';
+            //Ended Code for Cascading------------
+
+            var opchiceV = "'" + (rowno + 1).toString() + "_" + "0" + "'";
+            tdata = ''
+
+            tdata = '<tr>  <td style="display: none;"><input id="" class="form-control" type="text" placeholder="Free Field Name" maxlength="100" /></td>';
+            tdata += '<td style="display: none;"><input id="" class="form-control" type="text" placeholder="Description" maxlength="100" /></td>';
+            tdata += '<td><select onchange="dlCtypesetval(this,' + (rowno + 1) + ',1)" class="custom-select form-control minwidth95" id="TMcontroltype' + (rowno + 1) + '"  name="">' + controltypeItem + '</select>  </td>';
+            tdata += '<td><select onchange="dlDtypesetval(this,' + (rowno + 1) + ',1)" class="custom-select form-control minwidth95" id="TMDatatype' + (rowno + 1) + '"    name="">' + DatatypeItem + '</select><input style="display: none;" class="form-control" type="text" id="txtmax_length" /></td> ';
+            tdata += '<td style="display: none;"><select onchange="dlVtypesetval(this)" class="custom-select form-control minwidth95" id="TMValidation' + (rowno + 1) + '"   name="">' + VelidationtItem + '</select></td> ';
+
+            tdata += ' <td class="text-center" style="display: none;"> <input onclick="chkIsRequiredSetVal(this)"  type="checkbox" id="chkIsRequired' + (rowno + 1) + '" class="filled-in" /><label for="chkIsRequired' + (rowno + 1) + '"></label> </td>';
+
+            tdata += '<td class="text-center" style="display: none;"> <input  onclick="chkIsVisibleSetVal(this)" type="checkbox" id="chkIsVisible' + (rowno + 1) + '" class="filled-in" /> <label for="chkIsVisible' + (rowno + 1) + '"></label></td>';
+            tdata += '<td class="text-center" style="display: none;"><input onclick="chkIsCTCSetVal(this)" type="checkbox" id="chkIsCTC' + (rowno + 1) + '"  class="filled-in" /> <label for="chkIsCTC' + (rowno + 1) + '"></label></td>';
+            tdata += '<td class="text-center" ><input onclick="chkIsDisableSetVal(this)" type="checkbox" id="chkIsDisable' + (rowno + 1) + '"  class="filled-in" /> <label for="chkIsDisable' + (rowno + 1) + '"></label></td>';
+            //tdata += '<td><button type="button" class="btnSave"> save</button> <button type="button" class="btnDelete"> Delete</button></td><td>' + (rowno + 1) +' </td><td>3</td><td>Boolean</td><td>0</td><td>false</td><td>false</td><td>false</td><td>false</td><td>0</td> </tr>';
+            tdata += '<td><button class="k-primary" type="button" id="btnSave_' + (rowno + 1) + '"> save</button>'
+                // tdata += '<td><a id="btnSave_' + (rowno + 1) + '" class="btnSave" style="cursor: pointer;"><i class="fa fa-save fs17 fontblue" data-toggle="tooltip" data-placement="top" title="Save" data-original-title="Save"></i></a>'
+                //  tdata += '<td> <button class="btnSave" type="button" style="cursor: pointer;" id="btnSave_' + (rowno + 1) + '" > Save</button > "  '
+
+                + '</td><td style="display: none;">' + (rowno + 1) + ' </td><td style="display: none;">3</td><td style="display: none;">Boolean</td><td style="display: none;">NS</td><td style="display: none;">false</td><td style="display: none;">false</td><td style="display: none;">false</td><td style="display: none;">false</td><td style="display: none;">0</td> </tr>';
+            rowno = rowno + 1;
+
+            $("#tblFrfields tr").eq(0).after(tdata);
+
+            $(".k-primary").bind("click", Save);
+            //  $(".btnDelete").bind("click", Delete);
+
+            //  $("TMcontroltype" + rowno).val(3);
+
+            //var strdd1 = "#TMcontroltype" + rowno;
+            //var strdd2 = "#TMDatatype" + rowno;
+
+            //$(" " + strdd1 + "  option[value='" + 3 + "']").attr("selected", "selected");
+            //$(" " + strdd2 + "  option[value='" + 'Boolean' + "']").attr("selected", "selected");
+            //  onSelect('CheckBox');
+            // onSelectDataType('CheckBox', 'Boolean');
+            //reset(); commented by Niitn shrivastava now
+
+            IsFfieldnewRow = 1;
+            // }
+        }
+    };
+    function Delete() {
+        // if (IsFfieldnewRow == 0) {
+        if (IsFfieldnewRow == 1) {
+            var par = $(this).parent().parent(); //tr
+            par.remove();
+            reset();
+        }
+    };
+    function Save() {
+        debugger;
+        var par = $(this).parent().parent(); //tr
+        tdId = par.children("td:nth-child(11)").text();
+        tdId = tdId.trim();
+        var strarr = this.id.split('_');
+        if (strarr[1] == tdId) {
+            var IsVisibleValField = par.children("td:nth-child(16)");
+            var IsDisableValField = par.children("td:nth-child(18)");
+
+            var isvisibleCd = '';
+            var isdisableCd = '';
+
+            if (clsChkVisible.editFlg == 1) {
+                isvisibleCd = clsChkVisible.dval.toString();
+            } else {
+
+                if (IsVisibleValField.text().trim() === 'true') {
+                    isvisibleCd = 'true';
+                }
+                else {
+                    isvisibleCd = 'false';
+                }
+            }
+
+            if (clsChkDisable.editFlg == 1) {
+                isdisableCd = clsChkDisable.dval.toString();
+            } else {
+                if (IsDisableValField.text().trim() === 'true') {
+                    isdisableCd = 'true';
+                }
+                else {
+                    isdisableCd = 'false';
+                }
+            }
+
+            if (isvisibleCd === 'true' && isdisableCd === 'true') {
+                jAlert("Disable is alredy checked. you can not checked visible anywhere.");
+                return false;
+            }
+
+            //var ffrid = par.children("td:nth-child(19)").text().trim(); //Added by Nitin on 15 May 2019
+            //if (saveChoiceGrid(ffrid, tdId) == false) {  //Modified by Nitin on 15 May 2019 saveChoiceGrid() to saveChoiceGrid(ffrid)
+            //    return false;
+            //}
+
+            var tdstatus = par.children("td:nth-child(1)");
+            var tddesc = par.children("td:nth-child(2)");
+            var tdconType = par.children("td:nth-child(3)");
+            var tdDataType = par.children("td:nth-child(4)");
+            var tdvalidation = par.children("td:nth-child(5)");
+            var tdisRequired = par.children("td:nth-child(6)");
+            var tdisvisible = par.children("td:nth-child(7)");
+            var tdisCTC = par.children("td:nth-child(8)");
+            var tdisDisable = par.children("td:nth-child(9)");
+            var tdButtons = par.children("td:nth-child(10)");
+
+            //for hidden fields
+            var tdCtypeValField = par.children("td:nth-child(12)");
+            var tdDtypeValField = par.children("td:nth-child(13)");
+            var tdVtypeValField = par.children("td:nth-child(14)");
+
+            var IsRequiredValField = par.children("td:nth-child(15)");
+            //var IsVisibleValField = par.children("td:nth-child(16)");
+            var IsCTCValField = par.children("td:nth-child(17)");
+            //var IsDisableValField = par.children("td:nth-child(18)");
+
+            //if (tdstatus.children("input[type=text]").val().trim() === '') {
+            //    jAlert("Free filed name is mandatory.");
+            //    return false;
+            //}
+            //if (tddesc.children("input[type=text]").val().trim() === '') {
+            //    jAlert("Free filed Description is mandatory.");
+            //    return false;
+            //}
+
+            // end hidden fields
+            tdstatus.html(tdstatus.children("input[type=text]").val());
+            tddesc.html(tddesc.children("input[type=text]").val());
+
+
+            if (clsCtype.editFlg == 1) {
+                tdconType.html(clsCtype.dtext);
+                tdCtypeValField.html(clsCtype.dval);
+            }
+            else {
+                tdconType.html(brandName(tdCtypeValField.text().trim()));
+            }
+
+            if (clsDtype.editFlg == 1) {
+                tdDataType.html(clsDtype.dtext);
+                tdDtypeValField.html(clsDtype.dval);
+            }
+            else {
+                tdDataType.html(modelName(tdDtypeValField.text().trim()));
+            }
+            if (clsVtype.editFlg == 1) {
+                tdvalidation.html(clsVtype.dtext);
+                tdVtypeValField.html(clsVtype.dval);
+            }
+            else {
+                // tdvalidation.html(ValidateName(tdVtypeValField.text().trim()));
+            }
+
+
+            if (clsChkReq.editFlg == 1) {
+                IsRequiredValField.html(clsChkReq.dval.toString());
+            } else {
+                if (IsRequiredValField.text().trim() === 'true') {
+                    clsChkReq.dval = true;
+                }
+                else {
+                    clsChkReq.dval = false;
+                }
+
+            }
+            if (clsChkVisible.editFlg == 1) {
+                IsVisibleValField.html(clsChkVisible.dval.toString());
+            } else {
+
+                if (IsVisibleValField.text().trim() === 'true') {
+                    clsChkVisible.dval = true;
+                }
+                else {
+                    clsChkVisible.dval = false;
+                }
+
+            }
+            if (clsChkDtc.editFlg == 1) {
+                IsCTCValField.html(clsChkDtc.dval.toString());
+            } else {
+
+                if (IsCTCValField.text().trim() === 'true') {
+                    clsChkDtc.dval = true;
+                }
+                else {
+                    clsChkDtc.dval = false;
+                }
+
+
+            }
+            if (clsChkDisable.editFlg == 1) {
+                IsDisableValField.html(clsChkDisable.dval.toString());
+            } else {
+
+                if (IsDisableValField.text().trim() === 'true') {
+                    clsChkDisable.dval = true;
+                }
+                else {
+                    clsChkDisable.dval = false;
+                }
+
+            }
+
+
+            //end---------------------
+
+            tdisRequired.html('<input class="filled-in" onclick="chkIsRequiredSetVal(this)" type="checkbox"  id="chkIsRequired' + tdId + '" /><label for="chkIsRequired' + tdId + '"></label>');
+            tdisvisible.html('<input class="filled-in" onclick="chkIsVisibleSetVal(this)"  type="checkbox"  id="chkIsVisible' + tdId + '" /><label for="chkIsVisible' + tdId + '"></label>');
+            tdisCTC.html('<input class="filled-in" onclick="chkIsCTCSetVal(this)" type="checkbox"  id="chkIsCTC' + tdId + '" /><label for="chkIsCTC' + tdId + '"></label>');
+            tdisDisable.html('<input class="filled-in" onclick="chkIsDisableSetVal(this)" type="checkbox"  id="chkIsDisable' + tdId + '" /><label for="chkIsDisable' + tdId + '"></label>');
+
+
+
+            $("#chkIsRequired" + tdId).attr('checked', clsChkReq.dval);
+            $("#chkIsVisible" + tdId).attr('checked', clsChkVisible.dval);
+            $("#chkIsCTC" + tdId).attr('checked', clsChkDtc.dval);
+            $("#chkIsDisable" + tdId).attr('checked', clsChkDisable.dval);
+
+            $("#chkIsRequired" + tdId).attr('disabled', 'disabled');
+            $("#chkIsVisible" + tdId).attr('disabled', 'disabled');
+            $("#chkIsCTC" + tdId).attr('disabled', 'disabled');
+            $("#chkIsDisable" + tdId).attr('disabled', 'disabled');
+            tdButtons.html("<button style='cursor:pointer;' class='btnEdit' type='button' id='btnEdit_" + tdId + "'> Edit</button>");
+            //   tdButtons.html("<a style='cursor:pointer;' class='btnEdit'  id='btnEdit_" + tdId + "'><i class='fa fa-pencil fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Edit' data-original-title='Edit'></i></a>"
+            //Removed
+            //+ "<a style='cursor:pointer; display:none;' class='btnDelete' id='btnDelete_" + tdId + "'><i class='fa fa-trash fs17 fontred' style='float:right;margin-right:10px;' data-toggle='tooltip' data-placement='top' title='Remove' data-original-title='Remove'></i></a>"
+            //);
+            $(".btnEdit").bind("click", Edit);
+            $(".btnDelete").bind("click", Delete);
+        }
+        reset();
+
+
+    };
+    function Edit() {
+        debugger;
+        if (IsFfieldnewRow == 0) {
+            var par = $(this).parent().parent(); //tr
+            tdId = par.children("td:nth-child(11)").text();
+            tdId = tdId.trim();
+            var strarr = this.id.split('_');
+            if (strarr[1] == tdId) {
+
+                var tdstatus = par.children("td:nth-child(1)");
+                var tddesc = par.children("td:nth-child(2)");
+                arrRowBackup.push(tdstatus.text().trim());
+                arrRowBackup.push(tddesc.text().trim());
+
+                var tdconType = par.children("td:nth-child(3)");
+                var tdDataType = par.children("td:nth-child(4)");
+                var tdvalidation = par.children("td:nth-child(5)");
+                var tdisRequired = par.children("td:nth-child(6)");
+                var tdisvisible = par.children("td:nth-child(7)");
+                var tdisCTC = par.children("td:nth-child(8)");
+                var tdisDisable = par.children("td:nth-child(9)");
+                var tdButtons = par.children("td:nth-child(10)");
+
+
+
+                //for hidden fields
+                var tdCtypeValField = par.children("td:nth-child(12)").text();
+                var tdDtypeValField = par.children("td:nth-child(13)").text();
+                var tdVtypeValField = par.children("td:nth-child(14)").text();
+
+                var IsRequiredValField = par.children("td:nth-child(15)").text();
+                var IsVisibleValField = par.children("td:nth-child(16)").text();
+                var IsCTCValField = par.children("td:nth-child(17)").text();
+                var IsDisableValField = par.children("td:nth-child(18)").text();
+
+                var tdFreeFid = par.children("td:nth-child(19)").text().trim();
+                //  end hidden fields
+
+                tdstatus.html("<input type='text' id='txtName' class='form-control' value='" + tdstatus.html() + "'/>");
+                tddesc.html("<input type='text' id='txtPhone' class='form-control' value='" + tddesc.html() + "'/>");
+                //tdconType.html('');
+                //tdDataType.html('');
+                //tdvalidation.html('');
+                //tdisRequired.html('');
+                //tdisvisible.html('');
+                //tdisCTC.html('');
+                //tdisDisable.html('');
+                //var opchiceV = "'" + tdId.toString() + "_" + "0" + "'";
+                var opchiceV = "'" + tdId.toString() + "_" + tdFreeFid + "'";
+
+                ///for hidden field
+                clsCtype.dval = tdCtypeValField;
+                //clsCtype.dtext = tdconType;
+                clsDtype.dval = tdDtypeValField;
+                //clsDtype.dtext = tdDataType;
+                clsVtype.dval = tdVtypeValField;
+                //clsVtype.dtext = tdvalidation;
+                if (IsRequiredValField === 'true') {
+                    clsChkReq.dval = true;
+                }
+                else {
+                    clsChkReq.dval = false;
+                }
+                if (IsVisibleValField === 'true') {
+                    clsChkVisible.dval = true;
+                }
+                else {
+                    clsChkVisible.dval = false;
+                }
+
+                if (IsCTCValField === 'true') {
+                    clsChkDtc.dval = true;
+                }
+                else {
+                    clsChkDtc.dval = false;
+                }
+
+                if (IsDisableValField === 'true') {
+                    clsChkDisable.dval = true;
+                }
+                else {
+                    clsChkDisable.dval = false;
+                }
+
+                //clsChkReq.dval = IsRequiredValField;
+                //clsChkVisible.dval = IsVisibleValField;
+                //clsChkDtc.dval = IsCTCValField;
+                //clsChkDisable.dval = IsDisableValField;
+                DatatypeItem = '';
+                controltypeItem = '';
+
+                $.each(S_Object, function (key, value) {
+
+                    controltypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+                });
+
+                //$.each(brands, function (key, value) {
+
+                //    controltypeItem += '<option value=' + value.iControlTypeID + '>' + value.sControlType + '</option>';
+                //});
+
+                // var arr = models.filter(function (el) { return el.iControlTypeID == clsCtype.dval; });
+
+                $.each(D_Object, function (key, value) {
+
+                    DatatypeItem += '<option value=' + value.iStoreId + '>' + value.sStoreName + '</option>';
+
+                });
+
+                // arr = ValidationArray.filter(function (el) { return el.iControlTypeID == clsCtype.dval; });
+                VelidationtItem = '';
+                //$.each(arr, function (key, value) {
+
+                //    VelidationtItem += '<option value=' + value.ValidateId + '>' + value.ValidateText + '</option>';
+
+                //});
+
+                VelidationtItem += '<option value="NS"> --select-- </option>';
+
+
+
+                tdconType.html('<select onchange="dlCtypesetval(this,' + tdId + ',2)" class="custom-select form-control minwidth95" id="TMcontroltype' + tdId + '" name="">' + controltypeItem + '</select>  ');
+                tdDataType.html('<select onchange="dlDtypesetval(this,' + tdId + ',2)" class="custom-select form-control minwidth95" id="TMDatatype' + tdId + '" name="">' + DatatypeItem + '</select> ');
+                tdvalidation.html('<select onchange="dlVtypesetval(this)" class="custom-select form-control minwidth95" id="TMValidation' + tdId + '" name="">' + VelidationtItem + '</select>');
+
+
+
+                //end---------------------
+
+
+                tdisRequired.html('<input class="filled-in" type="checkbox" onclick="chkIsRequiredSetVal(this)" id="chkIsRequired' + tdId + '" /><label for="chkIsRequired' + tdId + '"></label>');
+                tdisvisible.html('<input class="filled-in" type="checkbox" onclick="chkIsVisibleSetVal(this)" id="chkIsVisible' + tdId + '" /><label for="chkIsVisible' + tdId + '"></label>');
+                tdisCTC.html('<input class="filled-in" type="checkbox" onclick="chkIsCTCSetVal(this)" id="chkIsCTC' + tdId + '" /><label for="chkIsCTC' + tdId + '"></label>');
+                tdisDisable.html('<input class="filled-in" type="checkbox" onclick="chkIsDisableSetVal(this)" id="chkIsDisable' + tdId + '" /><label for="chkIsDisable' + tdId + '"></label>');
+                tdButtons.html("<button type='button' class='k-primary' style='cursor:pointer;' id='btnSave_" + tdId + "'> save</button><button type='button' class='closeCancelTMFF' style='cursor:pointer;'> Cancel</button>");
+                // tdButtons.html("<a style='cursor:pointer;' class='btnSave'  id='btnSave_" + tdId + "'><i class='fa fa-save fs17 fontblue' style='margin-right:7px;' data-toggle='tooltip' data-placement='top' title='Save' data-original-title='Save'></i></a> <a style='cursor:pointer;' class='closeCancelTMFF'><i style='margin-right:7px;' class='fa fa-times fs17 fontblue' data-toggle='tooltip' data-placement='top' title = 'Cancel' data-original-title='Cancel'></i></a>");
+
+                $(".k-primary").bind("click", Save);
+                //$(".btnDelete").bind("click", Delete);
+                $(".closeCancelTMFF").bind("click", CloseRow);
+
+
+                var strdd1 = "#TMcontroltype" + tdId;
+                var strdd2 = "#TMDatatype" + tdId;
+                var strdd3 = "#TMValidation" + tdId;
+
+                $(" " + strdd1 + "  option[value='" + clsCtype.dval + "']").attr("selected", "selected");
+                $(" " + strdd2 + "  option[value='" + clsDtype.dval + "']").attr("selected", "selected");
+                $(" " + strdd3 + " option[value='" + clsVtype.dval + "']").attr("selected", "selected");
+
+
+                $("#chkIsRequired" + tdId).attr('checked', clsChkReq.dval);
+                $("#chkIsVisible" + tdId).attr('checked', clsChkVisible.dval);
+                $("#chkIsCTC" + tdId).attr('checked', clsChkDtc.dval);
+                $("#chkIsDisable" + tdId).attr('checked', clsChkDisable.dval);
+
+                //$(" " + strdd1 + "  option[value='" + tdCtypeValField.html() + "']").attr("selected", "selected");
+                //$(" " + strdd2 + "  option[value='" + tdDtypeValField.html() + "']").attr("selected", "selected");
+                //$(" " + strdd3 + " option[value='" + tdVtypeValField.html() + "']").attr("selected", "selected");
+
+
+                //$("#chkIsRequired" + tdId).attr('checked', IsRequiredValField.html());
+                //$("#chkIsVisible" + tdId).attr('checked', IsVisibleValField.html());
+                //$("#chkIsCTC" + tdId).attr('checked', IsCTCValField.html());
+                //$("#chkIsDisable" + tdId).attr('checked', IsDisableValField.html());
+
+                IsFfieldnewRow = 1;
+
+                //onSelectEdit(clsCtype.dval, clsDtype.dval);
+                //OpenChoice(tdId.toString() + "_" + tdFreeFid, false);
+
+            }
+        }
+    };
+    function CloseRow() {
+
+        var par = $(this).parent().parent(); //tr
+        tdId = par.children("td:nth-child(11)").text();
+        tdId = tdId.trim();
+        //var strarr = this.id.split('_');
+        //if (strarr[1] == tdId) {
+        //saveChoiceGrid();
+
+        var tdstatus = par.children("td:nth-child(1)");
+        var tddesc = par.children("td:nth-child(2)");
+
+        //arrRowBackup.push(tdstatus.text.trim());
+        //arrRowBackup.push(tddesc.text.trim());
+
+        var tdconType = par.children("td:nth-child(3)");
+        var tdDataType = par.children("td:nth-child(4)");
+        var tdvalidation = par.children("td:nth-child(5)");
+        var tdisRequired = par.children("td:nth-child(6)");
+        var tdisvisible = par.children("td:nth-child(7)");
+        var tdisCTC = par.children("td:nth-child(8)");
+        var tdisDisable = par.children("td:nth-child(9)");
+        var tdButtons = par.children("td:nth-child(10)");
+
+        //for hidden fields
+        var tdCtypeValField = par.children("td:nth-child(12)");
+        var tdDtypeValField = par.children("td:nth-child(13)");
+        var tdVtypeValField = par.children("td:nth-child(14)");
+
+        var IsRequiredValField = par.children("td:nth-child(15)");
+        var IsVisibleValField = par.children("td:nth-child(16)");
+        var IsCTCValField = par.children("td:nth-child(17)");
+        var IsDisableValField = par.children("td:nth-child(18)");
+
+        // end hidden fields
+        tdstatus.html(arrRowBackup[0]);
+        tddesc.html(arrRowBackup[1]);
+        tdconType.html(brandName(tdCtypeValField.text().trim()));
+        tdDataType.html(modelName(tdDtypeValField.text().trim()));
+        //  tdvalidation.html(ValidateName(tdVtypeValField.text().trim()));
+        if (IsRequiredValField.text().trim() === 'true') {
+            clsChkReq.dval = true;
+        }
+        else {
+            clsChkReq.dval = false;
+        }
+
+        if (IsVisibleValField.text().trim() === 'true') {
+            clsChkVisible.dval = true;
+        }
+        else {
+            clsChkVisible.dval = false;
+        }
+
+        if (IsCTCValField.text().trim() === 'true') {
+            clsChkDtc.dval = true;
+        }
+        else {
+            clsChkDtc.dval = false;
+        }
+
+        if (IsDisableValField.text().trim() === 'true') {
+            clsChkDisable.dval = true;
+        }
+        else {
+            clsChkDisable.dval = false;
+        }
+
+        //end---------------------
+
+        tdisRequired.html('<input class="filled-in" onclick="chkIsRequiredSetVal(this)" type="checkbox"  id="chkIsRequired' + tdId + '" /><label for="chkIsRequired' + tdId + '"></label>');
+        tdisvisible.html('<input class="filled-in" onclick="chkIsVisibleSetVal(this)"  type="checkbox"  id="chkIsVisible' + tdId + '" /><label for="chkIsVisible' + tdId + '"></label>');
+        tdisCTC.html('<input class="filled-in" onclick="chkIsCTCSetVal(this)" type="checkbox"  id="chkIsCTC' + tdId + '" /><label for="chkIsCTC' + tdId + '"></label>');
+        tdisDisable.html('<input class="filled-in" onclick="chkIsDisableSetVal(this)" type="checkbox"  id="chkIsDisable' + tdId + '" /><label for="chkIsDisable' + tdId + '"></label>');
+
+
+
+        $("#chkIsRequired" + tdId).attr('checked', clsChkReq.dval);
+        $("#chkIsVisible" + tdId).attr('checked', clsChkVisible.dval);
+        $("#chkIsCTC" + tdId).attr('checked', clsChkDtc.dval);
+        $("#chkIsDisable" + tdId).attr('checked', clsChkDisable.dval);
+
+        $("#chkIsRequired" + tdId).attr('disabled', 'disabled');
+        $("#chkIsVisible" + tdId).attr('disabled', 'disabled');
+        $("#chkIsCTC" + tdId).attr('disabled', 'disabled');
+        $("#chkIsDisable" + tdId).attr('disabled', 'disabled');
+        tdButtons.html("<button style='cursor:pointer;' class='btnEdit' type='button' id='btnEdit_" + tdId + "'> Edit</button>");
+        // dButtons.html(
+        //"<a style='cursor:pointer;' class='btnEdit'  id='btnEdit_" + tdId + "'><i class='fa fa-pencil fs17 fontblue' data-toggle='tooltip' data-placement='top' title='Edit' data-original-title='Edit'></i></a>"
+        //Removed
+        //+ "<a style='cursor:pointer;display:none;' class='btnDelete' id='btnDelete_" + tdId + "'><i class='fa fa-trash fs17 fontred' style='float:right;margin-right:10px' data-toggle='tooltip' data-placement='top' title='Remove' data-original-title='Remove'></i></a>"
+        // );
+        $(".btnEdit").bind("click", Edit);
+        $(".btnDelete").bind("click", Delete);
+        //}
+        reset();
+
+    }
+    function reset() {
+        //clsCtype = {}; clsDtype = {}; clsVtype = {}; clsChkReq = {}; clsChkVisible = {}; clsChkDisable = {}; clsChkDtc = {}; controltypeItem = '';
+        clsCtype.dtext = 'Checkbox';
+        clsCtype.dval = '3';
+        clsDtype.dtext = 'Boolean';
+        //clsCtype.dval = 'Boolean';
+        clsDtype.dval = 'Boolean';
+        clsVtype.dtext = '--Select--';
+        //clsVtype.dval = '0';
+        clsVtype.dval = 'NS';
+
+
+        clsChkReq.dval = false;
+        clsChkDisable.dval = false;
+        clsChkVisible.dval = false;
+        clsChkDtc.dval = false;
+
+        clsCtype.editFlg = 0;
+        clsDtype.editFlg = 0;
+        clsVtype.editFlg = 0;
+
+        clsChkReq.editFlg = 0;
+        clsChkDisable.editFlg = 0;
+        clsChkVisible.editFlg = 0;
+        clsChkDtc.editFlg = 0;
+        arrRowBackup = [];
+        arrRowBackupChoices = [];
+        IsFfieldnewRow = 0;
+        //  resetfChoice(); //Added by Nitin Shrivastava on 29 March
+        // $("#GridChoice").find("tr:not(:first)").remove();  //Added by Nitin shrivastava on 29 March
+    }
+    function DCampaignName(DataTypeValue, camnum) {
+        debugger;
+        if (D_Object != null) {
+            for (var i = 0; i < D_Object.length; i++) {
+                if (D_Object[i].iStoreId == DataTypeValue) {
+                    return D_Object[i].sStoreName;
+                }
+            }
+        }
+        else {
+            var CampaignName = $("#CampaignName" + camnum).val()
+           $.LoadingOverlay("show");
+            $.ajax({
+                //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                url: Resources_Search.urlPath_FillWDObjectType,
+                data: { campID: CampaignName },
+                type: 'Post',
+                cache: false,
+                async: false,
+                success: function (data) {
+                    $.LoadingOverlay("hide");
+                    D_Object = data;
+                    for (var i = 0; i < D_Object.length; i++) {
+                        if (D_Object[i].iStoreId == DataTypeValue) {
+                            return D_Object[i].sStoreName;
+                        }
+                    }
+                },
+                error: function (err) {
+                    $.LoadingOverlay("hide");
+                }
+            });
+
+
+        }
+
+    }
+    function modelName(DataTypeValue) {
+
+        if (D_Object != null) {
+            for (var i = 0; i < D_Object.length; i++) {
+                if (D_Object[i].iStoreId == DataTypeValue) {
+                    return D_Object[i].sStoreName;
+                }
+            }
+        }
+        else {
+            //$.ajax({
+            //    //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+            //    url: Resources_Search.urlPath_FillWDObjectType,
+            //    data: { campID: $("#CampaignName1").val() },
+            //    type: 'Post',
+            //    cache: false,
+            //    success: function (data) {
+            //        D_Object = data;
+            //        for (var i = 0; i < D_Object.length; i++) {
+            //            if (D_Object[i].iStoreId == DataTypeValue) {
+            //                return D_Object[i].sStoreName;
+            //                }
+            //          }
+            //    },
+
+            //    error: function (err) {
+
+            //    }
+            //});
+
+
+        }
+
+    }
+    function brandName(iControlTypeID) {
+        debugger;
+        if (S_Object != null) {
+            for (var i = 0; i < S_Object.length; i++) {
+                if (S_Object[i].iStoreId == iControlTypeID) {
+                    return S_Object[i].sStoreName;
+                }
+            }
+        }
+        else {
+            $.ajax({
+                //url: baseUrl + Resources_Search.urlPath_FillObjectType,
+                url: Resources_Search.urlPath_FillWDObjectType,
+                data: { campID: $("#CampaignName").val() },
+                type: 'Post',
+                cache: false,
+                async: false,
+                success: function (data) {
+                    debugger;
+                    S_Object = data;
+                    for (var i = 0; i < S_Object.length; i++) {
+                        debugger;
+                        if (S_Object[i].iStoreId == iControlTypeID) {
+                            return S_Object[i].sStoreName;
+                        }
+                    }
+                },
+
+                error: function (err) {
+                    debugger;
+                }
+            });
+
+
+        }
+    }
+
+    function saveMappingData() {  //Added by Nitin Shrivastava
+
+        debugger;
+        FreeFTableData = new Array();
+        $('#tblFrfields tr').each(function (row, tr) {
+            FreeFTableData[row] = {
+                "FreeFieldID": $(tr).find('td:eq(18)').text()
+                //"FreeFieldID": 0
+                , "FreeName": $(tr).find('td:eq(0)').text()
+                , "FreeDescription": $(tr).find('td:eq(1)').text()
+                , "iControlTypeID": $(tr).find('td:eq(11)').text()
+                , "DataTypeValue": $(tr).find('td:eq(12)').text()
+                , "ValidateId": $(tr).find('td:eq(13)').text()
+                , "IsRequired": $(tr).find('td:eq(14)').text()
+                , "IsVasible": $(tr).find('td:eq(15)').text()
+                , "IsCTC": $(tr).find('td:eq(16)').text()
+                , "MaxLength": RowMappID
+                , "Disable": $(tr).find('td:eq(17)').text()
+                , "uid": $(tr).find('td:eq(10)').text()
+
+            }
+        });
+        FreeFTableData.shift();  // first row is the table header - so remove
+        //if ($("#TMTabIndex").val() == 2) {
+        $("#OpenPartialPopupChoice").data("kendoWindow").close();
+        TMFreeFieldSave();
+    }
+    function TMFreeFieldSave() {
+
+        var TMSetupViewModel = {};
+        var objBEWorkObjectFreeField = [];
+        var postUrl;
+
+        //var gridData = $("#grid").data("kendoGrid").dataSource.data(); commented by Nitin Shrivastava
+        var gridData = FreeFTableData;
+        for (var i = 0; i < gridData.length; i++) {
+            if (gridData[i].FreeFieldID != 0) {
+                objBEWorkObjectFreeField.push({
+
+
+                    p_gRD_id: gridData[i].uid,
+                    FreeFieldID: gridData[i].FreeFieldID,
+                    FreeName: gridData[i].FreeName,
+                    FreeDescription: gridData[i].FreeDescription,
+                    iControlTypeID: gridData[i].iControlTypeID,
+                    DataTypeValue: gridData[i].DataTypeValue,
+                    ValidateId: gridData[i].ValidateId,
+                    IsRequired: gridData[i].IsRequired,
+                    IsCTC: gridData[i].IsCTC,
+                    IsVasible: gridData[i].IsVasible,
+                    Disable: gridData[i].Disable,
+                    IsAuditEmail: false,
+                    MaxLength: gridData[i].MaxLength,
+                    RowState: "UPDATED"
+                });
+            }
+            else {
+                objBEWorkObjectFreeField.push({
+                    p_gRD_id: gridData[i].uid,
+                    FreeFieldID: gridData[i].FreeFieldID,
+                    FreeName: gridData[i].FreeName,
+                    FreeDescription: gridData[i].FreeDescription,
+                    iControlTypeID: gridData[i].iControlTypeID,
+                    DataTypeValue: gridData[i].DataTypeValue,
+                    ValidateId: gridData[i].ValidateId,
+                    IsRequired: gridData[i].IsRequired,
+                    IsCTC: gridData[i].IsCTC,
+                    IsVasible: gridData[i].IsVasible,
+                    Disable: gridData[i].Disable,
+                    IsAuditEmail: false,
+                    MaxLength: gridData[i].MaxLength,
+                    RowState: "NEW"
+
+                });
+            }
+        }
+        TMSetupViewModel.FreeFieldList = objBEWorkObjectFreeField;
+
+        BEFreeFieldObject = { 'objBEFreeFieldkObject': TMSetupViewModel };
+        $.LoadingOverlay("show");
+
+
+        $.ajax({
+            url: Resources_Search.urlPath_SaveData,
+            type: 'POST',
+            dataType: 'json',
+            data: BEFreeFieldObject,
+            async: false,
+            // contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                $.LoadingOverlay("hide");
+
+            },error: function (error) {
+                 $.LoadingOverlay("hide");
+            }
+        });
+    }
+
+
+</script>
+<script>
+    function onSelect(e) {
+        debugger;
+        if (e.item) {
+            var dataItem = this.dataItem(e.item);
+            // alert("event :: select (" + dataItem.iCampaignID + " : " + dataItem.sCampaignName + ")");
+            $.LoadingOverlay("show");
+
+            $.ajax({
+                url: Resources_Search.urlPath_GetLinkCampaignData,
+                type: 'POST',
+                dataType: 'json',
+                data: { 'iCampaignID': dataItem.iCampaignID },
+                async: false,
+                // contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+                    $.LoadingOverlay("hide");
+                    if (result.strMessage == 'YES') {
+
+                        for (var i = 0; i < result.lstGridData.length; i++) {
+
+                            switch (result.lstGridData[i].iObjectID) {
+                                case "10000":
+                                    var dropdownlist = $("#ProcessName1").data("kendoDropDownList");
+                                    dropdownlist.value(result.lstGridData[i].iObjProcessID);
+                                    // $("#ProcessName1").val(result.lstGridData[i].iObjProcessID);
+                                    // $("#CampaignName1").val(result.lstGridData[i].iObjCampaignID);
+                                    var dropdownlistCamp = $("#CampaignName1").data("kendoDropDownList");
+                                    dropdownlistCamp.value(result.lstGridData[i].iObjCampaignID);
+                                    $("#iDLinkCampaignID1").val(result.lstGridData[i].iDLinkCampaignID);
+
+                                    $("#Checkbox1").attr('checked', result.lstGridData[i].bCPendingTransactions);
+                                    break;
+                                case "20000":
+                                    var dropdownlist = $("#ProcessName2").data("kendoDropDownList");
+                                    dropdownlist.value(result.lstGridData[i].iObjProcessID);
+                                    //$("#CampaignName2").val(result.lstGridData[i].iObjCampaignID);
+                                    var dropdownlistCamp = $("#CampaignName2").data("kendoDropDownList");
+                                    dropdownlistCamp.value(result.lstGridData[i].iObjCampaignID);
+                                    $("#iDLinkCampaignID2").val(result.lstGridData[i].iDLinkCampaignID);
+                                    $("#Checkbox2").attr('checked', result.lstGridData[i].bCPendingTransactions);
+                                    break;
+                                case "30000":
+                                    var dropdownlist = $("#ProcessName3").data("kendoDropDownList");
+                                    dropdownlist.value(result.lstGridData[i].iObjProcessID);
+                                    //$("#CampaignName3").val(result.lstGridData[i].iObjCampaignID);
+                                    var dropdownlistCamp = $("#CampaignName3").data("kendoDropDownList");
+                                    dropdownlistCamp.value(result.lstGridData[i].iObjCampaignID);
+                                    $("#iDLinkCampaignID3").val(result.lstGridData[i].iDLinkCampaignID);
+                                    $("#Checkbox3").attr('checked', result.lstGridData[i].bCPendingTransactions);
+                                    break;
+                                case "40000":
+                                    var dropdownlist = $("#ProcessName4").data("kendoDropDownList");
+                                    dropdownlist.value(result.lstGridData[i].iObjProcessID);
+                                    // $("#CampaignName4").val(result.lstGridData[i].iObjCampaignID);
+                                    var dropdownlistCamp = $("#CampaignName4").data("kendoDropDownList");
+                                    dropdownlistCamp.value(result.lstGridData[i].iObjCampaignID);
+                                    $("#iDLinkCampaignID4").val(result.lstGridData[i].iDLinkCampaignID);
+                                    alert(result.lstGridData[i].bCPendingTransactions);
+                                    $("#Checkbox4").attr('checked', result.lstGridData[i].bCPendingTransactions);
+                                    break;
+                                case "50000":
+                                    var dropdownlist = $("#ProcessName5").data("kendoDropDownList");
+                                    dropdownlist.value(result.lstGridData[i].iObjProcessID);
+
+                                    // $("#CampaignName5").val(result.lstGridData[i].iObjCampaignID);
+                                    var dropdownlistCamp = $("#CampaignName5").data("kendoDropDownList");
+                                    dropdownlistCamp.value(result.lstGridData[i].iObjCampaignID);
+                                    $("#iDLinkCampaignID5").val(result.lstGridData[i].iDLinkCampaignID);
+                                    $("#Checkbox5").attr('checked', result.lstGridData[i].bCPendingTransactions);
+                                    break;
+
+                            }
+
+                        }
+
+
+                    }
+                    else {
+                        //jAlert("")
+                    }
+
+
+                },
+                error: function (err) {
+                    $.LoadingOverlay("hide");
+                }
+
+            });
+        }
+    }
+    //function WorkDefinition_GridConfig_ShowHide(chkbx) {
+    //   // var grdView = $('#GridWorkObject').data('kendoGrid');
+    //    debugger;
+    //    var checkbobid = chkbx.id;
+    //   // var res = checkbobid.substring(8, 9);
+    //   // var buttonObject = $("#btnNew" + res).data("kendoButton");
+    //    if (chkbx.checked) {
+
+
+
+    //       // buttonObject.enable(false);
+    //        //$.ajax({
+    //        //    url: urlPath_CheckGridConfigurations,
+    //        //    type: 'POST',
+    //        //    dataType: 'json',
+
+    //        //    success: function (result) {
+
+
+    //        //        if (result == "Empty") {
+    //        //            jAlert("Please do the Grid Configuration (Click Grid Configuration Button ).", 'Alert', function () {
+    //        //                $("#IsGridConfiguration").prop("checked", false);
+    //        //               // grdView.hideColumn("selectedGridControlObj");
+
+    //        //            });
+    //        //        }
+    //        //        else {
+    //        //          //  $("#DropFlag").val("GridControl");
+    //        //           // grdView.showColumn("selectedGridControlObj");
+    //        //        }
+
+    //        //    },
+    //        //    error: function (err) {
+    //        //        //kendo.ui.progress($('#formWorkMaster'), false);
+    //        //        //
+    //        //    }
+    //        //});
+    //    }
+    //    else {
+    //        buttonObject.enable(true);
+    //       // $("#DropFlag").val("NoGridControl");
+    //       // grdView.hideColumn("selectedGridControlObj");
+    //    }
+    //    //var buttonObject = $("#btnGrdConfig").data("kendoButton");
+    //    // if (chkbx.checked) {
+    //    //   buttonObject.enable(true);
+    //    //}
+    //    //else {
+    //    //buttonObject.enable(false);
+    //    //}
+    //}
+</script>
+

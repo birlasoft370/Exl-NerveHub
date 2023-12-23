@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Delete_Button" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="display_Edit_Button" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="display_New_Button" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="display_Search_Button" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="display_update_msg" xml:space="preserve">
+    <value>Actualizar correctamente !</value>
+  </data>
+  <data name="Fdisplay_ActionPlan" xml:space="preserve">
+    <value>Plan de ACCION :</value>
+  </data>
+  <data name="Fdisplay_AgentComments" xml:space="preserve">
+    <value>Agente comentarios:</value>
+  </data>
+  <data name="Fdisplay_AgentName" xml:space="preserve">
+    <value>Nombre del agente :</value>
+  </data>
+  <data name="Fdisplay_AG_Title1" xml:space="preserve">
+    <value>Agente Retroactúe</value>
+  </data>
+  <data name="Fdisplay_Back1" xml:space="preserve">
+    <value>Espalda</value>
+  </data>
+  <data name="Fdisplay_ClientName" xml:space="preserve">
+    <value>Nombre del cliente :</value>
+  </data>
+  <data name="Fdisplay_createnewAG" xml:space="preserve">
+    <value>Crear nuevo agente Retroactúe</value>
+  </data>
+  <data name="Fdisplay_deleteSuccessfully1" xml:space="preserve">
+    <value>Agente Feed Back se ha eliminado correctamente</value>
+  </data>
+  <data name="Fdisplay_Delete_Button1" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Fdisplay_Delete_Confirmation1" xml:space="preserve">
+    <value>¿Quieres eliminar este agente Retroactúe?</value>
+  </data>
+  <data name="Fdisplay_DidWell" xml:space="preserve">
+    <value>Hizo bien :</value>
+  </data>
+  <data name="Fdisplay_disable1" xml:space="preserve">
+    <value>Inhabilitar</value>
+  </data>
+  <data name="Fdisplay_Edit_Button1" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Fdisplay_Edit_Button11" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Fdisplay_Error1" xml:space="preserve">
+    <value>Error en los datos de ahorro</value>
+  </data>
+  <data name="Fdisplay_FeedbackType" xml:space="preserve">
+    <value>Tipo de Comentarios :</value>
+  </data>
+  <data name="Fdisplay_FromDate" xml:space="preserve">
+    <value>Partir de la fecha :</value>
+  </data>
+  <data name="Fdisplay_GrdCHeading" xml:space="preserve">
+    <value>Feed Back detalles</value>
+  </data>
+  <data name="Fdisplay_NeedImprovement" xml:space="preserve">
+    <value>Necesita mejorar :</value>
+  </data>
+  <data name="Fdisplay_New_Button1" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="Fdisplay_Peoplepresentduringthefeedback" xml:space="preserve">
+    <value>Las personas presentes durante las votaciones:</value>
+  </data>
+  <data name="Fdisplay_ProcessName" xml:space="preserve">
+    <value>Nombre del proceso :</value>
+  </data>
+  <data name="Fdisplay_ProcessName1" xml:space="preserve">
+    <value>Nombre del proceso</value>
+  </data>
+  <data name="Fdisplay_ReviewDate" xml:space="preserve">
+    <value>Fecha de revisión :</value>
+  </data>
+  <data name="Fdisplay_Save_Button1" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Fdisplay_Save_msg1" xml:space="preserve">
+    <value>Guardado exitosamente !</value>
+  </data>
+  <data name="Fdisplay_SearchTrainingMaster_Title1" xml:space="preserve">
+    <value>Agente de búsqueda Feed Back</value>
+  </data>
+  <data name="Fdisplay_Search_Button1" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Fdisplay_Search_FDR" xml:space="preserve">
+    <value>Comentarios Fecha Rango:</value>
+  </data>
+  <data name="Fdisplay_Status" xml:space="preserve">
+    <value>Estado:</value>
+  </data>
+  <data name="Fdisplay_ToDate" xml:space="preserve">
+    <value>Hasta la fecha :</value>
+  </data>
+  <data name="Fdisplay_update_msg1" xml:space="preserve">
+    <value>Actualizar correctamente !</value>
+  </data>
+  <data name="Fdrop_FeedbackType_val1" xml:space="preserve">
+    <value>Sobre la base de frecuencia</value>
+  </data>
+  <data name="Fdrop_FeedbackType_val2" xml:space="preserve">
+    <value>Basado tema</value>
+  </data>
+  <data name="Fdrop_status_val1" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="Fdrop_status_val2" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="Frequired_AgentName" xml:space="preserve">
+    <value>Por favor, especifique Nombre del agente!</value>
+  </data>
+  <data name="Frequired_ClientName" xml:space="preserve">
+    <value>Por favor, seleccione el nombre del cliente!</value>
+  </data>
+  <data name="Frequired_FeedbackType" xml:space="preserve">
+    <value>Por favor especificar Tipo de Comentarios!</value>
+  </data>
+  <data name="Frequired_FromDate" xml:space="preserve">
+    <value>Por favor, especifique Desde la fecha!</value>
+  </data>
+  <data name="Frequired_ProcessName" xml:space="preserve">
+    <value>Por favor, seleccione Nombre del proceso!</value>
+  </data>
+  <data name="Frequired_ReviewDate" xml:space="preserve">
+    <value>Por favor, especifique la fecha de la opinión!</value>
+  </data>
+  <data name="Frequired_Status" xml:space="preserve">
+    <value>Por favor seleccione Estado!</value>
+  </data>
+  <data name="Frequired_ToDate" xml:space="preserve">
+    <value>Por favor, especifique Hasta la fecha!</value>
+  </data>
+  <data name="Frm_Feedback_ID" xml:space="preserve">
+    <value>80</value>
+  </data>
+</root>

@@ -1,0 +1,174 @@
+﻿@model WorkApproval
+@using MicUI.WorkManagement.Helper.Sessions;
+@using MicUI.WorkManagement.Models.ViewModels;
+@using MicUI.WorkManagement.Module.WorkManagement.WorkMaster;
+@inject IGetSetSessionValues _getSetSessionValues
+@inject IWorkObjectService _repositoryWorkObjectService
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ApproveTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int UserIsSuperOrFunctionalAdmin = _repositoryWorkObjectService.CheckUserIsSuperOrFunctionalAdmin();
+    int userId = _getSetSessionValues.GetSessionUserInfo().iUserID;
+}
+@{
+    bool isLanguage = false;
+    if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+    {
+        isLanguage = true;
+    }
+}
+<style type="text/css">
+    .anchorTag {
+        color: blue;
+        outline: none;
+        padding-left: 3px;
+        padding-right: 3px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+</style>
+<script>
+    var bClientLanguage = '@isLanguage';
+</script>
+<script src="~/lib/bpa/scripts/workmanagement-1.8.2.js"></script>
+@using (Html.BeginForm("ApprovalView", "WorkDefinition", FormMethod.Get, new { @id = "formWorkApproval" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = (BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ApproveTitle);
+                        }@text
+
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row align-items-end">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.FromDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.FromDate).Value(DateTime.Today.AddDays(-10)).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ToDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.ToDate).Value(DateTime.Today).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3 pb-1">
+                    <div class="mb-3">
+                        @(Html.Kendo().Button().Icon("search").Name("btnSubmitt").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Events(e => e.Click("Approval_DateValidation")))
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="nextWrap">
+                <div id="spnNoRecord" class="pb-3 pt-1 text-center" style="display:none;">
+                    <small>@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_NoRecord</small>
+                </div>
+
+
+                <div class="formTable checkboxTable">
+
+                    @(Html.Kendo().Grid<WorkApproval>()
+                        .Name("Approvalgrid").Events(x => x.DataBound("Binding_WorkApproval")).Scrollable().Navigatable(true).Pageable(pageable => pageable
+                        .Refresh(true).PageSizes(true).ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.ApprovalId).Hidden(true);
+                            columns.Bound(p => p.BusinessApproverId).Hidden(true);
+                            columns.Bound(p => p.CreatedBy).Hidden(true);
+                            columns.Bound(p => p.TechnologyApproverId).Hidden(true);
+                            columns.Bound(u => u.IsChecked).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' &&  (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1 )) {#" +
+                            "<label class='only-check-input'><input type='checkbox' class='chkbox' name='chkSelected' id='chkSelected' ${ IsChecked == true ? checked='checked' : ''}   enabled value='#= ApprovalId#'/><b></b></label>" +
+                            "#}#").Width(40)
+                            .ClientHeaderTemplate("<label class='only-check-input'><input id='chkSelectAll' type='checkbox' /><b></b></label>").Groupable(true);
+                            columns.Template("# if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ")) {#" +
+                        "<a  class='anchorTag'  onClick='Open_ApprovalDetail(1,#= ApprovalId #)'>" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ViewDetailsRequestAdditionalChange + "</a>" +
+                        "#} else if (StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " && " + UserIsSuperOrFunctionalAdmin + "==1)) {#" +
+                        "<a class='anchorTag'  onClick='Open_ApprovalDetail(0,#= ApprovalId #)'>" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ViewEditDetails + "</a>" +
+                        "#} else if (StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " && " + UserIsSuperOrFunctionalAdmin + "!=1)) {#" +
+                        "<a class='anchorTag'  onClick='Open_ApprovalDetail(0,#= ApprovalId #)'>" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ViewEditDetails + "</a>" +
+                        "#} else if(StatusToShowHideButtons == 'Pending' && (CreatedBy != " + userId + "&& " + UserIsSuperOrFunctionalAdmin + "==1)){#" +
+                        "<a class='anchorTag'  onClick='Open_ApprovalDetail(2,#= ApprovalId #)'>" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ViewDetails + "</a>" +
+                        "#} else {#" +
+                        "<a class='anchorTag'  onClick='Open_ApprovalDetail(2,#= ApprovalId #)'>" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_ViewDetails + "</a>" +
+                        "#}#").Width(80);
+                            columns.Bound(p => p.ClientName).Width(60);
+                            columns.Bound(p => p.ProcessName).Width(70);
+                            columns.Bound(p => p.CampaignName).Width(80);
+                            columns.Bound(p => p.RequestCreator).Width(80);
+                            columns.Bound(p => p.RequestedOn).Width(80);
+                            columns.Bound(p => p.BusinessApprover).Width(100);
+                            columns.Bound(p => p.TechApprover).Hidden(true);
+                            columns.Bound(p => p.StatusToShowHideButtons).Hidden(true);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") && ChangeRequest =='Yes') {#" +
+                            "<input type='button' class='btn-primary btn-sm btn' onClick='Work_Approval(this,#= ApprovalId #)' disabled='disabled' name='btnApprove' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve + "' />" +
+                            "#} else if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") ) {#" +
+                            "<input type='button' class='btn-primary btn-sm btn' onClick='Work_Approval(this,#= ApprovalId #)' name='btnApprove' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve + "' /> " +
+                            "#}#")
+                            .Title("");
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") && ChangeRequest =='Yes') {#" +
+                            "<input type='button' onClick='Work_Approval(this,#= ApprovalId #)' disabled='disabled' class='btn-outline-primary btn-sm btn' name='btnReject' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject + "' />" +
+                            "#} else if(StatusToShowHideButtons == 'Pending' && (BusinessApproverId== " + userId + " || TechnologyApproverId ==" + userId + ") ) {#" +
+                            "<input type='button' class='btn-outline-primary btn-sm btn' onClick='Work_Approval(this,#= ApprovalId #)' name='btnReject' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject + "' /> " +
+                            "#}#")
+                            .Title("");
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(StatusToShowHideButtons == 'Pending' && (CreatedBy== " + userId + " || " + UserIsSuperOrFunctionalAdmin + "==1)) {#" +
+                            "<input type='button' class='btn-outline-primary btn-sm btn' onClick='Work_Approval(this,#= ApprovalId #)' name='btnCanceled' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel + "' /> " +
+                            "#}#")
+                            .Title("");
+                            columns.Bound(p => p.Status).Width(150);
+                        })
+                        .HtmlAttributes(new { style = "height:300px;overflow:auto;" }).DataSource(dataSource => dataSource.Ajax().PageSize(10)
+                        .Model(model => model.Id(p => p.ApprovalId)).Read(read => read.Action("WorkApproval_ReadP", "WorkDefinition").Data("GetFilter"))))
+                </div>
+
+                <div class="pt-3 text-end">
+                    <input type="button" class="btn-primary btn-sm btn mx-2 ms-0" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" name="BtnApprove" id="BtnApprove" />
+                    <input type="button" class="btn-primary btn-sm btn mx-2 ms-0" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" name="BtnReject" id="BtnReject" />
+                    <input type="button" class="btn-primary btn-sm btn" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" name="BtnCancel" id="BtnCancel" />
+                </div>
+                <div id="ApprovalDetail" style="display:none"></div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+    title_WorkRequest = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.title_WorkRequest'
+    cancel_workApporval = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.diplay_CancelSuccessfully'
+    reject_workApproval = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.diplay_RejectSuccessfully'
+    approve_workApproval = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.diplay_ApproveSuccessfully'
+    error_workApproval = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_error'
+    submitMsg_workRequest = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.diplay_submitmsg'
+    display_Approve = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve'
+    display_Reject = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject'
+    display_Cancel = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel'
+    display_commentmsg = '@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_commentmsg'
+</script>
+<script>
+    var urlPathGetFilterList = '@Url.Action("GetFilterList", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPatheditWorkDefination = '@Url.Action("editWorkDefination", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSaveWorkData = '@Url.Action("SaveWorkData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathIndex = '@Url.Action("Index", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathObjectFormula = '@Url.Action("ObjectFormula", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathCreateRESTControls = '@Url.Action("CreateRESTControls", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathUpdatePreViewData = '@Url.Action("UpdatePreViewData", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPath_WorkPreview = '@Url.Action("_WorkPreview", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathSearchView = '@Url.Action("SearchView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathApprovalView = '@Url.Action("ApprovalView", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlPathGetProcessID = '@Url.Action("GetProcessID", "WorkDefinition", new { area = "WorkManagement" })';
+    var urlGetLanguage = '@Url.Action("GetTranslateList", "WorkDefinition", new { area = "WorkManagement" })';
+
+
+</script>

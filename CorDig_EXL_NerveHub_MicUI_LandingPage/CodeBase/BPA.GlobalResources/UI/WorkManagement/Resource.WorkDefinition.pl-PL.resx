@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dispaly_Client" xml:space="preserve">
+    <value>Nazwa klienta:</value>
+  </data>
+  <data name="display_Action" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
+  <data name="display_ApporveGridTitle" xml:space="preserve">
+    <value>Zatwierdzenia obiektu Pracuj</value>
+  </data>
+  <data name="display_Approve" xml:space="preserve">
+    <value>Zatwierdzać</value>
+  </data>
+  <data name="display_ApproveBussinesApprover" xml:space="preserve">
+    <value>Biznes zatwierdzająca</value>
+  </data>
+  <data name="display_ApproveCampaign" xml:space="preserve">
+    <value>Kampania</value>
+  </data>
+  <data name="display_ApproveClient" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="display_ApproveProcess" xml:space="preserve">
+    <value>Proces</value>
+  </data>
+  <data name="display_ApproveRequestedon" xml:space="preserve">
+    <value>Żądana dniu</value>
+  </data>
+  <data name="display_ApproveRequester" xml:space="preserve">
+    <value>wnioskodawca:</value>
+  </data>
+  <data name="display_ApproveStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="display_ApproveTechApprover" xml:space="preserve">
+    <value>Technologia zatwierdzająca</value>
+  </data>
+  <data name="display_ApproveTitle" xml:space="preserve">
+    <value>Pracuj Definicja Zatwierdzenie</value>
+  </data>
+  <data name="display_BtnBack" xml:space="preserve">
+    <value>Plecy</value>
+  </data>
+  <data name="display_BtnNew" xml:space="preserve">
+    <value>Nowy</value>
+  </data>
+  <data name="display_BtnSave" xml:space="preserve">
+    <value>Zapisać</value>
+  </data>
+  <data name="display_BtnSearch" xml:space="preserve">
+    <value>Szukanie</value>
+  </data>
+  <data name="display_Campaign" xml:space="preserve">
+    <value>Nazwa kampanii:</value>
+  </data>
+  <data name="display_Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="display_Choice" xml:space="preserve">
+    <value>Wybór</value>
+  </data>
+  <data name="display_ChoiceValue" xml:space="preserve">
+    <value>wybór Wartość</value>
+  </data>
+  <data name="display_Column" xml:space="preserve">
+    <value>Kolumna</value>
+  </data>
+  <data name="display_ColumnSpan" xml:space="preserve">
+    <value>kolumna Span</value>
+  </data>
+  <data name="display_Delete" xml:space="preserve">
+    <value>Kasować</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Opis:</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Wyłączyć:</value>
+  </data>
+  <data name="display_DisplayOrder" xml:space="preserve">
+    <value>Kolejność wyświetlania</value>
+  </data>
+  <data name="display_Editable" xml:space="preserve">
+    <value>edytowalne</value>
+  </data>
+  <data name="Display_EmpidLanID" xml:space="preserve">
+    <value>Emp ID / Lan ID</value>
+  </data>
+  <data name="display_ErrorSnapshot" xml:space="preserve">
+    <value>Błąd Migawka:</value>
+  </data>
+  <data name="display_FromDate" xml:space="preserve">
+    <value>Od daty:</value>
+  </data>
+  <data name="display_GenerateLetter" xml:space="preserve">
+    <value>Generowanie list:</value>
+  </data>
+  <data name="display_IsVisible" xml:space="preserve">
+    <value>jest widoczny</value>
+  </data>
+  <data name="display_Length" xml:space="preserve">
+    <value>Długość</value>
+  </data>
+  <data name="display_NoColumns" xml:space="preserve">
+    <value>Ilość kolumn:</value>
+  </data>
+  <data name="display_NoRows" xml:space="preserve">
+    <value>Ilość rzędów:</value>
+  </data>
+  <data name="display_ObjectDataType" xml:space="preserve">
+    <value>Obiekt Typ danych</value>
+  </data>
+  <data name="display_ObjectLabel" xml:space="preserve">
+    <value>Etykieta obiektu</value>
+  </data>
+  <data name="display_ObjectName" xml:space="preserve">
+    <value>Nazwa obiektu</value>
+  </data>
+  <data name="display_ObjectType" xml:space="preserve">
+    <value>Typ obiektu</value>
+  </data>
+  <data name="display_Process" xml:space="preserve">
+    <value>Nazwa procesu:</value>
+  </data>
+  <data name="display_Purposeofcreationofwork" xml:space="preserve">
+    <value>Cel pracy Stworzenie Definicja:</value>
+  </data>
+  <data name="display_Reject" xml:space="preserve">
+    <value>Odrzucać</value>
+  </data>
+  <data name="display_Required" xml:space="preserve">
+    <value>wymagany</value>
+  </data>
+  <data name="display_Row" xml:space="preserve">
+    <value>Rząd</value>
+  </data>
+  <data name="display_Searchable" xml:space="preserve">
+    <value>Przeszukiwalny</value>
+  </data>
+  <data name="display_selectedValue" xml:space="preserve">
+    <value>&amp;lt;-wybierz-&amp;gt;</value>
+  </data>
+  <data name="display_Select_PurposeofWork" xml:space="preserve">
+    <value>Wybierz celu wykonywania pracy</value>
+  </data>
+  <data name="display_Submit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="display_Title" xml:space="preserve">
+    <value>Pracuj Definicja Mistrz</value>
+  </data>
+  <data name="display_ToDate" xml:space="preserve">
+    <value>Spotykać się z kimś:</value>
+  </data>
+  <data name="display_TrasactionType" xml:space="preserve">
+    <value>Trasaction Rodzaj</value>
+  </data>
+  <data name="display_Unique" xml:space="preserve">
+    <value>Wyjątkowy</value>
+  </data>
+  <data name="display_Validation" xml:space="preserve">
+    <value>Uprawomocnienie</value>
+  </data>
+  <data name="display_ViewDetail" xml:space="preserve">
+    <value>Pokaż szczegóły</value>
+  </data>
+  <data name="display_WorkDefinitionName" xml:space="preserve">
+    <value>Pracuj Definicja Nazwa:</value>
+  </data>
+  <data name="required_Campaign" xml:space="preserve">
+    <value>Wybierz kampanię.</value>
+  </data>
+  <data name="required_CampTermCodeName" xml:space="preserve">
+    <value>Wybierz klienta</value>
+  </data>
+  <data name="required_Client" xml:space="preserve">
+    <value>Wybierz Client.</value>
+  </data>
+  <data name="required_Columns" xml:space="preserve">
+    <value>Wybierz Brak kolumn.</value>
+  </data>
+  <data name="required_NoOfRows" xml:space="preserve">
+    <value>Proszę podać nr wierszy.</value>
+  </data>
+  <data name="required_Process" xml:space="preserve">
+    <value>Wybierz Process.</value>
+  </data>
+  <data name="required_WorkDefinationName" xml:space="preserve">
+    <value>Celem utworzenia Pracy Definicja</value>
+  </data>
+  <data name="display_NoRecord" xml:space="preserve">
+    <value>Żaden wniosek o zatwierdzenie czeka</value>
+  </data>
+  <data name="display_work_seach" xml:space="preserve">
+    <value>Szukaj pracy Definicja</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Nazwa:</value>
+  </data>
+  <data name="diplay_ApproveSuccessfully" xml:space="preserve">
+    <value>Zapytanie Zatwierdzone powodzeniem</value>
+  </data>
+  <data name="diplay_CancelSuccessfully" xml:space="preserve">
+    <value>Zamówienie anulowane z powodzeniem</value>
+  </data>
+  <data name="diplay_RejectSuccessfully" xml:space="preserve">
+    <value>Wniosek odrzucony powodzeniem</value>
+  </data>
+  <data name="display_error" xml:space="preserve">
+    <value>Błąd podczas zapisywania danych!</value>
+  </data>
+  <data name="display_PreView" xml:space="preserve">
+    <value>Zapowiedź</value>
+  </data>
+  <data name="dispaly_Changerequest" xml:space="preserve">
+    <value>Dodatkowa zmiana Żądanie:</value>
+  </data>
+  <data name="display_WorkPreView" xml:space="preserve">
+    <value>defination PreView Pracuj</value>
+  </data>
+  <data name="display_StoreWorkDefinitionName" xml:space="preserve">
+    <value>Pracuj Definicja Nazwa</value>
+  </data>
+  <data name="display_storeLabelName" xml:space="preserve">
+    <value>Układ Pracy Definicja</value>
+  </data>
+  <data name="display_storePriviewName" xml:space="preserve">
+    <value>Zapowiedź</value>
+  </data>
+  <data name="diplay_submitmsg" xml:space="preserve">
+    <value>Zmiana wniosku przedłożonego Pomyślnie</value>
+  </data>
+  <data name="display_commentmsg" xml:space="preserve">
+    <value>Proszę podać komentarz zmienić prośbę!</value>
+  </data>
+  <data name="diaplay_TargetObject" xml:space="preserve">
+    <value>Obiekt docelowy</value>
+  </data>
+  <data name="display_ClearFormula" xml:space="preserve">
+    <value>Mgła Formula</value>
+  </data>
+  <data name="display_Constant" xml:space="preserve">
+    <value>Stały</value>
+  </data>
+  <data name="display_Event" xml:space="preserve">
+    <value>Zdarzenie</value>
+  </data>
+  <data name="display_Object" xml:space="preserve">
+    <value>Obiekt</value>
+  </data>
+  <data name="display_Operator" xml:space="preserve">
+    <value>Operator</value>
+  </data>
+  <data name="display_Property" xml:space="preserve">
+    <value>Nieruchomość</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Odświeżać</value>
+  </data>
+  <data name="display_Undo" xml:space="preserve">
+    <value>Cofnij</value>
+  </data>
+  <data name="dispaly_TargetObject" xml:space="preserve">
+    <value>Obiekt docelowy</value>
+  </data>
+  <data name="display_Formula" xml:space="preserve">
+    <value>Formuła</value>
+  </data>
+  <data name="required_Event" xml:space="preserve">
+    <value>Wymagane zdarzeń.</value>
+  </data>
+  <data name="required_object" xml:space="preserve">
+    <value>wymagane obiektu</value>
+  </data>
+  <data name="required_TargetObject" xml:space="preserve">
+    <value>Requeired obiektu docelowego.</value>
+  </data>
+  <data name="display_Delete_Confirmation" xml:space="preserve">
+    <value>Formuła zostanie usunięty Parmanently.</value>
+  </data>
+  <data name="confirmFormulaReplacement" xml:space="preserve">
+    <value>Formuła istnieją dla tej kombinacji zdarzeń obiektów.</value>
+  </data>
+  <data name="displayEvents" xml:space="preserve">
+    <value>Wydarzenia</value>
+  </data>
+  <data name="displayFormilaUpdatedSuccessfully" xml:space="preserve">
+    <value>Formuła została zaktualizowana.</value>
+  </data>
+  <data name="displayFormulaSavedSuccessfully" xml:space="preserve">
+    <value>Wzór zapisany pomyślnie.</value>
+  </data>
+  <data name="displayNoFormulaToClear" xml:space="preserve">
+    <value>Nie ma formuły, aby wyczyścić.</value>
+  </data>
+  <data name="displayPleaseSelectObject" xml:space="preserve">
+    <value>Wybierz obiekt.</value>
+  </data>
+  <data name="displaySeelct" xml:space="preserve">
+    <value>--Wybierz--</value>
+  </data>
+  <data name="displayWorkCreated" xml:space="preserve">
+    <value>Pracuj Tworzenie powodzeniem!</value>
+  </data>
+  <data name="requiredConstant" xml:space="preserve">
+    <value>Wybierz Constant.</value>
+  </data>
+  <data name="requiredEvents" xml:space="preserve">
+    <value>Wybierz zdarzenia.</value>
+  </data>
+  <data name="requiredFixValue" xml:space="preserve">
+    <value>Proszę podać dowolną wartość poprawek podczas próby porównania / ustawić wartość wybranego obiektu.</value>
+  </data>
+  <data name="requiredFormula" xml:space="preserve">
+    <value>Proszę utworzyć poprawną formułę.</value>
+  </data>
+  <data name="requiredOperator" xml:space="preserve">
+    <value>Wybierz operatora.</value>
+  </data>
+  <data name="requiredProoperty" xml:space="preserve">
+    <value>Proszę wybrać jedną z możliwych właściwości podczas próby porównania / ustawić wartość wybranego obiektu.</value>
+  </data>
+  <data name="display_bisReport" xml:space="preserve">
+    <value>IsReport</value>
+  </data>
+  <data name="display_bisReportOrder" xml:space="preserve">
+    <value>Zgłoś Zamówienie</value>
+  </data>
+  <data name="display_IsUploaded" xml:space="preserve">
+    <value>IsUpload</value>
+  </data>
+  <data name="required_btnSubmit" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="display_ErrorDurationInDay" xml:space="preserve">
+    <value>Błąd w dniach trwania</value>
+  </data>
+  <data name="display_btnClose" xml:space="preserve">
+    <value>Blisko</value>
+  </data>
+  <data name="display_LetterMaping" xml:space="preserve">
+    <value>List Maping Pole</value>
+  </data>
+  <data name="display_datatype" xml:space="preserve">
+    <value>Typ danych</value>
+  </data>
+  <data name="display_msgBlankRow" xml:space="preserve">
+    <value>Proszę wypełnić pusty wiersz w siatce jak ..</value>
+  </data>
+  <data name="title_WorkRequest" xml:space="preserve">
+    <value>Pracuj Tworzenie obiektu żądania Szczegóły</value>
+  </data>
+  <data name="displayListOfFormulae" xml:space="preserve">
+    <value>Lista wzorach</value>
+  </data>
+  <data name="display_CreateNewWorkDefinitionMaster" xml:space="preserve">
+    <value>Tworzenie nowej pracy Definicja Mistrza</value>
+  </data>
+  <data name="display_Descriptiongrid" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="display_ModifyExistingWorkDefinitionMaster" xml:space="preserve">
+    <value>Modyfikacja istniejących prac Definicja Mistrza</value>
+  </data>
+  <data name="display_ViewDetails" xml:space="preserve">
+    <value>Pokaż szczegóły</value>
+  </data>
+  <data name="display_ViewDetailsRequestAdditionalChange" xml:space="preserve">
+    <value>Zobacz szczegóły / Prośba o dodatkowe Zmień</value>
+  </data>
+  <data name="display_ViewEditDetails" xml:space="preserve">
+    <value>Zobacz / Edytuj szczegóły</value>
+  </data>
+  <data name="display_GroupID" xml:space="preserve">
+    <value>Grupa ID</value>
+  </data>
+  <data name="display_LANID" xml:space="preserve">
+    <value>LAN ID</value>
+  </data>
+  <data name="display_AddNewRecord" xml:space="preserve">
+    <value>Dodaj nowy rekord</value>
+  </data>
+  <data name="display_Letter" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="display_LetterLibrary" xml:space="preserve">
+    <value>list Biblioteka</value>
+  </data>
+  <data name="required_LetterName" xml:space="preserve">
+    <value>Wybierz List Name.</value>
+  </data>
+  <data name="required_Purpuse" xml:space="preserve">
+    <value>Proszę wybrać przynajmniej jeden purpuse tworzenia prac.</value>
+  </data>
+  <data name="display_FormulaDeleted" xml:space="preserve">
+    <value>Formuła została usunięta.</value>
+  </data>
+  <data name="display_CustomerIdentifier" xml:space="preserve">
+    <value>Sprawa Identifier</value>
+  </data>
+</root>

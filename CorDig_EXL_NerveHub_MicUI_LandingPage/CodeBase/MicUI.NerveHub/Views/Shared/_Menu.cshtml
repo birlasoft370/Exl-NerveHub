@@ -1,0 +1,82 @@
+﻿@inject MicUI.NerveHub.Module.Security.IAuthentication authentication;
+@using Kendo.Mvc.UI.Fluent
+@{
+    
+    List<MenuViewModel> Model = authentication.GenerateMenu(authentication.Area);
+
+
+}
+
+
+@functions {
+
+    public void addChildren(MenuItemBuilder builder, MicUI.NerveHub.Models.MenuViewModel item, IEnumerable<MicUI.NerveHub.Models.MenuViewModel> items)
+    {
+
+        var children = items.Where(m => m.ParentId == item.Id);
+        if (children != null)
+        {
+            builder.Items(menuItems =>
+            {
+                foreach (var child in children)
+                {
+                    if (isChildExist(child, items) || child.Url != "")
+                    {
+                        var menuItem = menuItems.Add().Text(child.Name);
+                        if (!string.IsNullOrEmpty(child.Areas))
+                        {
+                            //menuItem.Action(child.RouterAction, child.RouterController, new { id=child.FormID , area = child.Areas.ToString() });
+                            if (child.Flag != "")
+                            {
+                                menuItem.Action("Client", "AppConfiguration");
+                            }
+                            else
+                            {
+                                menuItem.Action("Client", "AppConfiguration");
+                               // menuItem.Action(child.RouterAction, child.RouterController, new { area = child.Areas.ToString() });
+                            }
+                        }
+                        addChildren(menuItem, child, items);
+                    }
+                }
+            });
+        }
+    }
+
+    public bool isChildExist(MicUI.NerveHub.Models.MenuViewModel item, IEnumerable<MicUI.NerveHub.Models.MenuViewModel> items)
+    {
+
+        bool childexist = false;
+        IEnumerable<MenuViewModel> children = items.Where(m => m.ParentId == item.Id);
+       
+        foreach (var child in children)
+            {
+            if ((child.Url != "" || isChildExist(child, items)))
+                {
+                    childexist = true;
+                }
+            }
+        
+        return childexist;
+    }
+}
+
+@(Html.Kendo().Menu()
+
+        .Name("MainMenu")
+        .Items(menu =>
+        {
+            if (Model != null)
+            {
+                foreach (var item in Model.Where(m => m.ParentId == 0))
+                {
+                    if (isChildExist(item, Model))
+                    {
+                        var builder = menu.Add().Text(item.Name);
+                        addChildren(builder, item, Model);
+                    }
+                }
+            }
+        }))
+
+

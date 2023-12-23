@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "dgSpecHash": "pXZ8zV3/L8mlF7kSBWbAW1rF84vdZYK+E5l/sgY1cCA1ntGUOTjn4+E1CJQ6AcwHTVGpuPngQKhqIDqK2zbGvw==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\balakrishnp\\Downloads\\CorDig_EXL_NerveHub_MicUI_LandingPage_withDockerFile\\CorDig_EXL_NerveHub_MicUI_LandingPage\\CodeBase\\MicUI.Configuration\\MicUI.Configuration.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "AspNetCore.Unobtrusive.Ajax"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "AspNetCore.Unobtrusive.Ajax"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "System.DirectoryServices"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "System.DirectoryServices"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "Microsoft.AspNetCore.Authentication.Negotiate"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "Microsoft.AspNetCore.Authentication.Negotiate"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\' doesn't exist.",
+      "libraryId": "Telerik.UI.for.AspNet.Core"
+    },
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "The local source 'C:\\Program Files (x86)\\Progress\\Telerik UI for ASP.NET Core R1 2023\\wrappers\\aspnetcore\\Binaries\\AspNet.Core' doesn't exist.",
+      "libraryId": "Telerik.UI.for.AspNet.Core"
+    }
+  ]
+}

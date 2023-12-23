@@ -1,0 +1,39 @@
+﻿
+<header>
+   @* <div id="ExpireConfirm_Submit" class="wrong-pass globalMsg warningText">
+        <p>
+            @BPA.GlobalResources.UI.Resources_common.display_YourSessionWillExpireIn
+            <span id="Timer" class="Timer globalMsg-time"></span> &nbsp;@BPA.GlobalResources.UI.Resources_common.display_Seconds<br /> @BPA.GlobalResources.UI.Resources_common.display_ToKeepActivePressKeep
+        </p><button type="button" class="btn btn-orange btn-sm" id="btnSessonOK" onclick="KeepSession();">Keep</button>
+    </div>*@
+    <div class="header">
+        <div class="appTitle" style="margin-top: 0px;">
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <img src="/images/exl_21_logo_org.svg" alt="logo">
+            </a>
+            <h1>NerveHub<sup>&#8482;</sup></h1>
+        </div>
+        <div class="rightheader" style="margin-top: -25px; float:right">
+           <div class="firstrow">
+                <div class="login userMenu">
+                  @Html.Partial("_NavMenu")
+                    
+                   
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="mainNavbar" style="display: flex;
+    justify-content: end">
+
+      @Html.Partial("_Menu")
+        
+
+
+    </div>
+</header>

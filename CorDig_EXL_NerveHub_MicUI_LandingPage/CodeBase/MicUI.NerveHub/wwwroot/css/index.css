@@ -1,0 +1,246 @@
+header {
+    width: -webkit-fill-available;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    position: fixed;
+    z-index: 1;
+}
+
+.header {
+    padding: 15px 15px;
+}
+
+.cmyLogo {
+    margin: 10px 0;
+    width: 60px;
+}
+
+
+
+
+.appTitle {
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+    .appTitle .logo {
+        width: 60px;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0;
+    }
+
+    .appTitle h1 {
+        color: #000;
+        font-size: 28px;
+        font-weight: 300;
+        line-height: normal;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        margin-left: 15px;
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: none !important;
+        line-height: 28px;
+        height: 24px;
+    }
+
+
+     
+
+
+
+
+
+
+.allAppScreen {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 138px);
+}
+    .allAppScreen .appList {
+        width: 100%;
+        clear: both;
+    }
+    a.dashboard-module,
+    a.dashboard-module:visited {
+        background: rgba(255,255,255,.65);
+        width: calc(20% - 10px);
+        display: block;
+        text-decoration: none;
+        float: left;
+        margin: 5px;
+        text-align: center;
+        border-bottom: 0 solid #fb4e0b;
+        color: #222 !important;
+        font-size: 18px;
+        font-weight: 400;
+        padding: 25px 5px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.06)
+    }
+
+    a.dashboard-module:hover,
+    a.dashboard-module:active {
+        background-position: bottom left;
+        background: #fb4e0b !important;
+        text-decoration: none;
+        color: #fff !important;
+    }
+
+        a.dashboard-module:hover .imgstyle,
+        a.dashboard-module:active .imgstyle {
+            filter:grayscale(100%) contrast(1000%) invert(100%);
+        }
+
+        a.dashboard-module img {
+            padding-top: 20px;
+        }
+
+    a.dashboard-module span {
+        padding-top: 10px;
+        display: block;
+    }
+
+/*****/
+.imgstyle {
+    margin: 0 auto;
+    width: 90px;
+    height: 90px;
+    background-image: url('/Images/home_new.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    margin-bottom:5px;
+}
+
+.Images-mbtrans {
+    background-position: 0 0;
+}
+
+.Images-mbagent {
+    background-position: 0 -90px;
+}
+
+.Images-mbwm {
+    background-position: 0 -180px;
+}
+
+.Images-mbqms {
+    background-position: 0 -270px;
+}
+
+.Images-mbquery {
+    background-position: 0 -360px;
+}
+
+.Images-mbletterlib {
+    background-position: 0 -450px;
+}
+
+.Images-mbassessme {
+    background-position: 0 -540px;
+}
+
+.Images-mbemailconfig {
+    background-position: 0 -630px;
+}
+
+
+.Images-mbconfig {
+    background-position: 0 -720px;
+}
+
+.Images-guidprocess {
+    background-position: 0 -810px;
+}
+
+.Images-mbprocess {
+    background-position: 0 -900px;
+}
+
+
+
+.Images-ipalogow {
+    width: 108px;
+    height: 41px;
+    background: url('/Images/Home.png') -1px -1px;
+}
+
+
+.Images-mbassistme {
+    background-position: 0 -258px;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 73px 10px 14px 15px !important;
+  }
+  #body {
+    background-color: #fff;
+    clear: both;
+    padding-bottom: 35px;
+  }
+  .main-content {
+    padding-top: 3px;
+  }
+  html, body {
+    height: auto;
+  }
+
+  section.feature {
+    width: 300px;
+    float: left;
+    padding: 10px;
+  }
+
+ 
+:root {
+   
+    --bs-font-sans-serif: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0))
+}
+
+*,::after,::before {
+    box-sizing: border-box
+}
+
+@media (prefers-reduced-motion:no-preference) {
+    :root {
+        scroll-behavior: smooth
+    }
+}
+
+body {
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+
+
+
+.footer {
+    clear: both;
+    background:none;
+    color: black;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-weight: 500;
+    letter-spacing: .5px;
+}
+

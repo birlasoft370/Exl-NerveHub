@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="display_Add" xml:space="preserve">
+    <value>Tilføje</value>
+  </data>
+  <data name="display_AllowBoxPlot" xml:space="preserve">
+    <value>Tillad Box Plot:</value>
+  </data>
+  <data name="display_AllowCorrelation" xml:space="preserve">
+    <value>Tillad Korrelation:</value>
+  </data>
+  <data name="display_AllowParetoAnalysis" xml:space="preserve">
+    <value>Tillad Pareto Analyse:</value>
+  </data>
+  <data name="display_CategoryName" xml:space="preserve">
+    <value>Kategori Navn:</value>
+  </data>
+  <data name="display_ChartType" xml:space="preserve">
+    <value>Figur Type:</value>
+  </data>
+  <data name="display_ClientMetric" xml:space="preserve">
+    <value>Klient Metric:</value>
+  </data>
+  <data name="display_ClientName" xml:space="preserve">
+    <value>Klient Navn:</value>
+  </data>
+  <data name="display_DataCapture" xml:space="preserve">
+    <value>Datafangst:</value>
+  </data>
+  <data name="display_ddlDirectionofGood" xml:space="preserve">
+    <value>1-UP, 2-Down, 3-Neutral</value>
+  </data>
+  <data name="display_ddlFrequencyData" xml:space="preserve">
+    <value>1-Daily, 7-Weekly, 30-Månedlig</value>
+  </data>
+  <data name="display_Description" xml:space="preserve">
+    <value>Beskrivelse:</value>
+  </data>
+  <data name="display_DirectionofGood" xml:space="preserve">
+    <value>Retning af Godt:</value>
+  </data>
+  <data name="display_FieldLevelDataCapture" xml:space="preserve">
+    <value>Field Level data Capture:</value>
+  </data>
+  <data name="display_FormatString" xml:space="preserve">
+    <value>Format String:</value>
+  </data>
+  <data name="display_Frequency" xml:space="preserve">
+    <value>Frekvens:</value>
+  </data>
+  <data name="display_Goal" xml:space="preserve">
+    <value>Mål:</value>
+  </data>
+  <data name="display_IsDefault" xml:space="preserve">
+    <value>IsDefault:</value>
+  </data>
+  <data name="display_IsDependencyVariable" xml:space="preserve">
+    <value>Er Dependency Variabel:</value>
+  </data>
+  <data name="display_L1Target" xml:space="preserve">
+    <value>L1 Mål:</value>
+  </data>
+  <data name="display_L2Target" xml:space="preserve">
+    <value>L2 Mål:</value>
+  </data>
+  <data name="display_L3Target" xml:space="preserve">
+    <value>L3 Mål:</value>
+  </data>
+  <data name="display_MeasurementUnit" xml:space="preserve">
+    <value>Måling Enhed:</value>
+  </data>
+  <data name="display_MetricDefinition" xml:space="preserve">
+    <value>metric Definition</value>
+  </data>
+  <data name="display_MetricEffectiveDate" xml:space="preserve">
+    <value>Metric Ikrafttrædelsesdato:</value>
+  </data>
+  <data name="display_MetricName" xml:space="preserve">
+    <value>Metric navn:</value>
+  </data>
+  <data name="display_Name" xml:space="preserve">
+    <value>Navn:</value>
+  </data>
+  <data name="display_ProcessName" xml:space="preserve">
+    <value>Proces Navn:</value>
+  </data>
+  <data name="display_rdAgentLevel" xml:space="preserve">
+    <value>Agent Level</value>
+  </data>
+  <data name="display_rdClientLevel" xml:space="preserve">
+    <value>Client Level</value>
+  </data>
+  <data name="display_rdNoFieldLevelData" xml:space="preserve">
+    <value>Ingen Field Level data</value>
+  </data>
+  <data name="display_rdProcessLevel" xml:space="preserve">
+    <value>procesniveau</value>
+  </data>
+  <data name="display_Responsibility" xml:space="preserve">
+    <value>Ansvar:</value>
+  </data>
+  <data name="display_SampleConfidenceLevel" xml:space="preserve">
+    <value>Prøve tillid niveau:</value>
+  </data>
+  <data name="display_SampleSize" xml:space="preserve">
+    <value>Sample Size:</value>
+  </data>
+  <data name="Display_Search" xml:space="preserve">
+    <value>Søge</value>
+  </data>
+  <data name="display_Specification" xml:space="preserve">
+    <value>Specifikation:</value>
+  </data>
+  <data name="display_SubProcessName" xml:space="preserve">
+    <value>Sub-Proces Navn:</value>
+  </data>
+  <data name="display_Target" xml:space="preserve">
+    <value>Mål:</value>
+  </data>
+  <data name="display_TargetEffectiveDate" xml:space="preserve">
+    <value>Target Ikrafttrædelsesdato:</value>
+  </data>
+  <data name="display_Weightage" xml:space="preserve">
+    <value>weightage:</value>
+  </data>
+  <data name="display_WeightageEffectiveStartDate" xml:space="preserve">
+    <value>Weightage Effektiv Start Dato:</value>
+  </data>
+  <data name="display_AddCriticalParameter" xml:space="preserve">
+    <value>Tilføj kritisk parameter</value>
+  </data>
+  <data name="display_AddEfficiencyParameter" xml:space="preserve">
+    <value>Tilføj Effektivitet Parameter</value>
+  </data>
+  <data name="display_AddInputParameter" xml:space="preserve">
+    <value>Tilføj Inputparameter</value>
+  </data>
+  <data name="display_AddOutPutParameter" xml:space="preserve">
+    <value>Tilføj outputparameter</value>
+  </data>
+  <data name="display_CategoryWeightage" xml:space="preserve">
+    <value>Samlet weightage for kategori, kan ikke være større end 100</value>
+  </data>
+  <data name="display_CheckCalenderExistance" xml:space="preserve">
+    <value>Ingen Kalender Information findes for denne periode!</value>
+  </data>
+  <data name="display_Disable" xml:space="preserve">
+    <value>Deaktiver:</value>
+  </data>
+  <data name="display_LowerControlValue" xml:space="preserve">
+    <value>Lavere kontrolværdi:</value>
+  </data>
+  <data name="display_RollupFormula" xml:space="preserve">
+    <value>Rollup Formel:</value>
+  </data>
+  <data name="display_SortOrder" xml:space="preserve">
+    <value>Sorteringsrækkefølge:</value>
+  </data>
+  <data name="display_UpperControlValue" xml:space="preserve">
+    <value>Upper kontrolværdi:</value>
+  </data>
+  <data name="display_UpperLowerEffectiveDate" xml:space="preserve">
+    <value>Øvre / Nedre Ikrafttrædelsesdato:</value>
+  </data>
+  <data name="display_WeeklyLowerControlValue" xml:space="preserve">
+    <value>Ugentlig Lavere Kontrol Værdi:</value>
+  </data>
+  <data name="display_WeeklyUpperControlValue" xml:space="preserve">
+    <value>Ugentlig Øvre kontrolværdi:</value>
+  </data>
+  <data name="display_WeeklyUpperLowerEffectiveDate" xml:space="preserve">
+    <value>Ugentlig Øvre / Nedre Ikrafttrædelsesdato:</value>
+  </data>
+  <data name="display_cancel" xml:space="preserve">
+    <value>Ophæve</value>
+  </data>
+  <data name="display_delete" xml:space="preserve">
+    <value>Slette</value>
+  </data>
+  <data name="display_ParameterName" xml:space="preserve">
+    <value>Parameter Navn:</value>
+  </data>
+  <data name="display_Refresh" xml:space="preserve">
+    <value>Opfriske</value>
+  </data>
+  <data name="display_save" xml:space="preserve">
+    <value>Spare</value>
+  </data>
+  <data name="display_close" xml:space="preserve">
+    <value>Tæt</value>
+  </data>
+  <data name="display_ok" xml:space="preserve">
+    <value>Okay</value>
+  </data>
+  <data name="display_AllowBoxPlotAnalysis" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_AllowCorrelationAnalysis" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_AllowParetoAnalysis1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_IsDefault1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="display_MetricDefinitionSearch" xml:space="preserve">
+    <value>Metric Definition Søg</value>
+  </data>
+  <data name="display_FormulaBuilder" xml:space="preserve">
+    <value>formel Builder</value>
+  </data>
+  <data name="display_btnSelect" xml:space="preserve">
+    <value>Vælge</value>
+  </data>
+  <data name="display_btnRemove" xml:space="preserve">
+    <value>Fjerne</value>
+  </data>
+  <data name="display_FBActivity" xml:space="preserve">
+    <value>PD aktivitet</value>
+  </data>
+  <data name="display_OperaterFunction" xml:space="preserve">
+    <value>Operatør / funktioner</value>
+  </data>
+  <data name="display_Parameters" xml:space="preserve">
+    <value>Parametre</value>
+  </data>
+  <data name="display_SelectedParameters" xml:space="preserve">
+    <value>Indtast formel baseret på valgte parametre</value>
+  </data>
+</root>

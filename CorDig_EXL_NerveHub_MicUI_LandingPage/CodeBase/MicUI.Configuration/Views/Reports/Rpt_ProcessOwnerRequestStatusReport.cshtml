@@ -1,0 +1,98 @@
+﻿@using MicUI.Configuration.Models.ViewModels;
+@model ReportsConfigViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.disp_ProcessOwnerRequest_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    List<SelectListItem>
+    list = new List<SelectListItem>(){
+new SelectListItem { Text =@BPA.GlobalResources.UI.Resources_common.display_Select, Value=""},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Approved, Value="1"},
+new SelectListItem { Text =@BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.display_Pending, Value="0"}
+                                        };
+}
+<script src="~/lib/bpa/scripts/reportsconfig-1.8.2.js"></script>
+@using (Html.BeginForm(new { id = "frmdProcessOwnerRequestStatus" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.disp_ProcessOwnerRequest_Title;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Icon("refresh").Name("btnProcessOwnerRequestStatusClear").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Icon("action").Name("btnProcessOwnerRequestStatus").Events(e => e.Click("OnClickProcessOwnerRequestStatus")).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(BPA.GlobalResources.UI.Resources_common.display_GenerateReport))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("StartDate","Start Date", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DatePicker().Name("StartDate").Value(DateTime.Now.AddDays(-1)).Events(e => e.Change("startChangeMonth")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("EndDate","End Date", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DatePicker().Name("EndDate").Value(DateTime.Now).Events(e => e.Change("endChangeMonth")).HtmlAttributes(new { onkeydown = "javascript:return AllowTabOnly(event)", @class = "form-date" }))
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.Label("Status","Status", new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(st => st.Status).DataTextField("Text").DataValueField("Value").BindTo(list).Value("Status").HtmlAttributes(new { @required = "required", @class = "formSelect", validationmessage = @BPA.GlobalResources.UI.AppConfiguration.Resources_ReportsConfig.required_Status }))
+                    </div>
+                </div>
+            </div>
+            <div id="gridProcessOwnerRequestStatus"></div>
+            @(Html.Hidden("CurrentDate", DateTime.Now.ToString("MM/dd/yyyy")))
+        </div>
+    </div>
+
+}
+
+<script>
+    var Resource = {
+
+        display_RecordNotFound: '@(BPA.GlobalResources.UI.Resources_common.dispNoRecordFound)',
+        urlPath_GetProcessOwnerApprovalReport: ResourceLayout.partialURL + "GetProcessOwnerApprovalReport",
+        urlPath_Excel_Export_Save: ResourceLayout.partialURL + "Excel_Export_Save"
+    }
+    function startChangeMonth() {
+        var endPicker = $("#EndDate").data("kendoDatePicker"),
+            startDate = this.value();
+        if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate());
+            //$("#EndDate").val($("#StartDate").val());
+            endPicker.min(startDate);
+        }
+    }
+
+    function endChangeMonth() {
+        var startPicker = $("#StartDate").data("kendoDatePicker"),
+            endDate = this.value();
+
+        if (endDate) {
+            endDate = new Date(endDate);
+            endDate.setDate(endDate.getDate());
+            // startPicker.max(endDate);
+        }
+    }
+</script>

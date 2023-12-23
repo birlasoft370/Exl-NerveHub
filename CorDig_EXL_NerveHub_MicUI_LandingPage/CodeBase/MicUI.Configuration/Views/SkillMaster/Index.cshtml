@@ -1,0 +1,83 @@
+﻿@model MicUI.Configuration.Models.ViewModels.SkillMasterViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + BPA.GlobalResources.UI.AppConfiguration.Resources_SkillMaster.display_Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string ValidationIcon = "<span style='color:red;font-size:12px;' class='allLabelFields'>*</span>";
+}
+
+<script src="~/lib/bpa/scripts/skillmaster-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "SkillMaster"))
+{
+   @* @Html.AntiForgeryToken()*@
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.SkillID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_SkillMaster.display_CreateSkillMaster : @BPA.GlobalResources.UI.AppConfiguration.Resources_SkillMaster.display_ModifySkillMaster;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset).Icon("refresh").Events(ev => ev.Click("OnClickRefresh"))
+                            .HtmlAttributes(new { type = "button", @class = "btn btn-outline-primary btn-sm mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Name("btnSave").Icon("plus").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave)
+                            .HtmlAttributes(new { type = "submit", @class = "btn btn-primary btn-sm mx-2 ms-0" }))
+                        @(Html.Kendo().Button().Icon("search").Name("btnView").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).Events(ev => ev.Click("OnClickSearchView"))
+                            .HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }))
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            @(Html.HiddenFor(m => m.SkillID))
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SkillName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(model => model.SkillName).HtmlAttributes(new { @maxLength = 100, @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.SkillDescription, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.SkillDescription).HtmlAttributes(new { @class = "form-control", @maxLength = 300 })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(model => model.IsDisable)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var ResourceSkillMaster =
+    {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_SearchView: ResourceLayout.partialURL + "SearchView"
+    }
+</script>

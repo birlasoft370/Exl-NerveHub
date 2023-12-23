@@ -1,0 +1,160 @@
+﻿@model MicUI.Configuration.Models.ViewModels.ProcessOwnerApproval
+@{
+    ViewBag.Title = BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_ApprovalTittle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/processowner-1.8.2.js"></script>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @id = "formProcesskApproval" }))
+{
+
+
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>@BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_ApprovalTittle</h2>
+
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @Html.AntiForgeryToken()
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="formWrap-body">
+            <div class="row align-items-end">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.FromDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.FromDate).Value(DateTime.Today.AddDays(-10)).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.ToDate, new { @class = "form-label" })
+                        @Html.Kendo().DatePickerFor(x => x.ToDate).Value(DateTime.Today).HtmlAttributes(new { @class = "form-date" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pb-1">
+                        @(Html.Kendo().Button().Icon("search").Name("btnSubmitt").Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch).HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Events(e => e.Click("Approval_DateValidation")))
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="nextWrap">
+                <div id="spnNoRecord" class="py-4 text-center emptyWrap" style="display: none;">
+                    <small>
+                        @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_NoRecord
+                    </small>
+                </div>
+
+
+                <div class="formTable">
+
+                    @(Html.Kendo().Grid<MicUI.Configuration.Models.ViewModels.ProcessOwnerApproval>()
+          .Name("Approvalgrid").Events(x => x.DataBound("Binding_ProcessApproval")).Scrollable().Pageable(pageable => pageable
+                  .Refresh(true).PageSizes(true).ButtonCount(5))
+                  .Columns(columns =>
+                  {
+                      columns.Bound(p => p.RequestId).Hidden(true);
+                      columns.Bound(p => p.ForApprover).Hidden(true);
+                      columns.Bound(p => p.CreatedBy).Hidden(true);
+                      columns.Bound(p => p.ForCancel).Hidden(true);
+                     // columns.Bound(u => u.IsChecked).ClientTemplate("<input type='checkbox' onclick='CheckChanged(this,#=RequestId#);' id='chkSelected' name='chkSelected' #if(IsChecked){#checked#}# value='#=RequestId#' />").Width(40)
+                     //  .HeaderTemplate("<input id='chkSelectAll' type='checkbox' />").Groupable(true);
+                     columns.Bound(u => u.IsChecked).ClientTemplate("# if((ForApprover == '1' || ForCancel == '1') && (CreatedBy== " + "Test" + " || " +"Test"+ "==1 )) {#" +
+                      "<input type='checkbox' onclick='CheckChanged(this,#=RequestId#); class='chkbox' name='chkSelected' id='chkSelected' ${ IsChecked == true ? checked='checked' : ''}   enabled value='#= RequestId#'/>" +
+                       "#}#").Width(40)
+                        .ClientHeaderTemplate("<input id='chkSelectAll' type='checkbox' />").Groupable(true);
+                      columns.Bound(p => p.ClientName).Width(60);
+                      columns.Bound(p => p.ProcessName).Width(70);
+                      columns.Bound(p => p.Creater).Width(80);
+                      columns.Bound(p => p.Approver).Width(80);
+                      columns.Bound(p => p.CreateDate).Width(100);
+                      columns.Bound(p => p.ForUser).Width(100);
+                      columns.Bound(p => p.StatusToShowHideButtons).Hidden(true);
+                      columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(ForApprover == '0' && ForCancel == '0') {#" +
+                              "<input type='button' class='k-primary' onClick='Process_Approval(this,#= RequestId #)' style= 'display:none' disabled='disabled' name='btnApprove' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve + "' />" +
+                              "#}" + " else if( ForApprover == '1' && (ForCancel == '1' || ForCancel == '0')) {#" +
+                              "<input type='button' class='k-primary' onClick='Process_Approval(this,#= RequestId #)' name='btnApprove' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve + "' /> " +
+                              "#}#")
+                              .Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve).Width(60);
+                      columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(ForApprover == '0' && (ForCancel == '0' || ForCancel == '1')) {#" +
+                              "<input type='button' onClick='Process_Approval(this,#= RequestId #)' style= 'display:none' disabled='disabled' name='btnReject' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject + "' />" +
+                              "#}" + " else if(ForApprover == '1' && (ForCancel == '1' || ForCancel == '0')) {#" +
+                              "<input type='button' class='k-primary' onClick='Process_Approval(this,#= RequestId #)' name='btnReject' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject + "' /> " +
+                              "#}#")
+                              .Title("").Width(60);
+                            columns.Bound(p => p.StatusToShowHideButtons).ClientTemplate("# if(ForCancel == '1' && (CreatedBy== " + "Test" + " || " + "Test" + "==1)) {#" +
+                              "<input type='button' class='k-primary' onClick='Process_Approval(this,#= RequestId #)' name='btnCanceled' value='" + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel + "' /> " +
+                              "#}#")
+                              .Title(@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel).Width(60);
+                      columns.Bound(p => p.TransStatus).Width(150);
+                  })
+.HtmlAttributes(new { style = "height:350px;overflow:auto;" }).DataSource(dataSource => dataSource.Ajax().PageSize(10)
+.Model(model => model.Id(p => p.RequestId)).Read(read => read.Action("ProcessApproval_ReadP", "ProcessOwner").Data("GetFilter"))))
+
+
+                </div>
+
+                <div class="pt-3 text-end btnAction">
+                    <input type="button" class="btn-primary btn-sm btn mx-2 ms-0" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Approve" name="BtnApprove" id="BtnApprove" />
+                    <input type="button" class="btn-primary btn-sm btn mx-2 ms-0" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Reject" name="BtnReject" id="BtnReject" />
+                    <input type="button" class="btn-outline-primary btn-sm btn" onclick="Save_multiWorkApproval(this)" value="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" title="@BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_Cancel" name="BtnCancel" id="BtnCancel" />
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+}
+<script>
+      var Resource = {
+          displayApprovedsuccessfully: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_RequestApprovedsuccessfully)',
+          displayRejectedsuccessfully: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_RequestRejectedsuccessfully)',
+          displayCancelledsuccessfully: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_ProcessOwner.display_RequestCancelledsuccessfully)'
+    
+    }
+    function CheckChanged(ctrl, Id) {
+        //
+
+        var isAllchecked = true;
+        var grid = $("#Approvalgrid").data("kendoGrid");
+        var DataSource = grid.dataSource;
+        for (var i = 0; i < DataSource.total(); i++) {
+            if (DataSource.data()[i].RequestTypeID == Id) {
+                DataSource.data()[i].set("chkSelected", ctrl.checked);
+            }
+            if (DataSource.data()[i].bSelected == false)
+                isAllchecked = false;
+        }
+        $("#chkSelectAll").attr("checked", isAllchecked);
+    }
+    $(document).on("click", "#chkSelectAll", function () {
+        //
+
+        var grid = $("#Approvalgrid").data("kendoGrid");
+        var DataSource = grid.dataSource;
+        for (var i = 0; i < DataSource.total(); i++) {
+            DataSource.data()[i].set("chkSelected", this.checked);
+        }
+        $("#Approvalgrid tbody input:checkbox").attr("checked", this.checked);
+    });
+</script>
+

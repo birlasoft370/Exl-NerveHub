@@ -1,0 +1,120 @@
+﻿@model MicUI.Configuration.Models.ViewModels.FacilityViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.display_FacilityTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/facility-1.8.2.js"></script>
+
+@using (Html.BeginForm("Index", "Facility"))
+{
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);
+@*    @Html.AntiForgeryToken()*@
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.iFacilityID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.dispplay_CreateNewFacility : @BPA.GlobalResources.UI.AppConfiguration.Resources_Facility.dispplay_UpdateExistingFacility;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnNew").Icon("refresh").HtmlAttributes(new { type = "button", @class = "btn-outline-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnFacilityReset"))
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnReset))
+                        @(Html.Kendo().Button().Name("Create").Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" })
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSave))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Events(ev => ev.Click("OnFacilitySearch"))
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            @Html.HiddenFor(model => model.iFacilityID)
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.iLocationID, new { @class = "form-label label-requried" })
+                        @(Html.Kendo().DropDownListFor(model => model.iLocationID)
+                            .DataTextField("Text")
+                            .HtmlAttributes(new { @class = "formSelect" })
+                            .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                            .DataValueField("Value")
+                            .Events(e => e.Open("onOpen"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("JsonGetLocations", "Facility");
+                                }).ServerFiltering(false);
+                            })
+
+                            )
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.sFacilityName, new { @class = "form-label label-requried" })
+                        @Html.Kendo().TextBoxFor(model => model.sFacilityName).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(m => m.sFacilityDescription, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(model => model.sFacilityDescription).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(model => model.bDisabled)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@{
+    if (ViewData["Message"] != null)
+    {
+        <script language="javascript">
+            jAlert('@ViewData["Message"]');
+        </script>
+    }
+}
+<script>
+    var ResourceFacilityIndex = {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_FacilitySearchView: ResourceLayout.partialURL + "FacilitySearchView",
+        urlpath_FillGrid2: ResourceLayout.partialURL + "FillGrid2",
+        urlpath_FillGrid: ResourceLayout.partialURL + "FillGrid",
+
+    }
+
+
+    function onOpen() {
+        $.ajax({
+            url: ResourceLayout.partialURL + 'JsonGetLocations',
+            type: 'Post',
+            cache: false,
+            success: function (result) {
+                $('#iLocationID').data('kendoDropDownList').dataSource.data(result);
+
+            }
+        });
+    }
+
+</script>
+

@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="text_1" xml:space="preserve">
+    <value>Panele informacyjne</value>
+  </data>
+  <data name="text_10" xml:space="preserve">
+    <value>role</value>
+  </data>
+  <data name="text_100" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="text_101" xml:space="preserve">
+    <value>Podsumowanie sesji</value>
+  </data>
+  <data name="text_102" xml:space="preserve">
+    <value>Sesja Dzienne agenta Podsumowanie</value>
+  </data>
+  <data name="text_103" xml:space="preserve">
+    <value>Przerwa Adjustment Podsumowanie</value>
+  </data>
+  <data name="text_104" xml:space="preserve">
+    <value>Stan agenta</value>
+  </data>
+  <data name="text_105" xml:space="preserve">
+    <value>Środek Dziennie Podsumowanie</value>
+  </data>
+  <data name="text_106" xml:space="preserve">
+    <value>przerwa Podsumowanie</value>
+  </data>
+  <data name="text_107" xml:space="preserve">
+    <value>sesja Logowanie</value>
+  </data>
+  <data name="text_108" xml:space="preserve">
+    <value>Raport podsumowujący</value>
+  </data>
+  <data name="text_109" xml:space="preserve">
+    <value>Środek Logowanie</value>
+  </data>
+  <data name="text_11" xml:space="preserve">
+    <value>ERP Mapowanie rola zadania</value>
+  </data>
+  <data name="text_110" xml:space="preserve">
+    <value>harmonogram Przestrzeganie</value>
+  </data>
+  <data name="text_111" xml:space="preserve">
+    <value>Historia rachunku</value>
+  </data>
+  <data name="text_112" xml:space="preserve">
+    <value>Transakcja</value>
+  </data>
+  <data name="text_113" xml:space="preserve">
+    <value>Liczba transakcji</value>
+  </data>
+  <data name="text_114" xml:space="preserve">
+    <value>Batch Zgłoś</value>
+  </data>
+  <data name="text_115" xml:space="preserve">
+    <value>Raport o stanie Batch</value>
+  </data>
+  <data name="text_116" xml:space="preserve">
+    <value>przełożyć Pracy</value>
+  </data>
+  <data name="text_117" xml:space="preserve">
+    <value>P4P transakcja</value>
+  </data>
+  <data name="text_118" xml:space="preserve">
+    <value>proces rodziny</value>
+  </data>
+  <data name="text_119" xml:space="preserve">
+    <value>Ustawienia informacji o kampanii</value>
+  </data>
+  <data name="text_12" xml:space="preserve">
+    <value>Mapowanie użytkownika</value>
+  </data>
+  <data name="text_120" xml:space="preserve">
+    <value>Umiejętność konserwacji</value>
+  </data>
+  <data name="text_121" xml:space="preserve">
+    <value>przesunięcie Konserwacja</value>
+  </data>
+  <data name="text_122" xml:space="preserve">
+    <value>Kod Zakończenie konserwacji</value>
+  </data>
+  <data name="text_123" xml:space="preserve">
+    <value>Konserwacja Strefa czasowa</value>
+  </data>
+  <data name="text_124" xml:space="preserve">
+    <value>Tablica ogłoszeń</value>
+  </data>
+  <data name="text_125" xml:space="preserve">
+    <value>Przerwa Code Maintenance</value>
+  </data>
+  <data name="text_126" xml:space="preserve">
+    <value>Lokalizacja Konserwacja</value>
+  </data>
+  <data name="text_127" xml:space="preserve">
+    <value>Utrzymanie obiektu</value>
+  </data>
+  <data name="text_128" xml:space="preserve">
+    <value>Konfiguracja aplikacji</value>
+  </data>
+  <data name="text_129" xml:space="preserve">
+    <value>SBU Konserwacja</value>
+  </data>
+  <data name="text_13" xml:space="preserve">
+    <value>Poziom użytkownika</value>
+  </data>
+  <data name="text_130" xml:space="preserve">
+    <value>Konserwacja LOB</value>
+  </data>
+  <data name="text_131" xml:space="preserve">
+    <value>Konserwacja pionie</value>
+  </data>
+  <data name="text_132" xml:space="preserve">
+    <value>Konserwacja Format String</value>
+  </data>
+  <data name="text_133" xml:space="preserve">
+    <value>Konserwacja Szkolenie</value>
+  </data>
+  <data name="text_134" xml:space="preserve">
+    <value>Kalkulatory</value>
+  </data>
+  <data name="text_135" xml:space="preserve">
+    <value>Ustawienia kalibracji</value>
+  </data>
+  <data name="text_136" xml:space="preserve">
+    <value>Panel agenta</value>
+  </data>
+  <data name="text_137" xml:space="preserve">
+    <value>Sprawdź program sprawdzający</value>
+  </data>
+  <data name="text_138" xml:space="preserve">
+    <value>Kalibrowanie</value>
+  </data>
+  <data name="text_139" xml:space="preserve">
+    <value>Pracownik Dashboard</value>
+  </data>
+  <data name="text_14" xml:space="preserve">
+    <value>Zarządzanie zespołem</value>
+  </data>
+  <data name="text_140" xml:space="preserve">
+    <value>Przechwytywanie danych homologacyjnych</value>
+  </data>
+  <data name="text_141" xml:space="preserve">
+    <value>Odblokuj Transakcje</value>
+  </data>
+  <data name="text_142" xml:space="preserve">
+    <value>filtr Zgłoś</value>
+  </data>
+  <data name="text_146" xml:space="preserve">
+    <value>QC Ścieranie</value>
+  </data>
+  <data name="text_147" xml:space="preserve">
+    <value>Mistrz użytkownika</value>
+  </data>
+  <data name="text_148" xml:space="preserve">
+    <value>Kontrola dostępu</value>
+  </data>
+  <data name="text_149" xml:space="preserve">
+    <value>wyjątek Zgłoś</value>
+  </data>
+  <data name="text_15" xml:space="preserve">
+    <value>formularz Action</value>
+  </data>
+  <data name="text_150" xml:space="preserve">
+    <value>Wykonaj zapytanie</value>
+  </data>
+  <data name="text_156" xml:space="preserve">
+    <value>Zgłoś Zastosowanie</value>
+  </data>
+  <data name="text_159" xml:space="preserve">
+    <value>Sampling Zgłoś</value>
+  </data>
+  <data name="text_16" xml:space="preserve">
+    <value>Tworzenie użytkownika</value>
+  </data>
+  <data name="text_160" xml:space="preserve">
+    <value>Raport kalibracji</value>
+  </data>
+  <data name="text_161" xml:space="preserve">
+    <value>User Security Group</value>
+  </data>
+  <data name="text_162" xml:space="preserve">
+    <value>Dane użytkownika</value>
+  </data>
+  <data name="text_163" xml:space="preserve">
+    <value>Process Owner</value>
+  </data>
+  <data name="text_164" xml:space="preserve">
+    <value>Wykres Rodzaj</value>
+  </data>
+  <data name="text_165" xml:space="preserve">
+    <value>Stworzenie Power User</value>
+  </data>
+  <data name="text_166" xml:space="preserve">
+    <value>Zasada Pracuj</value>
+  </data>
+  <data name="text_167" xml:space="preserve">
+    <value>Sampling Szczegóły transakcji</value>
+  </data>
+  <data name="text_168" xml:space="preserve">
+    <value>Odpowiedź Zgłoś</value>
+  </data>
+  <data name="text_17" xml:space="preserve">
+    <value>Mistrz Pracy</value>
+  </data>
+  <data name="text_170" xml:space="preserve">
+    <value>Alokacja Pracuj status</value>
+  </data>
+  <data name="text_171" xml:space="preserve">
+    <value>Inteligentne Dashboard</value>
+  </data>
+  <data name="text_172" xml:space="preserve">
+    <value>Inspektor Dashboard</value>
+  </data>
+  <data name="text_173" xml:space="preserve">
+    <value>raport TAT</value>
+  </data>
+  <data name="text_174" xml:space="preserve">
+    <value>Odrzucony Przykładowy raport</value>
+  </data>
+  <data name="text_176" xml:space="preserve">
+    <value>Instrukcja Podział pracy</value>
+  </data>
+  <data name="text_177" xml:space="preserve">
+    <value>Praca Formuła Object Builder</value>
+  </data>
+  <data name="text_178" xml:space="preserve">
+    <value>Pomoc Główna</value>
+  </data>
+  <data name="text_179" xml:space="preserve">
+    <value>proces konfiguracji</value>
+  </data>
+  <data name="text_18" xml:space="preserve">
+    <value>Przedmioty pracy</value>
+  </data>
+  <data name="text_180" xml:space="preserve">
+    <value>Konfiguracja próbkowania - CTC</value>
+  </data>
+  <data name="text_181" xml:space="preserve">
+    <value>Konfiguracja SLA</value>
+  </data>
+  <data name="text_182" xml:space="preserve">
+    <value>Krok SLA Konfiguracja</value>
+  </data>
+  <data name="text_183" xml:space="preserve">
+    <value>Filtr Mistrz SLA</value>
+  </data>
+  <data name="text_184" xml:space="preserve">
+    <value>Zgłoś Inventory (w oparciu o SLA Client)</value>
+  </data>
+  <data name="text_185" xml:space="preserve">
+    <value>Raport zapasów (w oparciu o wewnętrzną SLA)</value>
+  </data>
+  <data name="text_186" xml:space="preserve">
+    <value>Rola ERP Praca Mapowanie Zgłoś</value>
+  </data>
+  <data name="text_187" xml:space="preserve">
+    <value>Rola Formularz Zgłoś Dostęp</value>
+  </data>
+  <data name="text_188" xml:space="preserve">
+    <value>Użytkownik Żądanie dostępu Status Report</value>
+  </data>
+  <data name="text_189" xml:space="preserve">
+    <value>Proces Właściciel Zapytanie Raport o stanie</value>
+  </data>
+  <data name="text_19" xml:space="preserve">
+    <value>Przypisywanie Praca</value>
+  </data>
+  <data name="text_190" xml:space="preserve">
+    <value>Właściciel przetworzyć raport</value>
+  </data>
+  <data name="text_191" xml:space="preserve">
+    <value>starzenie Zgłoś</value>
+  </data>
+  <data name="text_195" xml:space="preserve">
+    <value>Przełożone Un Próba Transakcje Zgłoś</value>
+  </data>
+  <data name="text_196" xml:space="preserve">
+    <value>WAT Zgłoś Config</value>
+  </data>
+  <data name="text_197" xml:space="preserve">
+    <value>Pole Mistrz</value>
+  </data>
+  <data name="text_198" xml:space="preserve">
+    <value>Proces Rodzina Config</value>
+  </data>
+  <data name="text_199" xml:space="preserve">
+    <value>Dane wejściowe Zgłoś</value>
+  </data>
+  <data name="text_2" xml:space="preserve">
+    <value>Raporty</value>
+  </data>
+  <data name="text_20" xml:space="preserve">
+    <value>Prześlij Pracuj</value>
+  </data>
+  <data name="text_200" xml:space="preserve">
+    <value>Zgłoś Mistrz</value>
+  </data>
+  <data name="text_201" xml:space="preserve">
+    <value>Mistrz wątek</value>
+  </data>
+  <data name="text_202" xml:space="preserve">
+    <value>SWM BI Report</value>
+  </data>
+  <data name="text_203" xml:space="preserve">
+    <value>Integracja Konfiguracja poczty</value>
+  </data>
+  <data name="text_204" xml:space="preserve">
+    <value>Zatwierdzenie kampanii</value>
+  </data>
+  <data name="text_205" xml:space="preserve">
+    <value>Zatwierdzenie obiektu Pracuj</value>
+  </data>
+  <data name="text_206" xml:space="preserve">
+    <value>Config prawne</value>
+  </data>
+  <data name="text_207" xml:space="preserve">
+    <value>Batch Aktualizacja Statusu</value>
+  </data>
+  <data name="text_209" xml:space="preserve">
+    <value>jakość Dashboard</value>
+  </data>
+  <data name="text_21" xml:space="preserve">
+    <value>Filtr Pracuj</value>
+  </data>
+  <data name="text_210" xml:space="preserve">
+    <value>Przerwa Adjustment</value>
+  </data>
+  <data name="text_211" xml:space="preserve">
+    <value>Przerwa Approved</value>
+  </data>
+  <data name="text_212" xml:space="preserve">
+    <value>Strefa czasowa</value>
+  </data>
+  <data name="text_213" xml:space="preserve">
+    <value>Wyczyść pamięć podręczną</value>
+  </data>
+  <data name="text_214" xml:space="preserve">
+    <value>Zatwierdzenie obiektu Pracuj</value>
+  </data>
+  <data name="text_218" xml:space="preserve">
+    <value>SWM Pracuj Usuń</value>
+  </data>
+  <data name="text_219" xml:space="preserve">
+    <value>Mentor podopieczny Zgłoś</value>
+  </data>
+  <data name="text_22" xml:space="preserve">
+    <value>Układ Pracy</value>
+  </data>
+  <data name="text_220" xml:space="preserve">
+    <value>Jakość Panel konfiguracyjny</value>
+  </data>
+  <data name="text_221" xml:space="preserve">
+    <value>Liczba transakcji Wykresy</value>
+  </data>
+  <data name="text_222" xml:space="preserve">
+    <value>transakcja AHT</value>
+  </data>
+  <data name="text_223" xml:space="preserve">
+    <value>Wykres utylizacja</value>
+  </data>
+  <data name="text_224" xml:space="preserve">
+    <value>Wydajność godzinowa Wykres</value>
+  </data>
+  <data name="text_226" xml:space="preserve">
+    <value>Conatct Center Dashboard</value>
+  </data>
+  <data name="text_227" xml:space="preserve">
+    <value>Contact Center Szczegóły</value>
+  </data>
+  <data name="text_228" xml:space="preserve">
+    <value>Analiza Contact Center</value>
+  </data>
+  <data name="text_23" xml:space="preserve">
+    <value>Pobieranie próbek danych Prześlij</value>
+  </data>
+  <data name="text_233" xml:space="preserve">
+    <value>Process Modeler</value>
+  </data>
+  <data name="text_234" xml:space="preserve">
+    <value>Process Modeler Pokaż</value>
+  </data>
+  <data name="text_238" xml:space="preserve">
+    <value>Transakcja monitorowanie ich usuwania</value>
+  </data>
+  <data name="text_239" xml:space="preserve">
+    <value>Miesięczny skonsolidowany raport</value>
+  </data>
+  <data name="text_24" xml:space="preserve">
+    <value>Regulacja Sesja Bill h</value>
+  </data>
+  <data name="text_240" xml:space="preserve">
+    <value>AssessmentMaster</value>
+  </data>
+  <data name="text_241" xml:space="preserve">
+    <value>AssessmentType</value>
+  </data>
+  <data name="text_242" xml:space="preserve">
+    <value>BatchMaster</value>
+  </data>
+  <data name="text_243" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
+  <data name="text_244" xml:space="preserve">
+    <value>QuestionBank</value>
+  </data>
+  <data name="text_245" xml:space="preserve">
+    <value>QuestionComplexity</value>
+  </data>
+  <data name="text_246" xml:space="preserve">
+    <value>pytanie Mistrz</value>
+  </data>
+  <data name="text_247" xml:space="preserve">
+    <value>Typ pytania</value>
+  </data>
+  <data name="text_248" xml:space="preserve">
+    <value>Użytkownik Skill Mapa</value>
+  </data>
+  <data name="text_249" xml:space="preserve">
+    <value>Dodaj List Tamplate</value>
+  </data>
+  <data name="text_25" xml:space="preserve">
+    <value>Process Management Kontyngent Wise</value>
+  </data>
+  <data name="text_250" xml:space="preserve">
+    <value>Generowanie list</value>
+  </data>
+  <data name="text_251" xml:space="preserve">
+    <value>Umiejętność Mapowanie kampanii</value>
+  </data>
+  <data name="text_26" xml:space="preserve">
+    <value>Zwiększenia kwot dla agentów</value>
+  </data>
+  <data name="text_260" xml:space="preserve">
+    <value>Deska rozdzielcza</value>
+  </data>
+  <data name="text_261" xml:space="preserve">
+    <value>Oszacowanie</value>
+  </data>
+  <data name="text_262" xml:space="preserve">
+    <value>Wzory listow</value>
+  </data>
+  <data name="text_267" xml:space="preserve">
+    <value>Raport pionie</value>
+  </data>
+  <data name="text_268" xml:space="preserve">
+    <value>User Score Card</value>
+  </data>
+  <data name="text_27" xml:space="preserve">
+    <value>Przerwa Adjustment</value>
+  </data>
+  <data name="text_273" xml:space="preserve">
+    <value>Podsumowanie miesiąca Raporty</value>
+  </data>
+  <data name="text_274" xml:space="preserve">
+    <value>Konfiguracja e-mail</value>
+  </data>
+  <data name="text_279" xml:space="preserve">
+    <value>E-mail Szablon</value>
+  </data>
+  <data name="text_28" xml:space="preserve">
+    <value>Rozliczanych h Regulacja</value>
+  </data>
+  <data name="text_280" xml:space="preserve">
+    <value>Przydział bazowy obiektu</value>
+  </data>
+  <data name="text_283" xml:space="preserve">
+    <value>zarządzanie kolejką</value>
+  </data>
+  <data name="text_284" xml:space="preserve">
+    <value>tag Management</value>
+  </data>
+  <data name="text_285" xml:space="preserve">
+    <value>Podnieść Query</value>
+  </data>
+  <data name="text_289" xml:space="preserve">
+    <value>Odpowiadać Query</value>
+  </data>
+  <data name="text_29" xml:space="preserve">
+    <value>Środek Przesunięcie Scheduling</value>
+  </data>
+  <data name="text_290" xml:space="preserve">
+    <value>Raport Query</value>
+  </data>
+  <data name="text_291" xml:space="preserve">
+    <value>Mapowanie list</value>
+  </data>
+  <data name="text_3" xml:space="preserve">
+    <value>Przegląd wyników</value>
+  </data>
+  <data name="text_30" xml:space="preserve">
+    <value>Środek Przerwa Scheduling</value>
+  </data>
+  <data name="text_31" xml:space="preserve">
+    <value>Zatwierdzanie rozliczanych Godziny Adjustment</value>
+  </data>
+  <data name="text_32" xml:space="preserve">
+    <value>Zatwierdzanie Session rozliczanych Hrs</value>
+  </data>
+  <data name="text_33" xml:space="preserve">
+    <value>Przerwa Adjustment Approval</value>
+  </data>
+  <data name="text_34" xml:space="preserve">
+    <value>CTQ Kategoria Konserwacja</value>
+  </data>
+  <data name="text_35" xml:space="preserve">
+    <value>Metric Maintenance</value>
+  </data>
+  <data name="text_36" xml:space="preserve">
+    <value>parametr Konserwacja</value>
+  </data>
+  <data name="text_37" xml:space="preserve">
+    <value>wada Konserwacja</value>
+  </data>
+  <data name="text_38" xml:space="preserve">
+    <value>Dom, Kalendarz</value>
+  </data>
+  <data name="text_39" xml:space="preserve">
+    <value>Kalendarz Konserwacja</value>
+  </data>
+  <data name="text_4" xml:space="preserve">
+    <value>formularze</value>
+  </data>
+  <data name="text_40" xml:space="preserve">
+    <value>MTD cykl konserwacji</value>
+  </data>
+  <data name="text_41" xml:space="preserve">
+    <value>Konserwacja wakacje</value>
+  </data>
+  <data name="text_42" xml:space="preserve">
+    <value>Jednostka miary</value>
+  </data>
+  <data name="text_43" xml:space="preserve">
+    <value>Mentor podopiecznym Stowarzyszenia</value>
+  </data>
+  <data name="text_44" xml:space="preserve">
+    <value>Mistrz Wartość Konserwacja</value>
+  </data>
+  <data name="text_45" xml:space="preserve">
+    <value>Proces mapowania Przerwa</value>
+  </data>
+  <data name="text_46" xml:space="preserve">
+    <value>Mapowanie Kod Zakończenie kampanii</value>
+  </data>
+  <data name="text_47" xml:space="preserve">
+    <value>Proces mapowania Przesunięcie</value>
+  </data>
+  <data name="text_48" xml:space="preserve">
+    <value>Informacje o konfiguracji klienta</value>
+  </data>
+  <data name="text_49" xml:space="preserve">
+    <value>Informacje proces instalacji</value>
+  </data>
+  <data name="text_5" xml:space="preserve">
+    <value>Konfiguracja</value>
+  </data>
+  <data name="text_50" xml:space="preserve">
+    <value>Informacje Sub proces konfiguracji</value>
+  </data>
+  <data name="text_51" xml:space="preserve">
+    <value>Konfiguracja TM</value>
+  </data>
+  <data name="text_52" xml:space="preserve">
+    <value>Metryczny</value>
+  </data>
+  <data name="text_53" xml:space="preserve">
+    <value>Metric Konfiguracja</value>
+  </data>
+  <data name="text_54" xml:space="preserve">
+    <value>Informacje o Zdrowie Konfiguracja</value>
+  </data>
+  <data name="text_55" xml:space="preserve">
+    <value>Oceny nadpisywania</value>
+  </data>
+  <data name="text_57" xml:space="preserve">
+    <value>Konfiguracja P4P</value>
+  </data>
+  <data name="text_58" xml:space="preserve">
+    <value>Konfiguracja próbkowania</value>
+  </data>
+  <data name="text_59" xml:space="preserve">
+    <value>Przechwytywania danych</value>
+  </data>
+  <data name="text_6" xml:space="preserve">
+    <value>Administracja</value>
+  </data>
+  <data name="text_60" xml:space="preserve">
+    <value>Przechwytywanie danych Prześlij</value>
+  </data>
+  <data name="text_61" xml:space="preserve">
+    <value>klient związku</value>
+  </data>
+  <data name="text_62" xml:space="preserve">
+    <value>Monitorowanie transakcja</value>
+  </data>
+  <data name="text_63" xml:space="preserve">
+    <value>Informacje zwrotne</value>
+  </data>
+  <data name="text_64" xml:space="preserve">
+    <value>Rewizja</value>
+  </data>
+  <data name="text_65" xml:space="preserve">
+    <value>ERS</value>
+  </data>
+  <data name="text_67" xml:space="preserve">
+    <value>Pareto</value>
+  </data>
+  <data name="text_68" xml:space="preserve">
+    <value>Wykres pudełkowy</value>
+  </data>
+  <data name="text_69" xml:space="preserve">
+    <value>Dolny kwartyl</value>
+  </data>
+  <data name="text_7" xml:space="preserve">
+    <value>Zarządzanie czasem</value>
+  </data>
+  <data name="text_70" xml:space="preserve">
+    <value>Korelacja</value>
+  </data>
+  <data name="text_71" xml:space="preserve">
+    <value>Pole siłowe</value>
+  </data>
+  <data name="text_72" xml:space="preserve">
+    <value>Mentor-podopieczny</value>
+  </data>
+  <data name="text_73" xml:space="preserve">
+    <value>Poziomy Fix</value>
+  </data>
+  <data name="text_74" xml:space="preserve">
+    <value>Miarą doskonałości</value>
+  </data>
+  <data name="text_75" xml:space="preserve">
+    <value>zrównoważona karta wyników</value>
+  </data>
+  <data name="text_76" xml:space="preserve">
+    <value>Dostawa usługi</value>
+  </data>
+  <data name="text_77" xml:space="preserve">
+    <value>Process Performance</value>
+  </data>
+  <data name="text_78" xml:space="preserve">
+    <value>moja tablica</value>
+  </data>
+  <data name="text_79" xml:space="preserve">
+    <value>proces konfiguracji</value>
+  </data>
+  <data name="text_8" xml:space="preserve">
+    <value>Zarządzanie pracą</value>
+  </data>
+  <data name="text_80" xml:space="preserve">
+    <value>Dostawa usługi</value>
+  </data>
+  <data name="text_81" xml:space="preserve">
+    <value>Miesięczny Snapshot</value>
+  </data>
+  <data name="text_82" xml:space="preserve">
+    <value>Szczegółowe Wydajność</value>
+  </data>
+  <data name="text_83" xml:space="preserve">
+    <value>Środek weryfikacja</value>
+  </data>
+  <data name="text_84" xml:space="preserve">
+    <value>P4P</value>
+  </data>
+  <data name="text_85" xml:space="preserve">
+    <value>Action Log</value>
+  </data>
+  <data name="text_86" xml:space="preserve">
+    <value>Zgodność jakości</value>
+  </data>
+  <data name="text_87" xml:space="preserve">
+    <value>Monitorowanie transakcja</value>
+  </data>
+  <data name="text_88" xml:space="preserve">
+    <value>monitorowanie</value>
+  </data>
+  <data name="text_89" xml:space="preserve">
+    <value>Kalibrowanie</value>
+  </data>
+  <data name="text_9" xml:space="preserve">
+    <value>Bezpieczeństwo</value>
+  </data>
+  <data name="text_90" xml:space="preserve">
+    <value>Próbowanie</value>
+  </data>
+  <data name="text_91" xml:space="preserve">
+    <value>Spełnienie</value>
+  </data>
+  <data name="text_92" xml:space="preserve">
+    <value>buisness weryfikacja</value>
+  </data>
+  <data name="text_93" xml:space="preserve">
+    <value>klient związku</value>
+  </data>
+  <data name="text_94" xml:space="preserve">
+    <value>Ścieranie</value>
+  </data>
+  <data name="text_95" xml:space="preserve">
+    <value>Satysfakcja klienta</value>
+  </data>
+  <data name="text_96" xml:space="preserve">
+    <value>satysfakcji pracowników</value>
+  </data>
+  <data name="text_97" xml:space="preserve">
+    <value>Satysfakcja migracji</value>
+  </data>
+  <data name="text_98" xml:space="preserve">
+    <value>Rewizja</value>
+  </data>
+  <data name="text_99" xml:space="preserve">
+    <value>Zarządzanie czasem</value>
+  </data>
+</root>

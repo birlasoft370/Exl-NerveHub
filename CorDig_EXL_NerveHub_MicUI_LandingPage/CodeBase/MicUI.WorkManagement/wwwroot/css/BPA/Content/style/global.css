@@ -1,0 +1,57 @@
+
+/******************* 
+import icon and fonts Styles 
+*******************/
+@import url('../../assets/font-awesome/css/font-awesome.css');
+/*@import url(../assets/Ionicons/css/ionicons.css);
+@import url(../assets/themify-icons/themify-icons.css);
+@import url(../assets/linea-icons/linea.css);
+@import url(../assets/glyphicons/glyphicon.css);
+@import url(../assets/flag-icon/css/flag-icon.css);
+@import url(../assets/material-design-iconic-font/css/materialdesignicons.css);
+@import url(../assets/simple-line-icons-master/css/simple-line-icons.css);*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+/******************* 
+import Legacy Styles 
+*******************/
+@import "../../style/components/style.css";
+@import "../../style/components/Site.css";
+@import "../../style/components/loader.css";
+@import "../../style/components/nprogress.css";
+@import "../../style/components/BPA_Style.css";
+@import "../../style/components/Images.css";
+@import "../../style/components/jqsimplemenu.css";
+@import "../../style/components/jquery.alerts.css";
+
+/******************* 
+import New Styles 
+*******************/
+/** KENDO THEME **/
+@import "../../style/upgrade/kendo/k-button.css";
+@import "../../style/upgrade/kendo/k-form.css";
+@import "../../style/upgrade/kendo/k-list.css";
+@import "../../style/upgrade/kendo/k-menu.css";
+@import "../../style/upgrade/kendo/k-table.css";
+@import "../../style/upgrade/kendo/k-tabs.css";
+
+/** THEME **/
+@import "../../style/upgrade/theme/m-bootstrap.css";
+@import "../../style/upgrade/theme/menu.css";
+@import "../../style/upgrade/theme/usermenu.css";
+@import "../../style/upgrade/theme/globalmsg.css";
+@import "../../style/upgrade/theme/button.css";
+@import "../../style/upgrade/theme/form.css";
+
+
+/** GLOBAL **/
+@import "../../style/upgrade/common.css";
+@import "../../style/upgrade/maincontent.css";
+@import "../../style/upgrade/footer.css";
+@import "../../style/upgrade/header.css";
+
+
+/** PAGES **/
+@import "../../style/upgrade/pages/welcome.css";
+
+
+

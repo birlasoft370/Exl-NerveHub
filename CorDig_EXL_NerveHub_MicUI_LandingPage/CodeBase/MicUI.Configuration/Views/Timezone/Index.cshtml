@@ -1,0 +1,88 @@
+﻿@model MicUI.Configuration.Models.ViewModels.TimeZoneViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.displayTitle_TimeZone;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/lib/bpa/scripts/timezone-1.8.2.js"></script>
+
+@using (Html.BeginForm("Index", "TimeZone", FormMethod.Post, new { @id = "formTimeZone", @name = "formTimeZone" }))
+{
+   
+
+    <div class="formWrap">
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = Model.TimeZoneID == 0 ? @BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispCreateNewTimeZone : @BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispModifyExistingTimeZone;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+                        @(Html.Kendo().Button().Name("btnRefresh").Icon("refresh").Content(BPA.GlobalResources.UI.Resources_common.display_BtnReset).HtmlAttributes(new { type = "button", @class = "btn btn-outline-primary btn-sm mx-2 ms-0" }).Events(ev => ev.Click("onClickRefreshTimeZone")))
+                        @*@(Html.Kendo().Button().Name("btnSubmit").Content(BPA.GlobalResources.UI.Resources_common.display_BtnSave).Icon("plus").HtmlAttributes(new { type = "submit", @class = "btn btn-primary btn-sm mx-2 ms-0" }))*@
+                        @(Html.Kendo().Button().Name("btnView").HtmlAttributes(new { type = "button", @class = "btn btn-primary btn-sm" }).Icon("search").Content(BPA.GlobalResources.UI.Resources_common.display_BtnSearch).Events(ev => ev.Click("onClickSearchTimeZone")))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="formWrap-body">
+            @(Html.HiddenFor(x => x.TimeZoneID))
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.TimeZoneName, new { @class = "form-label label-required" })
+                        @Html.Kendo().TextBoxFor(a => a.TimeZoneName).HtmlAttributes(new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.Description, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(x => x.Description).HtmlAttributes(new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.OffSetGMT, new { @class = "form-label label-required" })
+                        @(Html.Kendo().DropDownListFor(x => x.OffSetGMT).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sTimeZoneDescription").DataValueField("sOffsetGMT")
+                            .DataSource(source => { source.Read(read => { read.Action("GetTimeZone", "TimeZone"); }).Events(ev => ev.Error("DropDownError")); }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3 pt-3">
+                        <div class="pt-4">
+                            <div class="custom-input">
+                                @Html.Kendo().CheckBoxFor(x => x.Disabled)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewData["Message"] != null)
+{
+    <script language="javascript">
+        jAlert('@ViewData["Message"]');
+    </script>
+}
+<script>
+    var ResourceTimeZoneIndex =
+    {
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_TimeZoneSearchView: ResourceLayout.partialURL + "TimeZoneSearchView"
+    }
+</script>

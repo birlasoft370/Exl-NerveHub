@@ -1,0 +1,116 @@
+﻿@using MicUI.WorkManagement.Models.ViewModels;
+@model WorkDefinitionViewModel
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.WorkManagement + " | " + @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_work_seach;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    bool isLanguage = false;
+    if (Model.oTenant != null)
+    {
+        if (bool.Parse(Model.oTenant.ClientMultiLanguage))
+        {
+            isLanguage = true;
+        }
+    }
+}
+<script>
+
+    var bClientLanguage = '@isLanguage';
+</script>
+
+<script src="~/lib/bpa/scripts/workmanagement-1.8.2.js"></script>
+<script src="~/lib/bpa/scripts/jquery.alerts.js"></script>
+@using (Html.BeginForm("SearchView", "WorkDefinition", FormMethod.Post, new { @id = "formWMSearch" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="formWrap">
+
+
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.WorkManagement.Resource_WorkDefinition.display_work_seach;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+                    <div class="text-end">
+
+                        @(Html.Kendo().Button().Name("btnNewClick").Events(e => e.Click("btnNewClick")).Icon("plus").HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button().Name("btnSearch").Icon("search").Events(e => e.Click("OnUserSearchClick"))
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn" }).Content(@BPA.GlobalResources.UI.Resources_common.display_BtnSearch))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ClientName, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(c => c.ClientName).Events(e => e.DataBound("dataBound")).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sClientName").DataValueField("iClientID")
+                            .DataSource(source => { source.Read(read => { read.Action("GetCascadeClient", "WorkDefinition"); }); }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.ProcessName, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(c => c.ProcessName).Events(e => e.DataBound("dataBound")).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sProcessName").DataValueField("iProcessID")
+                            .CascadeFrom("ClientName").AutoBind(false).DataSource(source => { source.Read(read => { read.Action("GetCascadeProcess", "WorkDefinition").Data("WorkDefinition_filterProcess"); }).ServerFiltering(true); }))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(a => a.CampaignName, new { @class = "form-label" })
+                        @(Html.Kendo().DropDownListFor(c => c.CampaignName).Events(e => e.DataBound("dataBound")).HtmlAttributes(new { @class = "formSelect" }).OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select).DataTextField("sCampaignName").DataValueField("iCampaignID")
+                            .DataSource(source => { source.Read(read => { read.Action("GetCascadeCamp", "WorkDefinition").Data("WorkDefinition_filterCampaignName"); }).ServerFiltering(true); }).CascadeFrom("ProcessName"))
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        @Html.LabelFor(x => x.Name, new { @class = "form-label" })
+                        @Html.Kendo().TextBoxFor(x => x.Name).HtmlAttributes(new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="nextWrap">
+                <div id="gdFilter" class="formTable" />
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var urlPathGetFilterList = '@Url.Action("GetFilterList", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPatheditWorkDefination = '@Url.Action("editWorkDefination", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathSaveWorkData = '@Url.Action("SaveWorkData", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathIndex = '@Url.Action("Index", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathObjectFormula = '@Url.Action("ObjectFormula", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathCreateRESTControls = '@Url.Action("CreateRESTControls", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathUpdatePreViewData = '@Url.Action("UpdatePreViewData", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPath_WorkPreview = '@Url.Action("_WorkPreview", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathSearchView = '@Url.Action("SearchView", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathApprovalView = '@Url.Action("ApprovalView", "WorkDefinition", new { area = "WorkManagement" })';
+        var urlPathGetProcessID = '@Url.Action("GetProcessID", "WorkDefinition", new { area = "WorkManagement" })';
+        if (bClientLanguage == "True") {
+            var urlGetLanguage = ResourceLayout.partialURL + "GetTranslateList";
+            var urlGetChoiceLanguageTempData = ResourceLayout.partialURL + "GetChoiceLanguageTemp";
+
+        }
+        var bClientLanguage = '@bool.Parse(Model.oTenant.ClientMultiLanguage)';
+    </script>
+}

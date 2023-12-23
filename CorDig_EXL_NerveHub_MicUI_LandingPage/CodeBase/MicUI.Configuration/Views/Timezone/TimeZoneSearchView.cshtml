@@ -1,0 +1,111 @@
+﻿@using System.Web
+@model MicUI.Configuration.Models.ViewModels.TimeZoneViewModel
+
+@{
+    ViewBag.Title = @BPA.GlobalResources.UI.Resources.Configuration + " | " + @BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispTimeZone_Search;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<script src="~/lib/bpa/scripts/timezone-1.8.2.js"></script>
+
+@using (Html.BeginForm("TimeZoneSearchView", "TimeZone", FormMethod.Post, new { @id = "formTimeZone" }))
+{
+  @* // @Html.AntiForgeryToken()
+    // @Html.Partial("_ValidationSummary", ViewData.ModelState);*@
+
+    <div class="formWrap">
+        <div class="formWrap-head">
+            <div class="row">
+                <div class="col-6">
+                    <h2>
+                        @{
+                            var text = @BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispTimeZone_Search;
+                        }@text
+                    </h2>
+                </div>
+                <div class="col-6">
+
+                    <div class="text-end">
+                        @(Html.Kendo().Button()
+                            .Name("btnNew").Icon("insert-m")
+                            .HtmlAttributes(new { type = "button", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("OnClickNewTimeZone"))
+                            .Content(@BPA.GlobalResources.UI.Resources_common.display_BtnNew))
+                        @(Html.Kendo().Button()
+                            .Name("btnSearch").Icon("search")
+                            .HtmlAttributes(new { type = "submit", @class = "btn-primary btn-sm btn mx-2 ms-0" }).Events(ev => ev.Click("GoTimeZone"))
+                            .Content(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Search_Button))
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="formWrap-body">
+
+            <div class="row">
+                <div class="col-sm-4 col-xl-3">
+                    <div class="mb-3">
+                        <label class ="form-label">@BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispTimeZoneName</label>
+                       @* @Html.Label(@BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispTimeZoneName, new { @class = "form-label" })*@
+                        @(Html.Kendo().TextBoxFor(a => a.SearchTimeZone).HtmlAttributes(new { @class = "form-control" }))
+                    </div>
+                </div>
+            </div>
+            <div class="nextWrap">
+                <div class="SearchPageDiv formTable">
+
+                    @(Html.Kendo().Grid((Model.lstTimeZoneview))
+                        .Name("gvTimeZoneList").Events(ev => ev.DataBound("onRowBoundSearchGrid"))
+                        .Pageable(pageable => pageable
+                        .Refresh(true)
+                        .PageSizes(true)
+                        .ButtonCount(5))
+                        .Columns(columns =>
+                        {
+                            columns.Bound(u => u.iTimeZoneID).Hidden(true);
+                            columns.Bound(u => u.sTimeZoneName).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.dispTimeZoneName.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+                            //columns.Bound(u => u.sTimeZoneDescription).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Description.TrimEnd(':')).HeaderHtmlAttributes(new { style = "color:white" }); ;
+                            columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button.TrimEnd(':')).HtmlAttributes(new { @class = "btn-outline-primary btn btn-sm" }).Click("editTimeZone")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Edit_Button);
+                            //columns.Command(command => command.Custom(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Delete_Button).HtmlAttributes(new { @class = "k-primary" }).Click("deleteTimeZone")).Title(@BPA.GlobalResources.UI.AppConfiguration.Resources_ClientInfo.display_Delete_Button);
+                        })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Model(model =>
+                        {
+                            model.Id(u => u.iTimeZoneID);
+                            model.Field(u => u.iTimeZoneID);
+                        })
+                        .PageSize(5)
+                        .ServerOperation(false)
+                        ))
+                    <div id="divOverlay" class="Overlay"></div>
+                    <div class="popup SmallPopup" id="divPopup">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@if (ViewData["Message"] != null)
+{
+    <script language="javascript">
+        jAlert('@ViewData["Message"]');
+    </script>
+}
+<script>
+    var ResourceTimeZoneSearch =
+    {
+        display_Comfirm_Delete: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.display_Delete_Confirmation)',
+        display_deleted: '@(BPA.GlobalResources.UI.AppConfiguration.Resources_TimeZone.display_TimeZone_Deleted)',
+        urlPath_Index: ResourceLayout.partialURL + "Index",
+        urlPath_TimeZoneSearchView: ResourceLayout.partialURL + "TimeZoneSearchView",
+        urlPath_SetTimeZoneID: ResourceLayout.partialURL + "SetTimeZoneID",
+        urlPath_Delete: ResourceLayout.partialURL + "Delete"
+
+
+    }
+</script>
+

@@ -1,0 +1,269 @@
+﻿@using BPA.GlobalResources.UI;
+@using MicUI.EmailManagement.Helper;
+@using MicUI.EmailManagement.Models.ViewModels;
+@model SearchViewModel
+
+@{
+    string tenantName = MyHttpContext.AppBaseUrl;
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_Client))
+{
+
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(c => c.ClientName, new { @class = "form-label label-required" })
+            @(Html.Kendo().DropDownListFor(a => a.ClientName)
+                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                .DataTextField("sClientName")
+                .DataValueField("iClientID")
+                .Value(Model.ClientName)
+                .HtmlAttributes(new
+                {
+                    @class = "formSelect"
+                })
+                .Events(e => e.DataBound("dataBound"))
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Url(tenantName + "SearchView/GetCascadeClient");
+
+                    }).Events(x => x.Error("DropDownError"));
+                })
+                )
+        </div>
+    </div>
+
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_Process))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+
+            @Html.LabelFor(p => p.ProcessName, new { @class = "form-label label-required" })
+
+            @(Html.Kendo().DropDownList()
+                .Name("ProcessName")
+                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                .DataTextField("sProcessName")
+                .DataValueField("iProcessID")
+                .Value(Model.ProcessName)
+                .HtmlAttributes(new
+                {
+                    @class = "formSelect"
+                })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Url(tenantName + "SearchView/GetCascadeProcess")
+                    .Data("filterProcess");
+                    }).Events(x => x.Error("DropDownError"))
+                    .ServerFiltering(true);
+                }).Events(e => e.DataBound("dataBound"))
+                .Enable(false)
+                .AutoBind(false)
+                .CascadeFrom("ClientName")
+                )
+            <script>
+                function filterProcess() {
+                    return {
+                        iClientID: $("#ClientName").val()
+
+                    };
+                }
+            </script>
+        </div>
+
+    </div>
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_Campaign_Dropdown))
+{
+
+
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(p => p.CampaignName, new { @class = "form-label label-required" })
+
+            @(Html.Kendo().DropDownList()
+                .Name("CampaignName")
+                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                .DataTextField("sCampaignName")
+                .DataValueField("iCampaignID")
+                .Value(Model.CampaignName)
+                .HtmlAttributes(new
+                {
+                    @class = "formSelect"
+                })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Url(tenantName + "SearchView/GetCascadeCamp")
+                    .Data("filterCampaignName");
+                    }).Events(x => x.Error("DropDownError"))
+                    .ServerFiltering(true);
+                }).Events(e => e.DataBound("dataBound"))
+                .Enable(false)
+                .AutoBind(false)
+                .CascadeFrom("ProcessName")
+                )
+            <script>
+                function filterCampaignName() {
+                    return {
+                        iProcessID: $("#ProcessName").val()
+
+                    };
+                }
+            </script>
+
+        </div>
+
+    </div>
+}
+
+@if (Model.GetControl.Contains(@BPA.GlobalResources.UI.Resources_common.display_WorkObjName))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(p => p.WorkObjName, new { @class = "form-label label-required" })
+
+            @(Html.Kendo().DropDownList()
+                .Name("WorkObjName")
+                .OptionLabel(@BPA.GlobalResources.UI.Resources_common.display_Select)
+                .DataTextField("sStoreName")
+                .DataValueField("iStoreId")
+                .HtmlAttributes(new
+                {
+                    @class = "formSelect"
+                })
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Url(tenantName + "SearchView/GetWorkObjList")
+                    .Data("filterCampaignNameWorkObj");
+                    }).Events(x => x.Error("DropDownError"))
+                    .ServerFiltering(true);
+                })
+                //.Events(e => e.DataBound("dataBound"))
+                .Enable(false)
+                .AutoBind(false)
+                .CascadeFrom("CampaignName")
+                )
+            <script>
+                function filterCampaignNameWorkObj() {
+                    return {
+                        iCampaignName: $("#CampaignName").val()
+
+                    };
+                }
+            </script>
+
+        </div>
+
+    </div>
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_Campaign))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(c => c.CampaignName, new { @class = "form-label label-required" })
+
+            @Html.Kendo().TextBoxFor(c => c.CampaignName).HtmlAttributes(new { @class = "form-control" })
+        </div>
+
+    </div>
+
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_Search))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(s => s.SearchName, new { @class = "form-label" })
+
+            @Html.Kendo().TextBoxFor(s => s.SearchName).HtmlAttributes(new { @class = "form-control" })
+        </div>
+
+    </div>
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_StartDate))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(e => e.StartDate, new { @class = "form-label label-required" })
+
+            @(Html.Kendo().DatePicker().Name("StartDate")
+                .HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" })
+                .Min(new DateTime(1995, 12, 31))
+                .Max(new DateTime(2115, 12, 31))
+                .Events(e => e.Change("startChange"))
+                )
+
+        </div>
+
+    </div>
+}
+
+@if (Model.GetControl.Contains(Resources_common.display_EndDate))
+{
+    <div class="col-sm-4 col-xl-3">
+        <div class="mb-3">
+            @Html.LabelFor(e => e.EndDate, new { @class = "form-label label-required" })
+
+            @(Html.Kendo().DatePicker().Name("EndDate")
+                .HtmlAttributes(new { onkeydown = "javascript:return false;", @class = "form-date" })
+                .Min(new DateTime(1995, 12, 31))
+                .Max(new DateTime(2115, 12, 31))
+                .Events(e => e.Change("endChange"))
+                )
+        </div>
+
+    </div>
+
+}
+
+
+<script type="text/javascript">
+    function startChange() {
+        var endPicker = $("#EndDate").data("kendoDatePicker"),
+            startDate = this.value();
+
+        if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate());
+            endPicker.min(startDate);
+        }
+    }
+
+    function endChange() {
+        var startPicker = $("#StartDate").data("kendoDatePicker"),
+            endDate = this.value();
+
+        if (endDate) {
+            endDate = new Date(endDate);
+            endDate.setDate(endDate.getDate());
+            startPicker.max(endDate);
+        }
+    }
+
+
+
+    function filterCampaignNameID() {
+        return {
+            icampid: $("#CampaignName").val()
+
+        };
+    }
+
+</script>
+
+
+
+
